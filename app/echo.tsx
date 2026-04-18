@@ -20,10 +20,24 @@ function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const FREE_LIMIT = 7;
+
 export default function EchoScreen() {
   const router = useRouter();
-  const { updateHighScore } = useAppStore();
+  const { updateHighScore, freePlay, recordPlay } = useAppStore();
   const [phase, setPhase] = useState<'matching' | 'preview' | 'playing' | 'result'>('matching');
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const playsToday = freePlay.date === today ? freePlay.playsToday : 0;
+    const oneMoreTaps = freePlay.date === today ? freePlay.oneMoreTaps : 0;
+    const isGated = playsToday >= FREE_LIMIT + oneMoreTaps * 3;
+    if (isGated) {
+      router.replace('/');
+    } else {
+      recordPlay();
+    }
+  }, []);
   const [questions] = useState(() => shuffleQuestions(QUESTIONS));
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);

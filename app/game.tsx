@@ -5,11 +5,24 @@ import { QUESTIONS, shuffleQuestions } from './questions';
 import { useAppStore } from './store';
 
 const TOTAL_TIME = 60;
+const FREE_LIMIT = 7;
 
 export default function GameScreen() {
   const router = useRouter();
-  const { updateHighScore } = useAppStore();
+  const { updateHighScore, freePlay, recordPlay } = useAppStore();
   const [questions] = useState(() => shuffleQuestions(QUESTIONS));
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const playsToday = freePlay.date === today ? freePlay.playsToday : 0;
+    const oneMoreTaps = freePlay.date === today ? freePlay.oneMoreTaps : 0;
+    const isGated = playsToday >= FREE_LIMIT + oneMoreTaps * 3;
+    if (isGated) {
+      router.replace('/');
+    } else {
+      recordPlay();
+    }
+  }, []);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);

@@ -34,11 +34,25 @@ function getDailyQuestions(): Question[] {
   });
 }
 
+const FREE_LIMIT = 7;
+
 export default function DailyScreen() {
   const router = useRouter();
-  const { dailyStatus, setDailyPlayed } = useAppStore();
+  const { dailyStatus, setDailyPlayed, freePlay, recordPlay } = useAppStore();
   const today = new Date().toISOString().split('T')[0];
   const alreadyPlayed = dailyStatus.date === today && dailyStatus.played;
+
+  useEffect(() => {
+    if (alreadyPlayed) return; // already played = no gate, no count
+    const playsToday = freePlay.date === today ? freePlay.playsToday : 0;
+    const oneMoreTaps = freePlay.date === today ? freePlay.oneMoreTaps : 0;
+    const isGated = playsToday >= FREE_LIMIT + oneMoreTaps * 3;
+    if (isGated) {
+      router.replace('/');
+    } else {
+      recordPlay();
+    }
+  }, []);
 
   const [questions] = useState(getDailyQuestions);
   const [questionIndex, setQuestionIndex] = useState(0);
