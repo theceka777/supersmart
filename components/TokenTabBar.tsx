@@ -33,7 +33,7 @@ const ROUTE_ICON: Record<string, string> = {
 
 const ROUTE_LABEL: Record<string, string> = {
   index:   'home',
-  inbox:   'inbox',
+  inbox:   'league',
   profile: 'profile',
 };
 

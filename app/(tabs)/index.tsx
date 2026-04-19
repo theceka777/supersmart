@@ -129,12 +129,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       {/* ── Background layers: sunburst rays + halftone dots ── */}
-      <Sunburst
-        rays={24}
-        color="#FFD6A8"
-        opacity={0.45}
-        size={700}
-      />
+      <Sunburst rays={24} color="#FFD6A8" opacity={0.45} size={700} />
       <Halftone color="rgba(26,21,34,0.07)" dotSpacing={9} />
       <ScrollView
         contentContainerStyle={styles.scroll}
