@@ -1,13 +1,26 @@
-// ArcadeCard.tsx — chunky press-down mode button
-// The card face physically sinks to meet its shadow on tap.
-// Ported from ArcadeCard in bits.jsx (web design).
+// ArcadeCard.tsx — chunky press-down mode button with idle bob float
+//
+// Two animations:
+//   1. bob float  — continuous sine-wave ±1.5px Y + ±0.5° tilt, 4s cycle.
+//                   Each card accepts a `floatPhase` (radians) so Quickmatch and
+//                   Daily Rise are offset and never in sync.
+//   2. press-down — face sinks to meet its ink shadow on tap (CARD_DEPTH px).
+//
+// The two are blended: as press.value goes 0→1, float contribution is scaled out
+// so the card never fights itself (float vanishes exactly as press bottoms out).
+//
+// Ported from bits.jsx ArcadeCard (web design).
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, Text, View, StyleSheet, ViewStyle } from 'react-native';
 import Animated, {
   useSharedValue,
   withSpring,
+  withRepeat,
+  withTiming,
   useAnimatedStyle,
+  cancelAnimation,
+  Easing,
 } from 'react-native-reanimated';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
@@ -26,6 +39,11 @@ interface ArcadeCardProps {
   contentOffsetY?: number;         // nudge text block up when footer is present
   flex?: boolean;                  // if true, card stretches in a row (flex: 1)
   style?: ViewStyle;
+  /** Float phase in radians — offsets the sine wave so sibling cards aren't in sync.
+   *  Quickmatch: 0  (default).  Daily: Math.PI * 0.8  (~1.6 rad, like the reference). */
+  floatPhase?: number;
+  /** Pass false to disable the idle float (e.g. when card is inside a list). Default true. */
+  bob?: boolean;
 }
 
 export function ArcadeCard({
@@ -43,16 +61,46 @@ export function ArcadeCard({
   contentOffsetY = 0,
   flex = false,
   style,
+  floatPhase = 0,
+  bob = true,
 }: ArcadeCardProps) {
+  // ── Press value (0 = resting, 1 = fully pressed) ──────────────────────────
   const press = useSharedValue(0);
 
-  const faceStyle = useAnimatedStyle(() => ({
-    transform: [
-      { rotate: `${tilt}deg` },
-      { translateY: press.value * CARD_DEPTH },
-    ],
-    opacity: disabled ? 0.35 : 1,
-  }));
+  // ── Float progress (0 → 1 linear loop, 4 000 ms) ─────────────────────────
+  const floatProgress = useSharedValue(0);
+
+  useEffect(() => {
+    if (!bob) return;
+    floatProgress.value = withRepeat(
+      withTiming(1, { duration: 4000, easing: Easing.linear }),
+      -1,   // infinite
+      false, // don't reverse — just repeat forward (true sine via formula)
+    );
+    return () => cancelAnimation(floatProgress);
+  }, [bob]);
+
+  // ── Combined animated style ────────────────────────────────────────────────
+  const faceStyle = useAnimatedStyle(() => {
+    'worklet';
+    // Bob contribution (zero when not enabled)
+    const phase = floatProgress.value * Math.PI * 2 + floatPhase;
+    const fy = bob ? Math.sin(phase) * 1.5 : 0;
+    const ft = bob ? Math.cos(phase) * 0.5 : 0;   // phase-shifted 90° → cosine
+
+    // Blend: as press approaches 1, float fades out and press-down takes over
+    const p = press.value;
+    const translateY = p * CARD_DEPTH + (1 - p) * fy;
+    const rotateDeg  = tilt + (1 - p) * ft;
+
+    return {
+      transform: [
+        { rotate: `${rotateDeg}deg` },
+        { translateY },
+      ],
+      opacity: disabled ? 0.35 : 1,
+    };
+  });
 
   return (
     <Pressable
@@ -72,14 +120,11 @@ export function ArcadeCard({
         <View
           style={[
             styles.shadow,
-            {
-              height,
-              top: CARD_DEPTH,
-            },
+            { height, top: CARD_DEPTH },
           ]}
         />
 
-        {/* card face — animates down on press */}
+        {/* card face — floats idly, sinks on press */}
         <Animated.View
           style={[
             styles.face,

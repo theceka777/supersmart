@@ -179,6 +179,8 @@ export default function HomeScreen() {
             contentOffsetY={-18}
             disabled={isGated}
             onPress={() => go('/echo')}
+            bob
+            floatPhase={0}
             decor={
               <VsDecor
                 fg={Colors.quickmatch.fg}
@@ -204,6 +206,8 @@ export default function HomeScreen() {
             height={96}
             disabled={isGated}
             onPress={() => go('/daily')}
+            bob
+            floatPhase={1.6}
             decor={
               <DailyDecor
                 fg={Colors.dailyrace.bg}
