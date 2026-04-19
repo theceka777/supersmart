@@ -1,17 +1,22 @@
 // echo.tsx — Quickmatch (ghost race) mode
-// Same scoring as daily.tsx:
-//   Base 100pts. Fast answer (<2s from buttons unlocking): +50 → 150 base.
-//   Streak multiplier: 3→2x, 5→3x, 7→4x. Wrong resets streak.
-//   Every 3 consecutive wrong: −50pts, miss streak resets.
-// 1-second UI lock per question.
-// All mutable game values live in refs (stale-closure-safe).
+// Playing-phase redesign: Cream Stadium aesthetic, ArcadeCard-style answer buttons.
+// All game logic unchanged — only JSX + styles updated.
 
 import { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
+import Animated, {
+  useSharedValue,
+  withSpring,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { QUESTIONS, shuffleQuestions, getRank } from './questions';
+import { pickInterviewEmotes } from './content';
 import { Avatar } from '@/components/Avatar';
 import { useAppStore } from './store';
+import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
+
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const GHOST_NAMES  = ['QuizWizard_88', 'GhostPlayer_42', 'BrainFuel_77', 'TriviaTank_99', 'SmartBomb_11'];
 const GHOST_COLORS = ['#6B9DFF', '#FF6B9D', '#6BDB6B', '#FFB86B', '#B86BFF'];
@@ -24,6 +29,8 @@ const GHOST_EMOTES = [
 ];
 const GHOST_TIMES = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
 
+// pickInterviewEmotes is imported from ./content
+
 function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -35,6 +42,7 @@ const BASE_PTS       = 100;
 const SPEED_BONUS    = 50;
 const MISS_PENALTY   = 50;
 const MISS_THRESHOLD = 3;
+const BTN_H          = 58;
 
 function getMultiplier(streak: number): number {
   if (streak >= 7) return 4;
@@ -42,6 +50,70 @@ function getMultiplier(streak: number): number {
   if (streak >= 3) return 2;
   return 1;
 }
+
+// ─── Answer button ────────────────────────────────────────────────────────────
+
+type BtnState = 'idle' | 'locked' | 'correct' | 'wrong' | 'dim';
+
+function AnswerButton({
+  option,
+  onPress,
+  state,
+}: {
+  option: string;
+  onPress: () => void;
+  state: BtnState;
+}) {
+  const press = useSharedValue(0);
+
+  const faceAnim = useAnimatedStyle(() => ({
+    transform: [{ translateY: press.value * CARD_DEPTH }],
+  }));
+
+  const isDisabled = state !== 'idle';
+  const faceColor =
+    state === 'correct' ? '#22c55e' :
+    state === 'wrong'   ? Colors.red :
+    Colors.cream;
+  const textColor = (state === 'correct' || state === 'wrong') ? Colors.cream : Colors.ink;
+
+  return (
+    <Pressable
+      onPressIn={() => {
+        if (!isDisabled) press.value = withSpring(1, { mass: 0.2, damping: 12, stiffness: 500 });
+      }}
+      onPressOut={() => {
+        press.value = withSpring(0, { mass: 0.2, damping: 14, stiffness: 400 });
+      }}
+      onPress={isDisabled ? undefined : onPress}
+    >
+      <View style={[btn.wrap, (state === 'dim' || state === 'locked') && btn.dimmed]}>
+        <View style={btn.shadow} />
+        <Animated.View style={[btn.face, { backgroundColor: faceColor }, faceAnim]}>
+          <Text style={[btn.text, { color: textColor }]}>{option}</Text>
+        </Animated.View>
+      </View>
+    </Pressable>
+  );
+}
+
+const btn = StyleSheet.create({
+  wrap:   { position: 'relative', height: BTN_H + CARD_DEPTH },
+  dimmed: { opacity: 0.4 },
+  shadow: {
+    position: 'absolute', left: 0, right: 0, top: CARD_DEPTH,
+    height: BTN_H, backgroundColor: Colors.ink, borderRadius: Radius.sm,
+  },
+  face: {
+    position: 'absolute', left: 0, right: 0, top: 0,
+    height: BTN_H, borderRadius: Radius.sm, borderWidth: 3,
+    borderColor: Colors.ink, justifyContent: 'center',
+    alignItems: 'center', paddingHorizontal: 16,
+  },
+  text: { fontFamily: Fonts.black, fontSize: 17, textAlign: 'center' },
+});
+
+// ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function EchoScreen() {
   const router = useRouter();
@@ -68,14 +140,14 @@ export default function EchoScreen() {
     time:  pick(GHOST_TIMES),
   });
 
-  // ── Refs: source of truth for all mutable game values ──────────────────────
+  // ── Refs: source of truth ──────────────────────────────────────────────────
   const scoreRef         = useRef(0);
   const streakRef        = useRef(0);
   const missRef          = useRef(0);
   const questionStartRef = useRef(0);
   const canAnswerRef     = useRef(false);
 
-  // ── State: display + render triggers ──────────────────────────────────────
+  // ── State: display only ────────────────────────────────────────────────────
   const [questionIndex,  setQuestionIndex]  = useState(0);
   const [timeLeft,       setTimeLeft]       = useState(60);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -86,6 +158,7 @@ export default function EchoScreen() {
   const [lastPoints,     setLastPoints]     = useState<number | null>(null);
   const [lastLabel,      setLastLabel]      = useState('');
   const [locked,         setLocked]         = useState(true);
+  const [gameEmotes,     setGameEmotes]     = useState<string[]>([]);
 
   const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
   const nextRef      = useRef<ReturnType<typeof setTimeout>  | null>(null);
@@ -94,23 +167,19 @@ export default function EchoScreen() {
   const question   = questions[questionIndex];
   const isAnswered = selectedAnswer !== null;
 
-  // Matching → preview after 1.5s
+  // Matching → preview
   useEffect(() => {
     if (phase !== 'matching') return;
     const t = setTimeout(() => setPhase('preview'), 1500);
     return () => clearTimeout(t);
   }, [phase]);
 
-  // ── 60-second countdown ────────────────────────────────────────────────────
+  // 60-second countdown
   useEffect(() => {
     if (phase !== 'playing') return;
     timerRef.current = setInterval(() => {
       setTimeLeft(t => {
-        if (t <= 1) {
-          clearInterval(timerRef.current!);
-          finishGame();
-          return 0;
-        }
+        if (t <= 1) { clearInterval(timerRef.current!); finishGame(); return 0; }
         return t - 1;
       });
     }, 1000);
@@ -121,22 +190,20 @@ export default function EchoScreen() {
     };
   }, [phase]);
 
-  // ── 1-second UI lock per question ──────────────────────────────────────────
+  // 1-second UI lock per question
   useEffect(() => {
     if (phase !== 'playing') return;
     canAnswerRef.current = false;
     setLocked(true);
     lockTimerRef.current = setTimeout(() => {
-      questionStartRef.current = Date.now(); // speed clock starts when buttons open
+      questionStartRef.current = Date.now();
       canAnswerRef.current = true;
       setLocked(false);
     }, LOCK_MS);
-    return () => {
-      if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
-    };
+    return () => { if (lockTimerRef.current) clearTimeout(lockTimerRef.current); };
   }, [questionIndex, phase]);
 
-  // ── Answer handler ─────────────────────────────────────────────────────────
+  // Answer handler
   function handleAnswer(index: number) {
     if (isAnswered || !canAnswerRef.current) return;
     canAnswerRef.current = false;
@@ -151,12 +218,10 @@ export default function EchoScreen() {
     if (isCorrect) {
       streakRef.current += 1;
       missRef.current    = 0;
-
       const fast = elapsed < SPEED_MS;
       const base = fast ? BASE_PTS + SPEED_BONUS : BASE_PTS;
       const mult = getMultiplier(streakRef.current);
       delta = base * mult;
-
       if (fast)     label += '⚡ fast';
       if (mult > 1) label += (label ? ' · ' : '') + `${mult}× streak`;
     } else {
@@ -170,7 +235,6 @@ export default function EchoScreen() {
     }
 
     scoreRef.current = Math.max(0, scoreRef.current + delta);
-
     setDisplayScore(scoreRef.current);
     setDisplayStreak(streakRef.current);
     setDisplayMiss(missRef.current);
@@ -197,28 +261,27 @@ export default function EchoScreen() {
     const base  = Math.max(final, 300);
     const swing = Math.floor(base * 0.35 * (Math.random() - 0.4));
     setGhostScore(Math.max(0, base + swing));
+    setGameEmotes(pickInterviewEmotes());
     updateHighScore('arcade', final);
     setPhase('result');
   }
 
   const multiplier = getMultiplier(displayStreak);
-  const flashBg = isAnswered
-    ? (selectedAnswer === question?.correct ? '#bbf7d0' : '#fecaca')
-    : '#fff';
 
-  function getButtonStyle(index: number) {
-    if (!isAnswered) return styles.answerButton;
-    if (index === question.correct) return [styles.answerButton, styles.correct];
-    if (index === selectedAnswer)   return [styles.answerButton, styles.wrong];
-    return [styles.answerButton, styles.dim];
+  function getBtnState(i: number): BtnState {
+    if (!isAnswered) return locked ? 'locked' : 'idle';
+    if (i === question.correct) return 'correct';
+    if (i === selectedAnswer)   return 'wrong';
+    return 'dim';
   }
 
   // ── Matching ────────────────────────────────────────────────────────────────
   if (phase === 'matching') {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#dc2626" />
-        <Text style={styles.matchingText}>Finding your ghost...</Text>
+      <View style={s.centered}>
+        <ActivityIndicator size="large" color={Colors.red} />
+        <Text style={s.matchingTitle}>FINDING YOUR GHOST</Text>
+        <Text style={s.matchingSub}>searching the pool...</Text>
       </View>
     );
   }
@@ -226,15 +289,23 @@ export default function EchoScreen() {
   // ── Preview ─────────────────────────────────────────────────────────────────
   if (phase === 'preview') {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.vsLabel}>YOUR OPPONENT</Text>
-        <Avatar color={ghost.color} eyes="square" mouth="smirk" size={110} />
-        <Text style={styles.ghostName}>{ghost.name}</Text>
-        <Text style={styles.ghostTime}>{ghost.time}</Text>
-        <Text style={styles.ghostEmote}>{ghost.emote}</Text>
-        <TouchableOpacity style={styles.startButton} onPress={() => setPhase('playing')}>
-          <Text style={styles.startButtonText}>START RACE</Text>
-        </TouchableOpacity>
+      <View style={s.centered}>
+        <Text style={s.vsLabel}>YOUR OPPONENT</Text>
+        <View style={s.avatarWrap}>
+          <View style={s.avatarShadow} />
+          <View style={s.avatarFace}>
+            <Avatar color={ghost.color} eyes="square" mouth="smirk" size={96} />
+          </View>
+        </View>
+        <Text style={s.ghostName}>{ghost.name}</Text>
+        <Text style={s.ghostTime}>{ghost.time}</Text>
+        <Text style={s.ghostEmote}>{ghost.emote}</Text>
+        <Pressable style={s.startBtn} onPress={() => setPhase('playing')}>
+          <View style={s.startBtnShadow} />
+          <View style={s.startBtnFace}>
+            <Text style={s.startBtnText}>START RACE</Text>
+          </View>
+        </Pressable>
       </View>
     );
   }
@@ -246,87 +317,117 @@ export default function EchoScreen() {
     const tied  = final === ghostScore;
     const headline = tied ? "IT'S A TIE" : won ? '🏆 YOU WIN' : '👻 GHOST WINS';
     return (
-      <View style={styles.centered}>
-        <Text style={styles.resultTitle}>{headline}</Text>
-        <View style={styles.scoreReveal}>
-          <View style={styles.scoreCard}>
-            <Text style={styles.scoreCardLabel}>You</Text>
-            <Text style={[styles.scoreValue, won && styles.winnerScore]}>{final}</Text>
-            <Text style={styles.scoreRank}>{getRank(final)}</Text>
+      <View style={s.centered}>
+        <Text style={s.resultTitle}>{headline}</Text>
+        <View style={s.scoreReveal}>
+          <View style={s.scoreCard}>
+            <Text style={s.scoreCardLabel}>You</Text>
+            <Text style={[s.scoreValue, won && s.winnerScore]}>{final.toLocaleString()}</Text>
+            <Text style={s.scoreRank}>{getRank(final)}</Text>
           </View>
-          <Text style={styles.vsText}>VS</Text>
-          <View style={styles.scoreCard}>
+          <Text style={s.vsText}>VS</Text>
+          <View style={s.scoreCard}>
             <Avatar color={ghost.color} eyes="square" mouth="smirk" size={40} />
-            <Text style={styles.scoreCardLabel}>{ghost.name}</Text>
-            <Text style={[styles.scoreValue, !won && !tied && styles.winnerScore]}>{ghostScore}</Text>
-            <Text style={styles.scoreRank}>{getRank(ghostScore)}</Text>
+            <Text style={s.scoreCardLabel}>{ghost.name}</Text>
+            <Text style={[s.scoreValue, !won && !tied && s.winnerScore]}>{ghostScore.toLocaleString()}</Text>
+            <Text style={s.scoreRank}>{getRank(ghostScore)}</Text>
           </View>
         </View>
 
-        <Text style={styles.emotePrompt}>How did that feel?</Text>
-        <View style={styles.emoteRow}>
-          {['"nailed it 🎯"', '"lucky shot 🎲"', '"next time 💪"', '"no comment 😑"'].map(e => (
-            <TouchableOpacity key={e} style={styles.emoteChip} onPress={() => router.replace('/')}>
-              <Text style={styles.emoteText}>{e}</Text>
-            </TouchableOpacity>
+        <Text style={s.interviewLabel}>POST-GAME INTERVIEW</Text>
+        <View style={s.emoteRow}>
+          {gameEmotes.map(e => (
+            <Pressable key={e} style={s.emoteChip} onPress={() => router.replace('/')}>
+              <Text style={s.emoteText}>{e}</Text>
+            </Pressable>
           ))}
         </View>
-        <TouchableOpacity style={styles.startButton} onPress={() => router.replace('/echo')}>
-          <Text style={styles.startButtonText}>NEW GHOST</Text>
-        </TouchableOpacity>
+        <Pressable onPress={() => router.replace('/echo')}>
+          <View style={s.newGhostWrap}>
+            <View style={s.newGhostShadow} />
+            <View style={s.newGhostFace}>
+              <Text style={s.newGhostText}>NEW GHOST</Text>
+            </View>
+          </View>
+        </Pressable>
       </View>
     );
   }
 
   // ── Playing ─────────────────────────────────────────────────────────────────
-  return (
-    <View style={[styles.container, { backgroundColor: flashBg }]}>
+  const timerColor = timeLeft <= 10 ? Colors.red : timeLeft <= 20 ? '#f59e0b' : Colors.ink;
+  const flashBg    = isAnswered
+    ? (selectedAnswer === question?.correct ? '#d1fae5' : '#fee2e2')
+    : Colors.cream;
 
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.timerText}>⏱ {timeLeft}s</Text>
-        <View style={styles.ghostMini}>
-          <Avatar color={ghost.color} eyes="square" mouth="smirk" size={30} />
-          <Text style={styles.ghostMiniName}>{ghost.name}</Text>
+  return (
+    <View style={[play.container, { backgroundColor: flashBg }]}>
+
+      {/* ── Header ── */}
+      <View style={play.header}>
+
+        {/* Timer */}
+        <View style={play.timerWrap}>
+          <Text style={[play.timer, { color: timerColor }]}>{timeLeft}</Text>
+          <Text style={[play.timerUnit, { color: timerColor }]}>s</Text>
         </View>
-        <View style={styles.scoreWrap}>
-          {multiplier > 1 && <Text style={styles.multBadge}>{multiplier}×</Text>}
-          <Text style={styles.scoreText}>{displayScore.toLocaleString()}</Text>
+
+        {/* Ghost mini */}
+        <View style={play.ghostMini}>
+          <Avatar color={ghost.color} eyes="square" mouth="smirk" size={28} />
+          <Text style={play.ghostMiniName} numberOfLines={1}>{ghost.name}</Text>
         </View>
+
+        {/* Score + multiplier */}
+        <View style={play.scoreWrap}>
+          {multiplier > 1 && (
+            <View style={play.multPill}>
+              <Text style={play.multText}>{multiplier}×</Text>
+            </View>
+          )}
+          <Text style={play.score}>{displayScore.toLocaleString()}</Text>
+        </View>
+
       </View>
 
-      {/* Status strips */}
+      {/* Divider */}
+      <View style={play.divider} />
+
+      {/* ── Status strips ── */}
       {displayStreak >= 3 && (
-        <Text style={styles.streakLabel}>🔥 {displayStreak} streak</Text>
+        <Text style={play.streakLabel}>🔥 {displayStreak} streak</Text>
       )}
       {displayMiss >= 2 && (
-        <Text style={styles.missLabel}>⚠️ {displayMiss}/3 misses</Text>
+        <Text style={play.missLabel}>⚠️ {displayMiss} / 3 misses</Text>
       )}
 
-      {/* Question */}
-      <Text style={styles.question}>{question.question}</Text>
+      {/* ── Question ── */}
+      <View style={play.questionZone}>
+        <Text style={play.qNumber}>Q {questionIndex + 1}</Text>
+        <Text style={play.question}>{question.question}</Text>
+      </View>
 
-      {/* Points flash */}
+      {/* ── Points flash ── */}
       {isAnswered && lastPoints !== null && (
-        <View style={styles.flashWrap}>
-          <Text style={[styles.pointsFlash, lastPoints < 0 && styles.pointsNeg]}>
+        <View style={play.flashWrap}>
+          <Text style={[play.pointsFlash, lastPoints < 0 && play.pointsNeg]}>
             {lastPoints > 0 ? `+${lastPoints}` : `${lastPoints}`}
           </Text>
-          {lastLabel ? <Text style={styles.bonusLabel}>{lastLabel}</Text> : null}
+          {lastLabel ? (
+            <Text style={play.bonusLabel}>{lastLabel}</Text>
+          ) : null}
         </View>
       )}
 
-      {/* Answer buttons */}
-      <View style={styles.answers}>
+      {/* ── Answer buttons ── */}
+      <View style={play.answers}>
         {question.options.map((option, i) => (
-          <TouchableOpacity
+          <AnswerButton
             key={i}
-            style={[getButtonStyle(i), (locked && !isAnswered) && styles.lockedBtn]}
+            option={option}
             onPress={() => handleAnswer(i)}
-            disabled={isAnswered || locked}
-          >
-            <Text style={styles.answerText}>{option}</Text>
-          </TouchableOpacity>
+            state={getBtnState(i)}
+          />
         ))}
       </View>
 
@@ -334,49 +435,82 @@ export default function EchoScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container:    { flex: 1, padding: 24, paddingTop: 60 },
-  centered:     { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', padding: 24, gap: 12 },
-  matchingText: { fontSize: 18, color: '#6b7280', marginTop: 16 },
-  vsLabel:      { fontSize: 13, fontWeight: '700', color: '#9ca3af', letterSpacing: 2 },
-  ghostName:    { fontSize: 26, fontWeight: '800', color: '#111827', marginTop: 8 },
-  ghostTime:    { fontSize: 14, color: '#9ca3af' },
-  ghostEmote:   { fontSize: 16, color: '#6b7280', fontStyle: 'italic', marginBottom: 16 },
-  startButton:  { backgroundColor: '#dc2626', paddingVertical: 16, paddingHorizontal: 48, borderRadius: 14, marginTop: 8 },
-  startButtonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 1 },
+// ─── Shared / non-playing styles ─────────────────────────────────────────────
 
-  header:       { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  timerText:    { fontSize: 20, fontWeight: '800', color: '#111827' },
-  ghostMini:    { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  ghostMiniName:{ fontSize: 13, color: '#6b7280', fontWeight: '600' },
-  scoreWrap:    { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  multBadge:    { backgroundColor: '#FFD23F', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6, fontSize: 13, fontWeight: '900', color: '#1A1522' },
-  scoreText:    { fontSize: 20, fontWeight: '800', color: '#111827' },
-  streakLabel:  { fontSize: 14, fontWeight: '700', color: '#f97316', marginBottom: 4 },
-  missLabel:    { fontSize: 12, fontWeight: '700', color: '#dc2626', marginBottom: 4 },
-  question:     { fontSize: 26, fontWeight: '600', color: '#111827', marginBottom: 24, lineHeight: 34 },
-  flashWrap:    { alignItems: 'center', marginBottom: 8 },
-  pointsFlash:  { fontSize: 22, fontWeight: '900', color: '#16a34a', textAlign: 'center' },
-  pointsNeg:    { color: '#dc2626' },
-  bonusLabel:   { fontSize: 11, fontWeight: '700', color: '#16a34a', letterSpacing: 0.5, textTransform: 'uppercase', marginTop: 3 },
-  answers:      { gap: 12 },
-  answerButton: { backgroundColor: '#f3f4f6', padding: 18, borderRadius: 12 },
-  lockedBtn:    { opacity: 0.55 },
-  correct:      { backgroundColor: '#16a34a' },
-  wrong:        { backgroundColor: '#dc2626' },
-  dim:          { opacity: 0.5 },
-  answerText:   { fontSize: 18, fontWeight: '500', color: '#111827', textAlign: 'center' },
+const s = StyleSheet.create({
+  centered:       { flex: 1, backgroundColor: Colors.cream, alignItems: 'center', justifyContent: 'center', padding: 28, gap: 10 },
 
-  resultTitle:  { fontSize: 32, fontWeight: '900', color: '#111827' },
-  scoreReveal:  { flexDirection: 'row', alignItems: 'center', gap: 16, backgroundColor: '#f9fafb', borderRadius: 16, padding: 20, marginVertical: 16 },
-  scoreCard:    { alignItems: 'center', gap: 4, flex: 1 },
-  vsText:       { fontSize: 18, fontWeight: '800', color: '#9ca3af' },
-  scoreCardLabel:{ fontSize: 13, fontWeight: '600', color: '#6b7280' },
-  scoreValue:   { fontSize: 36, fontWeight: '900', color: '#111827' },
-  winnerScore:  { color: '#dc2626' },
-  scoreRank:    { fontSize: 12, color: '#9ca3af' },
-  emotePrompt:  { fontSize: 16, color: '#374151', fontWeight: '600' },
-  emoteRow:     { flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'center' },
-  emoteChip:    { backgroundColor: '#f3f4f6', paddingVertical: 10, paddingHorizontal: 14, borderRadius: 20 },
-  emoteText:    { fontSize: 13, color: '#374151' },
+  // Matching
+  matchingTitle:  { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, letterSpacing: 1, marginTop: 16 },
+  matchingSub:    { fontFamily: Fonts.mono, fontSize: 12, color: Colors.ink, opacity: 0.4, letterSpacing: 0.5 },
+
+  // Preview
+  vsLabel:        { fontFamily: Fonts.mono, fontSize: 11, color: Colors.ink, opacity: 0.5, letterSpacing: 2, textTransform: 'uppercase' },
+  avatarWrap:     { position: 'relative', width: 112, height: 112 + CARD_DEPTH, marginVertical: 8 },
+  avatarShadow:   { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 112, backgroundColor: Colors.ink, borderRadius: 56 },
+  avatarFace:     { position: 'absolute', left: 0, right: 0, top: 0, height: 112, borderRadius: 56, borderWidth: 3, borderColor: Colors.ink, backgroundColor: Colors.cream, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  ghostName:      { fontFamily: Fonts.black, fontSize: 22, color: Colors.ink, marginTop: 4 },
+  ghostTime:      { fontFamily: Fonts.mono, fontSize: 12, color: Colors.ink, opacity: 0.45 },
+  ghostEmote:     { fontFamily: Fonts.mono, fontSize: 14, color: Colors.ink, opacity: 0.7, fontStyle: 'italic', marginBottom: 12, textAlign: 'center' },
+  startBtn:       { width: '100%' },
+  startBtnWrap:   { position: 'relative', height: 56 + CARD_DEPTH },
+  startBtnShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 56, backgroundColor: Colors.ink, borderRadius: Radius.sm },
+  startBtnFace:   { position: 'relative', height: 56, backgroundColor: Colors.red, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },
+  startBtnText:   { fontFamily: Fonts.black, fontSize: 18, color: Colors.cream, letterSpacing: 1 },
+
+  // Result
+  resultTitle:    { fontFamily: Fonts.black, fontSize: 30, color: Colors.ink, letterSpacing: -0.5 },
+  scoreReveal:    { flexDirection: 'row', alignItems: 'center', gap: 16, backgroundColor: Colors.cream, borderRadius: Radius.card, borderWidth: 3, borderColor: Colors.ink, padding: 20, marginVertical: 12, width: '100%' },
+  scoreCard:      { alignItems: 'center', gap: 4, flex: 1 },
+  vsText:         { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, opacity: 0.3 },
+  scoreCardLabel: { fontFamily: Fonts.mono, fontSize: 11, color: Colors.ink, opacity: 0.5, textTransform: 'uppercase', letterSpacing: 1 },
+  scoreValue:     { fontFamily: Fonts.black, fontSize: 34, color: Colors.ink },
+  winnerScore:    { color: Colors.red },
+  scoreRank:      { fontFamily: Fonts.mono, fontSize: 11, color: Colors.ink, opacity: 0.45 },
+  interviewLabel: { fontFamily: Fonts.mono, fontSize: 10, color: Colors.ink, opacity: 0.4, letterSpacing: 2, textTransform: 'uppercase', marginTop: 8, marginBottom: 2 },
+  emoteRow:       { flexDirection: 'column', gap: 8, width: '100%' },
+  emoteChip:      { backgroundColor: Colors.ink, paddingVertical: 10, paddingHorizontal: 16, borderRadius: Radius.sm },
+  emoteText:      { fontFamily: Fonts.mono, fontSize: 13, color: Colors.cream, textAlign: 'center' },
+  newGhostWrap:   { position: 'relative', height: 52 + CARD_DEPTH, width: 220, marginTop: 4 },
+  newGhostShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 52, backgroundColor: Colors.ink, borderRadius: Radius.sm },
+  newGhostFace:   { position: 'absolute', left: 0, right: 0, top: 0, height: 52, backgroundColor: Colors.yellow, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },
+  newGhostText:   { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, letterSpacing: 0.5 },
+});
+
+// ─── Playing styles ───────────────────────────────────────────────────────────
+
+const play = StyleSheet.create({
+  container:   { flex: 1, paddingHorizontal: 20, paddingTop: 56 },
+
+  // Header
+  header:      { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 },
+  timerWrap:   { flexDirection: 'row', alignItems: 'baseline', minWidth: 60 },
+  timer:       { fontFamily: Fonts.black, fontSize: 34, lineHeight: 38 },
+  timerUnit:   { fontFamily: Fonts.mono, fontSize: 14, marginLeft: 2, opacity: 0.6 },
+  ghostMini:   { alignItems: 'center', gap: 4 },
+  ghostMiniName: { fontFamily: Fonts.mono, fontSize: 10, color: Colors.ink, opacity: 0.5, letterSpacing: 0.3, maxWidth: 90 },
+  scoreWrap:   { flexDirection: 'row', alignItems: 'center', gap: 6, justifyContent: 'flex-end', minWidth: 80 },
+  multPill:    { backgroundColor: Colors.yellow, paddingHorizontal: 8, paddingVertical: 2, borderRadius: Radius.pill, borderWidth: 2, borderColor: Colors.ink },
+  multText:    { fontFamily: Fonts.black, fontSize: 13, color: Colors.ink },
+  score:       { fontFamily: Fonts.black, fontSize: 22, color: Colors.ink },
+
+  divider:     { height: 2, backgroundColor: Colors.ink, opacity: 0.08, marginBottom: 12 },
+
+  // Status
+  streakLabel: { fontFamily: Fonts.black, fontSize: 13, color: '#ea580c', marginBottom: 4, letterSpacing: 0.3 },
+  missLabel:   { fontFamily: Fonts.mono, fontSize: 12, color: Colors.red, marginBottom: 4, fontWeight: '700' },
+
+  // Question
+  questionZone:{ flex: 1, justifyContent: 'center', paddingBottom: 4 },
+  qNumber:     { fontFamily: Fonts.mono, fontSize: 11, color: Colors.ink, opacity: 0.35, letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 10 },
+  question:    { fontFamily: Fonts.black, fontSize: 28, color: Colors.ink, lineHeight: 36, letterSpacing: -0.5 },
+
+  // Points flash
+  flashWrap:   { alignItems: 'center', marginBottom: 10 },
+  pointsFlash: { fontFamily: Fonts.black, fontSize: 30, color: '#16a34a', letterSpacing: -1 },
+  pointsNeg:   { color: Colors.red },
+  bonusLabel:  { fontFamily: Fonts.mono, fontSize: 10, color: '#16a34a', letterSpacing: 1.5, textTransform: 'uppercase', marginTop: 3 },
+
+  // Answers
+  answers:     { gap: 10, paddingBottom: 32 },
 });
