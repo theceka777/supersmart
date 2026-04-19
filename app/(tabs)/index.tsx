@@ -131,8 +131,8 @@ export default function HomeScreen() {
       {/* ── Background layers: sunburst rays + halftone dots ── */}
       <Sunburst
         rays={24}
-        color={Colors.yellow}
-        opacity={0.18}
+        color="#FFD6A8"
+        opacity={0.45}
         size={700}
       />
       <Halftone color="rgba(26,21,34,0.07)" dotSpacing={9} />
@@ -174,7 +174,7 @@ export default function HomeScreen() {
             sublabel="head-to-head · instant"
             color={Colors.quickmatch.bg}
             fg={Colors.quickmatch.fg}
-            tilt={1.2}
+            tilt={0}
             height={148}
             contentOffsetY={-18}
             disabled={isGated}
@@ -202,7 +202,7 @@ export default function HomeScreen() {
             sublabel="fresh every 6am"
             color={Colors.dailyrace.bg}
             fg={Colors.dailyrace.fg}
-            tilt={0.8}
+            tilt={0}
             height={96}
             disabled={isGated}
             onPress={() => go('/daily')}

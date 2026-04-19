@@ -80,25 +80,37 @@ export function ArcadeCard({
     return () => cancelAnimation(floatProgress);
   }, [bob]);
 
-  // ── Combined animated style ────────────────────────────────────────────────
+  // ── Animated styles ────────────────────────────────────────────────────────
+  //
+  // During idle bob:  shadow and face move together (same fy) → card looks like
+  //                   a single floating object with consistent depth.
+  // During press:     face sinks by CARD_DEPTH; shadow stays at bob position →
+  //                   face meets shadow, creating the press-down illusion.
+  //
   const faceStyle = useAnimatedStyle(() => {
     'worklet';
-    // Bob contribution (zero when not enabled)
     const phase = floatProgress.value * Math.PI * 2 + floatPhase;
     const fy = bob ? Math.sin(phase) * 1.5 : 0;
-    const ft = bob ? Math.cos(phase) * 0.5 : 0;   // phase-shifted 90° → cosine
+    const ft = bob ? Math.cos(phase) * 0.5 : 0;
 
-    // Blend: as press approaches 1, float fades out and press-down takes over
     const p = press.value;
-    const translateY = p * CARD_DEPTH + (1 - p) * fy;
+    // Face: bobs freely when idle; sinks to CARD_DEPTH on press
+    const translateY = fy + p * CARD_DEPTH;
     const rotateDeg  = tilt + (1 - p) * ft;
 
     return {
-      transform: [
-        { rotate: `${rotateDeg}deg` },
-        { translateY },
-      ],
+      transform: [{ rotate: `${rotateDeg}deg` }, { translateY }],
       opacity: disabled ? 0.35 : 1,
+    };
+  });
+
+  // Shadow follows the bob so it stays glued beneath the face at all times
+  const shadowStyle = useAnimatedStyle(() => {
+    'worklet';
+    const phase = floatProgress.value * Math.PI * 2 + floatPhase;
+    const fy = bob ? Math.sin(phase) * 1.5 : 0;
+    return {
+      transform: [{ translateY: fy }],
     };
   });
 
@@ -116,11 +128,12 @@ export function ArcadeCard({
       style={[{ flex: flex ? 1 : undefined }, style]}
     >
       <View style={{ position: 'relative', height: height + CARD_DEPTH }}>
-        {/* depth shadow — sits below, never moves */}
-        <View
+        {/* depth shadow — follows the bob, only face separates on press */}
+        <Animated.View
           style={[
             styles.shadow,
             { height, top: CARD_DEPTH },
+            shadowStyle,
           ]}
         />
 
