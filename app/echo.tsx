@@ -11,7 +11,7 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import { QUESTIONS, shuffleQuestions, getRank } from './questions';
-import { pickInterviewEmotes } from './content';
+import { EMOTES, pickInterviewEmotes } from './content';
 import { Avatar } from '@/components/Avatar';
 import { useAppStore } from './store';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
@@ -20,16 +20,14 @@ import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 const GHOST_NAMES  = ['QuizWizard_88', 'GhostPlayer_42', 'BrainFuel_77', 'TriviaTank_99', 'SmartBomb_11'];
 const GHOST_COLORS = ['#6B9DFF', '#FF6B9D', '#6BDB6B', '#FFB86B', '#B86BFF'];
-const GHOST_EMOTES = [
-  '"feeling confident today 😏"',
-  '"just here to flex 💪"',
-  '"I studied for this 📚"',
-  '"good luck... you\'ll need it 😈"',
-  '"rematch? 🔥"',
-];
-const GHOST_TIMES = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
+const GHOST_TIMES  = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
 
-// pickInterviewEmotes is imported from ./content
+// Ghost emote: randomly mocking or supportive — the real emote library, not placeholders.
+// Mocking = ghost trash-talking you before the race. Supportive = ghost cheering you on.
+function pickGhostEmote(): string {
+  const pool = EMOTES.filter(e => e.active && (e.category === 'mocking' || e.category === 'supportive'));
+  return pool[Math.floor(Math.random() * pool.length)].text;
+}
 
 function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -136,7 +134,7 @@ export default function EchoScreen() {
   const [ghost] = useState({
     name:  pick(GHOST_NAMES),
     color: pick(GHOST_COLORS),
-    emote: pick(GHOST_EMOTES),
+    emote: pickGhostEmote(),
     time:  pick(GHOST_TIMES),
   });
 
