@@ -282,11 +282,6 @@ export default function EchoScreen() {
   return (
     <View style={[styles.container, { backgroundColor: flashBg }]}>
 
-      {/* Debug overlay — remove before ship */}
-      <View style={styles.debugBar}>
-        <Text style={styles.debugTxt}>streak:{displayStreak} miss:{displayMiss} mult:{multiplier}× pts:{displayScore}</Text>
-      </View>
-
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.timerText}>⏱ {timeLeft}s</Text>
@@ -349,9 +344,6 @@ const styles = StyleSheet.create({
   ghostEmote:   { fontSize: 16, color: '#6b7280', fontStyle: 'italic', marginBottom: 16 },
   startButton:  { backgroundColor: '#dc2626', paddingVertical: 16, paddingHorizontal: 48, borderRadius: 14, marginTop: 8 },
   startButtonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 1 },
-
-  debugBar:  { backgroundColor: '#1A1522', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6, marginBottom: 8 },
-  debugTxt:  { fontFamily: 'monospace', fontSize: 11, color: '#7BEFFC' },
 
   header:       { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   timerText:    { fontSize: 20, fontWeight: '800', color: '#111827' },

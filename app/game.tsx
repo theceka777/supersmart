@@ -150,18 +150,6 @@ export default function GameScreen() {
 
     scoreRef.current = Math.max(0, scoreRef.current + delta);
 
-    console.log('[SCORE]', {
-      correct: isCorrect,
-      elapsed,
-      fast: elapsed < SPEED_MS,
-      streak: streakRef.current,
-      miss: missRef.current,
-      mult: getMultiplier(streakRef.current),
-      delta,
-      score: scoreRef.current,
-      label,
-    });
-
     // Push to display state
     setDisplayScore(scoreRef.current);
     setDisplayStreak(streakRef.current);
@@ -203,11 +191,6 @@ export default function GameScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: flashBg }]}>
-
-      {/* ── DEBUG OVERLAY (remove before ship) ── */}
-      <View style={styles.debugBar}>
-        <Text style={styles.debugTxt}>streak:{displayStreak} miss:{displayMiss} mult:{multiplier}× score:{displayScore}</Text>
-      </View>
 
       {/* Header */}
       <View style={styles.header}>
@@ -286,6 +269,4 @@ const styles = StyleSheet.create({
   correct:     { backgroundColor: '#16a34a' },
   wrong:       { backgroundColor: '#dc2626' },
   answerText:  { fontSize: 18, fontWeight: '500', textAlign: 'center' },
-  debugBar:    { backgroundColor: '#1A1522', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6, marginBottom: 8 },
-  debugTxt:    { fontFamily: 'monospace', fontSize: 11, color: '#7BEFFC' },
 });
