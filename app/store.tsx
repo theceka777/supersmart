@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export interface AppState {
-  highScores: { arcade: number; classic: number; daily: number };
+  highScores: { quickmatch: number; daily: number };
   avatar: { color: string; eyes: string; mouth: string };
   dailyStatus: { date: string; played: boolean; score: number; results: boolean[] };
   freePlay: { date: string; playsToday: number; oneMoreTaps: number };
 }
 
 interface AppActions {
-  updateHighScore: (mode: 'arcade' | 'classic' | 'daily', score: number) => void;
+  updateHighScore: (mode: 'quickmatch' | 'daily', score: number) => void;
   updateAvatar: (updates: Partial<AppState['avatar']>) => void;
   setDailyPlayed: (score: number, results: boolean[]) => void;
   recordPlay: () => void;
@@ -18,7 +18,7 @@ interface AppActions {
 type AppContextType = AppState & AppActions;
 
 const defaultState: AppState = {
-  highScores: { arcade: 0, classic: 0, daily: 0 },
+  highScores: { quickmatch: 0, daily: 0 },
   avatar: { color: '#FF6B9D', eyes: 'round', mouth: 'smile' },
   dailyStatus: { date: '', played: false, score: 0, results: [] },
   freePlay: { date: '', playsToday: 0, oneMoreTaps: 0 },
@@ -29,7 +29,7 @@ const AppContext = createContext<AppContextType | null>(null);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AppState>(defaultState);
 
-  const updateHighScore = (mode: 'arcade' | 'classic' | 'daily', score: number) => {
+  const updateHighScore = (mode: 'quickmatch' | 'daily', score: number) => {
     setState(s => ({
       ...s,
       highScores: { ...s.highScores, [mode]: Math.max(s.highScores[mode], score) },

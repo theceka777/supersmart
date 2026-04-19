@@ -7,10 +7,11 @@
 // All mutable game values live in refs so submitAnswer never reads stale closures.
 
 import { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import { QUESTIONS, Question } from './questions';
 import { useAppStore } from './store';
+import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 const TOTAL_TIME = 60;
 const QUESTION_COUNT = 60;
@@ -204,32 +205,59 @@ export default function DailyScreen() {
   }, []);
 
   function getButtonStyle(index: number) {
-    if (!isAnswered) return styles.answerButton;
-    if (index === question.correct) return [styles.answerButton, styles.correct];
-    if (index === selectedAnswer)   return [styles.answerButton, styles.wrong];
-    return [styles.answerButton, styles.dim];
+    if (!isAnswered) return s.answerButton;
+    if (index === question.correct) return [s.answerButton, s.correct];
+    if (index === selectedAnswer)   return [s.answerButton, s.wrong];
+    return [s.answerButton, s.dim];
+  }
+
+  function getAnswerTextStyle(index: number) {
+    if (!isAnswered) return s.answerText;
+    if (index === question.correct || index === selectedAnswer) return [s.answerText, s.answerTextLight];
+    return s.answerText;
   }
 
   const multiplier = getMultiplier(displayStreak);
-  const timerColor = timeLeft <= 10 ? '#dc2626' : timeLeft <= 20 ? '#f59e0b' : '#111827';
+  const timerColor = timeLeft <= 10 ? Colors.red : timeLeft <= 20 ? '#f59e0b' : Colors.ink;
+
+  // Flash background on answer
+  const flashBg = isAnswered
+    ? (selectedAnswer === question.correct ? '#bbf7d0' : '#fecaca')
+    : Colors.cream;
 
   // ── Already played ─────────────────────────────────────────────────────────
   if (alreadyPlayed) {
     const correct = dailyStatus.results.filter(Boolean).length;
     const total   = dailyStatus.results.length;
     const grid    = dailyStatus.results.map(r => r ? '🟩' : '🟥').join('');
+    const shareText = `Super Smart Daily — ${correct}/${total} · ${dailyStatus.score.toLocaleString()} pts\n${grid}`;
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>DAILY RACE</Text>
-        <Text style={styles.alreadyLabel}>Already played today</Text>
-        <Text style={styles.alreadyScore}>{correct}/{total}</Text>
-        <Text style={styles.grid}>{grid}</Text>
-        <View style={styles.shareBox}>
-          <Text style={styles.shareText}>
-            Super Smart Daily — {correct}/{total} · {dailyStatus.score.toLocaleString()} pts{'\n'}{grid}
+      <View style={s.alreadyContainer}>
+        <Text style={s.modeTag}>DAILY RACE</Text>
+
+        <View style={s.scoreCard}>
+          <Text style={s.bigScore}>
+            {correct}<Text style={s.bigScoreDim}>/{total}</Text>
           </Text>
+          <Text style={s.ptsLabel}>{dailyStatus.score.toLocaleString()} pts</Text>
         </View>
-        <Text style={styles.comeBack}>New race resets at 6am.</Text>
+
+        <Text style={s.gridText}>{grid}</Text>
+
+        <View style={s.shareCard}>
+          <Text style={s.shareHeader}>share your result</Text>
+          <Text style={s.shareText}>{shareText}</Text>
+        </View>
+
+        <Pressable style={s.homeBtn} onPress={() => router.replace('/')}>
+          <View style={s.homeBtnShadow} />
+          <View style={s.homeBtnFace}>
+            <Text style={s.homeBtnText}>HOME</Text>
+          </View>
+        </Pressable>
+
+        <Text style={s.comeBack}>new race tomorrow at 6am.</Text>
       </View>
     );
   }
@@ -237,61 +265,61 @@ export default function DailyScreen() {
   if (!question) return null;
 
   return (
-    <View style={styles.container}>
+    <View style={[s.container, { backgroundColor: flashBg }]}>
 
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>DAILY RACE</Text>
-        <View style={styles.headerRight}>
-          <Text style={[styles.timer, { color: timerColor }]}>{timeLeft}s</Text>
+      <View style={s.header}>
+        <Text style={s.modeTagInline}>DAILY RACE</Text>
+        <View style={s.headerRight}>
           {multiplier > 1 && (
-            <Text style={styles.multiplierBadge}>{multiplier}×</Text>
+            <Text style={s.multiplierBadge}>{multiplier}×</Text>
           )}
+          <Text style={[s.timer, { color: timerColor }]}>{timeLeft}s</Text>
         </View>
       </View>
 
       {/* Progress bar */}
-      <View style={styles.progressBar}>
-        <View style={[styles.progressFill, { width: `${(questionIndex / questions.length) * 100}%` }]} />
+      <View style={s.progressBar}>
+        <View style={[s.progressFill, { width: `${(questionIndex / questions.length) * 100}%` as any }]} />
       </View>
 
       {/* Sub-header */}
-      <View style={styles.subHeader}>
-        <Text style={styles.questionNum}>{questionIndex + 1} / {questions.length}</Text>
-        <Text style={styles.scoreText}>{displayScore.toLocaleString()} pts</Text>
+      <View style={s.subHeader}>
+        <Text style={s.questionNum}>{questionIndex + 1} / {questions.length}</Text>
+        <Text style={s.scoreText}>{displayScore.toLocaleString()} pts</Text>
       </View>
 
       {/* Status strips */}
       {displayStreak >= 3 && (
-        <Text style={styles.streakLabel}>🔥 {displayStreak} streak</Text>
+        <Text style={s.streakLabel}>🔥 {displayStreak} streak</Text>
       )}
       {displayMiss >= 2 && (
-        <Text style={styles.missLabel}>⚠️ {displayMiss}/3 misses</Text>
+        <Text style={s.missLabel}>⚠️ {displayMiss}/3 misses</Text>
       )}
 
       {/* Question */}
-      <Text style={styles.question}>{question.question}</Text>
+      <Text style={s.question}>{question.question}</Text>
 
       {/* Points flash */}
       {isAnswered && lastPoints !== null && (
-        <View style={styles.flashWrap}>
-          <Text style={[styles.pointsFlash, lastPoints < 0 && styles.pointsNeg]}>
+        <View style={s.flashWrap}>
+          <Text style={[s.pointsFlash, lastPoints < 0 && s.pointsNeg]}>
             {lastPoints > 0 ? `+${lastPoints}` : `${lastPoints}`}
           </Text>
-          {lastLabel ? <Text style={styles.bonusLabel}>{lastLabel}</Text> : null}
+          {lastLabel ? <Text style={s.bonusLabel}>{lastLabel}</Text> : null}
         </View>
       )}
 
       {/* Answer buttons */}
-      <View style={styles.answers}>
+      <View style={s.answers}>
         {question.options.map((option, i) => (
           <TouchableOpacity
             key={i}
-            style={[getButtonStyle(i), (locked && !isAnswered) && styles.lockedBtn]}
+            style={[getButtonStyle(i), (locked && !isAnswered) && s.lockedBtn]}
             onPress={() => submitAnswer(i)}
             disabled={isAnswered || locked}
           >
-            <Text style={styles.answerText}>{option}</Text>
+            <Text style={getAnswerTextStyle(i)}>{option}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -300,39 +328,252 @@ export default function DailyScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container:   { flex: 1, backgroundColor: '#fff', padding: 24, paddingTop: 60 },
-  header:      { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  title:       { fontSize: 22, fontWeight: '900', color: '#0e7490', letterSpacing: 1 },
-  timer:       { fontSize: 24, fontWeight: '800' },
-  multiplierBadge: {
-    backgroundColor: '#FFD23F', paddingHorizontal: 8, paddingVertical: 2,
-    borderRadius: 6, fontSize: 14, fontWeight: '900', color: '#1A1522', overflow: 'hidden',
+const s = StyleSheet.create({
+  // ── Game screen ──────────────────────────────────────────────────────────────
+  container: {
+    flex: 1,
+    padding: 24,
+    paddingTop: 60,
   },
-  progressBar:  { height: 6, backgroundColor: '#e5e7eb', borderRadius: 3, marginBottom: 10, overflow: 'hidden' },
-  progressFill: { height: '100%', backgroundColor: '#7BEFFC', borderRadius: 3 },
-  subHeader:    { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
-  questionNum:  { fontSize: 13, color: '#9ca3af', fontWeight: '600' },
-  scoreText:    { fontSize: 13, color: '#9ca3af', fontWeight: '600' },
-  streakLabel:  { fontSize: 14, fontWeight: '700', color: '#f97316', marginBottom: 4 },
-  missLabel:    { fontSize: 12, fontWeight: '700', color: '#dc2626', marginBottom: 4 },
-  question:     { fontSize: 24, fontWeight: '600', color: '#111827', marginBottom: 24, lineHeight: 32 },
-  flashWrap:    { alignItems: 'center', marginBottom: 6 },
-  pointsFlash:  { fontSize: 22, fontWeight: '900', color: '#16a34a', textAlign: 'center' },
-  pointsNeg:    { color: '#dc2626' },
-  bonusLabel:   { fontSize: 11, fontWeight: '700', color: '#16a34a', letterSpacing: 0.5, textTransform: 'uppercase', marginTop: 3 },
-  answers:      { gap: 12 },
-  answerButton: { backgroundColor: '#f3f4f6', padding: 18, borderRadius: 12 },
-  lockedBtn:    { opacity: 0.55 },
-  correct:      { backgroundColor: '#16a34a' },
-  wrong:        { backgroundColor: '#dc2626' },
-  dim:          { opacity: 0.5 },
-  answerText:   { fontSize: 18, fontWeight: '500', color: '#111827', textAlign: 'center' },
-  alreadyLabel: { fontSize: 18, color: '#6b7280', marginTop: 24 },
-  alreadyScore: { fontSize: 80, fontWeight: '900', color: '#0e7490' },
-  grid:         { fontSize: 20, letterSpacing: 2, flexWrap: 'wrap' },
-  shareBox:     { backgroundColor: '#f9fafb', borderRadius: 12, padding: 16, alignItems: 'center', marginTop: 8 },
-  shareText:    { fontSize: 15, color: '#374151', fontWeight: '600', textAlign: 'center', lineHeight: 28 },
-  comeBack:     { fontSize: 14, color: '#9ca3af', marginTop: 12 },
+
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  modeTagInline: {
+    fontFamily: Fonts.black,
+    fontSize: 14,
+    color: Colors.ink,
+    letterSpacing: 1,
+  },
+  timer: {
+    fontFamily: Fonts.black,
+    fontSize: 22,
+    letterSpacing: -0.5,
+  },
+  multiplierBadge: {
+    backgroundColor: Colors.yellow,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: Radius.sm,
+    fontFamily: Fonts.black,
+    fontSize: 14,
+    color: Colors.ink,
+    overflow: 'hidden',
+  },
+
+  progressBar: {
+    height: 6,
+    backgroundColor: Colors.ink,
+    borderRadius: Radius.pill,
+    marginBottom: 10,
+    overflow: 'hidden',
+    opacity: 0.12,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: Colors.ink,
+    opacity: 10, // restores full ink inside the dimmed container
+    borderRadius: Radius.pill,
+  },
+
+  subHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  questionNum: {
+    fontFamily: Fonts.mono,
+    fontSize: 13,
+    color: Colors.ink,
+    opacity: 0.4,
+  },
+  scoreText: {
+    fontFamily: Fonts.mono,
+    fontSize: 13,
+    color: Colors.ink,
+    opacity: 0.4,
+  },
+
+  streakLabel: {
+    fontFamily: Fonts.mono,
+    fontSize: 13,
+    color: '#f97316',
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  missLabel: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.red,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+
+  question: {
+    fontFamily: Fonts.black,
+    fontSize: 24,
+    color: Colors.ink,
+    marginBottom: 24,
+    lineHeight: 32,
+  },
+
+  flashWrap: {
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  pointsFlash: {
+    fontFamily: Fonts.black,
+    fontSize: 22,
+    color: '#16a34a',
+    textAlign: 'center',
+  },
+  pointsNeg: {
+    color: Colors.red,
+  },
+  bonusLabel: {
+    fontFamily: Fonts.mono,
+    fontSize: 11,
+    color: '#16a34a',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+    marginTop: 3,
+  },
+
+  answers: {
+    gap: 12,
+  },
+  answerButton: {
+    backgroundColor: Colors.cream,
+    padding: 18,
+    borderRadius: Radius.sm,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+  },
+  lockedBtn: {
+    opacity: 0.55,
+  },
+  correct: {
+    backgroundColor: '#16a34a',
+    borderColor: '#16a34a',
+  },
+  wrong: {
+    backgroundColor: Colors.red,
+    borderColor: Colors.red,
+  },
+  dim: {
+    opacity: 0.4,
+  },
+  answerText: {
+    fontFamily: Fonts.mono,
+    fontSize: 17,
+    color: Colors.ink,
+    textAlign: 'center',
+  },
+  answerTextLight: {
+    color: Colors.cream,
+  },
+
+  // ── Already played screen ────────────────────────────────────────────────────
+  alreadyContainer: {
+    flex: 1,
+    backgroundColor: Colors.cream,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 28,
+    gap: 16,
+  },
+
+  modeTag: {
+    fontFamily: Fonts.mono,
+    fontSize: 11,
+    color: Colors.ink,
+    opacity: 0.4,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+  },
+
+  scoreCard: {
+    width: '100%',
+    backgroundColor: Colors.cream,
+    borderRadius: Radius.card,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    padding: 24,
+    alignItems: 'center',
+    gap: 4,
+  },
+  bigScore: {
+    fontFamily: Fonts.black,
+    fontSize: 72,
+    color: Colors.ink,
+    lineHeight: 80,
+  },
+  bigScoreDim: {
+    color: Colors.ink,
+    opacity: 0.3,
+    fontSize: 48,
+  },
+  ptsLabel: {
+    fontFamily: Fonts.mono,
+    fontSize: 14,
+    color: Colors.ink,
+    opacity: 0.45,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+
+  gridText: {
+    fontSize: 24,
+    letterSpacing: 3,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    lineHeight: 32,
+  },
+
+  shareCard: {
+    width: '100%',
+    backgroundColor: Colors.cream,
+    borderRadius: Radius.card,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    padding: 20,
+    gap: 8,
+    alignItems: 'center',
+  },
+  shareHeader: {
+    fontFamily: Fonts.mono,
+    fontSize: 10,
+    color: Colors.ink,
+    opacity: 0.4,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+  },
+  shareText: {
+    fontFamily: Fonts.mono,
+    fontSize: 14,
+    color: Colors.ink,
+    textAlign: 'center',
+    lineHeight: 26,
+  },
+
+  homeBtn:       { width: '100%', position: 'relative', height: 52 + CARD_DEPTH },
+  homeBtnShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 52, backgroundColor: Colors.ink, borderRadius: Radius.sm },
+  homeBtnFace:   { position: 'absolute', left: 0, right: 0, top: 0, height: 52, backgroundColor: Colors.yellow, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },
+  homeBtnText:   { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, letterSpacing: 0.5 },
+
+  comeBack: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.ink,
+    opacity: 0.35,
+    marginTop: 4,
+  },
 });

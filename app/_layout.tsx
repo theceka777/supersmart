@@ -41,7 +41,6 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)"    options={{ headerShown: false }} />
           <Stack.Screen name="game"      options={{ headerShown: false }} />
-          <Stack.Screen name="classic"   options={{ headerShown: false }} />
           <Stack.Screen name="daily"     options={{ headerShown: false }} />
           <Stack.Screen name="echo"      options={{ headerShown: false }} />
           <Stack.Screen name="challenge" options={{ headerShown: false }} />

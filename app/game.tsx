@@ -93,7 +93,7 @@ export default function GameScreen() {
   // Time's up → end
   useEffect(() => {
     if (timeLeft === 0) {
-      updateHighScore('arcade', scoreRef.current);
+      updateHighScore('quickmatch', scoreRef.current);
       router.replace(`/end?score=${scoreRef.current}&mode=arcade`);
     }
   }, [timeLeft]);
@@ -161,7 +161,7 @@ export default function GameScreen() {
     advanceRef.current = setTimeout(() => {
       const next = questionIndex + 1;
       if (next >= questions.length) {
-        updateHighScore('arcade', scoreRef.current);
+        updateHighScore('quickmatch', scoreRef.current);
         router.replace(`/end?score=${scoreRef.current}&mode=arcade`);
       } else {
         setSelectedAnswer(null);

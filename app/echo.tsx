@@ -10,8 +10,8 @@ import Animated, {
   withSpring,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { QUESTIONS, shuffleQuestions, getRank } from './questions';
-import { EMOTES, pickInterviewEmotes } from './content';
+import { QUESTIONS, shuffleQuestions } from './questions';
+import { EMOTES, pickInterviewEmotes, getRankLabel } from './content';
 import { Avatar } from '@/components/Avatar';
 import { useAppStore } from './store';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
@@ -157,6 +157,7 @@ export default function EchoScreen() {
   const [lastLabel,      setLastLabel]      = useState('');
   const [locked,         setLocked]         = useState(true);
   const [gameEmotes,     setGameEmotes]     = useState<string[]>([]);
+  const [selectedEmote,  setSelectedEmote]  = useState<string | null>(null);
 
   const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
   const nextRef      = useRef<ReturnType<typeof setTimeout>  | null>(null);
@@ -260,7 +261,7 @@ export default function EchoScreen() {
     const swing = Math.floor(base * 0.35 * (Math.random() - 0.4));
     setGhostScore(Math.max(0, base + swing));
     setGameEmotes(pickInterviewEmotes());
-    updateHighScore('arcade', final);
+    updateHighScore('quickmatch', final);
     setPhase('result');
   }
 
@@ -308,6 +309,13 @@ export default function EchoScreen() {
     );
   }
 
+  // Resolve the emote the player leaves behind: their pick, or a random one if they skipped.
+  function resolveEmote(): string {
+    if (selectedEmote) return selectedEmote;
+    const pool = EMOTES.filter(e => e.active);
+    return pool[Math.floor(Math.random() * pool.length)].text;
+  }
+
   // ── Result ──────────────────────────────────────────────────────────────────
   if (phase === 'result') {
     const final = scoreRef.current;
@@ -321,32 +329,43 @@ export default function EchoScreen() {
           <View style={s.scoreCard}>
             <Text style={s.scoreCardLabel}>You</Text>
             <Text style={[s.scoreValue, won && s.winnerScore]}>{final.toLocaleString()}</Text>
-            <Text style={s.scoreRank}>{getRank(final)}</Text>
+            <Text style={s.scoreRank}>{getRankLabel(final)}</Text>
           </View>
           <Text style={s.vsText}>VS</Text>
           <View style={s.scoreCard}>
             <Avatar color={ghost.color} eyes="square" mouth="smirk" size={40} />
             <Text style={s.scoreCardLabel}>{ghost.name}</Text>
             <Text style={[s.scoreValue, !won && !tied && s.winnerScore]}>{ghostScore.toLocaleString()}</Text>
-            <Text style={s.scoreRank}>{getRank(ghostScore)}</Text>
+            <Text style={s.scoreRank}>{getRankLabel(ghostScore)}</Text>
           </View>
         </View>
 
         <Text style={s.interviewLabel}>POST-GAME INTERVIEW</Text>
         <View style={s.emoteRow}>
-          {gameEmotes.map(e => (
-            <Pressable key={e} style={s.emoteChip} onPress={() => router.replace('/')}>
-              <Text style={s.emoteText}>{e}</Text>
-            </Pressable>
-          ))}
+          {gameEmotes.map(e => {
+            const isSelected = selectedEmote === e;
+            const isDimmed   = selectedEmote !== null && !isSelected;
+            return (
+              <Pressable
+                key={e}
+                style={[s.emoteChip, isSelected && s.emoteChipSelected, isDimmed && s.emoteChipDim]}
+                onPress={() => setSelectedEmote(isSelected ? null : e)}
+              >
+                <Text style={[s.emoteText, isSelected && s.emoteTextSelected]}>{e}</Text>
+              </Pressable>
+            );
+          })}
         </View>
-        <Pressable onPress={() => router.replace('/echo')}>
+        <Pressable onPress={() => { resolveEmote(); router.replace('/echo'); }}>
           <View style={s.newGhostWrap}>
             <View style={s.newGhostShadow} />
             <View style={s.newGhostFace}>
               <Text style={s.newGhostText}>NEW GHOST</Text>
             </View>
           </View>
+        </Pressable>
+        <Pressable onPress={() => { resolveEmote(); router.replace('/'); }} style={s.homeLink}>
+          <Text style={s.homeLinkText}>go home</Text>
         </Pressable>
       </View>
     );
@@ -467,8 +486,13 @@ const s = StyleSheet.create({
   scoreRank:      { fontFamily: Fonts.mono, fontSize: 11, color: Colors.ink, opacity: 0.45 },
   interviewLabel: { fontFamily: Fonts.mono, fontSize: 10, color: Colors.ink, opacity: 0.4, letterSpacing: 2, textTransform: 'uppercase', marginTop: 8, marginBottom: 2 },
   emoteRow:       { flexDirection: 'column', gap: 8, width: '100%' },
-  emoteChip:      { backgroundColor: Colors.ink, paddingVertical: 10, paddingHorizontal: 16, borderRadius: Radius.sm },
-  emoteText:      { fontFamily: Fonts.mono, fontSize: 13, color: Colors.cream, textAlign: 'center' },
+  emoteChip:        { backgroundColor: Colors.cream, paddingVertical: 10, paddingHorizontal: 16, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink },
+  emoteChipSelected:{ backgroundColor: Colors.yellow },
+  emoteChipDim:     { opacity: 0.3 },
+  emoteText:        { fontFamily: Fonts.mono, fontSize: 13, color: Colors.ink, textAlign: 'center' },
+  emoteTextSelected:{ color: Colors.ink },
+  homeLink:         { paddingVertical: 10 },
+  homeLinkText:     { fontFamily: Fonts.mono, fontSize: 13, color: Colors.ink, opacity: 0.4, textDecorationLine: 'underline' },
   newGhostWrap:   { position: 'relative', height: 52 + CARD_DEPTH, width: 220, marginTop: 4 },
   newGhostShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 52, backgroundColor: Colors.ink, borderRadius: Radius.sm },
   newGhostFace:   { position: 'absolute', left: 0, right: 0, top: 0, height: 52, backgroundColor: Colors.yellow, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },

@@ -10,7 +10,7 @@ const FREE_LIMIT = 7;
 
 export default function ClassicScreen() {
   const router = useRouter();
-  const { updateHighScore, freePlay, recordPlay } = useAppStore();
+  const { freePlay, recordPlay } = useAppStore();
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -105,8 +105,8 @@ export default function ClassicScreen() {
 
   function endGame(finalScore: number, finalStrikes: number) {
     clearTimers();
-    updateHighScore('classic', finalScore);
-    router.replace(`/end?score=${finalScore}&mode=classic&strikes=${finalStrikes}`);
+    // Classic mode retired — no high score update. Route unreachable in production.
+    router.replace(`/end?score=${finalScore}&mode=arcade&strikes=${finalStrikes}`);
   }
 
   function getButtonStyle(index: number) {
