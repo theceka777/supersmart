@@ -18,6 +18,12 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  // Tab bar icons
+  'tray.fill':   'inbox',
+  'person.fill': 'person',
+  // Common extras
+  'gearshape.fill': 'settings',
+  'star.fill':      'star',
 } as IconMapping;
 
 /**

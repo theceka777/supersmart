@@ -127,14 +127,19 @@ export function ArcadeCard({
         {/* card face — floats idly, sinks on press */}
         <Animated.View
           style={[
-            styles.face,
-            {
-              height,
-              backgroundColor: disabled ? '#d1d5db' : color,
-            },
+            styles.faceAnimated,
+            { height },
             faceStyle,
           ]}
         >
+          {/* inner clip wrapper — overflow:hidden lives here so Android doesn't
+              clip the Animated.View at its original bounds during translation */}
+          <View
+            style={[
+              styles.faceInner,
+              { height, backgroundColor: disabled ? '#d1d5db' : color },
+            ]}
+          >
           {/* text stack */}
           <View style={[styles.textBlock, contentOffsetY ? { marginTop: contentOffsetY } : null]}>
             <Text style={[styles.label, { color: disabled ? '#9ca3af' : fg }]}>{label}</Text>
@@ -155,6 +160,7 @@ export function ArcadeCard({
               {footer}
             </View>
           ) : null}
+          </View>{/* end faceInner */}
         </Animated.View>
       </View>
     </Pressable>
@@ -169,11 +175,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.shadow,
     borderRadius: Radius.card,
   },
-  face: {
+  // Animated wrapper — no overflow so Android doesn't clip at original bounds
+  faceAnimated: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
+  },
+  // Non-animated inner — owns the border, bg, clip, and layout
+  faceInner: {
     borderRadius: Radius.card,
     borderWidth: 3,
     borderColor: Colors.border,
