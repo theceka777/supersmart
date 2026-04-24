@@ -8,10 +8,7 @@ import 'react-native-reanimated';
 // @expo-google-fonts — install with:
 // npx expo install react-native-svg @expo-google-fonts/archivo-black @expo-google-fonts/jetbrains-mono
 import { ArchivoBlack_400Regular } from '@expo-google-fonts/archivo-black';
-import {
-  JetBrainsMono_500Medium,
-  JetBrainsMono_700Bold,
-} from '@expo-google-fonts/jetbrains-mono';
+import { JetBrainsMono_500Medium } from '@expo-google-fonts/jetbrains-mono';
 
 import { AppProvider } from './store';
 import { Colors } from '@/constants/theme';
@@ -37,9 +34,8 @@ const SuperSmartNavTheme: Theme = {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    ArchivoBlack:        ArchivoBlack_400Regular,
-    JetBrainsMono:       JetBrainsMono_500Medium,
-    'JetBrainsMono-Bold': JetBrainsMono_700Bold,
+    ArchivoBlack:  ArchivoBlack_400Regular,
+    JetBrainsMono: JetBrainsMono_500Medium,
   });
 
   // Hold splash until fonts are ready

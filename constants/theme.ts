@@ -27,10 +27,11 @@ export const Colors = {
 };
 
 // Font family names — matched to what useFonts registers in _layout.tsx
+// Super Smart 2026 uses exactly two typefaces (mothership Part 6):
+// Archivo Black for display, JetBrains Mono for body/secondary UI.
 export const Fonts = {
-  black: 'ArchivoBlack',      // Archivo Black 400 — wordmark, card labels, scores
-  mono:  'JetBrainsMono',     // JetBrains Mono 500 — sublabels, stats, footer
-  monoBold: 'JetBrainsMono-Bold', // JetBrains Mono 700 — rank name
+  black: 'ArchivoBlack',   // Archivo Black 400 — wordmark, card labels, scores, buttons
+  mono:  'JetBrainsMono',  // JetBrains Mono 500 — sublabels, stats, footer, mono labels
 };
 
 // Spacing / sizing
