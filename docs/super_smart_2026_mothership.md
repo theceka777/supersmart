@@ -165,7 +165,7 @@ Three tabs. Clean, focused, no decision overhead for the player.
 - **League** *(formerly Inbox)* — four sections in order: (1) Recent Activity feed (match results since last login or last 24h, whichever longer) + League of 30 standings for this week; (2) Daily Race board for today; (3) Global Ranking — Pro only, blurred teaser for free users; (4) Past Matches — personal match history. Badge dot when new activity arrives. Push notification fires on new activity if permitted.
 - **Profile** — avatar, game log, personal stats, settings.
 
-**Leaderboard placement:** a compact "you are here" widget lives on the home screen — your rank number plus 2–3 names immediately above and below you in the standings. Motivational glance before you play. The full leaderboard (all players, sortable, both boards) lives in the Inbox tab. Two different jobs, two different surfaces.
+**Leaderboard placement:** a compact "you are here" widget lives on the home screen — your rank number plus 2–3 names immediately above and below you in the standings. Motivational glance before you play. The full leaderboard (all players, sortable, both boards) lives in the League tab. Two different jobs, two different surfaces.
 
 **Game log** lives in Profile, not top-level nav. Personal session history: date, mode, score, rank achieved, streak peak. Free tier gets a limited view (last 10 games); Pro gets full history. This is the "Advanced stats and personal records" Pro feature referenced in Part 5. Designed to be dug into occasionally, not checked every session.
 
@@ -419,7 +419,7 @@ Player generates a shareable link or code after any round. Friend plays the exac
 
 **Challenge ghost rule:** everyone who plays a challenge link always races the original sender's ghost — permanently. The challenge link is unique to the sender. Unlike Quickmatch's baton pass, challenge ghosts are static and never update. This means: no matter how many people play your challenge link, they all race you specifically.
 
-**Challenge results:** the sender can view a results page at any time showing everyone who played their challenge link — ranked by score, with their emote. Accessible from the Inbox tab (see Navigation architecture, Part 3). No dedicated challenge-results screen required at launch — the Inbox surfaces this naturally.
+**Challenge results:** the sender can view a results page at any time showing everyone who played their challenge link — ranked by score, with their emote. Accessible from the League tab (see Navigation architecture, Part 3). No dedicated challenge-results screen required at launch — the League tab surfaces this naturally.
 
 ### Layer 3: Three leaderboards *[UPDATED 2026-04-19 session 6]*
 
@@ -447,9 +447,9 @@ Opponent's side of the screen is deliberately minimal: static display of their a
 
 This principle holds even if the avatar/customization system is scrapped later — a default mascot works just as well.
 
-### The Inbox — activity feed
+### The League tab — activity feed
 
-The Inbox is a permanent tab in the bottom nav (see Navigation architecture, Part 3). Not a popup — accessible any time the player wants it. Badge dot appears when new activity arrives.
+The League tab is a permanent tab in the bottom nav (see Navigation architecture, Part 3). Not a popup — accessible any time the player wants it. Badge dot appears when new activity arrives.
 
 **What it shows:** everyone who raced your ghost or completed your challenge since your last login, or the last 24 hours — whichever window is longer. Each entry shows: opponent name, avatar, emote they left, their score vs. yours, win/loss. Challenge completions and Quickmatch ghost races feed into the same unified feed.
 
@@ -457,7 +457,7 @@ The Inbox is a permanent tab in the bottom nav (see Navigation architecture, Par
 
 **"Best moment" surface:** one featured highlight surfaced at the top when available (e.g. "3 people tried and nobody beat you", "someone matched your high score exactly"). Designed to feel like a small gift on return, not a Slack notification log.
 
-**Leaderboards** live in the Inbox tab: League of 30 (everyone), Daily Race board (everyone), and Global all-time (Pro only — visible but locked with an upgrade prompt for free users). The home screen carries only a compact "you are here" widget for the daily board (see Navigation architecture). The Inbox is where you go to dig in.
+**Leaderboards** live in the League tab: League of 30 (everyone), Daily Race board (everyone), and Global all-time (Pro only — visible but locked with an upgrade prompt for free users). The home screen carries only a compact "you are here" widget for the daily board (see Navigation architecture). The League tab is where you go to dig in.
 
 ### Honesty layer
 
@@ -757,7 +757,7 @@ No Android-specific blocking issues remain in the current codebase. Android path
 - Challenge-a-Friend shared question snapshots
 - Global leaderboards
 - Daily Quiz daily sets and scores
-- "While you were away" inbox data
+- "While you were away" activity feed data (League tab)
 
 **Why Supabase over alternatives:**
 - Real Postgres (not a weird NoSQL thing) — simpler for a one-person project
@@ -914,7 +914,7 @@ Detailed marketing plan waits for Part 6 (visuals) and Part 7 (build) to firm up
 - Challenge-a-Friend: link generation, same-question replay flow
 - Global leaderboards + daily question
 - Post-game interview emote system (emote library design + integration)
-- "While you were away" inbox screen
+- "While you were away" activity feed screen (League tab)
 - Rare easter-egg reactions (starting with the wince)
 - **Supabase content migration:** Wire `app/content.ts` → Supabase. Run `supabase/schema.sql`, seed emotes + ranks, replace `pickInterviewEmotes()` and `getRankLabel()` with Supabase API calls. Delete hardcoded `getRank()` from `questions.ts`. This decouples all editable content from deploys — emotes and ranks become live-editable from the Supabase dashboard.
 **Exit criteria:** You can press Multiplayer and play a ghost round end-to-end. You can send a challenge link to a friend and it works. Global leaderboards populate.
@@ -1155,4 +1155,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.10 — last updated 2026-04-19.*
+*End of doc v1.15 — last updated 2026-04-24.*

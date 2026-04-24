@@ -1,12 +1,13 @@
-// inbox.tsx — League tab
-// Four sections in order:
-//   1. League activity — recent match results + league standings (this week)
+// league.tsx — League tab
+// Four sections in order (Mothership Part 3, Navigation architecture):
+//   1. Recent Activity + League of 30 standings (this week)
 //   2. Daily Race board — today's global scores
 //   3. Global Ranking — all-time cumulative (Pro only, blurred teaser)
 //   4. Past Matches — personal match history stub
 //
 // Live data: Phase 4 (Supabase). All rows are mock for now.
 // No "ghost" in any customer-facing copy.
+// File renamed from inbox.tsx → league.tsx per decision 2026-04-19 (session 7).
 
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -170,7 +171,7 @@ function GlobalBoardLocked() {
 
 // ── Screen ────────────────────────────────────────────────────────────────────
 
-export default function InboxScreen() {
+export default function LeagueScreen() {
   return (
     <SafeAreaView style={s.safe}>
       <ScrollView
@@ -238,7 +239,8 @@ export default function InboxScreen() {
 // ── Styles ────────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  safe:   { flex: 1, backgroundColor: Colors.cream },
+  // Transparent — global Sunburst + Halftone from root _layout.tsx show through.
+  safe:   { flex: 1, backgroundColor: 'transparent' },
   scroll: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 48, gap: 10 },
 
   titleRow: { marginBottom: 4 },

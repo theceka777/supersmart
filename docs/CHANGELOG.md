@@ -2,6 +2,52 @@
 
 ---
 
+## Session 8 — 2026-04-24 — Mothership alignment pass
+
+Read the primer and mothership (now v1.15, last updated 2026-04-24) and closed four concrete code/spec gaps.
+
+### Renamed
+- **`app/(tabs)/inbox.tsx` → `app/(tabs)/league.tsx`**. Default export `InboxScreen` → `LeagueScreen`. Per mothership decision 2026-04-19 session 7: the second tab is "League", not "Inbox". The tab title label was already correct; this closes the file/route-name gap.
+- Updated `app/(tabs)/_layout.tsx` to register `name="league"`.
+- Updated `components/TokenTabBar.tsx` route map keys `inbox` → `league`. Icon swapped from `tray.fill` → `trophy.fill` to match the League framing.
+- Added `trophy.fill` → `emoji-events` to `components/ui/icon-symbol.tsx` MAPPING so Android doesn't crash on the new icon.
+
+### Architecture
+- **Sunburst + Halftone promoted to global.** Both layers now render once in `app/_layout.tsx` behind every screen, not just Home. Per mothership decision 2026-04-19 session 7. `Stack` now uses `contentStyle: { backgroundColor: 'transparent' }`.
+- Removed the local Sunburst/Halftone pair from `app/(tabs)/index.tsx`.
+- Made `SafeAreaView` backgrounds transparent on `index.tsx`, `league.tsx`, `profile.tsx`, `avatar.tsx` so the global background shows through. Cream card surfaces preserved where they are intentional UI (e.g. the avatar card, stat cards).
+- **Follow-up (not done in this session):** game-layer screens (`echo.tsx`, `daily.tsx`, `end.tsx`, `challenge.tsx`, `game.tsx`) still have local cream/white backgrounds. Making them transparent too is a visual-review pass in a later session — risk of affecting game-loop rendering is non-zero.
+
+### Removed
+- **`app/classic.tsx` deleted.** Classic mode retired 2026-04-18 session 3. File was orphaned (not in the root Stack, not referenced anywhere) and its own comment said "Route unreachable in production."
+
+### Avatar system — 2026-04-24 spec
+- `app/avatar.tsx` rewritten against the mothership spec: 3 components, 3 option tiers, Cream Stadium styling. Free base kit: 4 brain colours × 4 eye styles × 4 mouth styles (64 combos). Pro tier: 4 additional options per component, visible but locked for free users (🔒 glyph).
+- `components/Avatar.tsx` eye + mouth glyph dictionaries expanded to 8 each (4 free + 4 Pro).
+- Pro access hardcoded to `false` for now — wire it to `useAppStore()` once the Pro purchase flow lands.
+- **Deferred to Phase 3:** milestone-unlock conditions for earned items, league rank border stroke on avatar (8 tier colours, grey → gold, Legend shimmer).
+
+### Files touched
+- `app/_layout.tsx` — global Sunburst + Halftone + transparent Stack content
+- `app/(tabs)/_layout.tsx` — `inbox` → `league` route name
+- `app/(tabs)/index.tsx` — dropped local background layers, transparent safe area
+- `app/(tabs)/league.tsx` — renamed from `inbox.tsx`, default export renamed, transparent safe area
+- `app/(tabs)/profile.tsx` — transparent safe area
+- `app/avatar.tsx` — full rewrite for 4/4/4 free + 4/4/4 Pro tiers, Cream Stadium
+- `app/classic.tsx` — deleted
+- `components/Avatar.tsx` — expanded glyph dictionaries, antenna fixed in comment
+- `components/TokenTabBar.tsx` — route keys `inbox` → `league`, icon `tray.fill` → `trophy.fill`
+- `components/ui/icon-symbol.tsx` — added `trophy.fill` mapping
+
+### Still on the mothership punch-list (not touched this session)
+- "Unstoppable" 10-streak reward — mothership names it but I haven't verified `echo.tsx`/`game.tsx` scoring logic implements a 10-streak tier above 4× (the 3/5/7 → 2×/3×/4× ladder is all I've confirmed).
+- Onboarding flow (wordmark splash → first-time home → Sign in with Apple/Google → ghost-free first round with 2 nudges) — spec locked 2026-04-24, explicitly Phase 3 work.
+- League rank border on Avatar (Phase 3 visual pass).
+- End-of-league UX interstitials (Phase 3/4 copy).
+- Game-screen transparent safe areas (see Architecture follow-up above).
+
+---
+
 ## Session 2 — 2026-04-18
 
 ### Bug fixes

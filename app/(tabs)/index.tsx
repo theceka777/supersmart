@@ -18,8 +18,8 @@ import { DailyDecor } from '@/components/DailyDecor';
 import { LivePlayersStrip } from '@/components/LivePlayersStrip';
 import { InviteFriendsChip } from '@/components/InviteFriendsChip';
 import { GlobalLeaderboard } from '@/components/GlobalLeaderboard';
-import { Sunburst } from '@/components/Sunburst';
-import { Halftone } from '@/components/Halftone';
+// Sunburst + Halftone now render globally in app/_layout.tsx —
+// mothership decision 2026-04-19 session 7.
 import { Colors, Fonts, CARD_DEPTH } from '@/constants/theme';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -128,9 +128,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* ── Background layers: sunburst rays + halftone dots ── */}
-      <Sunburst rays={24} color="#FFD6A8" opacity={0.45} size={700} />
-      <Halftone color="rgba(26,21,34,0.07)" dotSpacing={9} />
+      {/* Background (Sunburst + Halftone) lives in root app/_layout.tsx — global. */}
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
@@ -248,7 +246,8 @@ export default function HomeScreen() {
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.background },
+  // Transparent — the global Sunburst + Halftone in root _layout.tsx show through.
+  safe: { flex: 1, backgroundColor: 'transparent' },
   scroll: {
     paddingHorizontal: 20,
     paddingTop: 12,

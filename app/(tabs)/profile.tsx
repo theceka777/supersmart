@@ -147,7 +147,8 @@ export default function ProfileScreen() {
 // ── Styles ────────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.cream },
+  // Transparent — global Sunburst + Halftone from root _layout.tsx show through.
+  safe: { flex: 1, backgroundColor: 'transparent' },
   scroll: {
     paddingHorizontal: 20,
     paddingTop: 16,

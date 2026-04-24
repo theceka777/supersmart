@@ -27,13 +27,13 @@ import { Colors, Fonts } from '@/constants/theme';
 
 const ROUTE_ICON: Record<string, string> = {
   index:   'house.fill',
-  inbox:   'tray.fill',
+  league:  'trophy.fill',
   profile: 'person.fill',
 };
 
 const ROUTE_LABEL: Record<string, string> = {
   index:   'home',
-  inbox:   'league',
+  league:  'league',
   profile: 'profile',
 };
 
