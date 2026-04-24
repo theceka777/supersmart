@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.18 — Instrumentation & Observability stack locked (PostHog + Sentry + RevenueCat, Phase 6 deliverable); Daily Race share format revised; Git workflow formalised
+**Status:** v1.19 — Flexibility Architecture locked (Supabase for all copy, PostHog flags for all tunables, EAS Update deferred); framework choice reconsidered and held at React Native
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -840,6 +840,69 @@ The "no ads ever" brand commitment (Part 5) is about what's *shown* inside the a
 
 **Critical clarification — we do not ship ads, display or otherwise.** This section is entirely about *measurement* and *revenue plumbing*. There is no ad-mediation SDK, no ad network integration, no ad-fill-rate optimisation in this codebase. The "no ads ever" decision in Part 5 remains the locked brand position. What a VC or diligence reviewer would call the "ad layer" in a serious consumer-mobile pitch is, for Super Smart, the three Tier 1 tools above — not display ads.
 
+### Flexibility Architecture *[DECIDED 2026-04-24]*
+
+The operating principle: **after launch we should be able to change almost anything without shipping a new App Store build.** Every non-structural decision lives server-side. Every constant that might reasonably need tuning has a remote override. The app binary becomes the shell; content and config become the product.
+
+Two commitments in scope for v1, one explicitly deferred.
+
+**Commitment 1 — All player-visible strings live in Supabase.** No copy that a player reads is hardcoded beyond the bootstrap splash. This extends the `app/content.ts` → Supabase migration (Phase 4) from just questions + emotes + ranks to *everything a player reads*:
+
+- 2,500+ questions, options, tags, kickers *(already specced)*
+- 75 emotes across 5 categories *(already specced)*
+- 22 rank names and thresholds *(already specced)*
+- All "One More" button copy (target: 100+ lines)
+- All Pro wall copy (hook, title, features, CTA, escalation lines)
+- All onboarding nudges ("Under 2s — speed bonus!" etc.)
+- Narrator callouts (common + event-specific)
+- Push notification copy
+- Help text, empty states, error messages
+- All button labels and chip labels beyond the splash
+- Legal copy and links
+
+Caching: fetch on launch, cache locally, refresh silently every N minutes. Fallback to last-known-good if offline. **Never block a 60-second round on a network call.** Gameplay continuity beats copy freshness.
+
+**Commitment 2 — Every tunable number is a PostHog flag with a hardcoded fallback.** Every constant that might reasonably get tuned post-launch becomes a remote config value. If PostHog is down or unreachable, the app reads the hardcoded fallback and continues without interruption.
+
+- Free daily round count (default 7)
+- One More tap limit (default 3)
+- Base points (100), speed bonus amount (+50), speed bonus window (2s)
+- Streak ladder thresholds (3/5/7 → 2×/3×/4×)
+- Miss penalty amount (−50) and threshold (3 misses)
+- 1-second answer UI lock duration
+- League cluster size (30)
+- Transition-window duration (default 2 hours)
+- Daily Race reset time
+- Pro price, Streak Shield bundle pricing
+- Kill switches: `quickmatch_enabled`, `daily_race_enabled`, `league_enabled`
+
+Anything on this list can additionally be A/B tested by variant via PostHog's built-in feature-flag-as-experiment capability — three Pro wall headlines, two free-round caps, etc. — without writing a single line of experiment infrastructure.
+
+**Commitment 3 (deferred) — EAS Update OTA JS bundle shipping.** Not wired in v1. Means every code or UI change requires an App Store submission. Acceptable trade-off at launch because submissions are infrequent and we'd rather move on the content/config layers first. Revisit post-launch if iteration speed on UI or bug fixes becomes a real blocker.
+
+**Explicitly out of scope at any stage:**
+
+- Server-driven UI (rendering screens from JSON). Overkill for a solo-founder scope; EAS Update — if/when enabled — covers 95% of what this would give us.
+- Remote-loading of executable code beyond standard JS bundles (violates App Store rules and isn't needed).
+
+**What stays hardcoded forever, on principle:**
+
+- Navigation structure (Home / League / Profile three-tab layout)
+- Core game loop mechanics (60-second round, 3 answer options)
+- Mode definitions (Quickmatch + Daily Race as the two modes)
+- Brand primitives — Archivo Black + JetBrains Mono typography, Cream Stadium palette. These are brand decisions, not config values. Changing a hex in the palette is a mothership update, not a dashboard tweak.
+
+**Net effect at launch.** Without waiting on App Store review:
+
+- Add questions, tune kicker copy, ship seasonal question packs → Supabase update
+- Rename a rank, tweak a Pro wall headline, change push copy → Supabase update
+- Tune streak thresholds based on real player data → PostHog flag
+- A/B test Pro wall variants → PostHog flag
+- Kill a broken mode in prod → kill switch flag
+- Change Daily Race reset time → flag
+
+Code bug fixes and UI redesigns still require App Store submission while EAS Update is deferred. That's the conscious trade-off.
+
 ### Development environment *[DECIDED 2026-04-18]*
 
 **Environment state as of 2026-04-18:**
@@ -1130,6 +1193,8 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-24 | Git workflow formalised. Repo = `supersmart/` only; parent-folder docs are canonical and mirrored into `supersmart/docs/` for git history. Claude commits from sandbox; push is always a Mac-terminal handoff (`git push origin main` from the supersmart folder) because the sandbox proxy blocks outbound push. Every session ending in a commit tells the creative director the exact push command. | Previously the push-restriction note lived as a single bullet inside Part 7's Android section, which is the wrong home for it and let the workflow drift across sessions. Formalising the mirror-before-commit rule and the Mac-push handoff prevents lost doc updates and makes future sessions self-sufficient. |
 | 2026-04-24 | Daily Race share format split from end-screen visual. The 🟩🟥 grid stays on-screen as a reflective moment; the off-app share becomes a 3-line scoreboard (date / ⚡ pts + rank / 🔥 best streak). Previous spec (`"Super Smart Daily — 41/60 · 4,850 pts\n[grid]"`) is superseded. | Real-device review surfaced that the 60-square grid fails the three things that make Wordle's grid viral: (1) it's too long for a single chat bubble — 60 squares wrap to 4–5 lines of noise; (2) grid length varies across players because answered-question counts vary (fast 45, slow 28), so direct visual comparison breaks; (3) a pass/fail sequence has no narrative arc the way Wordle's problem-solving path does. The 3-line scoreboard is fixed-shape across all players, pastes cleanly, and uses the peak streak as a natural-language brag line. The grid is still valuable in-app as a reflective "here's how it went" beat. |
 | 2026-04-24 | Instrumentation & Observability Tier 1 stack locked: PostHog (analytics + feature flags + A/B) + Sentry (crash) + RevenueCat (IAP). Expo Push for notifications. All three ship in Phase 6 — roughly 2–3 days of work. MMP (AppsFlyer / Adjust / Singular) explicitly deferred until paid UA is live; data warehouse, CDP, lifecycle marketing, ASO tooling deferred indefinitely. "No ads ever" brand commitment from Part 5 is untouched — this is measurement and revenue plumbing, not ad display. | Gap identified during session 8 pressure-test: mothership had framework (Part 7) and monetisation (Part 5) but no definition of how we'd measure whether the game is actually working. Any credible investor or dev-diligence review expects at minimum D1/D7/D30 retention, install→paying-user conversion, LTV by segment, viral coefficient, and crash-free session rate — none of which exist without instrumentation. RevenueCat specifically is non-negotiable because hand-rolled StoreKit receipt validation is a known trap. Tier 1 choices are all generous-free-tier + swappable later if any individual tool underperforms. |
+| 2026-04-24 | Flexibility Architecture locked in Part 7. Two commitments in scope: (1) all player-visible strings live in Supabase — extending the `app/content.ts` migration from just questions + emotes + ranks to every piece of copy a player reads; (2) every tunable game constant lives behind a PostHog flag with a hardcoded fallback. EAS Update OTA JS bundle shipping is explicitly deferred until post-launch. Server-driven UI is out of scope at any stage. Navigation structure, core game loop, mode definitions, and brand primitives (type + palette) stay hardcoded on principle. | Without this principle we can only change questions + emotes + ranks server-side and everything else requires an App Store submission. Locking the full content + config pipeline now (one-time extension of the Supabase migration plus setting up PostHog flag reads) pays compounding dividends post-launch: ship seasonal packs, tune balance from real data, A/B test Pro wall copy, kill-switch a broken mode — all without waiting on App Store review. EAS Update deferred because it's the only layer that adds real implementation work to the app binary; the other two layers are already partially wired. |
+| 2026-04-24 | Framework choice reconsidered (React Native vs Flutter) and held at React Native + Expo. External suggestion prompted the review — the generic "Flutter is more unified cross-platform" argument and "iOS/Android UI inconsistencies in RN" concerns. | Cost: 4–6 weeks of focused rewrite (6–10 weeks calendar at 6–8 hrs/week bandwidth) to reach current parity; no reason to take that on. Benefit: marginal. The unified-rendering advantage Flutter has is strongest for apps that lean on system widgets; Super Smart already renders every brand-defining surface (mascot, wordmark, sunburst, halftone, tab bar, cards, answer buttons) custom. Platform differences that remain on RN are narrow (typography hinting nuance, system gestures, haptics) and addressable via `Platform.OS` patches — the same pattern we already used successfully for SF Symbols → MaterialIcons and `overflow: hidden` on Animated.View. Framework choice will only be reopened if a specific technical wall appears that RN can't address. |
 
 ---
 
@@ -1231,4 +1296,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.18 — last updated 2026-04-24.*
+*End of doc v1.19 — last updated 2026-04-24.*
