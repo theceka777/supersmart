@@ -23,35 +23,44 @@ Same skeleton as 2012 (≤40-char questions, ≤15-char answers, 3 options, 60-s
 ## How we work together
 
 - **The creative director is the decision-maker.** AI (Claude) is a collaborator: pressure-tests ideas, implements, records decisions. Does not make strategic calls.
-- **Weekly bandwidth is 6-8 hours, bursty** (big pushes, quiet weeks).
+- **Weekly bandwidth is 6–8 hours, bursty** (big pushes, quiet weeks).
 - **"Perfect is the enemy of good."** Ship-it bias. Scope creep is the primary risk.
 - **One decision per conversation turn.** Don't dump multiple questions at once. Serialize.
 - **Working-together mode is "learn-as-we-go"** — creative director has no prior terminal experience; moving in chunks rather than command-by-command.
+- **Both sides pressure-test each other.** Push back when something is wrong, challenge reasoning, own mistakes.
 
-## The current state
+## The current state *(as of 2026-04-24)*
 
-- Mothership doc is at v1.10 as of April 19, 2026.
-- All critical-path questions are resolved. Phase 2 is substantially complete.
-- Phase 2 deliverables done: Cream Stadium palette locked, Archivo Black + JetBrains Mono typography, animated wordmark, brain mascot, ArcadeCard bob float, TokenTabBar, Sunburst + Halftone background. All running on real device via Expo Go.
-- Phase 2 still pending: reach out to designer for brand mascot polish.
-- Social/retention layer fully locked: League of 30 (transition window seeding, formation split rules, forming queue at 5 players, no ghost-fill), Streak Shield consumable IAP, "Build for the Flex" design principle.
-- Leaderboard structure locked: League of 30 (everyone) + Daily Race board (everyone) + Global all-time (Pro only, twice-daily updates, free users ranked but can't see).
-- Open for next session: "what happens after league" UX, League skill-sorted vs random matchmaking.
-- Launch target: **first half of August 2026.**
+- **Mothership doc is at v1.25.** Last updated April 24, 2026, after a very productive day: 5 "coffee decisions" locked, skill-tier-vs-league-tier clarified, bot-ghost system locked (major reversal + Honesty Layer retired), Phase 4 Supabase schema drafted at `supabase/phase4_schema.sql`, consistency audit + code sync pass, and a 5-item mini-decisions bundle.
+- **All critical-path decisions resolved.** Phase 2 substantially complete. Phase 3 in progress.
+- **Phase 2 deliverables done:** Cream Stadium palette locked, Archivo Black + JetBrains Mono typography, animated wordmark, brain mascot, ArcadeCard bob float, TokenTabBar, global Sunburst + Halftone background. All running on real device via Expo Go.
+- **Phase 4 schema draft:** 11 new tables at `supabase/phase4_schema.sql`. Not yet runnable — depends on auth library (Appendix D #1) + RLS pass + Edge Functions, which are future workstreams.
+- **Code and spec in sync** as of v1.25 audit (Session 11). Code carries the current rules for bot-ghost scoring, avatar randomization, and mode vocabulary.
+- **Launch target: first half of August 2026.**
+
+## What's next (open threads)
+
+- **Phase 1 1001.xml audit is overdue** per original timeline (was wk 2–4). Priority candidate for next session. 1001 questions need Keep/Light edit/Heavy edit/Retire tagging.
+- **Phase 4 blockers remain:** auth architecture (Appendix D #1), anti-cheat validator (#6), RLS policy depth, Edge Function buildouts (matchmaking, league close/open, daily race seeding, etc.).
+- **Appendix D has ~38 open items** grouped by phase. Many small mini-decisions could still batch.
+- **Between-sessions action item:** confirm `iamsupersmart.com` registrar status (drives Appendix D #40 support email domain).
 
 ## What to do first in any new session
 
-1. Read the Mothership doc fully (`super_smart_2026_mothership.md`). It's 793 lines but genuinely worth it — every major decision has a rationale you'll need.
-2. Note the Decision Log (Part 12) and Open Questions Index (Appendix D) — these tell you what's been decided and what's still open.
-3. Start by asking the creative director what session type this is (audit, build, planning, content work) and proceed from there.
-4. Never re-open a decision from the log without flagging it explicitly. Things already decided are decided.
+1. **Read the Mothership doc fully** (`super_smart_2026_mothership.md`, now ~1,400 lines). Every major decision has a rationale you'll need.
+2. **Check the Decision Log (Part 12) and Open Questions Index (Appendix D)** — decided vs open.
+3. **Read the most recent CHANGELOG entries** — they tell you what changed in the last few sessions and what's still in flight.
+4. **Ask the creative director what session type this is** (audit, build, planning, content work, creative pilot) and proceed from there.
+5. **Never re-open a decision from the log without flagging it explicitly.** Things decided are decided.
 
 ## Key references
 
-- **1001.xml** — the original question bank, used as the style corpus for all new content
-- **Mothership doc** — the complete design spec, source of truth for every decision
-- **Rank ladder (Part 3)** — 22 preserved rank names; the brand voice lives here
-- **Decision Log (Part 12)** — chronological record of major calls with rationales
+- **Mothership doc** — the complete design spec, source of truth for every decision. v1.25 as of 2026-04-24.
+- **CHANGELOG.md** — per-session record of what changed in each working session.
+- **1001.xml** — the original question bank, used as the style corpus for all new content.
+- **`supersmart/supabase/phase4_schema.sql`** — Phase 4 schema draft; 11 tables + 2 triggers + 7 open items inline.
+- **Rank ladder (Part 3)** — 22 preserved rank names; the brand voice lives here.
+- **Decision Log (Part 12)** — chronological record of major calls with rationales.
 
 ## Voice cheat sheet for any written content
 
@@ -64,26 +73,35 @@ Same skeleton as 2012 (≤40-char questions, ≤15-char answers, 3 options, 60-s
 ## Vocabulary
 
 - **Quickmatch** — primary home-screen mode; ghost-based competitive race (Echo architecture). 60 seconds, same questions as your ghost opponent, unlimited plays.
-- **Daily Race** — daily home-screen mode; 60 seconds, same question set for everyone globally that day, once per day, shareable score result.
+- **Daily Race** — daily home-screen mode; 60 seconds, same question set for everyone globally that day, once per day, shareable score result. Resets at **6am ET** every day (auto-adjusts with DST).
 - **Echo** — the internal/backend name for the ghost-race architecture. "Quickmatch" is the player-facing name.
 - **Equal ground principle** — both modes use the same question set for all players in their competitive context. You win or lose on speed and accuracy only.
-- **Question set** — 60 questions drawn randomly from the bank; the unit of play for Quickmatch. Infinite combinations. Lifecycle: retired after 30 days inactive or 1000 plays.
+- **Question set** — 60 questions drawn randomly from the bank; the unit of play for Quickmatch. Infinite combinations. Lifecycle: retired after 30 days inactive or **10,000 plays**.
+- **No-replay rule** — no player ever sees the same question set twice in Quickmatch (challenge links excepted). Enforced in matchmaking via `sessions` table filter.
 - **Ghost run** — a recorded session stored against a question set. What future Quickmatch players race.
-- **Baton pass** — ghost selection rule: you race the most recently completed ghost on your set, then become the ghost for the next player.
-- **Fresh set** — a question set with no ghost runs yet. First player gets the "you're first" moment in Super Smart voice.
-- **Skill tier** — one of 5 internal brackets (never shown to players) used for ghost matching. Percentile-based, recalculated weekly with inertia.
+- **Baton pass** — ghost selection rule: you race the most recently completed ghost on your set at your skill tier, then become the ghost for the next player.
+- **Bot ghost** — ephemeral single-use opponent generated by the matchmaking Edge Function when no human ghost exists at the player's skill tier on the assigned set. Score 300–3,000, mixed-pattern name, random avatar (including Pro cosmetics). Never persisted in `ghost_pool`, never enters Leagues. Graduates out automatically as human ghosts populate.
+- **Skill tier** — 5 internal brackets, never shown to players, used only for Quickmatch ghost matching. Rolling 10-game average, percentile-based with 70/30 weekly inertia. The ±1 expansion rule lives here (not on league tier).
+- **League tier** — 8 visible brackets shown as avatar border: **Rookie → Newcomer → Regular → Veteran → Qualifier → Finalist → Champion → Legend**. Players enter at **tier 2 (Newcomer)**; Rookie is demotion-only. Top 5 promote / bottom 5 demote weekly.
+- **League of 30** — weekly leaderboard cohort of up to 30 real players, strict same-tier, **no ghost-fill, no bots**. Members don't play head-to-head — they each play their own Quickmatch + Challenge + Daily Race rounds, weekly cumulative scores rank the cohort at week-end.
 - **Speed bonus** — +50 flat points for answering within 2 seconds, applied before streak multiplier.
 - **Streak multiplier** — 3/5/7 correct in a row → 2×/3×/4×. Wrong answer resets to zero.
-- **Overall leaderboard** — cumulative score across all sessions (Quickmatch + Daily Race), all-time and today.
-- **Daily leaderboard** — today's high scores for today's Daily Race set only. Resets daily.
-- **Challenge** — shareable link for "play the same round a friend played"
-- **One More** — brand-native paywall: tap a button for an extra round, copy escalates and teases
-- **Super Smart Pro** — $4.99 one-time upgrade, unlocks seasonal packs + avatar items + stats + badge
+- **Miss penalty** — −50 every 3 consecutive wrong answers; counter resets after penalty fires.
+- **Tie-breaker cascade** — applied uniformly to all leaderboards: `score DESC → peak_streak DESC → questions_answered ASC → submitted_at ASC`.
+- **Unstoppable** — the 10-streak reward name. (UI moment still to design in Phase 3.)
+- **Challenge** — shareable link for "play the same round a friend played." Sender's ghost is locked forever; everyone who uses the link races the sender specifically. Scores count toward weekly League totals.
+- **One More** — brand-native paywall: tap a button for an extra round, copy escalates and teases. 3 taps max before the Pro Wall.
+- **Super Smart Pro** — $4.99 one-time upgrade, unlocks unlimited rounds + seasonal packs + Pro avatar items + Global all-time leaderboard view + 1 Streak Shield auto-granted every Monday + Pro badge.
 - **Streak Shield** — consumable IAP. Protects or repairs the Daily Race streak. Max 3 held. Free: 1 at launch. Pro: 1 auto-granted every Monday up to cap. Can be bought retroactively within 48 hours of missing a day.
-- **League of 30** — weekly competitive clusters of 30 players (real + ghost-filled). Promotes/demotes weekly. Works at any player count.
 - **Build for the Flex** — design principle: every decision should serve the screenshot moment. Make shareable surfaces visually spectacular and unmistakably Super Smart.
-- **The 1001** — the original recovered question bank, canonical style reference
-- **Mothership doc** — this project's design spec, the source of truth
+- **The 1001** — the original recovered question bank, canonical style reference.
+- **Mothership doc** — this project's design spec, the source of truth.
 - ~~**Arcade**~~ — *retired.* 60-second format and streak mechanics live on inside both current modes.
 - ~~**Classic**~~ — *retired.* 3-strikes, 10-second ceiling. No replacement.
 - ~~**Kicker**~~ — *retired.* Had no home once Classic mode was cut.
+- ~~**Honesty Layer principle**~~ — *retired 2026-04-24.* The "never pretend opponent identity" principle was traded for the bot-ghost fresh-set fill. Other honesty positions (real timestamps, all-real leagues, cumulative scores only count real sessions) stand.
+
+## App Store identity *(locked 2026-04-24)*
+
+- **Name:** `Super Smart — Quick Trivia`
+- **Subtitle:** heritage line, candidate `Since 2012. Smarter now.` (final tuned Phase 6)
