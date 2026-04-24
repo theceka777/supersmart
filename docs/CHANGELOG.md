@@ -2,6 +2,27 @@
 
 ---
 
+## Session 9b — 2026-04-24 — League vs skill tier clarification (mothership v1.21 → v1.22)
+
+No code changes. Readback of the league model surfaced that the 2026-04-19 session 7 matchmaking text conflated the two tier systems. Corrected in a single clarification pass.
+
+### Corrections
+- **League of 30 is a leaderboard cohort, not a matchmaking pool.** 30 players, strict same-tier only, grouped arbitrarily within their tier. Members don't play head-to-head — each plays their own Quickmatch + Challenge + Daily Race rounds, and weekly cumulative scores rank the cohort at week-end.
+- **±1 matching lives with skill tier, not league tier.** The expansion rule (if no ghost exists at your exact skill tier, search adjacent skill tiers ±1) is a Quickmatch ghost-matching rule only. League tier is never involved in matchmaking anywhere.
+- **Skill tier and league tier are fully independent.** Skill tier = "who you play" (per-round matching). League tier = "whose scores your weekly total ranks against" (cumulative weekly progression). Different sources, different purposes, no cross-feed.
+- **Challenge-a-Friend scores count toward League weekly totals.** Previously ambiguous — now explicit.
+
+### Files touched (canonical)
+- `super_smart_2026_mothership.md` — v1.21 → v1.22. Status line updated. Part 4 Layer 4 rewritten: new intro paragraph distinguishing cohort from matchmaking; old "Matchmaking within a league cluster — weighted random ±1" section replaced with "League cohort composition — strict same-tier" + explicit block on why the two tier systems don't interact. Appendix C glossary: added distinct **League of 30**, **League tier**, **Skill tier** entries; removed a duplicate short Skill tier definition. Part 12 decision log: new row explaining the session-7 conflation and the correction. End-of-doc version stamp bumped.
+- `CHANGELOG.md` — this entry.
+
+### No code changes required
+- All current implementation references either skill tier (correctly, via Part 4 Layer 1 ghost matching) or league tier (as a label only).
+- No ±1 cross-league-tier logic was ever built in code — the spec was wrong in the doc but not in the codebase.
+- Phase 4 leaderboard SQL will now be specced against the corrected model from the start.
+
+---
+
 ## Session 9 — 2026-04-24 — Five coffee decisions locked (mothership v1.20 → v1.21)
 
 No code changes — documentation-only session. Walked through the five "coffee decisions" queued in Appendix D and locked each with full rationale recorded in Part 12 decision log.
