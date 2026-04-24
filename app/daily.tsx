@@ -234,13 +234,16 @@ export default function DailyScreen() {
 
     return (
       <View style={s.alreadyContainer}>
-        <Text style={s.modeTag}>DAILY RACE</Text>
+        <View style={s.modeTagPill}>
+          <Text style={s.modeTagPillText}>DAILY RACE</Text>
+        </View>
 
         <View style={s.scoreCard}>
-          <Text style={s.bigScore}>
-            {correct}<Text style={s.bigScoreDim}>/{total}</Text>
-          </Text>
-          <Text style={s.ptsLabel}>{dailyStatus.score.toLocaleString()} pts</Text>
+          {/* Points = hero */}
+          <Text style={s.bigScore}>{dailyStatus.score.toLocaleString()}</Text>
+          <Text style={s.ptsLabel}>points</Text>
+          {/* Accuracy = small context line */}
+          <Text style={s.accuracyLine}>{correct} of {total} correct</Text>
         </View>
 
         <Text style={s.gridText}>{grid}</Text>
@@ -264,30 +267,41 @@ export default function DailyScreen() {
 
   if (!question) return null;
 
+  // Short date label for the "vs. the world" pill — e.g. "Apr 24"
+  const dateLabel = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
   return (
     <View style={[s.container, { backgroundColor: flashBg }]}>
 
-      {/* Header */}
+      {/* ── Header (3-col, parallel to Quickmatch) ───────────────────────── */}
       <View style={s.header}>
-        <Text style={s.modeTagInline}>DAILY RACE</Text>
-        <View style={s.headerRight}>
-          {multiplier > 1 && (
-            <Text style={s.multiplierBadge}>{multiplier}×</Text>
-          )}
-          <Text style={[s.timer, { color: timerColor }]}>{timeLeft}s</Text>
+
+        {/* Timer */}
+        <View style={s.timerWrap}>
+          <Text style={[s.timer, { color: timerColor }]}>{timeLeft}</Text>
+          <Text style={[s.timerUnit, { color: timerColor }]}>s</Text>
         </View>
+
+        {/* Center slot — cyan "vs. the world" pill (Daily's mode identity) */}
+        <View style={s.worldPill}>
+          <Text style={s.worldPillLabel}>vs. the world</Text>
+          <Text style={s.worldPillDate}>{dateLabel}</Text>
+        </View>
+
+        {/* Score + multiplier */}
+        <View style={s.scoreWrap}>
+          {multiplier > 1 && (
+            <View style={s.multPill}>
+              <Text style={s.multText}>{multiplier}×</Text>
+            </View>
+          )}
+          <Text style={s.score}>{displayScore.toLocaleString()}</Text>
+        </View>
+
       </View>
 
-      {/* Progress bar */}
-      <View style={s.progressBar}>
-        <View style={[s.progressFill, { width: `${(questionIndex / questions.length) * 100}%` as any }]} />
-      </View>
-
-      {/* Sub-header */}
-      <View style={s.subHeader}>
-        <Text style={s.questionNum}>{questionIndex + 1} / {questions.length}</Text>
-        <Text style={s.scoreText}>{displayScore.toLocaleString()} pts</Text>
-      </View>
+      {/* Divider */}
+      <View style={s.divider} />
 
       {/* Status strips */}
       {displayStreak >= 3 && (
@@ -297,8 +311,11 @@ export default function DailyScreen() {
         <Text style={s.missLabel}>⚠️ {displayMiss}/3 misses</Text>
       )}
 
-      {/* Question */}
-      <Text style={s.question}>{question.question}</Text>
+      {/* ── Question zone ────────────────────────────────────────────────── */}
+      <View style={s.questionZone}>
+        <Text style={s.qNumber}>Q {questionIndex + 1}</Text>
+        <Text style={s.question}>{question.question}</Text>
+      </View>
 
       {/* Points flash */}
       {isAnswered && lastPoints !== null && (
@@ -332,81 +349,98 @@ const s = StyleSheet.create({
   // ── Game screen ──────────────────────────────────────────────────────────────
   container: {
     flex: 1,
-    padding: 24,
-    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingTop: 56,
   },
 
+  // Header — 3-col parallel to Quickmatch: [timer] [center slot] [score + mult]
   header: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
   },
-  headerRight: {
+  timerWrap: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  modeTagInline: {
-    fontFamily: Fonts.black,
-    fontSize: 14,
-    color: Colors.ink,
-    letterSpacing: 1,
+    alignItems: 'baseline',
+    minWidth: 60,
   },
   timer: {
     fontFamily: Fonts.black,
-    fontSize: 22,
-    letterSpacing: -0.5,
+    fontSize: 34,
+    lineHeight: 38,
   },
-  multiplierBadge: {
+  timerUnit: {
+    fontFamily: Fonts.mono,
+    fontSize: 14,
+    marginLeft: 2,
+    opacity: 0.6,
+  },
+
+  // "vs. the world · Apr 24" — Daily's mode-identity pill (cyan accent)
+  worldPill: {
+    alignItems: 'center',
+    backgroundColor: Colors.dailyrace.bg,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: Radius.pill,
+    borderWidth: 2,
+    borderColor: Colors.ink,
+  },
+  worldPillLabel: {
+    fontFamily: Fonts.black,
+    fontSize: 11,
+    color: Colors.ink,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  worldPillDate: {
+    fontFamily: Fonts.mono,
+    fontSize: 9,
+    color: Colors.ink,
+    opacity: 0.65,
+    letterSpacing: 0.3,
+    marginTop: 1,
+  },
+
+  scoreWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    justifyContent: 'flex-end',
+    minWidth: 80,
+  },
+  multPill: {
     backgroundColor: Colors.yellow,
     paddingHorizontal: 8,
     paddingVertical: 2,
-    borderRadius: Radius.sm,
+    borderRadius: Radius.pill,
+    borderWidth: 2,
+    borderColor: Colors.ink,
+  },
+  multText: {
     fontFamily: Fonts.black,
-    fontSize: 14,
-    color: Colors.ink,
-    overflow: 'hidden',
-  },
-
-  progressBar: {
-    height: 6,
-    backgroundColor: Colors.ink,
-    borderRadius: Radius.pill,
-    marginBottom: 10,
-    overflow: 'hidden',
-    opacity: 0.12,
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: Colors.ink,
-    opacity: 10, // restores full ink inside the dimmed container
-    borderRadius: Radius.pill,
-  },
-
-  subHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  questionNum: {
-    fontFamily: Fonts.mono,
     fontSize: 13,
     color: Colors.ink,
-    opacity: 0.4,
   },
-  scoreText: {
-    fontFamily: Fonts.mono,
-    fontSize: 13,
+  score: {
+    fontFamily: Fonts.black,
+    fontSize: 22,
     color: Colors.ink,
-    opacity: 0.4,
+  },
+
+  divider: {
+    height: 2,
+    backgroundColor: Colors.ink,
+    opacity: 0.08,
+    marginBottom: 12,
   },
 
   streakLabel: {
-    fontFamily: Fonts.mono,
+    fontFamily: Fonts.black,
     fontSize: 13,
-    color: '#f97316',
-    fontWeight: '700',
+    color: '#ea580c',
+    letterSpacing: 0.3,
     marginBottom: 4,
   },
   missLabel: {
@@ -417,38 +451,52 @@ const s = StyleSheet.create({
     marginBottom: 4,
   },
 
+  // Question
+  questionZone: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingBottom: 4,
+  },
+  qNumber: {
+    fontFamily: Fonts.mono,
+    fontSize: 11,
+    color: Colors.ink,
+    opacity: 0.35,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginBottom: 10,
+  },
   question: {
     fontFamily: Fonts.black,
-    fontSize: 24,
+    fontSize: 28,
     color: Colors.ink,
-    marginBottom: 24,
-    lineHeight: 32,
+    lineHeight: 36,
+    letterSpacing: -0.5,
   },
 
   flashWrap: {
     alignItems: 'center',
-    marginBottom: 6,
+    marginBottom: 10,
   },
   pointsFlash: {
     fontFamily: Fonts.black,
-    fontSize: 22,
+    fontSize: 30,
     color: '#16a34a',
-    textAlign: 'center',
+    letterSpacing: -1,
   },
-  pointsNeg: {
-    color: Colors.red,
-  },
+  pointsNeg: { color: Colors.red },
   bonusLabel: {
     fontFamily: Fonts.mono,
-    fontSize: 11,
+    fontSize: 10,
     color: '#16a34a',
-    letterSpacing: 0.5,
+    letterSpacing: 1.5,
     textTransform: 'uppercase',
     marginTop: 3,
   },
 
   answers: {
-    gap: 12,
+    gap: 10,
+    paddingBottom: 32,
   },
   answerButton: {
     backgroundColor: Colors.cream,
@@ -457,9 +505,7 @@ const s = StyleSheet.create({
     borderWidth: 3,
     borderColor: Colors.ink,
   },
-  lockedBtn: {
-    opacity: 0.55,
-  },
+  lockedBtn: { opacity: 0.55 },
   correct: {
     backgroundColor: '#16a34a',
     borderColor: '#16a34a',
@@ -468,9 +514,7 @@ const s = StyleSheet.create({
     backgroundColor: Colors.red,
     borderColor: Colors.red,
   },
-  dim: {
-    opacity: 0.4,
-  },
+  dim: { opacity: 0.4 },
   answerText: {
     fontFamily: Fonts.mono,
     fontSize: 17,
@@ -491,13 +535,20 @@ const s = StyleSheet.create({
     gap: 16,
   },
 
-  modeTag: {
-    fontFamily: Fonts.mono,
-    fontSize: 11,
+  // Cyan mode tag pill — the mode accent for Daily Race
+  modeTagPill: {
+    backgroundColor: Colors.dailyrace.bg,
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    borderRadius: Radius.pill,
+    borderWidth: 2,
+    borderColor: Colors.ink,
+  },
+  modeTagPillText: {
+    fontFamily: Fonts.black,
+    fontSize: 12,
     color: Colors.ink,
-    opacity: 0.4,
     letterSpacing: 2,
-    textTransform: 'uppercase',
   },
 
   scoreCard: {
@@ -510,16 +561,12 @@ const s = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
   },
+  // Points = hero
   bigScore: {
     fontFamily: Fonts.black,
     fontSize: 72,
     color: Colors.ink,
     lineHeight: 80,
-  },
-  bigScoreDim: {
-    color: Colors.ink,
-    opacity: 0.3,
-    fontSize: 48,
   },
   ptsLabel: {
     fontFamily: Fonts.mono,
@@ -528,6 +575,15 @@ const s = StyleSheet.create({
     opacity: 0.45,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+  // Accuracy = small context line under the points
+  accuracyLine: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.ink,
+    opacity: 0.55,
+    letterSpacing: 0.5,
+    marginTop: 6,
   },
 
   gridText: {

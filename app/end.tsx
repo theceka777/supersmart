@@ -24,12 +24,18 @@ export default function EndScreen() {
 
     return (
       <View style={s.container}>
-        <Text style={s.modeTag}>DAILY RACE</Text>
+        {/* Cyan mode tag pill — matches the playing screen's mode accent */}
+        <View style={s.modeTagPill}>
+          <Text style={s.modeTagPillText}>DAILY RACE</Text>
+        </View>
 
         <View style={s.scoreCard}>
-          <Text style={s.bigScore}>{correct}<Text style={s.bigScoreDim}>/{total}</Text></Text>
           <Text style={s.rankLabel}>{rank}</Text>
-          <Text style={s.ptsLabel}>{score.toLocaleString()} pts</Text>
+          {/* Points = hero */}
+          <Text style={s.bigScore}>{score.toLocaleString()}</Text>
+          <Text style={s.ptsLabel}>points</Text>
+          {/* Accuracy = small context line */}
+          <Text style={s.accuracyLine}>{correct} of {total} correct</Text>
         </View>
 
         <Text style={s.gridText}>{grid}</Text>
@@ -98,6 +104,22 @@ const s = StyleSheet.create({
     textTransform: 'uppercase',
   },
 
+  // Cyan mode tag pill (Daily only) — matches the playing-screen accent
+  modeTagPill: {
+    backgroundColor: Colors.dailyrace.bg,
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    borderRadius: Radius.pill,
+    borderWidth: 2,
+    borderColor: Colors.ink,
+  },
+  modeTagPillText: {
+    fontFamily: Fonts.black,
+    fontSize: 12,
+    color: Colors.ink,
+    letterSpacing: 2,
+  },
+
   scoreCard: {
     width: '100%',
     backgroundColor: Colors.cream,
@@ -115,16 +137,12 @@ const s = StyleSheet.create({
     color: Colors.ink,
     lineHeight: 80,
   },
-  bigScoreDim: {
-    color: Colors.ink,
-    opacity: 0.3,
-    fontSize: 48,
-  },
   rankLabel: {
     fontFamily: Fonts.black,
-    fontSize: 28,
+    fontSize: 22,
     color: Colors.red,
-    letterSpacing: -0.5,
+    letterSpacing: -0.3,
+    marginBottom: 2,
   },
   ptsLabel: {
     fontFamily: Fonts.mono,
@@ -133,6 +151,15 @@ const s = StyleSheet.create({
     opacity: 0.45,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+  // Accuracy = small context line under the points
+  accuracyLine: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.ink,
+    opacity: 0.55,
+    letterSpacing: 0.5,
+    marginTop: 6,
   },
 
   gridText: {
