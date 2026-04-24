@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.16 — Git workflow formalised (sandbox commit / Mac push, doc mirror rule); Inbox→League prose sweep
+**Status:** v1.17 — Daily Race share format revised (on-screen grid stays, off-app share is 3-line scoreboard); Git workflow formalised; Inbox→League prose sweep
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -343,7 +343,7 @@ The 2012 version had no onboarding. The 2026 version has one — but it's design
 
 **If they play Daily Race first:** same flow applies. Sign in prompt fires on first game tap. Same two contextual nudges fire on first round regardless of mode — tied to the player, not the mode. Once seen, never shown again. Daily Race is once-per-day so their natural next session is Quickmatch anyway.
 
-### Daily Race *[DECIDED 2026-04-18 session 3; format corrected 2026-04-19]*
+### Daily Race *[DECIDED 2026-04-18 session 3; format corrected 2026-04-19; share spec revised 2026-04-24]*
 
 One of the two home-screen modes. Shares all game mechanics with Quickmatch (60-second round, streak multiplier ladder, speed bonus, miss penalty) and runs on the same engine — the differentiator is competitive context, not rules.
 
@@ -351,7 +351,16 @@ One of the two home-screen modes. Shares all game mechanics with Quickmatch (60-
 - **60 questions, 60-second round.** Identical format to Quickmatch. The differentiator is what you're competing *on*, not how long you play. *(Note: an earlier spec proposed 10 questions / Classic pacing. That was superseded — the shared-mechanics principle and the "no Classic mode" decision make 60s/60q the correct format. See decision log 2026-04-19.)*
 - **Once per day.** Locked after the player completes it. Cannot replay to improve your score.
 - **Resets daily.** New question set, new leaderboard. Reset time: decide in Phase 4 (UTC midnight vs local midnight).
-- **Shareable result.** 🟩🟥 grid showing correct/wrong per question, plus final score. "Super Smart Daily — 41/60 · 4,850 pts." This is the viral hook and the water-cooler trigger.
+- **End-screen visual (in-app):** the 🟩🟥 grid — one square per answered question, green correct, red wrong — is rendered on the result screen as a reflective end-of-round moment. Players see how their round went. It is *not* the share asset.
+- **Shareable result (off-app):** 3-line fixed-shape scoreboard, designed to paste cleanly into any chat:
+
+   ```
+   Super Smart Daily · Apr 24
+   ⚡ 4,850 pts · rank: Elite
+   🔥 best streak · 7
+   ```
+
+   Every player produces the exact same three lines — date, points + rank, peak streak — so direct eyeball comparison works regardless of how many questions each player answered. The score is the competitive metric; rank gives it emotional weight; peak streak is a natural-language brag line ("my best streak was 7"). *(Earlier spec included the full 60-square grid in the share; that was revised 2026-04-24 — see decision log.)*
 - **Daily Race leaderboard:** Today's high score list for today's specific question set only. Who scored highest on the same questions everyone played. Resets with each new day. No all-time component — this board is purely about today's shared test.
 
 Daily Race is the "come back tomorrow" retention loop and the "talk about it at work" mode. The once-per-day constraint combined with shared questions is what gives it identity separate from Quickmatch.
@@ -1090,6 +1099,7 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-19 (session 6) | TokenTabBar component implemented: custom chunky arcade-door tab bar replacing expo-router's default. Yellow border = active, spring press animation, 4pt depth shadow, haptic feedback on iOS. SF Symbols/MaterialIcons dual-platform. | Custom tab bar is a Phase 2 visual direction deliverable. The `tabBar` prop on `<Tabs>` preserves all expo-router navigation logic while giving complete visual control. |
 | 2026-04-19 (session 6) | Leaderboard structure locked: three boards at three radii. League of 30 (everyone, weekly) + Daily Race board (everyone, resets daily) + Global all-time (Pro only, updates twice daily). Free users are ranked on the global board from day one — Pro unlocks the view, not the participation. | Three tiers match three player motivations: peers this week / everyone today / everyone ever. "Pay to see not pay to participate" makes the Pro upgrade feel like a reward for play already done. Twice-daily update cadence gives the global board a morning/evening check-in rhythm without real-time noise. |
 | 2026-04-24 | Git workflow formalised. Repo = `supersmart/` only; parent-folder docs are canonical and mirrored into `supersmart/docs/` for git history. Claude commits from sandbox; push is always a Mac-terminal handoff (`git push origin main` from the supersmart folder) because the sandbox proxy blocks outbound push. Every session ending in a commit tells the creative director the exact push command. | Previously the push-restriction note lived as a single bullet inside Part 7's Android section, which is the wrong home for it and let the workflow drift across sessions. Formalising the mirror-before-commit rule and the Mac-push handoff prevents lost doc updates and makes future sessions self-sufficient. |
+| 2026-04-24 | Daily Race share format split from end-screen visual. The 🟩🟥 grid stays on-screen as a reflective moment; the off-app share becomes a 3-line scoreboard (date / ⚡ pts + rank / 🔥 best streak). Previous spec (`"Super Smart Daily — 41/60 · 4,850 pts\n[grid]"`) is superseded. | Real-device review surfaced that the 60-square grid fails the three things that make Wordle's grid viral: (1) it's too long for a single chat bubble — 60 squares wrap to 4–5 lines of noise; (2) grid length varies across players because answered-question counts vary (fast 45, slow 28), so direct visual comparison breaks; (3) a pass/fail sequence has no narrative arc the way Wordle's problem-solving path does. The 3-line scoreboard is fixed-shape across all players, pastes cleanly, and uses the peak streak as a natural-language brag line. The grid is still valuable in-app as a reflective "here's how it went" beat. |
 
 ---
 
@@ -1191,4 +1201,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.16 — last updated 2026-04-24.*
+*End of doc v1.17 — last updated 2026-04-24.*

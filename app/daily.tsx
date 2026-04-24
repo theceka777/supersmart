@@ -11,7 +11,26 @@ import { View, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-nativ
 import { useRouter } from 'expo-router';
 import { QUESTIONS, Question } from './questions';
 import { useAppStore } from './store';
+import { getRankLabel } from './content';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
+
+// Longest run of consecutive `true` values in the results array.
+// Used for the Daily Race share text — a natural-language comparator
+// ("my best streak was 7") that works across players with different
+// answered-question counts.
+function peakStreak(results: boolean[]): number {
+  let peak = 0, run = 0;
+  for (const r of results) {
+    if (r) { run += 1; if (run > peak) peak = run; }
+    else   { run = 0; }
+  }
+  return peak;
+}
+
+// "Apr 24" short-format date.
+function shortDate(d = new Date()): string {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
 
 const TOTAL_TIME = 60;
 const QUESTION_COUNT = 60;
@@ -230,7 +249,15 @@ export default function DailyScreen() {
     const correct = dailyStatus.results.filter(Boolean).length;
     const total   = dailyStatus.results.length;
     const grid    = dailyStatus.results.map(r => r ? '🟩' : '🟥').join('');
-    const shareText = `Super Smart Daily — ${correct}/${total} · ${dailyStatus.score.toLocaleString()} pts\n${grid}`;
+    const rank    = getRankLabel(dailyStatus.score);
+    const peak    = peakStreak(dailyStatus.results);
+    // 3-line scoreboard — fixed-shape, pastes cleanly into any chat.
+    // (The 60-sq grid is kept on-screen as a reflective moment but NOT shared,
+    //  since its length varies per player and it loses its story outside the app.)
+    const shareText =
+      `Super Smart Daily · ${shortDate()}\n` +
+      `⚡ ${dailyStatus.score.toLocaleString()} pts · rank: ${rank}\n` +
+      `🔥 best streak · ${peak}`;
 
     return (
       <View style={s.alreadyContainer}>
@@ -246,6 +273,7 @@ export default function DailyScreen() {
           <Text style={s.accuracyLine}>{correct} of {total} correct</Text>
         </View>
 
+        {/* On-screen reflective moment: how your round went, question-by-question */}
         <Text style={s.gridText}>{grid}</Text>
 
         <View style={s.shareCard}>
@@ -268,7 +296,7 @@ export default function DailyScreen() {
   if (!question) return null;
 
   // Short date label for the "vs. the world" pill — e.g. "Apr 24"
-  const dateLabel = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const dateLabel = shortDate();
 
   return (
     <View style={[s.container, { backgroundColor: flashBg }]}>

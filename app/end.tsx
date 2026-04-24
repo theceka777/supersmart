@@ -6,6 +6,21 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getRankLabel } from './content';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
+// Longest run of consecutive correct answers — drives the "best streak" share line.
+function peakStreak(results: boolean[]): number {
+  let peak = 0, run = 0;
+  for (const r of results) {
+    if (r) { run += 1; if (run > peak) peak = run; }
+    else   { run = 0; }
+  }
+  return peak;
+}
+
+// "Apr 24" short-format date.
+function shortDate(d = new Date()): string {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
 export default function EndScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ score: string; mode: string; results: string }>();
@@ -20,7 +35,13 @@ export default function EndScreen() {
     const correct    = results.filter(Boolean).length;
     const total      = results.length;
     const grid       = results.map(r => (r ? '🟩' : '🟥')).join('');
-    const shareText  = `Super Smart Daily — ${correct}/${total} · ${score.toLocaleString()} pts\n${grid}`;
+    const peak       = peakStreak(results);
+    // 3-line scoreboard — fixed shape, pastes cleanly into any chat.
+    // Grid stays on-screen below as a reflective moment, but isn't part of the share.
+    const shareText =
+      `Super Smart Daily · ${shortDate()}\n` +
+      `⚡ ${score.toLocaleString()} pts · rank: ${rank}\n` +
+      `🔥 best streak · ${peak}`;
 
     return (
       <View style={s.container}>
@@ -38,6 +59,7 @@ export default function EndScreen() {
           <Text style={s.accuracyLine}>{correct} of {total} correct</Text>
         </View>
 
+        {/* On-screen reflective moment: how your round went, question-by-question */}
         <Text style={s.gridText}>{grid}</Text>
 
         <View style={s.shareCard}>
