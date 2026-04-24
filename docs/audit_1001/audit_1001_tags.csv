@@ -1,0 +1,101 @@
+q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
+1,science,Mars has ___ moons,2,5,4,2,18,1,Keep,
+2,science,first man in space,Y. Gagarin,N. Armstrong,B. Yeltsin,Y. Gagarin,18,10,Keep,
+3,science,first man to step on the moon,N. Armstrong,M. Jackson,E. Aldrin,N. Armstrong,29,12,Keep,
+4,science,first shuttle to land on the moon,Apollo 11,Apollo 13,Apollo 15,Apollo 11,33,9,Light edit,"""shuttle"" → ""craft"" (Apollo was a spacecraft, not a shuttle)"
+5,science,not in our solar system,Centauri,Sun,Pluto,Centauri,23,8,Keep,
+6,science,closest to the earth,Venus,Mars,Saturn,Venus,20,5,Keep,
+7,science,a space telescope,Hubble,Sagan,Keck,Hubble,17,6,Keep,
+8,science,larger than the others,Sun,Earth,Moon,Sun,22,3,Keep,
+9,science,farther away from the sun,Uranus,Jupiter,Saturn,Uranus,25,6,Light edit,"grammar: ""farther"" → ""farthest"" (superlative with 3 options); also capitalize Sun for consistency"
+10,science,the earth orbits the sun once in ___ days,365,30,180,365,41,3,Light edit,"trim prompt to ""Earth orbits the Sun in ___ days"" (41 → 32 chars)"
+11,science,the summer solstice occurs in ___,June,May,July,June,33,4,Light edit,"prompt → ""the June solstice occurs in ___""; answers unchanged (June/May/July). Tautology acceptable per CD."
+12,science,the winter solstice occurs in ___,December,November,January,December,33,8,Light edit,"prompt → ""Northern Hemisphere winter solstice in""; distractors unchanged (December/November/January)"
+13,science,the moon orbits the earth once in ___ days,28,21,7,28,42,2,Light edit,"trim prompt to ""Moon orbits the Earth in ___ days"" (42 → 33 chars)"
+14,science,smaller than the others,Moon,Mars,Earth,Moon,23,4,Keep,
+15,science,largest planet in our solar system,Jupiter,Saturn,Uranus,Jupiter,34,7,Keep,
+16,science,the name of our galaxy,Milky Way,Solaris,Centauri,Milky Way,22,9,Keep,
+17,science,closest galaxy to ours,Andromeda,Alpha Centauri,Sagan C,Andromeda,22,9,Light edit,"add ""large"" → ""closest large galaxy to ours"""
+18,science,an earth science,geology,mathematics,physics,geology,16,7,Keep,
+19,science,the study of soil,pedology,zoology,jumangy,pedology,17,8,Keep,
+20,science,water,H2O,CH4,CH3O,H2O,5,3,Keep,
+21,science,Cr stands for,chromium,charmendium,chloride,chromium,13,8,Keep,
+22,science,Mg stands for,magnesium,manganese,madagascar,magnesium,13,9,Keep,
+23,science,Fe stands for,iron,silver,gold,iron,13,4,Keep,
+24,science,K stands for,potassium,carbon,kraken,potassium,12,9,Keep,
+25,science,Os stands for,osmium,oxygen,osmosis,osmium,13,6,Keep,
+26,science,N stands for,nitrogen,neon,narnium,nitrogen,12,8,Keep,
+27,science,U stands for,uranium,uxium,ukrainium,uranium,12,7,Light edit,"swap distractor ""ukrainium"" → ""unobtainium"" (generic sci-fi term, no trademark)"
+28,science,Au stands for,gold,aluminum,rock,gold,13,4,Keep,
+29,science,Br stands for,bromine,bromium,brosupium,bromine,13,7,Keep,
+30,science,Ag stands for,silver,bronze,gold,silver,13,6,Keep,
+31,science,water boils at ___ degrees Celcius,100,0,212,100,34,3,Light edit,typo: Celcius → Celsius
+32,science,water freezes at ___ degrees Kelvin,273,0,-100,273,35,3,Light edit,"drop ""degrees"" → ""water freezes at ___ Kelvin"""
+33,science,subatomic particle,proton,hydrogen,molecule,proton,18,6,Keep,
+34,science,negatively charged,electron,neutron,proton,electron,18,8,Keep,
+35,science,positively charged,proton,neutron,electron,proton,18,6,Keep,
+36,science,Einstein's theory of ___,relativity,gravity,theories,relativity,24,10,Keep,
+37,science,created the vaccine for rabies,L. Pasteur,C. Darwin,E. Jenner,L. Pasteur,30,10,Keep,
+38,science,director of the Manhattan Project,J. R. Oppenheimer,A. Einstein,Dr. Manhattan,J. R. Oppenheimer,33,17,Keep,
+39,science,100 kilograms equal ___ pounds,220,160,40,220,30,3,Keep,
+40,science,440 pounds equal ___ kilograms,200,100,110,200,30,3,Keep,
+41,science,1 second equals ___ miliseconds,1000,100,60,1000,31,4,Light edit,typo: miliseconds → milliseconds
+42,science,25 hours equal ___ minutes,1500,2500,1250,1500,26,4,Keep,
+43,science,96 hours equal ___ days,4,12,16,4,23,1,Keep,
+44,science,3 meters equal ___ feet,10,6,12,10,23,2,Keep,
+45,science,1 metric ton equals ___ kilograms,1000,220,2000,1000,33,4,Keep,
+46,science,2 liters equal ___ milliliters,2000,1200,240,2000,30,4,Keep,
+47,science,the industrial revolution began in,UK,Russia,France,UK,34,2,Keep,
+48,science,Darwin's theory of ___,evolution,gravity,revolution,evolution,22,9,Keep,
+49,science,inventor of the Tesla coil,N. Tesla,A. Coil,T. Edison,N. Tesla,26,8,Keep,
+50,science,fell on Newton's head,apple,moon,monkey,apple,21,5,Keep,
+51,science,force equals mass times ___,acceleration,speed,volume,acceleration,27,12,Keep,
+52,science,there is no Nobel prize in ___,mathematics,literature,physics,mathematics,30,11,Keep,
+53,science,won the Nobel prize twice,M. Curie,G. Foreman,A. Einstein,M. Curie,25,8,Keep,
+54,science,discovered the X-ray,R.D. Roentgen,C. Xavier,M. Jackson,R.D. Roentgen,20,13,Light edit,fix initials: R.D. → W.C. Röntgen (Wilhelm Conrad)
+55,science,invented the telephone,A. Graham Bell,T. Edison,T. Duwde,A. Graham Bell,22,14,Keep,
+56,science,"he wrote ""On the Origin of Species""",C. Darwin,R. Dawkins,R. Downey Jr.,C. Darwin,35,9,Keep,
+57,science,1 gram of fat has ___ calories,9,6,3,9,30,1,Keep,
+58,science,1 gram of protein has ___ calories,4,7,9001,4,34,1,Keep,
+59,science,invented the dynamite,A. Nobel,C. Orrekt,M. Curie,A. Nobel,21,8,Keep,
+60,science,inventors of the airplane,Wright Brothers,Roeng Sisters,Jackson Family,Wright Brothers,25,15,Keep,
+61,science,inventor of the revolver,S. Colt,F. Cent,A. K. Foresven,S. Colt,24,7,Keep,
+62,science,inventor of the diesel engine,R. Diesel,S. Benzene,H. Ford,R. Diesel,29,9,Keep,
+63,science,smaller than the others,destroyer,battleship,aircraft Carrier,destroyer,23,9,Light edit,"recategorize: science → misc (about ship sizes); also fix stray capital: ""aircraft Carrier"" → ""aircraft carrier"""
+64,science,the study of encryption,cryptography,calligraphy,calisthenics,cryptography,23,12,Keep,
+65,science,liquid at room temperature,mercury,uranium,lead,mercury,26,7,Keep,
+66,science,chemical explosive,TNT,ABD,C3PO,TNT,18,3,Keep,
+67,science,density is mass over,volume,length,hardness,volume,20,6,Keep,
+68,science,pioneer of aviation in helicopters,I. Sikorsky,R. U. Boeing,H. L. Kopter,I. Sikorsky,34,11,Light edit,"phrasing: ""pioneer of aviation in helicopters"" → ""pioneer of helicopter aviation"""
+69,science,the human body's largest organ,skin,brain,heart,skin,30,4,Keep,
+70,science,herbivores eat,plants,bacon,planets,plants,14,6,Keep,
+71,science,dinosaurs became extinct ___ years ago,65 million,145 million,325 million,65 million,38,10,Keep,
+72,science,not a kingdom in biology,mammalia,fungi,animalia,mammalia,24,8,Keep,
+73,science,a nucleid acid,DNA,cytoplasm,nucleus,DNA,14,3,Light edit,"typo: ""nucleid"" → ""nucleic"""
+74,science,the functional basic unit of life,cell,gene,DNA,cell,33,4,Keep,
+75,science,change in velocity over time,acceleration,speed,direction,acceleration,28,12,Keep,
+76,science,ISU = International System of ___,Units,Unions,Unicorns,Units,33,5,Light edit,fix abbreviation: ISU → SI (Système International)
+77,science,not a constellation,Leon,Chamaeleon,Aries,Leon,19,4,Keep,
+78,science,the male hormone,testosterone,estrogen,insulin,testosterone,16,12,Keep,
+79,science,the female hormone,estrogen,testosterone,insulin,estrogen,18,8,Keep,
+80,science,tegulates blood sugar,insulin,estrogen,testosterone,insulin,21,7,Light edit,typo: tegulates → regulates
+81,science,concentrates bile,gall bladder,stomach,pancreas,gall bladder,17,12,Keep,
+82,science,ammonia,NH3,H2SO4,CH3O,NH3,7,3,Keep,
+83,science,not a basic human taste,sugarness,saltiness,bitterness,sugarness,23,9,Keep,
+84,science,a basic human taste,sweetness,hotness,sugarness,sweetness,19,9,Keep,
+85,science,the periodic table has ___ elements,118,84,156,118,35,3,Keep,
+86,science,contains the ozone layer,stratosphere,lithosphere,pseudosphere,stratosphere,24,12,Keep,
+87,science,ozone,O3,O2,CH2O,O3,5,2,Keep,
+88,science,stored energy,potential,kinetic,nucleic,potential,13,9,Keep,
+89,science,joule is a unit of,energy,acceleration,magnetism,energy,18,6,Keep,
+90,science,specific ___ capacity,heat,dilution,magnet,heat,21,4,Keep,
+91,science,a barometer measures,pressure,temperature,elevation,pressure,20,8,Keep,
+92,science,Mr. Avogadro has a ___ named after him,constant,cookbook,country,constant,38,8,Keep,
+93,science,creator of the periodic table,D. Mendelev,I. Newton,N. Tesla,D. Mendelev,29,11,Light edit,spelling: Mendelev → Mendeleev
+94,science,X-rays were discovered in,1895,1922,1938,1895,25,4,Keep,
+95,science,has less gravity,Moon,Earth,Mars,Moon,16,4,Light edit,"grammar: ""has less gravity"" → ""lowest gravity"" (superlative with 3 options)"
+96,science,atomic number is the number of ___,protons,neutrons,electrons,protons,34,7,Keep,
+97,science,the nucleus does not contain ___,electrons,neutrons,protons,electrons,32,9,Keep,
+98,science,won the Nobel prize in economics,J. Nash,A. Einstein,T. Count,J. Nash,32,7,Keep,
+99,science,famous for his cat,E. Schrodinger,A. Einstein,J. Nash,E. Schrodinger,18,14,Keep,
+100,science,H stands for,hydrogen,helium,hassium,hydrogen,12,8,Keep,
