@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.17 — Daily Race share format revised (on-screen grid stays, off-app share is 3-line scoreboard); Git workflow formalised; Inbox→League prose sweep
+**Status:** v1.18 — Instrumentation & Observability stack locked (PostHog + Sentry + RevenueCat, Phase 6 deliverable); Daily Race share format revised; Git workflow formalised
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -812,6 +812,34 @@ Claude's part ends at the commit; the push is always a Mac-terminal handoff. Eve
 
 Set up in the first multiplayer build session. Total backend cost for v1 scale: ~$0-20/month. Revisit pricing tier at 10k+ DAU.
 
+### Instrumentation & Observability *[DECIDED 2026-04-24]*
+
+The "no ads ever" brand commitment (Part 5) is about what's *shown* inside the app. It does not remove the need for the plumbing that tells us whether the game is actually working: who plays, what converts, what crashes, what retains. This section locks that plumbing.
+
+**Tier 1 — launch-blocking stack.** Three tools, roughly 2–3 days of focused work in Phase 6. Every credible investor or dev-diligence reviewer would expect at minimum D1/D7/D30 retention cohorts, install-to-paying-user conversion, LTV by segment, viral coefficient, and crash-free session rate. These three tools produce all of them with no custom analytics code.
+
+- **PostHog** — product analytics + feature flags + A/B testing in one tool. Free tier covers 1M events/month. Event schema to instrument at minimum: `install`, `first_round_complete`, `round_complete`, `streak_achieved`, `unstoppable_triggered`, `miss_penalty`, `daily_race_complete`, `daily_race_shared`, `quickmatch_complete`, `ghost_won`, `league_standing_viewed`, `one_more_tap`, `pro_wall_viewed`, `pro_purchase_attempted`, `pro_purchase_completed`, `streak_shield_purchased`, `avatar_changed`, `push_opened`. Core funnels: install → first round → round 5 → D1 return → Pro purchase.
+- **Sentry** — crash and error reporting. Free tier covers 5k errors/month. Expo has a first-party integration; setup is ~1 hour.
+- **RevenueCat** — IAP abstraction + revenue analytics. Free up to $10K monthly tracked revenue. Wraps Apple StoreKit + Google Play Billing behind one SDK, handles receipt validation, refunds, entitlements, family sharing, sandbox vs. prod edge cases. Provides ARPDAU / LTV / churn dashboards automatically. **Non-negotiable** — writing receipt validation by hand is a class of bugs we should never own.
+
+**Push notifications.** Expo Push Notifications (free, already in our stack) covers both the Daily Race retention prompt and the League end-of-week reveal (per Part 3 / Part 4). Graduate to OneSignal or Firebase Cloud Messaging only if Expo's throughput becomes a ceiling — not expected at v1 scale.
+
+**Support channel.** At launch: a dedicated support email (candidate: `support@iamsupersmart.com`) + a Notion issue tracker. Graduate to Intercom / Crisp only if email volume becomes unmanageable.
+
+**Tier 2 — deferred until paid user acquisition is live.**
+
+- **MMP (attribution)** — AppsFlyer / Adjust / Singular. Expensive ($500–$2K/month minimum). Necessary the moment we spend a dollar on paid ads, useless before. **Skip at launch; revisit when the first paid UA experiment is being scoped.**
+- **Cheap interim attribution** at organic launch: Apple Search Ads' own reporting + App Store Connect analytics + PostHog's campaign parameters. Good enough until paid UA is real.
+
+**Tier 3 — deferred indefinitely unless we outgrow the simple stack.**
+
+- **Data warehouse** (Snowflake / BigQuery) + pipeline (Fivetran / Hightouch). Only if PostHog's native analysis tools stop being enough.
+- **Customer data platform** (Segment). PostHog ingests what we need.
+- **Lifecycle marketing platform** (Customer.io / Braze). Push + native platform email cover most of what a trivia game needs.
+- **ASO tooling** (AppTweak / Sensor Tower). Most of what they provide is free from App Store Connect.
+
+**Critical clarification — we do not ship ads, display or otherwise.** This section is entirely about *measurement* and *revenue plumbing*. There is no ad-mediation SDK, no ad network integration, no ad-fill-rate optimisation in this codebase. The "no ads ever" decision in Part 5 remains the locked brand position. What a VC or diligence reviewer would call the "ad layer" in a serious consumer-mobile pitch is, for Super Smart, the three Tier 1 tools above — not display ads.
+
 ### Development environment *[DECIDED 2026-04-18]*
 
 **Environment state as of 2026-04-18:**
@@ -976,8 +1004,9 @@ Detailed marketing plan waits for Part 6 (visuals) and Part 7 (build) to firm up
 - Apple Developer account set up (if not already — cue $99/year cost)
 - App Store assets: screenshots, preview video, store copy, keywords, icon at all required sizes
 - Press kit rebuild (updated version of the 2012 kit, factoring in the "cult 2012 game returns" narrative)
+- **Instrumentation & Observability Tier 1 stack wired** (per Part 7, new subsection): PostHog events + funnels + feature flags, Sentry crash reporting, RevenueCat wrapping all IAP flows, Expo Push for League / Daily Race notifications. ~2–3 focused days.
 - Submit to Apple review
-**Exit criteria:** Submitted to Apple. Press kit done. Launch campaign drafted.
+**Exit criteria:** Submitted to Apple. Press kit done. Launch campaign drafted. Tier 1 instrumentation live and producing retention + conversion dashboards.
 
 ### Phase 7 — Launch *(roughly weeks 18-20)*
 - Public release
@@ -1100,6 +1129,7 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-19 (session 6) | Leaderboard structure locked: three boards at three radii. League of 30 (everyone, weekly) + Daily Race board (everyone, resets daily) + Global all-time (Pro only, updates twice daily). Free users are ranked on the global board from day one — Pro unlocks the view, not the participation. | Three tiers match three player motivations: peers this week / everyone today / everyone ever. "Pay to see not pay to participate" makes the Pro upgrade feel like a reward for play already done. Twice-daily update cadence gives the global board a morning/evening check-in rhythm without real-time noise. |
 | 2026-04-24 | Git workflow formalised. Repo = `supersmart/` only; parent-folder docs are canonical and mirrored into `supersmart/docs/` for git history. Claude commits from sandbox; push is always a Mac-terminal handoff (`git push origin main` from the supersmart folder) because the sandbox proxy blocks outbound push. Every session ending in a commit tells the creative director the exact push command. | Previously the push-restriction note lived as a single bullet inside Part 7's Android section, which is the wrong home for it and let the workflow drift across sessions. Formalising the mirror-before-commit rule and the Mac-push handoff prevents lost doc updates and makes future sessions self-sufficient. |
 | 2026-04-24 | Daily Race share format split from end-screen visual. The 🟩🟥 grid stays on-screen as a reflective moment; the off-app share becomes a 3-line scoreboard (date / ⚡ pts + rank / 🔥 best streak). Previous spec (`"Super Smart Daily — 41/60 · 4,850 pts\n[grid]"`) is superseded. | Real-device review surfaced that the 60-square grid fails the three things that make Wordle's grid viral: (1) it's too long for a single chat bubble — 60 squares wrap to 4–5 lines of noise; (2) grid length varies across players because answered-question counts vary (fast 45, slow 28), so direct visual comparison breaks; (3) a pass/fail sequence has no narrative arc the way Wordle's problem-solving path does. The 3-line scoreboard is fixed-shape across all players, pastes cleanly, and uses the peak streak as a natural-language brag line. The grid is still valuable in-app as a reflective "here's how it went" beat. |
+| 2026-04-24 | Instrumentation & Observability Tier 1 stack locked: PostHog (analytics + feature flags + A/B) + Sentry (crash) + RevenueCat (IAP). Expo Push for notifications. All three ship in Phase 6 — roughly 2–3 days of work. MMP (AppsFlyer / Adjust / Singular) explicitly deferred until paid UA is live; data warehouse, CDP, lifecycle marketing, ASO tooling deferred indefinitely. "No ads ever" brand commitment from Part 5 is untouched — this is measurement and revenue plumbing, not ad display. | Gap identified during session 8 pressure-test: mothership had framework (Part 7) and monetisation (Part 5) but no definition of how we'd measure whether the game is actually working. Any credible investor or dev-diligence review expects at minimum D1/D7/D30 retention, install→paying-user conversion, LTV by segment, viral coefficient, and crash-free session rate — none of which exist without instrumentation. RevenueCat specifically is non-negotiable because hand-rolled StoreKit receipt validation is a known trap. Tier 1 choices are all generous-free-tier + swappable later if any individual tool underperforms. |
 
 ---
 
@@ -1201,4 +1231,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.17 — last updated 2026-04-24.*
+*End of doc v1.18 — last updated 2026-04-24.*
