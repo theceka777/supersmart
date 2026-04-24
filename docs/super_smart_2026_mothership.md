@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.15 — Avatar system fully specced (3 components, 3 tiers, league rank border); Unstoppable named; onboarding locked
+**Status:** v1.16 — Git workflow formalised (sandbox commit / Mac push, doc mirror rule); Inbox→League prose sweep
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -744,9 +744,44 @@ React Native + Expo builds for Android from the same codebase. Key platform-spec
 - **SF Symbols → MaterialIcons fallback** is working via `components/ui/icon-symbol.tsx`. All icons used in the app have confirmed Material Icon mappings. Adding new SF Symbol icons requires a corresponding entry in the MAPPING object or they crash on Android.
 - **`overflow: 'hidden'` on Animated.View** causes Android to clip at the component's original bounds during translation. Fix: always apply `overflow: 'hidden'` on a non-animated inner View inside the Animated wrapper (see ArcadeCard architecture). This is a required pattern for any future animated component that needs overflow clipping.
 - **Expo Go** is the development preview path on real devices — no Xcode or Gradle needed during development. Run `npx expo start` from the terminal (not inside any IDE), scan QR with the Expo Go app.
-- **Git push** from the sandbox terminal is blocked (proxy restriction). Push must be done from the user's local Mac terminal.
 
 No Android-specific blocking issues remain in the current codebase. Android path is preserved and unblocked.
+
+*(Git / sandbox push behaviour moved to its own subsection — see "Git workflow & repo structure" below.)*
+
+### Git workflow & repo structure *[DECIDED 2026-04-24]*
+
+Read this before any session that will touch code. It governs how every commit reaches GitHub.
+
+**Repo scope.** The git repo is `supersmart/` only — the parent folder `/Users/canmert/Desktop/supersmart2026/Super Smart 2026/` is *not* version-controlled. Remote: `https://github.com/theceka777/supersmart.git`, default branch `main`.
+
+**Canonical docs vs. repo mirror.** These files live twice:
+
+| File                                | Canonical (editable)                                                | Repo mirror (for git history)               |
+|-------------------------------------|---------------------------------------------------------------------|---------------------------------------------|
+| `super_smart_2026_mothership.md`    | `/Super Smart 2026/` (parent folder)                                | `supersmart/docs/`                          |
+| `super_smart_2026_primer.md`        | `/Super Smart 2026/`                                                | `supersmart/docs/`                          |
+| `CHANGELOG.md`                      | `/Super Smart 2026/`                                                | `supersmart/docs/`                          |
+| `1001.xml`                          | `/Super Smart 2026/`                                                | `supersmart/docs/`                          |
+
+The canonical copies at the parent level are for reading/editing in Cowork. The `supersmart/docs/` copies ride along in git history so a fresh checkout contains the design context. **Before every commit that touches any canonical doc, mirror the file into `supersmart/docs/` in the same commit.** Two `cp` commands and a `git add` — keep it routine.
+
+**Sandbox commits, Mac push.** The Cowork sandbox can `git add`, `git commit`, and `git mv` fine. `git push` from the sandbox is blocked by a proxy (HTTP 403 on CONNECT). To publish, the creative director runs one command from the Mac's Terminal:
+
+```
+cd "/Users/canmert/Desktop/supersmart2026/Super Smart 2026/supersmart"
+git push origin main
+```
+
+Claude's part ends at the commit; the push is always a Mac-terminal handoff. Every session that commits should end by telling the creative director the push command in that format, verbatim.
+
+**Commit discipline.**
+- One coherent change per commit, even if a session touches many files. Squash only if the work genuinely belongs together.
+- Imperative-mood subject line (≤72 chars), then a body listing the concrete changes.
+- Reference mothership sections/decisions when the change is driven by a specific recorded decision.
+- If a commit turns out to be wrong, amend on the next sandbox turn rather than asking the creative director to re-commit.
+
+**Untracked risk.** The parent-level canonical docs exist only on the Mac. If the Mac dies, the repo still has `supersmart/docs/` copies — but only as of the last mirror. This is fine for now; revisit if the doc-editing cadence outpaces commit cadence.
 
 ### Hosting, backend, accounts *[DECIDED 2026-04-18]*
 
@@ -1054,6 +1089,7 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-19 (session 6) | ArcadeCard bob float animation implemented and shadow animation fixed. Shadow is now an Animated.View tracking the same float position as the face, so the 3D depth illusion holds during animation. Float and press animations blend via `press.value` scaling. | Float + press coexistence was the key challenge — blending them by scaling float contribution as press bottoms out prevents fighting. Shadow tracking was a visual quality discovery from real-device testing. |
 | 2026-04-19 (session 6) | TokenTabBar component implemented: custom chunky arcade-door tab bar replacing expo-router's default. Yellow border = active, spring press animation, 4pt depth shadow, haptic feedback on iOS. SF Symbols/MaterialIcons dual-platform. | Custom tab bar is a Phase 2 visual direction deliverable. The `tabBar` prop on `<Tabs>` preserves all expo-router navigation logic while giving complete visual control. |
 | 2026-04-19 (session 6) | Leaderboard structure locked: three boards at three radii. League of 30 (everyone, weekly) + Daily Race board (everyone, resets daily) + Global all-time (Pro only, updates twice daily). Free users are ranked on the global board from day one — Pro unlocks the view, not the participation. | Three tiers match three player motivations: peers this week / everyone today / everyone ever. "Pay to see not pay to participate" makes the Pro upgrade feel like a reward for play already done. Twice-daily update cadence gives the global board a morning/evening check-in rhythm without real-time noise. |
+| 2026-04-24 | Git workflow formalised. Repo = `supersmart/` only; parent-folder docs are canonical and mirrored into `supersmart/docs/` for git history. Claude commits from sandbox; push is always a Mac-terminal handoff (`git push origin main` from the supersmart folder) because the sandbox proxy blocks outbound push. Every session ending in a commit tells the creative director the exact push command. | Previously the push-restriction note lived as a single bullet inside Part 7's Android section, which is the wrong home for it and let the workflow drift across sessions. Formalising the mirror-before-commit rule and the Mac-push handoff prevents lost doc updates and makes future sessions self-sufficient. |
 
 ---
 
@@ -1155,4 +1191,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.15 — last updated 2026-04-24.*
+*End of doc v1.16 — last updated 2026-04-24.*
