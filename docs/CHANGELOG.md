@@ -2,6 +2,29 @@
 
 ---
 
+## Session 9 — 2026-04-24 — Five coffee decisions locked (mothership v1.20 → v1.21)
+
+No code changes — documentation-only session. Walked through the five "coffee decisions" queued in Appendix D and locked each with full rationale recorded in Part 12 decision log.
+
+### Decisions locked
+1. **Daily Race + League reset clock** — 6am ET, ET-anchored. UTC auto-shifts 10:00 ↔ 11:00 with DST. Supabase cron in `America/New_York` tz. Behind `daily_race_reset_time` PostHog flag. Once-per-day lock built on reset window (not a rigid 24h timer) to handle DST 23/25-hour weeks. *Resolves Appendix D #7; anchors #19.*
+2. **Leaderboard tie-breakers** — 4-layer cascade: `score DESC → peak_streak DESC → questions_answered ASC → submitted_at ASC`. Applies uniformly across Daily Race, League of 30, Quickmatch, and Global all-time (aggregates for cumulative). Zero new schema. *Resolves Appendix D #20.*
+3. **Seasonal pack clarification** — Free = static 2,500 launch questions. Pro = 2,500 + ongoing seasonal packs (post-launch). Part 5 Free tier copy updated. *Resolves Appendix D #29.*
+4. **Localization at launch** — English-only, explicit. `locale` column added to Supabase content schema from day one (default `'en'`) as a cheap architectural hedge. *Resolves Appendix D #46.*
+5. **App Store name + subtitle** — App name: `Super Smart — Quick Trivia`. Subtitle: heritage line (candidate `Since 2012. Smarter now.`, final copy Phase 6). Reversal of a mid-session rec — discoverability > distinctiveness for a solo-founder launch with no paid UA. *Resolves Appendix D #37.*
+
+### Files touched (canonical)
+- `super_smart_2026_mothership.md` — v1.20 → v1.21. Status line updated. Part 3 Daily Race reset line rewritten. Part 5 Free tier copy rewritten. Part 6 name/subtitle section rewritten. Appendix D items #7, #19, #20, #29, #37, #46 annotated with resolution. Part 12 gained 5 new decision log rows with full rationales. End-of-doc version stamp bumped.
+- `CHANGELOG.md` — this entry.
+
+### Implementation work this unlocks (not done this session)
+- Supabase schema draft (Appendix D #5) can now include the `locale` column and a reset-time constant source.
+- Leaderboard SQL in Phase 4 has its exact `ORDER BY` cascade specced.
+- Streak Shield 48hr window anchor (#19) has its reset anchor confirmed — remaining work is detection logic.
+- App Store listing (Phase 6) has the name locked; subtitle final copy + keyword field still to draft.
+
+---
+
 ## Session 8 — 2026-04-24 — Mothership alignment pass
 
 Read the primer and mothership (now v1.15, last updated 2026-04-24) and closed four concrete code/spec gaps.
