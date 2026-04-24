@@ -2,6 +2,26 @@
 
 ---
 
+## Session 12 — 2026-04-24 — Mini-decisions bundle (mothership v1.24 → v1.25)
+
+Five small Appendix D items locked in a serial "coffee decisions"-style session. No code changes — doc-only pass.
+
+### Decisions locked
+1. **League tiers 1–3 renamed, entry point moves to tier 2.** New ladder: **Rookie → Newcomer → Regular → Veteran → Qualifier → Finalist → Champion → Legend.** Players enter at tier 2 (Newcomer); Rookie is a demotion destination only. Avatar border colour mapping shifts by one slot at the bottom; tiers 4–8 unchanged.
+2. **Wordmark splash: 2 seconds, every cold-start launch.** Water-balloon bloat fires at t=0, settles through fade-out. Previously ambiguous "2–3 seconds, onboarding-only" now locked at 2s and scoped to every launch.
+3. **Emoji policy.** No emoji in questions/options/distractors (text-only corpus). Allow emoji in scraped display names from Apple/Google sign-in, with moderation pipeline catching abuse. Same rule for player-edited display names. Emotes and voice copy unchanged.
+4. **Support email domain — DEFERRED with fallback picked.** Primary `support@iamsupersmart.com` (heritage-aligned). Fallback `support@supersmart.game` if original is unrecoverable. Action item for future session: confirm registrar status.
+5. **Question retirement / correction path.** Three-tier severity system: Edit in place (typo/minor fix); Soft retire (`active=false`, in-flight sets preserved); Emergency recall (invalidate containing sets, cancel + re-seed Daily Race, goodwill compensation). Historical session data never retroactively edited. No in-app "report this question" button — all player feedback flows through a single "Contact the developer" email link in Profile.
+
+### Files touched (canonical)
+- `super_smart_2026_mothership.md` — v1.24 → v1.25. Status line updated. Part 3: navigation/Profile line gets the "Contact the developer" email link clause; avatar border tier colors renamed; onboarding step 1 (splash) rewritten for 2s/every-launch. Part 4 Layer 4: league tiers list renamed with entry-rule text updated. Part 12 decision log: 5 new rows with full rationales. Appendix C glossary: League tier entry updated with the new ladder. Appendix D items #13, #25, #28 marked ✅ RESOLVED; #40 marked partial/deferred with fallback recorded. End-of-doc version stamp bumped.
+- `CHANGELOG.md` — this entry.
+
+### No code changes this pass
+League tier names and the splash flow are both Phase 3/4 work items (not currently wired in code — audit earlier today confirmed no existing league-tier references in app/). When Phase 3 builds the onboarding flow and Phase 4 builds the league system, they'll pull from v1.25 spec directly.
+
+---
+
 ## Session 11 — 2026-04-24 — Code caught up to mothership v1.24
 
 No spec changes. Full code↔mothership audit surfaced five code mismatches from today's decisions. All fixed in one pass.
