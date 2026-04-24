@@ -14,7 +14,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Colors, Fonts } from '@/constants/theme';
 
-const AVATAR_COLORS = ['#FFD23F', '#9EFF3D', '#3DAEFF'];
+// Avatar colors — pulled from the 8-color avatar library (see app/avatar.tsx).
+// Mixes free + Pro shades for brand consistency and soft exposure to Pro items
+// (consistent with mothership v1.23 bot-ghost rule for ghost avatars).
+const AVATAR_COLORS = ['#FF6B9D', '#FFB86B', '#B86BFF'];  // pink (free), orange (free), purple (pro)
 
 export function LivePlayersStrip({ fg = Colors.cream, accent = Colors.yellow }) {
   const [count, setCount] = useState(342);

@@ -2,6 +2,31 @@
 
 ---
 
+## Session 11 — 2026-04-24 — Code caught up to mothership v1.24
+
+No spec changes. Full code↔mothership audit surfaced five code mismatches from today's decisions. All fixed in one pass.
+
+### Fixed
+- **`app/echo.tsx` — ghost names** expanded from 5 same-pattern (`Word_NN`) to 30 mixed-pattern across three styles (adjective+noun, firstname+number, curated handles), per the v1.23 bot-ghost rule that names must be deliberately non-pattern to prevent detection.
+- **`app/echo.tsx` — ghost score** rewritten from the old "player's final score ± 35% swing" formula to random 300–3,000 independent of player score. Generated once at match start on the ghost object (`ghost.score`), revealed at round end. Per v1.23 bot-ghost spec — low floor ensures new players typically win their first few games.
+- **`app/echo.tsx` — ghost avatar** now randomizes across all 8 colors / 8 eye styles / 8 mouth styles from the full avatar library (including Pro-locked items — soft exposure to purchasable cosmetics per v1.23). Replaces three hardcoded `eyes="square" mouth="smirk"` calls at lines 335/375/433.
+- **`app/questions.ts:338–339` — two stale question-bank entries** referenced retired modes. Rewritten: *"you start with ___ in Arcade mode"* → *"you start with ___ in Quickmatch"*; *"you start with ___ in Classic mode"* → *"you start with ___ in Daily Race"*. Same structures, current mode vocabulary. (Modes Classic and standalone Arcade were retired 2026-04-18 session 3.)
+- **`components/LivePlayersStrip.tsx:17` — avatar colors** swapped from three non-library shades (`#FFD23F / #9EFF3D / #3DAEFF`) to three library shades (`#FF6B9D / #FFB86B / #B86BFF`: pink-free, orange-free, purple-Pro). Brand consistency + soft exposure to Pro cosmetics matches the bot-ghost avatar rule.
+
+### Not built, flagged as expected future phase work
+Full audit confirmed the following are not-yet-implemented per phase spec (not mismatches): onboarding flow (Phase 3), skill tier + league tier systems (Phase 4), Supabase wiring (Phase 4), "Unstoppable" 10-streak moment UI (Phase 3), Streak Shield IAP (Phase 4+), narrator callouts (Phase 3 audio), Layer 2 mascot reactions (Phase 3), end-of-league interstitials (Phase 3/4 copy), Pro purchase flow + RevenueCat (Phase 6), PostHog flag-based tunables (Phase 6).
+
+### Files touched
+- `app/echo.tsx` — ghost name pool, ghost score formula, ghost avatar fields + three Avatar renders
+- `app/questions.ts` — lines 338–339 rewritten
+- `components/LivePlayersStrip.tsx` — avatar color pool
+- `CHANGELOG.md` — this entry
+
+### What stayed in sync (confirmed consistent)
+Cream Stadium palette, fonts, scoring mechanics (100/+50/3-5-7/−50/1s-lock), `FREE_LIMIT=7`/`ONE_MORE_LIMIT=3`, 22 ranks, 75 emotes (15×5), 3-tab nav, League tab section order, Daily Race share format (3-line scoreboard + on-screen grid), global Sunburst + Halftone at locked colors/opacity, transparent nav theme, Classic mode + kicker properly retired in code.
+
+---
+
 ## Session 10b — 2026-04-24 — Consistency audit after v1.23 reversal (mothership v1.23 → v1.24)
 
 No spec changes. Doc top-to-bottom read surfaced five places the v1.23 bot-ghost reversal left stale references. All cleaned up in one pass.

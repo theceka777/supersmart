@@ -18,8 +18,36 @@ import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const GHOST_NAMES  = ['QuizWizard_88', 'GhostPlayer_42', 'BrainFuel_77', 'TriviaTank_99', 'SmartBomb_11'];
-const GHOST_COLORS = ['#6B9DFF', '#FF6B9D', '#6BDB6B', '#FFB86B', '#B86BFF'];
+// Ghost name pool — mothership v1.23 bot-ghost rule: deliberately NO single pattern.
+// Mixed styles (adjective+noun, firstname+number, curated handles) so players
+// cannot identify bots from name alone. Pool is ~30 to keep repeats rare.
+// When Phase 4 matchmaking Edge Function lands, this pool moves server-side.
+const GHOST_NAMES = [
+  // Adjective + Noun (10)
+  'SleepyKoala', 'BrightFern', 'EagerMango', 'QuietRiver', 'LoudPeach',
+  'WarmGranite', 'CrookedLamp', 'BoldSparrow', 'LazyWillow', 'CrispLemon',
+  // First name + number (10)
+  'Maya42', 'Leo7', 'Noah19', 'Zoe88', 'Kai3',
+  'Aria55', 'Theo21', 'Luna9', 'Ezra14', 'Juno6',
+  // Curated handles (10)
+  'biscuit_tin', 'moss.pilot', 'trivia-crab', 'lemonharbor', 'oakly',
+  'june1st', 'cat_of_9', 'halfmoon', 'paperboat', 'velvet.hum',
+];
+
+// Ghost colors: full 8-color library including Pro-locked shades.
+// Mothership v1.23: bot avatars draw from the full library including Pro items
+// — soft exposure to purchasable cosmetics.
+// Free (4): pink, blue, green, orange. Pro (4): purple, gold, teal, ember.
+const GHOST_COLORS = [
+  '#FF6B9D', '#6B9DFF', '#6BDB6B', '#FFB86B',  // free tier
+  '#B86BFF', '#FFD700', '#40E0D0', '#FF4D4D',  // pro tier
+];
+
+// Eye and mouth id pools — both include Pro tier items. Keys match the
+// Avatar component's EYES/MOUTHS dictionaries (see components/Avatar.tsx).
+const GHOST_EYES   = ['round', 'square', 'sleepy', 'wink', 'stars', 'dots', 'wide', 'closed'];
+const GHOST_MOUTHS = ['smile', 'neutral', 'smirk', 'ohh', 'grin', 'tongue', 'flat', 'open'];
+
 const GHOST_TIMES  = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
 
 // Ghost emote: randomly mocking or supportive — the real emote library, not placeholders.
@@ -31,6 +59,14 @@ function pickGhostEmote(): string {
 
 function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Bot ghost final score — mothership v1.23: random within 300–3,000,
+// INDEPENDENT of the player's actual score. The low floor means new players
+// typically win their first few games. Generated once at match start; revealed
+// at round end.
+function generateBotScore(): number {
+  return 300 + Math.floor(Math.random() * 2701); // 300..3000 inclusive
 }
 
 const FREE_LIMIT     = 7;
@@ -134,8 +170,11 @@ export default function EchoScreen() {
   const [ghost] = useState({
     name:  pick(GHOST_NAMES),
     color: pick(GHOST_COLORS),
+    eyes:  pick(GHOST_EYES),
+    mouth: pick(GHOST_MOUTHS),
     emote: pickGhostEmote(),
     time:  pick(GHOST_TIMES),
+    score: generateBotScore(),  // bot final score, 300-3000, revealed at round end
   });
 
   // ── Refs: source of truth ──────────────────────────────────────────────────
@@ -257,9 +296,9 @@ export default function EchoScreen() {
     if (timerRef.current)  clearInterval(timerRef.current);
     if (nextRef.current)   clearTimeout(nextRef.current);
     const final = scoreRef.current;
-    const base  = Math.max(final, 300);
-    const swing = Math.floor(base * 0.35 * (Math.random() - 0.4));
-    setGhostScore(Math.max(0, base + swing));
+    // Bot ghost score was pre-generated at match start (300–3,000, independent
+    // of player score — mothership v1.23 bot-ghost rule). Just reveal it now.
+    setGhostScore(ghost.score);
     setGameEmotes(pickInterviewEmotes());
     updateHighScore('quickmatch', final);
     setPhase('result');
@@ -293,7 +332,7 @@ export default function EchoScreen() {
         <View style={s.avatarWrap}>
           <View style={s.avatarShadow} />
           <View style={s.avatarFace}>
-            <Avatar color={ghost.color} eyes="square" mouth="smirk" size={96} />
+            <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={96} />
           </View>
         </View>
         <Text style={s.ghostName}>{ghost.name}</Text>
@@ -333,7 +372,7 @@ export default function EchoScreen() {
           </View>
           <Text style={s.vsText}>VS</Text>
           <View style={s.scoreCard}>
-            <Avatar color={ghost.color} eyes="square" mouth="smirk" size={40} />
+            <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={40} />
             <Text style={s.scoreCardLabel}>{ghost.name}</Text>
             <Text style={[s.scoreValue, !won && !tied && s.winnerScore]}>{ghostScore.toLocaleString()}</Text>
             <Text style={s.scoreRank}>{getRankLabel(ghostScore)}</Text>
@@ -391,7 +430,7 @@ export default function EchoScreen() {
 
         {/* Ghost mini */}
         <View style={play.ghostMini}>
-          <Avatar color={ghost.color} eyes="square" mouth="smirk" size={28} />
+          <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={28} />
           <Text style={play.ghostMiniName} numberOfLines={1}>{ghost.name}</Text>
         </View>
 
