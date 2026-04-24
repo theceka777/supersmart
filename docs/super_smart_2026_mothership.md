@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.19 — Flexibility Architecture locked (Supabase for all copy, PostHog flags for all tunables, EAS Update deferred); framework choice reconsidered and held at React Native
+**Status:** v1.20 — Appendix D audit pass (46 open items now tracked, grouped by resolution phase); Flexibility Architecture locked; Instrumentation stack locked
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -1261,21 +1261,83 @@ Files in hand (as of April 18, 2026):
 
 **All resolved.**
 
-### Remaining open items (deferred to their phase)
+### Remaining open items — grouped by resolution phase
 
-1. ~~**Wrong-answer streak behavior:** Full reset vs. freeze~~ — **resolved in session 3: wrong answer resets streak to zero immediately.**
-2. ~~**Daily Quiz strikes vs play-all-10**~~ — **moot: Classic-mode 3-strikes mechanic retired. Daily Race plays through the full 60 seconds regardless of wrong answers.**
-3. **Daily Race reset clock + league reset clock:** Local time vs UTC — Phase 4 (both clocks should be decided together since the league transition window is tied to the reset)
-4. **Skill tier initial thresholds:** Creative director to provide the 5 bracket score values before launch, based on beta playtest data. These become the seed for the inertia formula going forward. Remind at Phase 4/5. *[flagged in Part 4]*
-5. ✅ **League matchmaking within cluster:** weighted random ±1 tier, tiers hidden from other members — decided 2026-04-19 session 7.
-6. **"What happens after league" — post-league UX, promotion/demotion rewards and consequences:** deferred by creative director, to be discussed. *[flagged for next session]*
-7. **Streak Shield bundle pricing:** Phase 5
-4. **Specific avatar unlock conditions (Part 3):** Design in Phase 3
-5. ✅ **Onboarding spec (Part 3):** Decided 2026-04-24. Full spec in Part 3.
-6. **Sound design direction (Part 3):** Phase 3
-7. **App Store subtitle (Part 9):** Phase 6
-8. **Launch date PR strategy (Part 9):** Phase 6
-9. **Seasonal Pro packs cadence (Part 5):** Deferred to v1.1+
+Reorganised 2026-04-24 (v1.20) after an audit pass surfaced implicit gaps the doc had been handwaving. Section structure: items grouped by the phase that must resolve them, so a future reader can see at a glance what's blocking each phase.
+
+#### Phase 4 blockers — must resolve before multiplayer build starts
+
+1. **Auth architecture.** Onboarding spec commits to Sign in with Apple / Google + email magic link + anonymous session fallback. Underspecced: which library (Supabase Auth vs Clerk vs something else); how does an anonymous-session player's data merge into their account when they eventually sign in; is the anonymous session durable across reinstalls.
+2. **Local persistence strategy.** App currently keeps state in React Context with no `AsyncStorage` wiring. Needs spec for: what survives a force-quit (progress, rank, avatar config, `freePlay` counter, Streak Shield inventory, selected-but-not-submitted emote); what refreshes from Supabase on launch; offline-first fallback behaviour.
+3. **Offline behaviour.** "Never block a 60-second round on a network call" is committed but operationally unspecced. Can you play Quickmatch offline (no ghost to race)? Daily Race offline (no shared set)? Does the app pre-cache a week of question sets on launch / on WiFi? Graceful UX when you're offline and tap a mode.
+4. **Identity + cross-device sync.** What's the identity key — Apple ID, email, Supabase UUID? RevenueCat has an `app_user_id` concept that must tie to the same identity. New-device migration: does Pro purchase / rank / avatar follow automatically via Apple ID, or does the player need to sign in first?
+5. **Supabase schema gap.** `supabase/schema.sql` currently covers emotes, ranks, questions only. Missing: `players`, `sessions`, `scores`, `ghost_pool`, `question_sets`, `challenges`, `league_memberships`, `streak_shields`, `pro_entitlements`, `push_tokens`. Phase 4 can't start without a full schema draft.
+6. **Anti-cheat / score integrity.** Global leaderboards matter. What prevents a modified client submitting fake scores? Typical tools: server-side reasonableness checks (points-per-second bound), rate limiting, suspicious-pattern flagging. Not specced.
+7. **Daily Race + League reset clocks.** Local time vs UTC — must be decided together since the 2-hour league transition window is tied to the reset.
+8. **Skill tier initial bracket thresholds.** Creative director to provide 5 score values before launch based on beta playtest data. These seed the inertia formula going forward.
+
+#### Phase 3 design items (visual + audio polish)
+
+9. **Avatar milestone-unlock conditions.** Which gameplay achievements unlock which earned items.
+10. **Sound design direction.** SFX library, narrator voice casting (TTS vs VO), mix levels.
+11. **League rank border hex values + shimmer execution.** 8 tier colours and the Legend animated shimmer — rough direction locked (grey → gold), specifics pending.
+12. **Text callout on playing screen.** Narrator copy appearing on-screen as text — decide when playing layout is visible and we can judge if it competes with question text.
+13. **Onboarding wordmark splash duration.** Currently "2–3 seconds" — lock exact number when animation is tuned.
+14. **Designer outreach for brand mascot evolution + UI direction polish.** Creative director + AI primary; new designer brought in for taste-heavy pieces. Outreach not yet started.
+
+#### Phase 4 architecture items (beyond the blockers above)
+
+15. **Challenge link architecture.** Deep link vs Universal Links vs App Links. Graceful fallback when the tapper doesn't have the app installed (App Store page with pre-populated campaign param).
+16. **Push notification permission UX.** iOS declines are permanent — need a pre-prompt pattern ("Want a nudge when someone beats your score?" before the system dialog).
+17. **Pro weekly Streak Shield auto-grant.** Specced as "1 free shield every Monday, up to 3-shield cap." Implementation is a scheduled server-side job on Supabase Edge Functions. Not designed.
+18. **Pro receipt validation failure grace period.** What happens when RevenueCat can't validate a receipt temporarily — lock Pro immediately or grace for N hours?
+19. **Streak Shield retroactive 48-hour clock anchor.** Measured from when — UTC midnight, local midnight, last-play timestamp? Ties into #7.
+20. **Leaderboard tie-breakers.** Two identical scores — who ranks higher? Convention: first-to-submit. Confirm.
+21. **App-backgrounding during a round.** Phone call mid-round at t=25s — pause, forfeit, or resume-from-where-you-were? Affects Quickmatch ghost-race fairness.
+22. **Launch-day Quickmatch UX.** First day, ghost pool is empty — everyone sees the "fresh game / you're seeding the pool" message. Does that feel vibrant or empty at scale? Worth an explicit UX decision.
+23. **League week-one launch experience.** Weekly rotation assumes ongoing operation. What does Week One look like — leagues form at launch minute, or first-Monday after launch?
+24. **Ghost pool storage cost at scale.** Mothership estimates "$0–20/month" for Supabase. Ghost pool at 100k+ DAU stores thousands of question sets × many ghosts each. Worth stress-testing the estimate.
+25. **Question retirement / correction path.** If a question turns out wrong/offensive post-launch, pulling from Supabase removes it from future sets — but today's already-seeded Daily Race set is stuck with it and historical scored rounds recorded it. Spec needed.
+26. **"What happens after league" — post-league UX.** Promotion / demotion rewards and consequences. *[Originally flagged by creative director for next session.]*
+
+#### Phase 5 content items
+
+27. **Streak Shield bundle pricing.** 1 / 2 / 3 shield pack prices.
+28. **Emoji policy in questions, answers, and display names.** Emoji allowed in new content (question text, distractors, kickers)? Allowed in scraped Apple/Google display names? Moderation implications.
+29. **Seasonal question pack clarification.** Pro spec says "Access to seasonal packs." Free spec says "All 2500+ questions." So: free = static 2500, Pro = 2500 + ongoing seasonal adds? Or does everyone get seasonal and Pro just gets early access? One-line clarification.
+
+#### Phase 6 launch-prep items (legal / compliance / App Store)
+
+30. **Privacy policy URL + Terms of Service.** Required for App Store submission. Not yet drafted.
+31. **Age rating decision.** Some 1001 questions reference alcohol, weapons, mature topics. If rated 4+ and content pushes 12+, Apple rejects. Content pass needed + explicit rating call.
+32. **GDPR + CCPA compliance.** Data export on request, deletion on request, consent flows. Necessary for EU + California users.
+33. **COPPA strategy.** Age gate to block under-13, or comply with COPPA (data minimisation, parental consent). Trivia games often attract under-13 — pick one explicitly.
+34. **Account deletion + data export.** Required by App Store for any data-collecting app. Build as a Profile settings flow.
+35. **Legal entity + IP.** Formondo (2012) exists but is dormant. Who ships v2 — reactivated Formondo, new LLC, solo trader? Apple Developer account goes in whose name? 1001 questions + mascot IP: was it transferred from Formondo to the creative director personally, or still held by Formondo?
+36. **Display name moderation.** Names pulled from Apple/Google accounts. League boards display them publicly. Profanity filter + moderation pipeline needed.
+37. **App Store subtitle.** Collision with existing "SUPERSMART Party Trivia". Candidates: "Super Smart — Quick Trivia" or "Super Smart — Since 2012".
+38. **Launch date PR strategy.** Warm-list press (148Apps, GameviewTonton), nostalgia angle, timing.
+39. **Beta tester list.** 10–20 friends for TestFlight. Names + coverage (iOS + Android, country mix).
+40. **Support email domain.** Candidate `support@iamsupersmart.com` — confirm domain active, email configured.
+41. **App Store screenshots + preview video creative brief.** Deliverable listed, no brief.
+42. **App Sandbox IAP testing strategy.** RevenueCat Sandbox mode + Apple Sandbox testers. Flow for beta testers to test purchase without real charges.
+
+#### Operational
+
+43. **Backup developer plan.** Risk Register item 3 says budget is set aside for a human dev on specific blocks if Claude Code hits a wall. Specifics TBD — who, where sourced, rate.
+
+#### Deferred indefinitely unless reopened
+
+44. **Seasonal Pro packs cadence.** v1.1+ conversation once the content factory and player base exist.
+45. **Private leaderboards for friend groups** as a Pro feature. Possible post-launch.
+46. **Localization / i18n.** Implicit default is English-only at launch. Worth stating explicitly. Multi-language = implications for question corpus, multiplayer matching, character-limit rules.
+
+#### Historical resolved items (for reference)
+
+- ~~**Wrong-answer streak behaviour:** full reset vs. freeze~~ — resolved session 3 (2026-04-18): wrong answer resets streak to zero immediately.
+- ~~**Daily Quiz strikes vs play-all-10**~~ — moot after Classic mode retired; Daily Race plays full 60 seconds regardless of wrong answers.
+- ✅ **League matchmaking within cluster** — weighted random ±1 tier, tiers hidden — decided 2026-04-19 session 7.
+- ✅ **Onboarding spec** — decided 2026-04-24. Full spec in Part 3.
 
 ### Fully resolved
 
@@ -1296,4 +1358,4 @@ Files in hand (as of April 18, 2026):
 
 ---
 
-*End of doc v1.19 — last updated 2026-04-24.*
+*End of doc v1.20 — last updated 2026-04-24.*
