@@ -1,6 +1,6 @@
 # SUPER SMART 2026 — Mothership Doc
 
-**Status:** v1.12 — League tier names locked; end-of-league UX decided (hybrid interstitial, three outcome tiers)
+**Status:** v1.15 — Avatar system fully specced (3 components, 3 tiers, league rank border); Unstoppable named; onboarding locked
 **Last updated:** April 24, 2026
 **Purpose:** This is the single source of truth for the Super Smart 2026 rebuild. Everything else (project plan, assets, code, marketing) descends from this document. When in doubt, read this. When something changes, update this. When a collaborator joins, this is what they read first.
 
@@ -295,19 +295,53 @@ The rank ladder is preserved from the original game, recovered from personal fil
 
 **Rank names are frozen.** They carry the brand's voice and are not candidates for refactoring without strong cause. Score thresholds may be tuned in playtest if the curve feels off.
 
-### Avatar system *[DECIDED in concept, OPEN in scope]*
+### Avatar system *[DECIDED 2026-04-24]*
 
-Modular brain builder. At minimum: brain color, eye/glasses style, mouth. Confirmed from original: at least 4 brain colors (pink, blue, grey, green), multiple eye styles, multiple mouth styles.
+Modular brain builder. Three components: **brain color, eyes, mouth.** Antenna (lightning bolt) is fixed brand identity — not customizable. All items are cosmetic, not gameplay-affecting.
 
-**[DECIDED] — Avatar progression.** Generous base kit available from first launch (no one feels gated on day one), but some items are unlocked through play (hit rank X once, play N rounds, beat a ghost by Y points, etc.). The unlocked items are cosmetic, not gameplay-affecting. Specific unlock conditions designed in Phase 3.
+**Where the avatar appears:** ghost preview screen, result screen, playing screen, leaderboards. It is a multiplayer identity signal first — the face of every competitive interaction — not a Profile vanity toy.
 
-### Onboarding *[DEFERRED to Phase 3]*
+**Option tiers:**
+- **Free base kit:** 4 brain colors, 4 eye styles, 4 mouth styles (64 combinations). Enough to feel like yourself from day one.
+- **Earned through play:** additional items unlocked via gameplay milestones (hit Unstoppable, reach a league tier, complete N Daily Races, etc.). Specific conditions designed in Phase 3.
+- **Pro exclusive:** 4 additional brain colors, 4 additional eye styles, 4 additional mouth styles. Pro players have access to 8 options per component (512 combinations total).
 
-The 2012 version had no onboarding. In 2026 this is non-negotiable — we ship with a first-time-only guided experience.
+**League rank border:** the avatar displays a colored stroke/border indicating the player's current league tier. Eight tiers, eight colors — rough progression from dull to premium:
+1. Newcomer — grey
+2. Regular — white
+3. Contender — green
+4. Veteran — blue
+5. Qualifier — purple
+6. Finalist — orange
+7. Champion — red (Cream Stadium red)
+8. Legend — gold (animated shimmer)
 
-**Working direction:** a 30-second first-time Arcade round with a curated set of easy-to-medium questions that showcase each game feature (a wordplay one, a math one, a pop culture one, one that triggers a streak, one that triggers a power-up). Brief UI hints overlay the first few questions only. Then drop into the real game.
+Border reflects last week's confirmed rank, not live current-week standing. Exact border weight, color values, and shimmer execution finalized during Phase 3 visual pass.
 
-Exact spec finalized during Phase 3 (Core game build). Not urgent to lock now.
+### Onboarding *[DECIDED 2026-04-24]*
+
+The 2012 version had no onboarding. The 2026 version has one — but it's designed to feel like the game, not a tutorial.
+
+**Core principle:** the best onboarding for Super Smart is playing Super Smart. No tutorial screens, no rules explained upfront. Get the player into a round within 30 seconds of opening the app for the first time.
+
+**First-open flow:**
+
+1. **Animated wordmark splash.** App opens to the Super Smart wordmark doing its water-balloon bloat animation on the cream/sunburst background. 2–3 seconds. No copy, no buttons. Pure brand moment. Fades into the home screen.
+
+2. **First-time home screen.** Identical to the normal home screen except the leaderboard widget is replaced with a single line: *"Tap Quickmatch to play your first round."* League and Profile tabs are greyed out until the player completes one round. Between Quickmatch and Daily Race on the home screen, the player chooses freely — Daily Race is a valid first experience too.
+
+3. **Sign in with Apple / Google — fires on first game tap, regardless of mode.** Display name is pulled automatically from their platform account. No manual name entry. They can change their display name anytime in Profile (30-day cooldown to protect leaderboard integrity). If they are not signed in or decline, they play as an anonymous Supabase session — data is saved, prompt returns at natural moments (e.g. before accessing leaderboards). Email magic link available as fallback for players who won't use platform auth.
+
+4. **First round — ghost-free, two contextual nudges.** Full-length round (60 seconds), normal mechanics, nothing dumbed down. Ghost opponent is skipped — the "you're first — set the pace" fresh-set state handles this naturally and honestly. Two UI nudges appear once and never again:
+   - When they answer correctly in under 2 seconds for the first time: *"Under 2s — speed bonus!"*
+   - When they hit their first 3-streak: *"3 in a row — 2×!"*
+   Miss penalty, One More button, leagues — discovered naturally when relevant. No pre-explanation.
+
+5. **After round one.** Normal rank reveal, normal result screen. No welcome banner. League and Profile tabs unlock. From round 2 onwards: full experience, ghost opponents, everything live.
+
+**Name change:** display name is editable in Profile. 30-day cooldown between changes. One Supabase `name_last_changed` timestamp field enforces this — straightforward to build.
+
+**If they play Daily Race first:** same flow applies. Sign in prompt fires on first game tap. Same two contextual nudges fire on first round regardless of mode — tied to the player, not the mode. Once seen, never shown again. Daily Race is once-per-day so their natural next session is Quickmatch anyway.
 
 ### Daily Race *[DECIDED 2026-04-18 session 3; format corrected 2026-04-19]*
 
@@ -868,7 +902,7 @@ Detailed marketing plan waits for Part 6 (visuals) and Part 7 (build) to firm up
 - Arcade mode: full implementation with power-ups and streak mechanics
 - Classic mode: full implementation with 3-strikes logic
 - Avatar system (basic — expandable later)
-- Onboarding: 30-second first-time-only guided Arcade round
+- Onboarding: spec decided (see Part 3) — wordmark splash → first-time home screen → Sign in with Apple/Google → ghost-free first round with two contextual nudges
 - Local storage for progress, rank, avatar
 - Sound design pass (SFX library, music, stings)
 - Motion pass across all existing screens
@@ -957,8 +991,10 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-18 (v1.1 revision) | Rank ladder: 22 tiers from "Really? (0)" to "Super Smart! (7001-9000)" preserved from 2012 original files | Rank names carry the brand voice. Not a candidate for refactoring. |
 | 2026-04-18 (v1.1 revision) | All personal names removed from the doc; doc is role-based | Portability; collaborators shouldn't be named until commitments exist. |
 | 2026-04-18 (v1.2 revision) | No "skip question" power-up in Arcade; no "Centuple" name — top-tier 10-streak reward stays as mechanic, name TBD | Skip softens the game; Centuple name wasn't loved, can be reworked later |
+| 2026-04-24 | Top-tier 10-streak reward named: **Unstoppable** | Visceral, universal, no explanation needed. Biggest word for the biggest moment in the game. |
 | 2026-04-18 (v1.2 revision) | Kicker character limit: 80 characters | Readable in ~1 second |
 | 2026-04-18 (v1.2 revision) | Avatar progression: generous base kit at start + some items unlocked through play | Balances day-one feel with long-tail replayability |
+| 2026-04-24 | Avatar system fully specced: 3 components (brain color, eyes, mouth); antenna fixed. Free = 4 options each; earned through play = milestone unlocks (Phase 3); Pro = 4 additional each. League rank shown as colored border stroke on avatar (8 colors, grey→gold, Legend gets animated shimmer). Border = last week's confirmed rank. | Avatar is a multiplayer identity signal — appears on ghost preview, result screen, playing screen, leaderboards. Border integrates league rank without a separate badge element. Visual details finalized in Phase 3. |
 | 2026-04-18 (v1.2 revision) | Daily Quiz mode added: third mode, 10 questions, Classic pacing, Wordle-style shareable result | Major viral hook + retention layer. Dedicated mode beats a single-daily-question-inside-another-mode. |
 | 2026-04-18 (v1.2 revision) | Designer approach: creative director + AI primary, new designer for brand/UI direction; original 2012 designer not reconnected | Most asset work is reachable with AI in 2026; designer reserved for pieces where professional taste matters most |
 | 2026-04-18 (v1.2 revision) | Backend: Supabase | Postgres + one-dashboard simplicity; indie-friendly; Claude Code-friendly |
@@ -1004,6 +1040,7 @@ Every big decision gets recorded here with date and rationale. This is how futur
 | 2026-04-19 (session 7) | League formation fully specced: 2-hour transition window seeds each new league with real recently-active players; split rules (under 5 → queue, 5–29 → one league, 30–44 → split two, 45+ → divide further); forming queue opens at 5 players with earned scores already in it; Tuesday end-of-day fallback prevents indefinite limbo; no ghost-fill — every league entry is a real player who played that week. "Your points are counting" message shown in both transition window and forming queue states. | Ghost-fill rejected in favour of retroactive real-player seeding — cleaner, honest, no fake scaffolding to remove later. Minimum of 5 (not 10) keeps wait time short while still feeling like real competition. |
 | 2026-04-19 (session 7) | League cluster matchmaking locked: weighted random biased toward same tier ±1. Not pure random (too lopsided at small counts), not strict skill-sorting (too predictable). Probabilistic — variance and upsets still happen. Tier visibility: hidden from other league members; board shows names and scores only. | Pure random was agreed first but the hybrid is meaningfully better for competitive quality without adding hard matchmaking complexity. Tier privacy removes all scrutiny of cluster composition and keeps the social dynamic clean. At small player counts the weighting is effectively moot anyway — becomes more impactful as the player base grows. |
 | 2026-04-24 | League tier names locked: 8 tiers (Newcomer → Regular → Contender → Veteran → Qualifier → Finalist → Champion → Legend). Competition-circuit register, deliberately separate from the 22-name rank ladder. Top 5 promote, bottom 5 demote weekly. | Rank ladder names are frozen brand assets — league tiers needed a separate vocabulary. Competition-circuit language is globally understood. Promotion/demotion proportion (~17% each way) mirrors Duolingo's 20% and feels fair. |
+| 2026-04-24 | Onboarding spec locked: wordmark splash → first-time home screen (League/Profile tabs greyed) → Sign in with Apple/Google on first game tap (name pulled from platform, no manual entry) → ghost-free first round with two contextual nudges (speed bonus, streak). Anonymous session fallback for players who decline sign-in. Display name changeable in Profile with 30-day cooldown. | No tutorial screens — onboarding is playing the game. Two nudges teach the two non-obvious mechanics (speed bonus, streak multiplier) in context. Platform sign-in removes all friction from identity setup. |
 | 2026-04-24 | End-of-league UX: hybrid approach. Push notification + first-open interstitial (once only), then result card in League tab. Three-tier interstitial: Promoted (celebratory, new tier reveal), Held (dry, honest, motivating), Demoted (quiet, not punishing). All three show final position, score, next tier. | One-time interstitial earns the dramatic moment without ambushing repeat opens. Three tiers of response match the emotional stakes of each outcome. Specific copy deferred to Phase 3/4. |
 | 2026-04-19 (session 7) | Second tab renamed from "Inbox" to "League". | Inbox is email-app language. League is what the tab actually is — competition, standings, activity. Fits the brand and tells the player exactly what they're walking into. |
 | 2026-04-19 (session 7) | "Ghost" removed from all customer-facing copy. Activity feed section renamed from "Your Ghost Activity" to "Recent Activity". | Ghost is internal/backend vocabulary. Players don't need to know the architecture — they just see opponents and results. Cleaner, less confusing for new players. |
@@ -1093,7 +1130,7 @@ Files in hand (as of April 18, 2026):
 6. **"What happens after league" — post-league UX, promotion/demotion rewards and consequences:** deferred by creative director, to be discussed. *[flagged for next session]*
 7. **Streak Shield bundle pricing:** Phase 5
 4. **Specific avatar unlock conditions (Part 3):** Design in Phase 3
-5. **Onboarding spec details (Part 3):** Finalize in Phase 3 — note: onboarding vehicle was "a first-time Arcade round"; with Arcade retired, the vehicle is now a first-time Quickmatch round. Spec to be updated in Phase 3.
+5. ✅ **Onboarding spec (Part 3):** Decided 2026-04-24. Full spec in Part 3.
 6. **Sound design direction (Part 3):** Phase 3
 7. **App Store subtitle (Part 9):** Phase 6
 8. **Launch date PR strategy (Part 9):** Phase 6
@@ -1109,8 +1146,8 @@ Files in hand (as of April 18, 2026):
 - ~~**Kicker placement (Part 3)**~~ — Killed for now (session 2). Deferred to Phase 5.
 - ✅ **Category rebalance (Part 3)** — classical-durable lean, finer buckets, math capped, 2026-04-18
 - ✅ **Rank ladder (Part 3)** — 22 tiers preserved from 2012 originals, 2026-04-18
-- ✅ **Arcade power-ups (Part 3)** — streak ladder locked, no skip, top-tier name TBD, 2026-04-18
-- ✅ **Avatar progression (Part 3)** — base kit + unlocks, 2026-04-18
+- ✅ **Arcade power-ups (Part 3)** — streak ladder locked, no skip, top-tier 10-streak reward named "Unstoppable", 2026-04-18 / 2026-04-24
+- ✅ **Avatar system (Part 3)** — 3 components (color/eyes/mouth), 3 option tiers (free/earned/Pro), league rank shown as border stroke, 2026-04-24
 - ✅ **Daily Race mode (Part 3)** — 60 seconds, shared daily question set, once per day, score-based share-out, own daily leaderboard, 2026-04-18 session 3
 - ✅ **Designer approach (Part 6)** — creative director + AI + new designer for brand/UI, 2026-04-18
 - ✅ **Backend (Part 7)** — Supabase, 2026-04-18
