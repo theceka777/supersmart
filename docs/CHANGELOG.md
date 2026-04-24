@@ -2,6 +2,54 @@
 
 ---
 
+## Session 10b — 2026-04-24 — Consistency audit after v1.23 reversal (mothership v1.23 → v1.24)
+
+No spec changes. Doc top-to-bottom read surfaced five places the v1.23 bot-ghost reversal left stale references. All cleaned up in one pass.
+
+### Fixed
+- **Part 3 Onboarding step 4** — "ghost-free first round, ghost opponent skipped" rewritten to "standard Quickmatch with bot-ghost opponent, typically winnable via 300–3,000 bot score range." The confidence-build intent is preserved; the mechanic is now consistent with the bot-ghost system rather than a special-case empty opponent.
+- **Part 10 Phase 3 exit criteria** — mirror of the onboarding one-liner updated accordingly.
+- **Part 12 Decision Log (2026-04-24 onboarding entry)** — kept as historical record but annotated with a trailing `[Superseded later 2026-04-24 by the bot-ghost system...]` cross-reference, so readers of that entry immediately see the reversal.
+- **Appendix D item #22 — Launch-day Quickmatch UX** — marked ✅ RESOLVED. The concern (empty pool on launch day) is fully handled by the bot-ghost fill; launch day won't have an empty ghost pool.
+- **Appendix D resolved section — "League matchmaking within cluster"** — wording updated from "weighted random ±1 tier" to "strict same-tier (a league of 30 is a leaderboard cohort, not a matchmaking pool)" to match the v1.22 clarification.
+
+### Files touched (canonical)
+- `super_smart_2026_mothership.md` — v1.23 → v1.24. Status line updated. Five targeted edits described above. End-of-doc version stamp bumped.
+- `CHANGELOG.md` — this entry.
+
+---
+
+## Session 10 — 2026-04-24 — Phase 4 schema draft + bot-ghost system locked (mothership v1.22 → v1.23)
+
+Big session. Three threads landed together in one push.
+
+### Phase 4 Supabase schema — first draft
+Created `supersmart/supabase/phase4_schema.sql` — 11 new tables, 2 triggers, 7 inline `[OPEN]` items. Covers identity (`players`, `push_tokens`, `pro_entitlements`), gameplay fact table (`sessions`), multiplayer (`question_sets`, `ghost_pool`, `challenges`, `daily_races`), and league + streak systems (`leagues`, `league_memberships`, `streak_shields`). Plus `locale` column extensions on the existing 3 Phase 3 tables. Original `supabase/schema.sql` left untouched — merge when Phase 4 build starts.
+
+Indexes match the leaderboard queries we specced: tie-breaker cascade composite on `sessions` for the Daily Race board; partial index on `sessions(player_id, question_set_id) where source='quickmatch'` for the no-replay filter; covering index for Global all-time aggregates. Triggers auto-maintain `players.pro` from `pro_entitlements` and `league_memberships.weekly_score` from session inserts — no batch jobs needed for either.
+
+### Bot-ghost system — major reversal
+Reverses two locked decisions (2026-04-18 session 3 and 2026-04-19 session 5) that had ruled out bots in favour of honest "you're first, seed the pool" messaging. The Honesty Layer section of Part 4 is retired.
+
+New rule: when a Quickmatch player is matched to a set with no human ghost at their skill tier, the matchmaking Edge Function generates an ephemeral bot ghost — single-use, never persisted in `ghost_pool`, indistinguishable from a human opponent in the UI. Score range 300–3,000 (most first games will be wins — intentional confidence build). Names follow no single pattern to prevent detection. Avatar randomly drawn from the full library including Pro-locked items (soft exposure to purchasable cosmetics). Bots graduate out automatically as soon as a human plays a set at a tier — subsequent matches at that tier land on the human ghost.
+
+**Leagues are excluded, always.** Bots never enter a League of 30, never appear on a league leaderboard. The 2026-04-19 session 7 "no ghost-fill in leagues" rule still holds absolutely — leagues are the public-competitive surface, bots stay in Quickmatch ghost matching only.
+
+### No-replay rule made explicit
+"No player ever sees the same question set twice in Quickmatch" (with the Challenge link exception) was already the core guarantee in Part 4 Layer 1, but the fallback case was underspecced. Candidates considered: silent replay of least-recently-played; on-demand generation of brand-new sets with a three-strike circuit breaker. Both rejected in favour of the bot-ghost fill — it preserves the no-replay guarantee absolutely and folds the edge case into the general-case solution.
+
+### Files touched (canonical)
+- `super_smart_2026_mothership.md` — v1.22 → v1.23. Status line updated. Part 4 Layer 1 "Fresh sets" section replaced with the new "Bot-filled ghosts" spec. Part 4 Honesty Layer retired (kept in doc, marked retired, for reader legibility). Part 4 Layer 4 reinforces "no bots in leagues, ever." Appendix C glossary updated: "Fresh set" redefined, new "Bot ghost" entry added. Part 12 decision log: three new rows (bot-ghost system, Phase 4 schema draft, no-replay rule lock). Appendix D #5 annotated with DRAFT LANDED status. End-of-doc version stamp bumped.
+- `supabase/phase4_schema.sql` — new file, 11 tables + 2 triggers + 7 open items. (Second pass added: no-replay partial index on sessions, comment block on question_sets, fixed ghost_pool FK bug, Edge Function notes updated for bot-ghost flow.)
+- `CHANGELOG.md` — this entry.
+
+### What this does NOT include
+- No code changes to the app. Schema file exists but nothing is wired.
+- Edge Functions still to build (separate workstream, probably one session per function): matchmaking+validator, league close/open, daily race seed, ghost pool retirement, pro shield grant, skill tier recalc, RevenueCat webhook, push dispatch.
+- Auth library (Appendix D #1), anti-cheat validator (Appendix D #6), RLS policy depth, answer-sequence storage cost stress test — all still open and flagged inline in the schema file.
+
+---
+
 ## Session 9b — 2026-04-24 — League vs skill tier clarification (mothership v1.21 → v1.22)
 
 No code changes. Readback of the league model surfaced that the 2026-04-19 session 7 matchmaking text conflated the two tier systems. Corrected in a single clarification pass.
