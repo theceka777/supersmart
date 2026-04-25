@@ -531,7 +531,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 530,music,an 80s hit song,Under Pressure,Under Ice,Under Fire,Under Pressure,15,14,Keep,
 531,music,a 70s hit song,Dancing Queen,Dancing Mice,Dancing Heat,Dancing Queen,14,13,Keep,
 532,music,a 70s hit song,Imagine,Cruel summer,Vogue,Imagine,14,7,Keep,
-533,music,French singer and cultural icon,Edith Piaf,Nicolas Sarkozy,Asterix,Edith Piaf,31,10,Keep,
+533,music,French singer and cultural icon,Edith Piaf,Nicolas Sarkozy,Asterix,Edith Piaf,31,10,Light edit,"distractor swap: option2 ""Nicolas Sarkozy"" → ""Audrey Tautou"" (Sarkozy is a fading 2007–2012 political reference; Tautou is the cleaner French cultural icon — Amélie 2001 brand-permanent, unambiguously not a singer, no awkward Piaf overlap)"
 534,music,a 90s hit song,One,Let It B,Imagine,One,14,3,Keep,
 535,music,a 60s hit song,She Loves You,She Loves It,Who Loves Her,She Loves You,14,13,Keep,
 536,music,a 60s hit song,It's Not Unusual,Usually Not,Nothing Usual,It's Not Unusual,14,16,Keep,

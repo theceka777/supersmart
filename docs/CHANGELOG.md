@@ -2,6 +2,47 @@
 
 ---
 
+## Session 21b — 2026-04-25 — Cultural-relevance sweep + methodology ruling #16 (mothership v1.33 → v1.34)
+
+Mid-session pivot after batch 5 commit: CD requested a sweep over Q1–Q700 with a fresh filter — catch phrases whose **cultural meaning has shifted since 2012**, even when the puzzle still works mechanically. Distinct from the durability test (Q543 Bieber→Swift) and the already-effected-fact test (Q595 Will Smith→Tom Cruise).
+
+### What landed
+
+- **Q533** distractor `Nicolas Sarkozy` → `Audrey Tautou`. Reason: Sarkozy was France's 2007–2012 president, fading relevance and slightly politically-coded. Tautou is brand-permanent French cinema icon (Amélie 2001), unambiguously not a singer, no awkward overlap with the Piaf answer (Marion Cotillard would have had this issue — she played Piaf in *La Vie en Rose* and sang in *Nine*).
+
+### Methodology ruling #16 added
+
+**Cultural-meaning drift — Light edit when a phrase's meaning has shifted since the corpus was written, even if it's still technically valid.** Distinct from #14 (already-effected fact change) and #15 (char budget). Reference resolutions: Q444 "red pill" (Matrix neutral 2012, manosphere-coded post-2016 — already swapped earlier in session 21), Q533 Sarkozy → Tautou. Watch-list of phrases not currently in corpus but flagged for future awareness: based, alpha/beta male, snowflake, woke, Karen, ghost (verb).
+
+### Things I considered and rejected on the sweep
+
+- **Q556** "famous rapper" → Jay-Z — CD kept on voice grounds (likes the "Jay-Z / May-C / Kay-T" rhyming-name wordplay even with the older anchor; the joke depends on the structure, not contemporary relevance).
+- **Q417** "hammertime" distractor — MC Hammer 1990 reference, joke still readable. Keep.
+- **Q406, Q550, Q600** Bieber as distractor — voice-driven wordplay distractors, the joke doesn't depend on his enduring fame. Keep.
+- **Q526, Q527, Q558** brand-permanent figures (MJ, Elvis, Beckham). Keep.
+- **Q597** Pattinson — re-anchored as Batman 2022, brand-permanent. Keep.
+
+### Tally adjustment
+
+- Batch 5: 279/21/0/0 → **278/22/0/0**
+- Cumulative Q1–Q700: 630/70/0/0 → **629/71/0/0** = 89.86% Keep
+- Total methodology rulings: 15 → **16**
+
+### Why this matters as a methodology pattern
+
+This is the first time a CD-led re-pass over already-committed audit work surfaced new flags. It validates the value of fresh-eyes review even after a batch is "closed" — speed mode makes the second sweep *more* useful, not less. The cost was small (one Light edit, one ruling, one mid-session amendment) and the gain is durable: the corpus now has explicit cultural-drift discipline, and #16 will catch drift candidates as we continue into batch 6+.
+
+### Files touched
+
+- `audit_1001/audit_1001_tags.csv` — Q533 row updated in place (Keep → Light edit)
+- `audit_1001/audit_1001_methodology.md` — title-line updated, batch 5 row tally updated (21 → 22 Light), cumulative row updated, ruling #16 added under #15
+- `super_smart_2026_mothership.md` — status line bumped v1.33 → v1.34 with cultural-sweep segment, end-of-doc stamp, Part 12 row added for session 21b
+- `super_smart_2026_primer.md` — current-state line updated to v1.34, audit progress recount, ruling-count 15 → 16
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+---
+
 ## Session 21 — 2026-04-25 — Phase 1 audit batch 5 closed (mothership v1.32 → v1.33)
 
 **300-question mega-batch** (Q401–Q700) — speed mode. Spans four categories.
