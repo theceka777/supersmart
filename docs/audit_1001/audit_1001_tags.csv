@@ -69,7 +69,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 68,science,pioneer of aviation in helicopters,I. Sikorsky,R. U. Boeing,H. L. Kopter,I. Sikorsky,34,11,Light edit,"phrasing: ""pioneer of aviation in helicopters"" → ""pioneer of helicopter aviation"""
 69,science,the human body's largest organ,skin,brain,heart,skin,30,4,Keep,
 70,science,herbivores eat,plants,bacon,planets,plants,14,6,Keep,
-71,science,dinosaurs became extinct ___ years ago,65 million,145 million,325 million,65 million,38,10,Keep,
+71,science,dinosaurs became extinct ___ years ago,65 million,145 million,325 million,65 million,38,10,Light edit,"scientific currency: answer ""65 million"" → ""66 million"" (current K-Pg consensus is 66.0 ± 0.05 Mya; the older 65M figure was the rounded estimate)"
 72,science,not a kingdom in biology,mammalia,fungi,animalia,mammalia,24,8,Keep,
 73,science,a nucleid acid,DNA,cytoplasm,nucleus,DNA,14,3,Light edit,"typo: ""nucleid"" → ""nucleic"""
 74,science,the functional basic unit of life,cell,gene,DNA,cell,33,4,Keep,
@@ -319,7 +319,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 318,misc,"number of letter ""e""s in this sentence",7,6,11,7,38,1,Keep,
 319,misc,"pick 1, 2, 6, or 4",6,5,8,6,18,1,Keep,
 320,misc,you can read the correct answer out loud,yes,,,yes,40,3,Keep,
-321,misc,German automobile manufacturer,Smart,Buick,Pontiac,Smart,30,5,Keep,
+321,misc,German automobile manufacturer,Smart,Buick,Pontiac,Smart,30,5,Light edit,"concept-replace (cultural drift / brand currency): answer ""Smart"" → ""BMW"" (Smart is now Mercedes+Geely JV — less anchor-clean); distractors ""Buick""/""Pontiac"" → ""Ford""/""Toyota"" (BMW is the canonical brand-permanent German automaker; American + Japanese distractors filter cleanly)"
 322,misc,an odd number times two,6,4,16,6,23,1,Keep,
 323,misc,an even number times two,16,22,39,16,24,2,Keep,
 324,misc,has more gravity than the others,earth,ear,elephant,earth,32,5,Keep,
@@ -592,7 +592,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 591,movies,fictional robot from the future,The Terminator,Vin Diesel,Casper,The Terminator,31,14,Keep,
 592,movies,fat kid in South Park,Eric Cartman,Big Bones,Bart Simpson,Eric Cartman,21,12,Keep,
 593,movies,Homer's last name in The Simpsons,Simpson,Simpsons,Simpleton,Simpson,33,7,Keep,
-594,movies,Woody Allen wrote and directed ___,Annie Hall,Antz,Animal House,Annie Hall,34,10,Keep,
+594,movies,Woody Allen wrote and directed ___,Annie Hall,Antz,Animal House,Annie Hall,34,10,Light edit,"cultural drift (ruling #16): concept-replace — prompt ""Woody Allen wrote and directed ___"" → ""Christopher Nolan wrote and directed ___""; answer ""Annie Hall"" → ""Inception""; distractors ""Antz""/""Animal House"" → ""Pulp Fiction""/""Goodfellas"" (Allen's post-1992/2014 reputation carries baggage in 2026; Nolan is the cleaner contemporary auteur anchor; Inception 2010 is brand-permanent solo-Nolan)"
 595,movies,never won an Oscar,Will Smith,Meryl Streep,Cuba Gooding Jr.,Will Smith,18,10,Light edit,"concept-replace: answer ""Will Smith"" → ""Tom Cruise"" (Will Smith won Best Actor 2022 for King Richard, so ""never won an Oscar"" answer is now wrong; Tom Cruise is the most brand-recognizable still-Oscarless actor)"
 596,movies,The Terminator tries to terminate ___,John Connor,John Nash,Edward Cullen,John Connor,37,11,Keep,
 597,movies,played Edward Cullen in Twilight,R. Pattinson,B. Shame,U. Madbrough,R. Pattinson,32,12,Keep,
@@ -873,7 +873,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 872,geography,a type of dog breed,Newfoundland,Chikita,Skubi,Newfoundland,19,12,Keep,
 873,geography,population is more than 10 million,Istanbul,Switzerland,Chicago,Istanbul,34,8,Keep,
 874,geography,population is more than 9 million,Belgium,Swizterland,Denmark,Belgium,33,7,Light edit,"typo: distractor option2 ""Swizterland"" → ""Switzerland"""
-875,geography,population is less than 33 million,Texas,Turkey,Tanzania,Texas,34,5,Keep,
+875,geography,population is less than 33 million,Texas,Turkey,Tanzania,Texas,34,5,Light edit,"time-bound threshold update (ruling #14): prompt ""population is less than 33 million"" → ""population is less than 40 million"" (Texas at ~30.5M growing ~500K/year would cross 33M ~2032 during game lifespan; 40M threshold safe through 2040+); options Texas/Turkey/Tanzania unchanged (Turkey 85M, Tanzania 67M, both still over 40M)"
 876,geography,the capital of Venezuela,Caracas,Maracaibo,Maracay,Caracas,24,7,Keep,
 877,geography,the city further north,Rome,Cairo,Istanbul,Rome,22,4,Keep,
 878,geography,the city further south,Osaka,Seoul,Tokyo,Osaka,22,5,Keep,
@@ -930,7 +930,7 @@ q_num,category,text,option1,option2,option3,answer,q_chars,a_chars,tag,note
 929,geography,a city in the southern hemisphere,Buenos Aires,Dakar,Seoul,Buenos Aires,33,12,Keep,
 930,geography,not in the northern hemisphere,Paraguay,France,Egypt,Paraguay,30,8,Keep,
 931,geography,the larger city by population,Mexico City,Istanbul,Osaka,Mexico City,29,11,Keep,
-932,geography,the smaller city by population,Norway,Spain,Italy,Norway,30,6,Light edit,"prompt clarification: ""the smaller city by population"" → ""the smaller country by population"" (options Norway/Spain/Italy are countries not cities; matches Q884 — duplicate accepted by CD)"
+932,geography,the smaller city by population,Norway,Spain,Italy,Norway,30,6,Light edit,"concept-replace: prompt ""the smaller city by population"" → ""the larger country by population"" (fixes city/options mismatch + avoids duplicate with Q884); options Norway/Spain/Italy → Japan/Germany/France; answer Japan (Japan ~123M, Germany ~84M, France ~68M; Japan declining but stays largest through projected 2035+)"
 933,geography,a country in the Northern Hemisphere,Egypt,South Africa,Uruguay,Egypt,36,5,Keep,
 934,geography,a country in the Southern Hemisphere,Zambia,Tunisia,Morocco,Zambia,36,6,Keep,
 935,geography,Mount Everest is located in ___,China,Russia,India,China,31,5,Light edit,"concept-replace: prompt ""Mount Everest is located in ___"" → ""Everest is in the ___ mountain range"" (avoids China-vs-Nepal disputed-summit ambiguity); answer ""China"" → ""Himalayas""; distractors ""Russia""/""India"" → ""Rocky""/""Alps"""

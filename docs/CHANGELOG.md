@@ -2,6 +2,46 @@
 
 ---
 
+## Session 22b — 2026-04-25 — Final-check fresh-eyes sweep (mothership v1.35 → v1.36)
+
+While the previous batch 6 commit was being pushed, CD requested one last comprehensive sweep across the full 1001-question corpus for outdated references and factually-shifted data. Five more Lights landed.
+
+### What landed
+
+| Q# | What changed | Reason |
+|---|---|---|
+| **71** | answer `65 million` → `66 million` | Current K-Pg consensus is 66.0 ± 0.05 Mya. Older 65M figure was a rounded estimate. Minor scientific currency update. |
+| **321** | answer `Smart` → `BMW`; distractors `Buick`/`Pontiac` → `Ford`/`Toyota` | Smart is now a Mercedes+Geely JV as of 2019, less anchor-clean. BMW is the canonical brand-permanent German automaker. American + Japanese distractors filter cleanly. |
+| **594** | prompt `Woody Allen wrote and directed ___` → `Christopher Nolan wrote and directed ___`; answer `Annie Hall` → `Inception`; distractors `Antz`/`Animal House` → `Pulp Fiction`/`Goodfellas` | **Cultural drift per ruling #16.** Allen's reputation post-1992 Mia Farrow scandal and 2014 Dylan Farrow allegations carries baggage in 2026. Nolan is the cleaner contemporary auteur anchor. |
+| **875** | prompt `population is less than 33 million` → `less than 40 million` | **Time-bound threshold per ruling #14.** Texas at ~30.5M growing ~500K/year would have crossed 33M ~2032 during game's 10-year lifespan. 40M threshold safe through 2040+. Texas/Turkey/Tanzania options unchanged (Turkey 85M, Tanzania 67M still over). |
+| **932** | prompt `the smaller city by population` → `the larger country by population`; options `Norway`/`Spain`/`Italy` → `Japan`/`Germany`/`France`; answer `Norway` → `Japan` | Resolves city/options mismatch from prior pass + avoids duplicate with Q884 (which already covered "smaller country" with the original options). Japan ~123M largest of three; declining but stays largest through 2035+. |
+
+### Final corpus tally adjustment
+
+- Was: 907 / 94 / 0 / 0 = 90.6% Keep
+- Now: **903 / 98 / 0 / 0 = 90.2% Keep**
+- Per-batch updated: batch 1 81/19 → 80/20 (Q71); batch 4 90/10 → 89/11 (Q321); batch 5 278/22 → 277/23 (Q594); batch 6 278/23 → 277/24 (Q875, Q932 note)
+- Per-category updated: science 83% → 82.5%; misc 89.1% → 88.7%; movies 90% → 86.7%; geography 91.9% → 91.3%
+
+Still **zero Heavy or Retire** flags across all 1001 questions.
+
+### Methodology pattern documented
+
+The final-check fresh-eyes pass exists because of how speed mode worked: each batch got two-pass review individually, but the corpus had never been viewed as a single 1001-question whole. The final pass caught 5 candidates that fell between batches: a scientific update from a 2012 textbook (dinosaurs), a cultural reputation drift on a director (Allen), a brand-currency drift on a German automaker (Smart→BMW), a population-threshold drift on US state demographics (Texas), and a duplicate-avoidance opportunity (Q932 rewrite).
+
+**Pattern locked for future audit work:** Even after batch-level two-pass discipline + cross-cultural sweep, do one final whole-corpus sweep with the question "if a fresh reader saw all 1001 questions in sequence, what would feel dated or off?" High-leverage half-hour on top of weeks of work.
+
+### Files touched
+
+- `audit_1001/audit_1001_tags.csv` — 5 rows updated in place (Q71, Q321, Q594, Q875 Keep→Light; Q932 note refresh)
+- `audit_1001/audit_1001_methodology.md` — title-line, batch 1/4/5/6 row tallies, cumulative-COMPLETE row updated to 903/98 with new per-category percentages, narrative under cumulative row refined
+- `super_smart_2026_mothership.md` — status line bumped v1.35 → v1.36 with final-check segment, end-of-doc stamp, Part 12 row added for session 22b
+- `super_smart_2026_primer.md` — current-state line + audit-progress block updated to 903/98 with new per-category figures
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+---
+
 ## Session 22 — 2026-04-25 — PHASE 1 AUDIT COMPLETE (mothership v1.34 → v1.35)
 
 **Final batch 6** (Q701–Q1001, 301 questions) closed at **278 Keep / 23 Light / 0 Heavy / 0 Retire** = 92.4% Keep.
