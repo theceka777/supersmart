@@ -230,7 +230,7 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 |---|---|---|---|---|---|---|
 | 1 | Q1–Q100 (all science) | 81 | 19 | 0 | 0 | Session 13, 2026-04-24. Two full CD review passes. |
 | 2 | Q101–Q200 (20 science + 80 misc) | 90 | 10 | 0 | 0 | Session 14, 2026-04-25. Misc slice ran cleaner than forecast (mostly self-referential wordplay + durable basics, not the dated-pop-culture cluster). |
-| 3 | Q201–Q300 | — | — | — | — | pending |
+| 3 | Q201–Q300 (all misc) | 90 | 10 | 0 | 0 | Session 16, 2026-04-25. Same shape as batch 2. Misc continues to run high-Keep. Two questions replaced wholesale (Q265 retired-mode reference; Q266 dated iPod reference) — first instance in the audit of a Light edit being closer to a "concept-replace" than a "tweak". 6 of 10 Light edits were proper-noun capitalization (months + names) — pattern continues from batch 2. |
 | 4 | Q301–Q400 | — | — | — | — | pending |
 | 5 | Q401–Q500 | — | — | — | — | pending |
 | 6 | Q501–Q600 | — | — | — | — | pending |
@@ -238,5 +238,5 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 | 8 | Q701–Q800 | — | — | — | — | pending |
 | 9 | Q801–Q900 | — | — | — | — | pending |
 | 10 | Q901–Q1001 | — | — | — | — | pending |
-| **Cumulative through batch 2** | **Q1–Q200 (200)** | **171** | **29** | **0** | **0** | 85.5% Keep / 14.5% Light. Tracking high vs the corpus-wide projection of 70/15/10/5; later batches (people, music, movies, deeper misc) expected to drag the Keep rate down. |
+| **Cumulative through batch 3** | **Q1–Q300 (300)** | **261** | **39** | **0** | **0** | **87.0% Keep / 13.0% Light.** Three batches in, no Heavy or Retire flags hit. Either the corpus is genuinely more durable than the original 70/15/10/5 sampling estimate, or the dated cluster is concentrated deeper (batches 4–6 still mostly misc; word + math + people + music + movies all later). Will revisit corpus-wide projection after batch 4. |
 | **Corpus target** | **1001** | ~700 | ~150 | ~100 | ~50 | mothership Part 8 working estimate |
