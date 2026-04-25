@@ -2,6 +2,54 @@
 
 ---
 
+## Session 21 — 2026-04-25 — Phase 1 audit batch 5 closed (mothership v1.32 → v1.33)
+
+**300-question mega-batch** (Q401–Q700) — speed mode. Spans four categories.
+
+### Final tally
+
+`279 Keep / 21 Light / 0 Heavy / 0 Retire` = 93.0% Keep. Cumulative Q1–Q700: **630 / 70 / 0 / 0** = 90.0% Keep. Five batches in (70% of corpus), still zero Heavy or Retire flags.
+
+Per-category Keep rates: word 91% / music 86% / movies 90% / math 100%.
+
+### What landed
+
+- **Concept-replaces (durability):** Q543 swapped Bieber → Taylor Swift answer "Shake It Off"; Q595 swapped Will Smith → Tom Cruise (Will Smith's 2022 Oscar invalidated the "never won" answer — first already-effected fact change in the audit).
+- **Bug fix:** Q478 distractor RIPPING also satisfied "contains g, r, n" — swapped to CARBON.
+- **Source-XML typos (5):** Q439 aggresive, Q540 Satistfaction, Q573 Suziki, Q576 Gywneth, Q590 Brosnon.
+- **Capitalization Lights (6):** Q407 Brussels (sprout), Q408 three names, Q451 Esperanto, Q464 Ella, Q565 Led Zeppelin/The Beatles, Q571 Van Halen.
+- **Voice-driven distractor swaps (4):** Q444 red pill→me (red-pill has political meaning post-2012), Q463 kanye→brake, Q467 snoop→kendrick (lowercase per CD), Q466 line→lemon (cleaner non-rhyme).
+- **Stage-name punctuation:** Q556 Jay Z → Jay-Z with distractors hyphenated for visual consistency (May-C, Kay-T).
+- **Title punctuation:** Q574 No Woman, No Cry.
+- **Q501 first-pass Retire reframed to Light edit** by CD: prompt rewritten to "a group of goats is called a ___" (herd/bulls/block, herd correct), preserving zero-Retire streak.
+
+### Methodology update
+
+**Ruling #14 extended** from "pre-announced changes" to "pre-announced OR already-effected changes." Q595 was the first already-effected case (corpus written 2012 with Will Smith Oscarless; he won 2022, before our 2026 launch). Reference resolution captured inline.
+
+### Calibration insight
+
+Original Part 8 projection of 700/150/100/50 is now decisively pessimistic at 90% Keep through 700. Running rate suggests final around 900/100/0/0. Music/movies dated-cluster forecast (40–60% Keep) was **wrong** — both ran 86%/90%, well above. Remaining attrition reservoir concentrated in people (Q942–Q991, 50 questions). Math is the cleanest category yet: 100% Keep across 95.
+
+### Two-pass discipline pattern
+
+Second pass added 4 net new Lights (Q407, Q540, Q556, Q574) over first pass. Speed mode + bigger batches benefit more from second-pass review than slower batches did. Keep the discipline tight even at 300-question pace.
+
+### Files touched
+
+- `audit_1001/audit_1001_tags.csv` — appended 300 rows for Q401–Q700
+- `audit_1001/audit_1001_methodology.md` — title line updated, batch 5 row + cumulative row added, calibration table per-category Actual columns updated, ruling #14 extended
+- `super_smart_2026_mothership.md` — status line bumped v1.32 → v1.33 with batch 5 segment, end-of-doc stamp, Part 12 decision log row added for session 21
+- `super_smart_2026_primer.md` — current-state line bumped to v1.33, audit progress updated
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### What's left
+
+301 questions to audit: 80 math + 161 geography + 50 people + 10 literature. One more big batch likely closes Phase 1.
+
+---
+
 ## Session 20 — 2026-04-25 — League rank border palette locked (mothership v1.31 → v1.32)
 
 Quick mid-session palette lock. Appendix D #11 resolved. No code changes.
