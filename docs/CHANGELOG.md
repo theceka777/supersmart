@@ -2,6 +2,44 @@
 
 ---
 
+## Session 17 — 2026-04-25 — Post-league UX spec locked (mothership v1.29 → v1.30)
+
+Phase 3 design work. Appendix D #26 resolved. No code changes — doc-only pass.
+
+### What was decided
+
+**Appendix D #26 — "What happens after league" — fully specced.** The delivery mechanism was already locked (2026-04-24): push notification at league close → first-open interstitial (once only) → League tab result card until dismissed. This session filled in the copy, visual treatment, rewards, and push copy for all three result states.
+
+**Promoted (top 5)**
+- Full-screen interstitial. Avatar tier border animates from old color to new color as the reveal moment. Tier name drops in with weight (~0.4s delay). Legend: animated gold shimmer activates on entry.
+- Copy: headline `[Tier]. Yours now.` + position-aware subline (`Top 5 of 30.` / `Top 3 of 30.` / `You finished first.`)
+- Share button on interstitial and League tab result card. Share card: avatar with new border + tier name in Archivo Black + display name + wordmark, cream/sunburst background, no score.
+- Push: `You're a [New Tier] now. Open Super Smart to see.`
+- Reward: none beyond the tier border change — the promotion is the reward.
+
+**Held (positions 6–25)**
+- Same interstitial skeleton. No border animation (tier unchanged). Position-aware copy in three micro-brackets:
+  - 6–10: `[Tier] holds. #[X] of [N].` / `Promotion was top 5. You know what to do.`
+  - 11–20: `[Tier] holds. #[X] of [N].` / `Safe. Comfortable. Maybe too comfortable.`
+  - 21–25: `[Tier] holds. #[X] of [N].` / `Quiet week. Next one's louder.`
+- No share button. Push: `[Tier] holds. Week [N] results are in.` No reward.
+
+**Demoted (bottom 5)**
+- Same skeleton. New (lower) tier border renders at entry — no fanfare, no danger-color treatment, just the lower tier's color.
+- Copy: `Not this week.` / `The door back up opens Monday.` Rookie floor variant: `Rookie.` / `Floor found. Only way is up.`
+- No share button. Push: `Week [N] results are in.` (no outcome framing in the notification).
+- Reward: none. Streak Shield consolation considered and closed — Streak Shield is a Daily Race mechanic; cross-wiring it into league outcomes conflates two independent systems and creates a perverse incentive.
+
+**League tab result card (all three states)**
+Compact card at top of League tab, above current-week standings. Header: `WEEK [N] · PROMOTED` / `WEEK [N] · [TIER] HOLDS` / `WEEK [N] · DEMOTED`. Avatar with tier border, tier name, `#[X] of [N] · [score] pts`. Share button for Promoted only. Permanent dismiss via × or swipe.
+
+### Files touched
+- `super_smart_2026_mothership.md` — v1.29 → v1.30. Status line updated. Part 4 Layer 4: end-of-league UX section expanded from placeholder to full spec. Part 12 decision log: session 17 row added. Appendix D #26 marked ✅ RESOLVED.
+- `super_smart_2026_primer.md` — current state updated to v1.30, Phase 1 audit progress updated to 300 questions / 87.0% Keep.
+- `CHANGELOG.md` — this entry.
+
+---
+
 ## Session 15 — 2026-04-25 — Codebase + documentation audit pass (mothership v1.27 → v1.28)
 
 Two parallel audit sweeps (one Explore agent on the React Native code, one on the docs) surfaced drift items + dead code + small contradictions accumulated over 14 sessions. CD reviewed findings and approved the fixes below. Sessions 13–14 in between were Phase 1 audit work (1001.xml tagging) — no code changes; not in this changelog.
