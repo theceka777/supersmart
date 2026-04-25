@@ -2,6 +2,46 @@
 
 ---
 
+## Session 19 — 2026-04-25 — Phase 1 audit batch 4 closed (mothership v1.30 → v1.31)
+
+Q301–Q400 tagged across the misc→word category boundary, reviewed in one CD pass + second-pass sanity check. **Final: 90 Keep / 10 Light / 0 Heavy / 0 Retire.** Cumulative through Q1–Q400: **351 / 49 / 0 / 0** = 87.75% Keep. Four batches in, 40% of corpus audited, still zero Heavy or Retire flags.
+
+### What landed
+
+- **Misc Q301–Q350 (50 questions, 6 Light edits):** Q308 distractor swap (March → September because March also has 31 days, breaking the original question), Q311 typo "an Japanese" → "a Japanese", Q313 typo banruki → bunraku (correct Japanese word for puppet theater), Q317 phrasing "the the number choices" → "the number of choices", Q331 retired-mode concept-replace Arcade → Quickmatch (matches questions.ts:338 fix from session 11), Q332 retired-mode concept-replace Classic → Daily Race (matches questions.ts:339).
+- **Word Q351–Q400 (50 questions, 4 Light edits):** Q351 capitalization Speaking → speaking, Q357 triple-space whitespace outlier within the Q352–Q386 cluster, Q363 distractor swap nordic → brawl (BRAWL not buildable from g,r,o,w,n — clean fail-state), Q371 trailing-space-inside-quotes typo. The "make a word using [letters]" anagram cluster (Q352–Q386) ran 94% Keep — well above the 60–75% word-category forecast.
+
+### CD reversals on review
+
+Six of my initial 16 marginal-or-flagged items pulled back to Keep: Q324 grammar "more"→"most" stayed "more"; Q329 and Q343 char-budget overruns (41 chars) stayed Keep — fixes proposed would have rebuilt the prompt structure for a 1-char trim, worse than the overrun; Q381 char-budget overrun (43 chars) stayed Keep — clean fix would have broken parallelism with sibling "make a word" puzzles; Q370 and Q372 distractor capitalizations (pisces/davis) stayed lowercase per CD voice call.
+
+### Corpus-wide style sweep deferred
+
+The "Make a word using  X" double-space prefix typo + Make/make capitalization split across Q352–Q386 (35 questions, identical normalization) is documented in the methodology + tally and held for the global sweep at end of Phase 1. Per the existing "On corpus-wide stylistic decisions" methodology section, tagging each individually would inflate the Light count (16 → 36) without adding signal. Only deviations from the pattern (Q357 triple-space, Q371 trailing-space) get individual Light tags.
+
+### New methodology ruling
+
+**#15 — Char-budget ceiling is a default, not absolute; CD discretion on small overruns.** ≤40 prompt / ≤15 answer ceilings remain the working budget; "over budget = automatic Light edit" stays the default. But on 1–3 char overruns where the obvious trim would degrade voice or break parallelism with siblings, CD can override to Keep. Reference resolutions: Q329 (41ch), Q343 (41ch), Q381 (43ch). Pattern: if proposing a fix worse than the overrun, surface as marginal and let CD decide.
+
+### Calibration update
+
+Four batches in, the original Part 8 projection of 700/150/100/50 is materially pessimistic at running 87.75% Keep. If the rate held, the corpus would land closer to 875/125/0/0 — it probably won't, since people/music/movies depths still likely carry the dated cluster. Word category opened cleanly; remaining 125 word questions (Q401–Q525) likely continue durable. Will revisit projection after batch 6.
+
+### Files touched
+
+- `audit_1001/audit_1001_tags.csv` — appended 100 rows for Q301–Q400
+- `audit_1001/audit_1001_methodology.md` — title-line tally update, batch 4 row in running tally, cumulative Q1–Q400 row, word category Actual column updated, ruling #15 added
+- `super_smart_2026_mothership.md` — status line v1.30 → v1.31 with batch 4 segment prepended, end-of-doc stamp bumped, Part 12 decision log row added for session 19 above the session 17 row
+- `super_smart_2026_primer.md` — current-state line bumped to v1.31, audit progress updated to 400/87.75%, edge-case ruling count 14 → 15
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### What's not in this commit
+
+No code changes. No spec changes outside the audit tally + decision log row + new methodology ruling. Push remains a Mac-terminal handoff.
+
+---
+
 ## Session 18 — 2026-04-25 — Code drift cleanup (no spec changes)
 
 Five drift items closed after a code↔mothership read-through. No version bump on the mothership — this is a code-catches-up-to-spec pass, same shape as session 11. Appendix D #49 marked ✅ resolved. End-of-doc stamp on the mothership corrected from a stale v1.25 to v1.30 (housekeeping).

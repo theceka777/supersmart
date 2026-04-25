@@ -1,4 +1,4 @@
-# 1001 Audit — Methodology (v1, Session 13, 2026-04-24)
+# 1001 Audit — Methodology (v1, Session 13, 2026-04-24; tally updated through batch 4, session 19, 2026-04-25)
 
 > **Lifecycle:** This folder (`audit_1001/`) holds editorial-phase working data — the methodology doc you're reading now and the per-question tags CSV. It lives at the parent project folder with a mirror in `supersmart/docs/audit_1001/` for git history. **Once Phase 5 ships and the final tagged + edited questions land in Supabase, this folder becomes archival reference** (kept around to show provenance / decisions, not actively edited). Stays where it is; no migration planned. *(Recorded session 15, 2026-04-25.)*
 
@@ -92,6 +92,8 @@ A question is durable if it would read cleanly to a 14-year-old in 2036 — 10 y
 13. **Tautology is OK when the creative director says it's OK.** Some tautological or very-easy questions are legitimate pacing material in a 60-second round. The original 1001 includes plenty of these (Q8 "larger than the others" Sun/Earth/Moon; Q14 smaller version; Q11 now in pattern B). Don't auto-retire a question for being easy or tautological — flag it if you think the round feels slack because of it, but default toward Keep.
 
 14. **Time-bound facts with pre-announced changes — Light edit even if technically correct at launch.** When a question's answer hinges on something that's officially scheduled to change but hasn't yet (squash approved by IOC vote Oct 2023 for LA 2028 Olympics — not Olympic at game launch in Aug 2026, but becomes Olympic two years post-launch), treat as Light edit and swap to a more durable anchor. *Reference resolution: Q147 "not an olympic sport" had `squash` swapped to `bowling` because the answer's shelf life inside the game's lifespan was too short.* Apply the same logic to: confirmed currency redesigns, country renamings, sports rule changes that take effect on a known date, league restructurings, etc. The 10-year-forward durability test is the bar — if the question fails it within the game's expected lifespan, swap or retire.
+
+15. **Char-budget ceiling is a default, not absolute — CD discretion on small overruns.** The ≤40 prompt / ≤15 answer ceilings remain the working budget and "over budget = automatic Light edit" is still the right default. But on small overruns (1–3 chars) where the obvious trim would degrade voice, repeat a question pattern unnecessarily, or break parallelism with sibling questions, **CD can override and Keep.** Reference resolutions: batch 4 closed three char-overflow Keeps — Q329 (41 chars, "this sentence doesn't have the letter ___"), Q343 (41 chars, sibling shape with no clean trim), Q381 (43 chars, longest "make a word" puzzle in the cluster — best fix would have switched the question's prefix style and broken the family). The pattern: if you find yourself proposing a fix that's worse than the overrun, surface it as marginal and let CD decide. Don't burn review-pass time arguing about 1-char overruns.
 
 ### On corpus-wide stylistic decisions
 
@@ -213,7 +215,7 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 | Science | 80%+ | Classical science durable | **81% (Q1–120)** ✓ |
 | Math | 80%+ | Pure math is timeless; expect mostly char/typo edits | not started |
 | Geography | 70–80% | Country borders and capitals change rarely but do change | not started |
-| Word / Wordplay | 60–75% | Language evolves; some puns age | not started |
+| Word / Wordplay | 60–75% | Language evolves; some puns age | **94% (Q351–400, first 50 of 175)** — running well above forecast; the "make a word using [letters]" anagram cluster (Q352–Q386) is highly durable, only 4 Lights in 50 words (1 capitalization, 1 whitespace outlier, 1 distractor swap, 1 trailing-space typo). Late-word may bring more drift; revisit after batch 5. |
 | Literature | 70%+ | Small category, classic anchors (likely Keep-heavy) | not started |
 | People | 40–60% | Historical figures durable; 2008–2012 celebrities not | not started |
 | Music | 40–60% | Classical survives; 2008–2012 pop won't | not started |
@@ -231,7 +233,7 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 | 1 | Q1–Q100 (all science) | 81 | 19 | 0 | 0 | Session 13, 2026-04-24. Two full CD review passes. |
 | 2 | Q101–Q200 (20 science + 80 misc) | 90 | 10 | 0 | 0 | Session 14, 2026-04-25. Misc slice ran cleaner than forecast (mostly self-referential wordplay + durable basics, not the dated-pop-culture cluster). |
 | 3 | Q201–Q300 (all misc) | 90 | 10 | 0 | 0 | Session 16, 2026-04-25. Same shape as batch 2. Misc continues to run high-Keep. Two questions replaced wholesale (Q265 retired-mode reference; Q266 dated iPod reference) — first instance in the audit of a Light edit being closer to a "concept-replace" than a "tweak". 6 of 10 Light edits were proper-noun capitalization (months + names) — pattern continues from batch 2. |
-| 4 | Q301–Q400 | — | — | — | — | pending |
+| 4 | Q301–Q400 (50 misc + 50 word) | 90 | 10 | 0 | 0 | Session 19, 2026-04-25. Same shape as batches 2–3. **First word category coverage** — anagram cluster (Q352–Q386) ran very clean. Two retired-mode concept-replaces (Q331 Arcade→Quickmatch, Q332 Classic→Daily Race) — same pattern as Q265 in batch 3. **One corpus-wide style sweep deferred** to end-of-Phase-1: the "Make a word using  X" double-space prefix typo + Make/make capitalization split across Q352–Q386 (35 questions, identical fix). Per the "On corpus-wide stylistic decisions" section, tagged once and held for global sweep instead of 35 individual Lights. Three char-overflow Keeps (Q329 41ch, Q343 41ch, Q381 43ch) approved by CD discretion against the ≤40 ceiling — see ruling #15 below. |
 | 5 | Q401–Q500 | — | — | — | — | pending |
 | 6 | Q501–Q600 | — | — | — | — | pending |
 | 7 | Q601–Q700 | — | — | — | — | pending |
@@ -239,4 +241,5 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 | 9 | Q801–Q900 | — | — | — | — | pending |
 | 10 | Q901–Q1001 | — | — | — | — | pending |
 | **Cumulative through batch 3** | **Q1–Q300 (300)** | **261** | **39** | **0** | **0** | **87.0% Keep / 13.0% Light.** Three batches in, no Heavy or Retire flags hit. Either the corpus is genuinely more durable than the original 70/15/10/5 sampling estimate, or the dated cluster is concentrated deeper (batches 4–6 still mostly misc; word + math + people + music + movies all later). Will revisit corpus-wide projection after batch 4. |
+| **Cumulative through batch 4** | **Q1–Q400 (400)** | **351** | **49** | **0** | **0** | **87.75% Keep / 12.25% Light.** Four batches in (40% of corpus), still zero Heavy or Retire. The 700/150/100/50 mothership Part 8 projection now meaningfully pessimistic — running rate would land closer to 875/125/0/0 if it held. It probably won't hold (people/music/movies categories deeper in the corpus carry the projected attrition), but the early durability is clear. **Word category opened cleanly** at 94% Keep (Q351–400) — anagram pattern is highly durable. |
 | **Corpus target** | **1001** | ~700 | ~150 | ~100 | ~50 | mothership Part 8 working estimate |
