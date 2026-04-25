@@ -88,6 +88,17 @@ A question is durable if it would read cleanly to a 14-year-old in 2036 — 10 y
 
 13. **Tautology is OK when the creative director says it's OK.** Some tautological or very-easy questions are legitimate pacing material in a 60-second round. The original 1001 includes plenty of these (Q8 "larger than the others" Sun/Earth/Moon; Q14 smaller version; Q11 now in pattern B). Don't auto-retire a question for being easy or tautological — flag it if you think the round feels slack because of it, but default toward Keep.
 
+14. **Time-bound facts with pre-announced changes — Light edit even if technically correct at launch.** When a question's answer hinges on something that's officially scheduled to change but hasn't yet (squash approved by IOC vote Oct 2023 for LA 2028 Olympics — not Olympic at game launch in Aug 2026, but becomes Olympic two years post-launch), treat as Light edit and swap to a more durable anchor. *Reference resolution: Q147 "not an olympic sport" had `squash` swapped to `bowling` because the answer's shelf life inside the game's lifespan was too short.* Apply the same logic to: confirmed currency redesigns, country renamings, sports rule changes that take effect on a known date, league restructurings, etc. The 10-year-forward durability test is the bar — if the question fails it within the game's expected lifespan, swap or retire.
+
+### On corpus-wide stylistic decisions
+
+Some style choices (capitalization of "English" / "Wednesday" / weekday names, underscore count in fill-in-blank prompts, hyphenation, accent marks, abbreviation conventions) recur across many questions and aren't really per-question editorial calls — they're style-guide decisions. Two ways to handle them:
+
+1. **Inline as you tag** — when you spot one, fix it as a Light edit. Establishes the convention as you go.
+2. **Final corpus-wide sweep** — after all 1001 questions are tagged but before Phase 5 starts, run one global pass that scans for residual inconsistencies (lowercase proper nouns, mismatched underscore counts, etc.) and normalizes everything. Catches what slipped through.
+
+Both happen. Inline fixes during batches; one global sweep at the end of Phase 1. Don't burn review-pass time debating each capitalization individually — when in doubt, capitalize per English orthography (proper nouns, language names, weekday names, month names) and let the global sweep clean up the rest.
+
 ---
 
 ## What NOT to tag as a reason to retire
@@ -194,17 +205,17 @@ Distribution of the 1001 by category: `misc: 230, word: 175, math: 175, geograph
 
 Expected difficulty of each category's audit (my forward guess, update after each batch closes):
 
-| Category | Expected % Keep | Why |
-|---|---|---|
-| Science | 80%+ | Classical science durable; first 100 ran 81/19/0/0 |
-| Math | 80%+ | Pure math is timeless; expect mostly char/typo edits |
-| Geography | 70–80% | Country borders and capitals change rarely but do change |
-| Word / Wordplay | 60–75% | Language evolves; some puns age |
-| Literature | 70%+ | Small category, classic anchors (likely Keep-heavy) |
-| People | 40–60% | Historical figures durable; 2008–2012 celebrities not |
-| Music | 40–60% | Classical survives; 2008–2012 pop won't |
-| Movies | 40–60% | Classics + franchise anchors survive; 2010-era rom-coms don't |
-| Misc | 30–50% | Grab-bag of jokes, oddities, dated references; expect most Heavy/Retire to live here |
+| Category | Expected % Keep | Why | Actual so far |
+|---|---|---|---|
+| Science | 80%+ | Classical science durable | **81% (Q1–120)** ✓ |
+| Math | 80%+ | Pure math is timeless; expect mostly char/typo edits | not started |
+| Geography | 70–80% | Country borders and capitals change rarely but do change | not started |
+| Word / Wordplay | 60–75% | Language evolves; some puns age | not started |
+| Literature | 70%+ | Small category, classic anchors (likely Keep-heavy) | not started |
+| People | 40–60% | Historical figures durable; 2008–2012 celebrities not | not started |
+| Music | 40–60% | Classical survives; 2008–2012 pop won't | not started |
+| Movies | 40–60% | Classics + franchise anchors survive; 2010-era rom-coms don't | not started |
+| Misc | ~~30–50%~~ **revised: split across the 230-question category** | First 80 misc questions ran **89% Keep** — they're mostly self-referential wordplay, fourth-wall meta, family-tree/letter/word puzzles, and durable basics (colors, alphabet, days, rock-paper-scissors, Olympics-as-history). The dated-pop-culture / fading-celebrity cluster expected for misc must live in a later slice (Q201+ inside misc). | **89% (Q121–200, first 80 of 230)** — revise downward forecast for late-misc |
 
 **Do not project the science split onto the whole corpus.** The mothership's Part 8 projection of 700/150/100/50 is the working estimate; the science-heavy early batches will drag up the Keep rate and the later categories will drag it down.
 
@@ -215,7 +226,14 @@ Expected difficulty of each category's audit (my forward guess, update after eac
 | Batch | Questions | Keep | Light | Heavy | Retire | Notes |
 |---|---|---|---|---|---|---|
 | 1 | Q1–Q100 (all science) | 81 | 19 | 0 | 0 | Session 13, 2026-04-24. Two full CD review passes. |
-| 2 | Q101–Q200 | — | — | — | — | pending |
+| 2 | Q101–Q200 (20 science + 80 misc) | 90 | 10 | 0 | 0 | Session 14, 2026-04-25. Misc slice ran cleaner than forecast (mostly self-referential wordplay + durable basics, not the dated-pop-culture cluster). |
 | 3 | Q201–Q300 | — | — | — | — | pending |
-| ... | ... | | | | | |
-| **Total** | **1001** | | | | | |
+| 4 | Q301–Q400 | — | — | — | — | pending |
+| 5 | Q401–Q500 | — | — | — | — | pending |
+| 6 | Q501–Q600 | — | — | — | — | pending |
+| 7 | Q601–Q700 | — | — | — | — | pending |
+| 8 | Q701–Q800 | — | — | — | — | pending |
+| 9 | Q801–Q900 | — | — | — | — | pending |
+| 10 | Q901–Q1001 | — | — | — | — | pending |
+| **Cumulative through batch 2** | **Q1–Q200 (200)** | **171** | **29** | **0** | **0** | 85.5% Keep / 14.5% Light. Tracking high vs the corpus-wide projection of 70/15/10/5; later batches (people, music, movies, deeper misc) expected to drag the Keep rate down. |
+| **Corpus target** | **1001** | ~700 | ~150 | ~100 | ~50 | mothership Part 8 working estimate |
