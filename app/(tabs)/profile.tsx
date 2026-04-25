@@ -2,12 +2,16 @@
 // Shows: avatar, personal bests (quickmatch + daily), Pro info, settings.
 // Classic mode removed. "Daily Quiz" → "Daily Race". Cream Stadium design.
 
-import { View, Text, ScrollView, Switch, StyleSheet, Pressable } from 'react-native';
+import { View, Text, ScrollView, Switch, StyleSheet, Pressable, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAppStore } from '@/app/store';
 import { Avatar } from '@/components/Avatar';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
+
+// TODO: confirm support email per Appendix D #40 (support email domain).
+// Primary candidate is the heritage-aligned address; fallback locked in v1.25.
+const SUPPORT_EMAIL = 'support@iamsupersmart.com';
 
 // ── Section label ─────────────────────────────────────────────────────────────
 
@@ -135,6 +139,25 @@ export default function ProfileScreen() {
             <Text style={s.comingSoonText}>available at launch</Text>
           </View>
         </View>
+
+        {/* Contact ─────────────────────────────────────────────────────── */}
+        {/* Mothership v1.25 (2026-04-24): in place of an in-app
+            "report this question" button, all player feedback flows through
+            a single email link. One channel, framed as conversation. */}
+        <SectionLabel>SUPPORT</SectionLabel>
+
+        <Pressable
+          onPress={() => Linking.openURL(`mailto:${SUPPORT_EMAIL}`)}
+          style={s.contactCard}
+        >
+          <View style={s.contactRow}>
+            <View style={s.contactInfo}>
+              <Text style={s.contactTitle}>Contact the developer</Text>
+              <Text style={s.contactSub}>questions, bugs, broken trivia — write us</Text>
+            </View>
+            <Text style={s.contactArrow}>→</Text>
+          </View>
+        </Pressable>
 
         {/* Footer ──────────────────────────────────────────────────────── */}
         <Text style={s.version}>Super Smart 2026 · shell build · v0.2</Text>
@@ -316,6 +339,38 @@ const s = StyleSheet.create({
     color: Colors.ink,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+
+  // Contact card
+  contactCard: {
+    backgroundColor: Colors.cream,
+    borderRadius: Radius.card,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    padding: 16,
+  },
+  contactRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  contactInfo: { flex: 1, marginRight: 12 },
+  contactTitle: {
+    fontFamily: Fonts.black,
+    fontSize: 16,
+    color: Colors.ink,
+  },
+  contactSub: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.ink,
+    opacity: 0.55,
+    marginTop: 3,
+  },
+  contactArrow: {
+    fontFamily: Fonts.black,
+    fontSize: 22,
+    color: Colors.red,
   },
 
   version: {

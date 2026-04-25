@@ -1477,7 +1477,7 @@ Reorganised 2026-04-24 (v1.20) after an audit pass surfaced implicit gaps the do
 
 47. **`IS_PRO` is hardcoded `false` in `app/avatar.tsx:68`.** Stub waiting for monetization wiring. Replace with the canonical Pro entitlement read (likely `useAppStore().isPro` once `pro_entitlements` is wired through Supabase + RevenueCat). Phase 4–6 work; flagged here so it doesn't get forgotten. Won't break anything until then — just always renders the free-tier 4-options view.
 48. **Duplicate `getRankLabel` derivation logic between `app/content.ts` (lines ~153–159) and `app/questions.ts`.** Existing comment in `content.ts` already says "Phase 4: delete that one" — this is the official tracker. Consolidate as part of the `app/content.ts` → Supabase migration in Phase 4.
-49. **Profile screen "Contact the developer" mailto link depends on Appendix D #40 (support email domain).** When Phase 3 builds the Profile screen, the mailto: target must be hardcoded to whichever email is registered. If #40 hasn't resolved by then, use a placeholder (`support@iamsupersmart.com`) and add a `// TODO: confirm support email per Appendix D #40` comment to the Profile screen. Trivial to swap later, just don't forget.
+49. ~~**Profile screen "Contact the developer" mailto link depends on Appendix D #40 (support email domain).**~~ ✅ **RESOLVED 2026-04-25 session 18.** Placeholder mailto now wired in `app/(tabs)/profile.tsx` against a `SUPPORT_EMAIL` constant set to `support@iamsupersmart.com` (the v1.25 primary candidate). `// TODO: confirm support email per Appendix D #40` comment in place — one-line swap when #40 locks the domain.
 
 #### Deferred indefinitely unless reopened
 
@@ -1511,4 +1511,4 @@ Reorganised 2026-04-24 (v1.20) after an audit pass surfaced implicit gaps the do
 
 ---
 
-*End of doc v1.25 — last updated 2026-04-24.*
+*End of doc v1.30 — last updated 2026-04-25.*

@@ -2,6 +2,40 @@
 
 ---
 
+## Session 18 — 2026-04-25 — Code drift cleanup (no spec changes)
+
+Five drift items closed after a code↔mothership read-through. No version bump on the mothership — this is a code-catches-up-to-spec pass, same shape as session 11. Appendix D #49 marked ✅ resolved. End-of-doc stamp on the mothership corrected from a stale v1.25 to v1.30 (housekeeping).
+
+### Code changes
+
+- **`app/(tabs)/profile.tsx`** — added a SUPPORT section with a "Contact the developer" card. Tapping fires `Linking.openURL('mailto:...')` against a `SUPPORT_EMAIL` constant. Placeholder set to `support@iamsupersmart.com` (the heritage-aligned primary candidate from v1.25) with a `// TODO: confirm support email per Appendix D #40` comment so the swap is one-line when the domain locks. Resolves Appendix D #49 — the code-side tracker for this dependency.
+
+- **`app/end.tsx`** — user-visible mode label `ARCADE` → `QUICKMATCH` (line 85). The Daily Race branch already used the live mode name; this matches it. Header comment rewritten to clarify that `mode=arcade` is an internal-only route param tied to the still-open `game.tsx` orphan question, not user-facing copy.
+
+- **`app/questions.ts:272`** — stale-mode question rewritten. Was: `{ question: 'a game mode in Super Smart', options: ['arcade', 'blitz', 'time limit'], correct: 0 }`. Now: `{ question: 'a game mode in Super Smart', options: ['Quickmatch', 'Slowmatch', 'Stalemate'], correct: 0 }`. Same retired-vocab class as the two questions session 11 fixed at lines 338–339; this one slipped through that pass. Distractors kept the wordplay shape (real mode + two near-misses).
+
+- **`app/challenge.tsx`** — Cream Stadium refresh of the pre-2026-04-19 stub. Old hardcoded hexes (`#dc2626`, `#fff`, `#f9fafb`, `#111827`, `#9ca3af`) replaced with `Colors`/`Fonts`/`Radius`/`CARD_DEPTH` from `theme.ts`. SafeAreaView with transparent background so the global Sunburst + Halftone show through. 3D press-down buttons matching the Profile/Avatar pattern. Copy fixed: "20 questions" → "60-second set" (matches the live 60-question Quickmatch). Footer note rewritten to point at Phase 4 ("sender's ghost, weekly league credit") instead of the old "compare scores manually" framing. Routing left at `/game` deliberately — that's gated on the still-open `game.tsx` orphan question.
+
+- **`constants/theme.ts`** — `pink` comment updated from "Arcade card" to "Quickmatch card" (component is still called ArcadeCard, but the *mode* is Quickmatch). Dead `cyan: '#3DF2FF'` token removed (was the retired Classic card face, no live references in the tree); replaced with a one-line comment pointing readers at `dailyrace.bg` for the live light-cyan token. `yellow` comment lost its dead "Multiplayer card" half — that card never existed in this rebuild.
+
+### Doc changes
+
+- **`super_smart_2026_mothership.md`** — Appendix D #49 marked ✅ RESOLVED with a one-line note that the placeholder is in place and the TODO comment will catch the swap when #40 lands. End-of-doc stamp bumped v1.25 → v1.30 (housekeeping fix — top-of-doc was already at v1.30 from session 17).
+- **`super_smart_2026_primer.md`** — current state paragraph picks up the cleanup pass.
+- **`supersmart/docs/`** — both mothership and primer mirrored.
+
+### Items deliberately not touched (architectural / Phase 4)
+
+- `app/game.tsx` orphan question (no-ghost arcade round still reachable via `/end` PLAY AGAIN and `/challenge`) — needs an explicit call: repurpose as the Challenge runner, or fold PLAY AGAIN into `/echo` and delete. Flagged for a future session.
+- `app/daily.tsx` 6am-ET seed anchor — Phase 4 backend territory; current local-calendar seed will be replaced server-side.
+- `app/store.tsx` `AsyncStorage` wiring (Appendix D #2) — Phase 4 blocker; in-memory state is intentional pre-launch.
+
+### What stayed in sync (re-confirmed)
+
+Cream Stadium palette (now consistent across challenge.tsx too), Archivo Black + JetBrains Mono fonts, scoring mechanics, `FREE_LIMIT=7`, 22 ranks, 75 emotes, 3-tab nav, bot-ghost system, light-only rendering, transparent global background. The session 15 codebase audit pattern still holds.
+
+---
+
 ## Session 17 — 2026-04-25 — Post-league UX spec locked (mothership v1.29 → v1.30)
 
 Phase 3 design work. Appendix D #26 resolved. No code changes — doc-only pass.

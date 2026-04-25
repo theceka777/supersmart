@@ -269,7 +269,7 @@ export const QUESTIONS: Question[] = [
   { question: 'the answer has two letters', options: ['no', 'yes', 'maybe'], correct: 0 },
   { question: 'the answer is "hidden"', options: ['hidden', 'right here', 'found it'], correct: 0 },
   { question: 'this sentence has no ___', options: ['punctuation', 'letters', 'words'], correct: 0 },
-  { question: 'a game mode in Super Smart', options: ['arcade', 'blitz', 'time limit'], correct: 0 },
+  { question: 'a game mode in Super Smart', options: ['Quickmatch', 'Slowmatch', 'Stalemate'], correct: 0 },
   { question: 'an Apple product', options: ['iPod', 'MacBro', 'iShall'], correct: 0 },
   { question: 'this word is used twice in this sentence', options: ['this', 'in', 'word'], correct: 0 },
   { question: '43 minutes past 13:43', options: ['2:26 PM', '14:46', '15:16'], correct: 0 },

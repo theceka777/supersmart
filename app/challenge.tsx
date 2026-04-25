@@ -1,6 +1,15 @@
+// challenge.tsx — Challenge a Friend (placeholder UX)
+//
+// Cream Stadium refresh of the pre-2026-04-19 stub. Live challenge tracking
+// (sender's ghost locked, link races sender, scores count toward weekly League
+// totals — Mothership Part 4) lands with the Phase 4 backend. Until then this
+// screen issues a copyable code as a stand-in.
+
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 function generateCode() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -15,88 +24,196 @@ export default function ChallengeScreen() {
   function copyCode() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    Alert.alert('Code copied!', `Share ${code} with a friend — they'll play the same questions you did.`);
+    Alert.alert('Code copied!', `Share ${code} with a friend — they'll race the same 60-second round you played.`);
   }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} style={styles.back}>
-        <Text style={styles.backText}>← Back</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={s.safe}>
+      <View style={s.container}>
+        <Pressable onPress={() => router.back()} style={s.back}>
+          <Text style={s.backText}>← back</Text>
+        </Pressable>
 
-      <Text style={styles.title}>CHALLENGE</Text>
+        <Text style={s.title}>CHALLENGE</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Your Challenge Code</Text>
-        <Text style={styles.cardSub}>
-          Share this with a friend. They play the exact same 20 questions in the same order. Scores compared.
-        </Text>
-        <View style={styles.codeBox}>
-          <Text style={styles.code}>{code}</Text>
+        {/* Send a challenge ─────────────────────────────────────────────── */}
+        <View style={s.card}>
+          <Text style={s.cardTitle}>Your challenge code</Text>
+          <Text style={s.cardSub}>
+            Share with a friend. They race the same 60-second set you played.
+            Compare scores when they finish.
+          </Text>
+
+          <View style={s.codeBox}>
+            <Text style={s.code}>{code}</Text>
+          </View>
+
+          {/* Copy — primary 3D button */}
+          <Pressable style={s.btn} onPress={copyCode}>
+            <View style={[s.btnShadow, copied && s.btnShadowOk]} />
+            <View style={[s.btnFace, copied && s.btnFaceOk]}>
+              <Text style={[s.btnText, copied && s.btnTextOk]}>
+                {copied ? 'COPIED ✓' : 'COPY CODE'}
+              </Text>
+            </View>
+          </Pressable>
+
+          <Pressable style={s.linkBtn} onPress={() => router.replace('/game')}>
+            <Text style={s.linkBtnText}>play this challenge yourself →</Text>
+          </Pressable>
         </View>
-        <TouchableOpacity style={[styles.copyButton, copied && styles.copiedButton]} onPress={copyCode}>
-          <Text style={styles.copyButtonText}>{copied ? 'Copied ✓' : 'Copy Code'}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.playOwnButton} onPress={() => router.replace('/game')}>
-          <Text style={styles.playOwnText}>Play this challenge yourself →</Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Join a Challenge</Text>
-        <Text style={styles.cardSub}>Got a code from a friend? Enter it here.</Text>
-        <TextInput
-          style={styles.input}
-          value={inputCode}
-          onChangeText={v => setInputCode(v.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
-          placeholder="A1B2C3"
-          maxLength={6}
-          autoCapitalize="characters"
-          placeholderTextColor="#d1d5db"
-        />
-        <TouchableOpacity
-          style={[styles.joinButton, inputCode.length < 6 && styles.disabled]}
-          disabled={inputCode.length < 6}
-          onPress={() => router.push('/game')}
-        >
-          <Text style={styles.joinButtonText}>Play Challenge</Text>
-        </TouchableOpacity>
-      </View>
+        {/* Join a challenge ─────────────────────────────────────────────── */}
+        <View style={s.card}>
+          <Text style={s.cardTitle}>Join a challenge</Text>
+          <Text style={s.cardSub}>Got a code from a friend? Enter it here.</Text>
 
-      <Text style={styles.note}>
-        🔒 Live challenge tracking coming with backend in Phase 4.{'\n'}For now, compare scores manually.
-      </Text>
-    </View>
+          <TextInput
+            style={s.input}
+            value={inputCode}
+            onChangeText={v => setInputCode(v.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
+            placeholder="A1B2C3"
+            maxLength={6}
+            autoCapitalize="characters"
+            placeholderTextColor={Colors.ink + '33'}
+          />
+
+          <Pressable
+            style={[s.btn, inputCode.length < 6 && s.btnDisabled]}
+            disabled={inputCode.length < 6}
+            onPress={() => router.push('/game')}
+          >
+            <View style={s.btnShadow} />
+            <View style={s.btnFace}>
+              <Text style={s.btnText}>PLAY CHALLENGE</Text>
+            </View>
+          </Pressable>
+        </View>
+
+        <Text style={s.note}>
+          Live challenge tracking (sender's ghost, weekly league credit){'\n'}
+          arrives with Phase 4. For now, compare scores manually.
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 24, paddingTop: 56, gap: 20 },
-  back: { marginBottom: -8 },
-  backText: { fontSize: 16, color: '#6b7280' },
-  title: { fontSize: 28, fontWeight: '900', letterSpacing: 2, color: '#dc2626' },
-  card: { backgroundColor: '#f9fafb', borderRadius: 16, padding: 20, gap: 12 },
-  cardTitle: { fontSize: 18, fontWeight: '700', color: '#111827' },
-  cardSub: { fontSize: 14, color: '#6b7280' },
-  codeBox: { backgroundColor: '#fff', borderRadius: 12, padding: 20, alignItems: 'center' },
-  code: { fontSize: 40, fontWeight: '900', letterSpacing: 10, color: '#dc2626' },
-  copyButton: { backgroundColor: '#dc2626', paddingVertical: 14, borderRadius: 12, alignItems: 'center' },
-  copiedButton: { backgroundColor: '#16a34a' },
-  copyButtonText: { color: '#fff', fontSize: 16, fontWeight: '700' },
-  playOwnButton: { alignItems: 'center', paddingVertical: 4 },
-  playOwnText: { fontSize: 14, color: '#6b7280' },
-  input: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
+// ── Styles ────────────────────────────────────────────────────────────────────
+
+const BTN_H = 52;
+
+const s = StyleSheet.create({
+  // Transparent — global Sunburst + Halftone in root _layout.tsx show through.
+  safe: { flex: 1, backgroundColor: 'transparent' },
+  container: { flex: 1, padding: 20, paddingTop: 28, gap: 18 },
+
+  back: { marginBottom: -4 },
+  backText: { fontFamily: Fonts.mono, fontSize: 13, color: Colors.ink, opacity: 0.6 },
+
+  title: {
+    fontFamily: Fonts.black,
     fontSize: 28,
-    fontWeight: '800',
+    color: Colors.red,
+    letterSpacing: 1,
+  },
+
+  // Cream card with ink border — same shape as Profile cards.
+  card: {
+    backgroundColor: Colors.cream,
+    borderRadius: Radius.card,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    padding: 18,
+    gap: 12,
+  },
+  cardTitle: {
+    fontFamily: Fonts.black,
+    fontSize: 17,
+    color: Colors.ink,
+  },
+  cardSub: {
+    fontFamily: Fonts.mono,
+    fontSize: 13,
+    color: Colors.ink,
+    opacity: 0.6,
+    lineHeight: 19,
+  },
+
+  // Code display
+  codeBox: {
+    backgroundColor: Colors.white,
+    borderRadius: Radius.sm,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    paddingVertical: 18,
+    alignItems: 'center',
+  },
+  code: {
+    fontFamily: Fonts.black,
+    fontSize: 36,
+    letterSpacing: 8,
+    color: Colors.red,
+  },
+
+  // 3D primary button (matches Profile / Avatar pattern)
+  btn: { position: 'relative', height: BTN_H + CARD_DEPTH },
+  btnShadow: {
+    position: 'absolute',
+    left: 0, right: 0, top: CARD_DEPTH, height: BTN_H,
+    backgroundColor: Colors.ink,
+    borderRadius: Radius.sm,
+  },
+  btnShadowOk: { backgroundColor: '#1a4a2a' },
+  btnFace: {
+    position: 'absolute',
+    left: 0, right: 0, top: 0, height: BTN_H,
+    backgroundColor: Colors.red,
+    borderRadius: Radius.sm,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnFaceOk: { backgroundColor: '#22c55e' },
+  btnText: {
+    fontFamily: Fonts.black,
+    fontSize: 15,
+    color: Colors.cream,
+    letterSpacing: 1,
+  },
+  btnTextOk: { color: Colors.cream },
+  btnDisabled: { opacity: 0.35 },
+
+  linkBtn: { alignItems: 'center', paddingVertical: 4 },
+  linkBtnText: {
+    fontFamily: Fonts.mono,
+    fontSize: 13,
+    color: Colors.ink,
+    opacity: 0.6,
+  },
+
+  // Code input
+  input: {
+    backgroundColor: Colors.white,
+    borderRadius: Radius.sm,
+    borderWidth: 3,
+    borderColor: Colors.ink,
+    padding: 14,
+    fontFamily: Fonts.black,
+    fontSize: 26,
     letterSpacing: 8,
     textAlign: 'center',
-    color: '#111827',
+    color: Colors.ink,
   },
-  joinButton: { backgroundColor: '#111827', paddingVertical: 14, borderRadius: 12, alignItems: 'center' },
-  disabled: { opacity: 0.35 },
-  joinButtonText: { color: '#fff', fontSize: 16, fontWeight: '700' },
-  note: { fontSize: 13, color: '#9ca3af', textAlign: 'center', lineHeight: 20 },
+
+  note: {
+    fontFamily: Fonts.mono,
+    fontSize: 12,
+    color: Colors.ink,
+    opacity: 0.45,
+    textAlign: 'center',
+    lineHeight: 18,
+    marginTop: 4,
+  },
 });

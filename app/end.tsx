@@ -1,5 +1,9 @@
-// end.tsx — Post-game end screen for Daily Race (and standalone arcade via game.tsx)
-// Cream Stadium design. Classic mode removed (retired). Uses getRankLabel from content.ts.
+// end.tsx — Post-game end screen for Daily Race and the no-ghost Quickmatch
+// fallback (game.tsx). Cream Stadium design. Classic + standalone Arcade are
+// retired; the `mode=arcade` route param is internal-only and predates the
+// vocabulary lock — kept for now to avoid touching call sites in game.tsx
+// until the game.tsx orphan question (code-side tracker) resolves.
+// Uses getRankLabel from content.ts.
 
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -79,10 +83,10 @@ export default function EndScreen() {
     );
   }
 
-  // ── Arcade / Quickmatch fallback (game.tsx) ──────────────────────────────────
+  // ── Quickmatch fallback (game.tsx, no-ghost path) ────────────────────────────
   return (
     <View style={s.container}>
-      <Text style={s.modeTag}>ARCADE</Text>
+      <Text style={s.modeTag}>QUICKMATCH</Text>
 
       <View style={s.scoreCard}>
         <Text style={s.rankLabel}>{rank}</Text>

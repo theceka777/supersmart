@@ -5,11 +5,12 @@ export const Colors = {
   // Core palette
   cream:   '#FFF4DF',   // background
   ink:     '#1A1522',   // primary text, borders, shadows
-  pink:    '#FF3D7F',   // brain, Arcade card, hero accent
+  pink:    '#FF3D7F',   // brain, Quickmatch card, hero accent
   pinkDark:'#B01A4F',   // brain shadow
   red:     '#E8253C',   // wordmark, active tint, cheeks
-  yellow:  '#FFD23F',   // antenna bolt, Multiplayer card, score accent
-  cyan:    '#3DF2FF',   // Classic card
+  yellow:  '#FFD23F',   // antenna bolt, score accent
+  // cyan removed — was the retired Classic card face. Daily Race uses
+  // a separate light-cyan token in `dailyrace.bg` below.
   white:   '#FFFFFF',
 
   // Semantic aliases
