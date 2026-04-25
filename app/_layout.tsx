@@ -66,10 +66,6 @@ export default function RootLayout() {
             <Stack.Screen name="challenge" />
             <Stack.Screen name="avatar"    />
             <Stack.Screen name="end"       />
-            <Stack.Screen
-              name="modal"
-              options={{ presentation: 'modal', title: 'Modal' }}
-            />
           </Stack>
         </View>
         <StatusBar style="dark" backgroundColor={Colors.background} />

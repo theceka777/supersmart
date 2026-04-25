@@ -1,5 +1,8 @@
 # 1001 Audit — Methodology (v1, Session 13, 2026-04-24)
 
+> **Lifecycle:** This folder (`audit_1001/`) holds editorial-phase working data — the methodology doc you're reading now and the per-question tags CSV. It lives at the parent project folder with a mirror in `supersmart/docs/audit_1001/` for git history. **Once Phase 5 ships and the final tagged + edited questions land in Supabase, this folder becomes archival reference** (kept around to show provenance / decisions, not actively edited). Stays where it is; no migration planned. *(Recorded session 15, 2026-04-25.)*
+
+
 Phase 1 of the Super Smart 2026 rebuild. This doc defines how we tag every question in `1001.xml` with one of four labels: **Keep / Light edit / Heavy edit / Retire**. First 100 questions tagged under this methodology — rules refined as edge cases hit.
 
 Creative director is final editor. Where Claude's call and creative director's call disagree, creative director wins — no argument.

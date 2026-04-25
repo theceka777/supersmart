@@ -2,6 +2,47 @@
 
 ---
 
+## Session 15 — 2026-04-25 — Codebase + documentation audit pass (mothership v1.27 → v1.28)
+
+Two parallel audit sweeps (one Explore agent on the React Native code, one on the docs) surfaced drift items + dead code + small contradictions accumulated over 14 sessions. CD reviewed findings and approved the fixes below. Sessions 13–14 in between were Phase 1 audit work (1001.xml tagging) — no code changes; not in this changelog.
+
+### Code changes
+
+- **Deleted 8 dead boilerplate files** from the original `npx create-expo-app` template:
+  - `app/modal.tsx`
+  - `components/themed-text.tsx`
+  - `components/themed-view.tsx`
+  - `components/ui/collapsible.tsx`
+  - `components/parallax-scroll-view.tsx`
+  - `hooks/use-color-scheme.ts`
+  - `hooks/use-color-scheme.web.ts`
+  - `hooks/use-theme-color.ts`
+
+  Closed import island — none of these were referenced by the actual app. They referenced a `Colors.light.icon` / `Colors.dark.icon` shape that `constants/theme.ts` doesn't have (the actual theme is the flat Cream Stadium palette). If any of these had been imported they would have thrown `undefined.icon` at runtime. Decision: light-only is a locked mothership commitment; future dark mode is a redesign exercise not a re-import exercise. Deleted now.
+
+- **`app/_layout.tsx`** — removed the `<Stack.Screen name="modal" ...>` registration that pointed at the now-deleted `modal.tsx`.
+
+- **`app.json`**:
+  - `userInterfaceStyle: "automatic"` → `"light"` (locks the app to light mode at the OS level; matches the runtime nav theme that was already light-only).
+  - `expo-splash-screen` plugin: removed the `dark: { backgroundColor: "#000000" }` block.
+  - `expo-splash-screen` plugin: `backgroundColor: "#ffffff"` → `"#FFF4DF"` (Cream Stadium cream — matches the splash spec in mothership Part 3 onboarding).
+
+### What stayed in sync (confirmed by audit)
+
+Cream Stadium palette in `theme.ts`, Archivo Black + JetBrains Mono fonts, scoring mechanics, `FREE_LIMIT=7` / `ONE_MORE_LIMIT=3`, 22 ranks, 75 emotes (15×5), 3-tab nav (Home / League / Profile), League tab section order, Daily Race share format, global Sunburst + Halftone in root layout, 100% custom animations (no Lottie or default-library motion), bot-ghost system rules, classic mode + kicker properly retired in code. No Phase 4 work has begun yet — schema draft is in `supabase/phase4_schema.sql` per session 13 work, not wired.
+
+### Files touched
+
+- 8 files deleted (above)
+- `supersmart/app/_layout.tsx` — modal route registration removed
+- `supersmart/app.json` — 3 edits
+- `super_smart_2026_mothership.md` — v1.27 → v1.28 (status line, Part 5 free-tier rounds, Phase 7 launch-window line, Appendix D items #47–49 added, decision log session 15 row)
+- `super_smart_2026_primer.md` — refreshed to current state (Phase 1 audit progress, no longer "overdue")
+- `audit_1001/audit_1001_methodology.md` — lifecycle note added at top
+- `CHANGELOG.md` — this entry
+
+---
+
 ## Session 12 — 2026-04-24 — Mini-decisions bundle (mothership v1.24 → v1.25)
 
 Five small Appendix D items locked in a serial "coffee decisions"-style session. No code changes — doc-only pass.

@@ -29,20 +29,21 @@ Same skeleton as 2012 (≤40-char questions, ≤15-char answers, 3 options, 60-s
 - **Working-together mode is "learn-as-we-go"** — creative director has no prior terminal experience; moving in chunks rather than command-by-command.
 - **Both sides pressure-test each other.** Push back when something is wrong, challenge reasoning, own mistakes.
 
-## The current state *(as of 2026-04-24)*
+## The current state *(as of 2026-04-25)*
 
-- **Mothership doc is at v1.25.** Last updated April 24, 2026, after a very productive day: 5 "coffee decisions" locked, skill-tier-vs-league-tier clarified, bot-ghost system locked (major reversal + Honesty Layer retired), Phase 4 Supabase schema drafted at `supabase/phase4_schema.sql`, consistency audit + code sync pass, and a 5-item mini-decisions bundle.
+- **Mothership doc is at v1.27.** Last updated April 25, 2026 (sessions 13–15). Recent shape: bot-ghost system + Phase 4 Supabase schema landed (v1.23–1.24); 5-item mini-decisions bundle (v1.25); **Phase 1 audit kicked off and 200 questions tagged across batches 1+2** (v1.26–1.27, sessions 13–14); **codebase audit pass** with dark-mode boilerplate cleaned out and several small drift items closed (v1.28, session 15).
 - **All critical-path decisions resolved.** Phase 2 substantially complete. Phase 3 in progress.
+- **Phase 1 audit progress:** Q1–Q200 tagged through 2 review passes (cumulative **171 Keep / 29 Light / 0 Heavy / 0 Retire**, 85.5% Keep). Methodology + future-session playbook live in `audit_1001/audit_1001_methodology.md` at parent folder. 14 edge-case rulings locked. 801 questions to go, batches of ~100 expected per focused sitting.
 - **Phase 2 deliverables done:** Cream Stadium palette locked, Archivo Black + JetBrains Mono typography, animated wordmark, brain mascot, ArcadeCard bob float, TokenTabBar, global Sunburst + Halftone background. All running on real device via Expo Go.
 - **Phase 4 schema draft:** 11 new tables at `supabase/phase4_schema.sql`. Not yet runnable — depends on auth library (Appendix D #1) + RLS pass + Edge Functions, which are future workstreams.
-- **Code and spec in sync** as of v1.25 audit (Session 11). Code carries the current rules for bot-ghost scoring, avatar randomization, and mode vocabulary.
-- **Launch target: first half of August 2026.**
+- **Code and spec in sync** as of session 15 codebase audit. Light-only rendering locked (no dark-mode boilerplate in tree). Bot-ghost scoring, avatar randomization, mode vocabulary all current.
+- **Launch target: first half of August 2026.** *(~14 weeks out as of April 25; on track at 6–8 hrs/week.)*
 
 ## What's next (open threads)
 
-- **Phase 1 1001.xml audit is overdue** per original timeline (was wk 2–4). Priority candidate for next session. 1001 questions need Keep/Light edit/Heavy edit/Retire tagging.
+- **Phase 1 audit batches 3+:** Q201–Q300 next. Misc category continues to ~Q350 then transitions to word.
 - **Phase 4 blockers remain:** auth architecture (Appendix D #1), anti-cheat validator (#6), RLS policy depth, Edge Function buildouts (matchmaking, league close/open, daily race seeding, etc.).
-- **Appendix D has ~38 open items** grouped by phase. Many small mini-decisions could still batch.
+- **Appendix D** has ~37 open items grouped by phase. Many small mini-decisions could still batch.
 - **Between-sessions action item:** confirm `iamsupersmart.com` registrar status (drives Appendix D #40 support email domain).
 
 ## What to do first in any new session
