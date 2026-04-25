@@ -2,6 +2,71 @@
 
 ---
 
+## Session 22 — 2026-04-25 — PHASE 1 AUDIT COMPLETE (mothership v1.34 → v1.35)
+
+**Final batch 6** (Q701–Q1001, 301 questions) closed at **278 Keep / 23 Light / 0 Heavy / 0 Retire** = 92.4% Keep.
+
+**Cumulative across the full 1001-question corpus: 907 / 94 / 0 / 0 = 90.6% Keep, 9.4% Light, 0% Heavy, 0% Retire.**
+
+Six batches across five working sessions (13: Q1–100; 14: Q101–200; 16: Q201–300; 19: Q301–400; 21: Q401–700 mega-batch; 22: Q701–1001 final mega-batch). **Zero Heavy or Retire flags across all 1001 questions.** Original Part 8 projection of 700/150/100/50 was off by an order of magnitude on Heavy/Retire.
+
+### Per-category final Keep rates
+
+| Category | Total | Keep | Rate |
+|---|---|---|---|
+| math | 175 | 175 | 100% |
+| science | 120 | 97 | 81% |
+| word | 175 | 161 | 92% |
+| misc | 230 | 205 | 89% |
+| music | 50 | 43 | 86% |
+| movies | 30 | 27 | 90% |
+| geography | 161 | 148 | 92% |
+| people | 50 | 41 | 82% |
+| literature | 10 | 9 | 90% |
+| **total** | **1001** | **907** | **90.6%** |
+
+### Notable batch 6 fixes
+
+- **Q868** factual error: equator does NOT pass through Argentina. Concept-replaced answer Argentina → Brazil; distractor Paraguay → Argentina (clean north-of/south-of distractor logic).
+- **Q924** Sears Tower → Willis Tower (renamed 2009; ruling #14 already-effected change).
+- **Q935** Mount Everest "located in China" → "in the Himalayas mountain range" with answer Himalayas + distractors Rocky / Alps. Sidesteps the disputed China-vs-Nepal summit ambiguity by broadening to mountain range.
+- **Q979** "French goalkeeper Fabien Barthez" → "famous French footballer K. Mbappé" with foreign-superstar distractors C. Ronaldo / L. Messi. Refreshes the corpus's footballer roster with a 2026-current anchor.
+- **Q968** distractor "Bradley Manning" → "Bradley Cooper" (cultural drift / deadname per ruling #16).
+- **Q783** Ukrainian flag color → Peru flag (avoid third Ukraine question; Q799 still covers).
+- **Q988** broken puzzle: option1 "Pluto" → "Plato" (student of Socrates is the philosopher; Q989 confirms — "student of Plato" → Aristotle).
+- **Q987** Latin spelling: "Vini, vidi, vici" → "Veni, vidi, vici".
+- **11 source-XML typos** fixed: Ukranian (×2), Russua, Valetta, Phillipines, Swizterland, Kirku, Gaugin, Fraizer, Germanl, Frank Ribery, Sliverstein.
+- **4 capitalization/punctuation Lights**: South africa, amadeus, Jean-Paul Gaultier, Hagia Sophia.
+
+### Marginals kept after CD review
+
+- Q955 Tony Blare / Gordon Cameron — intentional voice wordplay (CD voice call).
+- Q909 Indonesia population unit-trick — voice-driven gotcha.
+- Q951 Jerry Sloan as Bulls player — technically correct.
+
+### What this means
+
+Every question in the 1001 either ships as-is (907) or with a small editorial fix (94). **Nothing gets retired.** The corpus author's voice was tighter than Phase 0 sampling estimated — wordplay-heavy, time-resistant, pacing-aware. The 94 Light edits cluster around mechanical fixes (typos, capitalization) and a small surface area of dated cultural anchors (Will Smith Oscar, iPod, Bieber's lesser songs, MC Hammer reference, red pill manosphere drift) — the rest is just good.
+
+### Methodology rulings finalized at 16
+
+Across the audit: 4 typo-class (#1, #2, #5, #10), 1 voice-call (#11 trademark-evocative misspellings), 1 hemisphere-pair (#12), 1 tautology-OK (#13), 1 time-bound (#14, extended to cover both pre-announced and already-effected changes), 1 char-budget discretion (#15), 1 cultural drift (#16), and 6 supporting (technical/cultural figures, easy-question pacing, factual nits, clarity rules, etc).
+
+### Next workstream
+
+**Corpus-wide style sweep** before Phase 5 question writing. Single global pass to clean residual whitespace/capitalization/punctuation patterns: the Q352–Q386 "Make a word using  X" double-space cluster, the Q738/Q739/Q744/Q777 capitalized-first-word math cluster, any other residuals surfaced inline during batch tagging. That's its own session, not blocking.
+
+### Files touched
+
+- `audit_1001/audit_1001_tags.csv` — appended 301 rows for Q701–Q1001 (final 1001-row corpus complete)
+- `audit_1001/audit_1001_methodology.md` — title-line marked Phase 1 COMPLETE, batch 6 row + cumulative-COMPLETE row added to running tally
+- `super_smart_2026_mothership.md` — status line bumped v1.34 → v1.35 with full-corpus close, end-of-doc stamp, Part 12 decision log row added for session 22
+- `super_smart_2026_primer.md` — current-state line updated to v1.35, audit progress marked complete with per-category breakdown
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+---
+
 ## Session 21b — 2026-04-25 — Cultural-relevance sweep + methodology ruling #16 (mothership v1.33 → v1.34)
 
 Mid-session pivot after batch 5 commit: CD requested a sweep over Q1–Q700 with a fresh filter — catch phrases whose **cultural meaning has shifted since 2012**, even when the puzzle still works mechanically. Distinct from the durability test (Q543 Bieber→Swift) and the already-effected-fact test (Q595 Will Smith→Tom Cruise).
