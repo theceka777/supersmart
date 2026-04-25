@@ -2,6 +2,54 @@
 
 ---
 
+## Session 20 — 2026-04-25 — League rank border palette locked (mothership v1.31 → v1.32)
+
+Quick mid-session palette lock. Appendix D #11 resolved. No code changes.
+
+### What was decided
+
+All 8 league tier border colors + gradient structures + Legend shimmer execution. Three iterations on visual review (v1 → v2 → v3); v3 locked.
+
+| # | Tier | Border |
+|---|---|---|
+| 1 | Rookie | `#8E8E8E` solid |
+| 2 | Newcomer | `#A8C4D8` solid |
+| 3 | Regular | `#7BAA86` solid |
+| 4 | Veteran | `#3F8C7A` solid |
+| 5 | Qualifier | `#6962C0` solid |
+| 6 | Finalist | `#B0356A → #E85F90` 2-stop diagonal gradient (static) |
+| 7 | Champion | `#6B0F2D → #F03B5C → #6B0F2D` 3-stop horizontal gradient (static) |
+| 8 | Legend | `#C99020 → #FFE082 → #C99020` 3-stop animated gradient (Reanimated 3) |
+
+**Legend shimmer execution:** Reanimated 3 + linear gradient mask, two states. (1) Continuous low-intensity shimmer wherever the Legend border renders — avatar in lists, Profile, League tab cards. (2) Theatrical brighter sweep on the promote-to-Legend interstitial entry (~0.6s), then settles into the continuous loop. ~30 lines in a future `<LegendBorder>` component when Phase 3 builds the avatar visual layer.
+
+### Iterations
+
+- **v1** had: Rookie warm grey, Newcomer bone-cream, Veteran teal, Qualifier indigo, Finalist magenta solid, Champion bronze, Legend gold shimmer.
+- **CD review:** wanted Rookie pulled to true neutral gray (less warm), Newcomer with actual color identity instead of bone, gradients starting at Finalist (not just Legend), and Champion not bronze.
+- **v2** applied: Rookie `#8E8E8E`, Newcomer `#A8C4D8` pale blue, Finalist 2-stop magenta gradient, Champion 2-stop crimson gradient.
+- **CD review:** wanted more visible gradient on Champion.
+- **v3** locked: Champion pushed to 3-stop with bright `#F03B5C` center stop, mirroring Legend's recipe in red. Champion + Legend now feel like siblings.
+
+### Evolutions from the v1.25 directional spec
+
+- Newcomer "white" → pale dusty blue `#A8C4D8`. Reason: white reads as invisible on cream `#FFF4DF`; pale dusty blue gives the entry tier its own identity without volume. CD voice call.
+- Finalist "orange" → magenta gradient `#B0356A → #E85F90`. Reason: orange between Veteran teal and Champion crimson would have broken the cool→warm climb arc; magenta preserves the heat ramp.
+
+### Files touched
+
+- `super_smart_2026_mothership.md` — v1.31 → v1.32. Status line bumped with the palette-lock segment. Part 3 Avatar / League rank border section rewritten as a full table with hex values + gradient structures + Legend shimmer execution + notes. Appendix D #11 marked ✅ RESOLVED. Part 12 decision log row added for session 20. End-of-doc stamp bumped.
+- `super_smart_2026_primer.md` — current-state line bumped to v1.32 with palette-lock note.
+- `supersmart/docs/` — both mirrored.
+- `CHANGELOG.md` — this entry.
+
+### Implementation status
+
+- No code yet. Phase 3 visual pass will build the `<LegendBorder>` component and wire tier colors into the avatar component.
+- Hex values can be added to `constants/theme.ts` opportunistically (low-risk single edit) or held until Phase 3 begins.
+
+---
+
 ## Session 19 — 2026-04-25 — Phase 1 audit batch 4 closed (mothership v1.30 → v1.31)
 
 Q301–Q400 tagged across the misc→word category boundary, reviewed in one CD pass + second-pass sanity check. **Final: 90 Keep / 10 Light / 0 Heavy / 0 Retire.** Cumulative through Q1–Q400: **351 / 49 / 0 / 0** = 87.75% Keep. Four batches in, 40% of corpus audited, still zero Heavy or Retire flags.
