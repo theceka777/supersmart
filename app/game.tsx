@@ -9,9 +9,9 @@
 // All mutable game values (score, streak, missStreak) live in refs so
 // handleAnswer never reads a stale closure value.
 
-import { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, AppState } from 'react-native';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { QUESTIONS, shuffleQuestions } from './questions';
 import { useAppStore } from './store';
 
@@ -74,23 +74,29 @@ export default function GameScreen() {
   const timerRef      = useRef<ReturnType<typeof setInterval> | null>(null);
   const advanceRef    = useRef<ReturnType<typeof setTimeout>  | null>(null);
   const lockTimerRef  = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  // Wall-clock anchor — round timer = max(0, 60 - elapsedSinceStart).
+  // Robust to JS pause/resume.
+  const roundStartRef = useRef<number | null>(null);
 
   // Current question — always valid while index is in range
   const question   = questions[questionIndex];
   const isAnswered = selectedAnswer !== null;
 
-  // ── Global 60-second countdown ──────────────────────────────────────────────
+  // ── Global 60-second countdown — wall-clock based ──────────────────────────
+  // Interval triggers re-renders that recompute timeLeft from wall-clock.
+  // Robust to JS pause/resume.
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setTimeLeft(t => {
-        if (t <= 1) {
-          clearInterval(timerRef.current!);
-          return 0;
-        }
-        return t - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timerRef.current!);
+    if (roundStartRef.current === null) {
+      roundStartRef.current = Date.now();
+    }
+    const tick = () => {
+      if (roundStartRef.current === null) return;
+      const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+      setTimeLeft(Math.max(0, 60 - elapsed));
+    };
+    tick();
+    timerRef.current = setInterval(tick, 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, []);
 
   // Time's up → end
@@ -100,6 +106,39 @@ export default function GameScreen() {
       router.replace(`/end?score=${scoreRef.current}&mode=arcade`);
     }
   }, [timeLeft]);
+
+  // ── Lock-on-exit (anti-cheat) ──────────────────────────────────────────────
+  // Per mothership Part 3: NAVIGATION away locks the score and ends the round.
+  // BACKGROUNDING does NOT lock — timer keeps running on wall-clock time.
+  // Force-quit captures the latest persisted score (updateHighScore is called
+  // progressively in handleAnswer below). Mirrors echo.tsx / daily.tsx.
+  function lockScoreOnExit() {
+    if (timeLeft === 0) return;            // already finished
+    if (timerRef.current)     clearInterval(timerRef.current);
+    if (advanceRef.current)   clearTimeout(advanceRef.current);
+    if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
+    updateHighScore('quickmatch', scoreRef.current);
+  }
+
+  // On foreground, immediately recompute timeLeft from wall-clock so the
+  // UI snaps to the correct value. Wall-clock math handles elapsed time
+  // intrinsically — no double-subtraction.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (timeLeft === 0 || roundStartRef.current === null) return;
+      if (state === 'active') {
+        const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+        setTimeLeft(Math.max(0, 60 - elapsed));
+      }
+    });
+    return () => sub.remove();
+  }, [timeLeft]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => lockScoreOnExit();
+    }, [timeLeft])
+  );
 
   // ── 150ms invisible double-tap guardrail per question ──────────────────────
   // Speed-bonus timer anchors at question render — the 2-second window
@@ -152,6 +191,8 @@ export default function GameScreen() {
     }
 
     scoreRef.current = Math.max(0, scoreRef.current + delta);
+    // Progressive save — captures latest score for force-quit / OS-kill.
+    updateHighScore('quickmatch', scoreRef.current);
 
     // Push to display state
     setDisplayScore(scoreRef.current);

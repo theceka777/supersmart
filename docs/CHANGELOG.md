@@ -2,6 +2,82 @@
 
 ---
 
+## Session 26 — 2026-04-26 — Round lifecycle locked + Tier 1 #2/#3 closed (mothership v1.42 → v1.43)
+
+Two Tier 1 punch-list items closed in one session: back-button mid-round handling (#2) and app-lifecycle mid-round behavior (#3). Plus a wall-clock timer refactor that fixed a double-subtraction bug surfaced during device testing. Resolves Appendix D #21.
+
+### What changed conceptually
+
+The round lifecycle is now spec'd as **terminal exits** with three categories:
+
+| Trigger | Behavior |
+|---|---|
+| **Navigation away** (hardware back, iOS swipe-back, programmatic nav) | Score locks at current value. Round ends. Quickmatch updates high score (if PB). Daily Race uses today's attempt with the locked score. No confirmation dialog. |
+| **App backgrounding** (notification, Control Center, app switcher, phone call) | Round timer keeps running on wall-clock time. Player loses time-on-task. Round resumes on return — or ends immediately if timer hit 0 while backgrounded. Backgrounding is NOT a pause. |
+| **Force-quit / OS-killed / crash** | Latest persisted score = final score. Progressive saves on every answer keep AsyncStorage current. Closes the abuse path of force-quitting a bad Daily Race to replay. |
+
+No "save and resume." No confirmation dialogs. Anti-cheat by design.
+
+### What changed in code
+
+**`app/echo.tsx`, `app/daily.tsx`, `app/game.tsx`:**
+
+- Timer refactored to **wall-clock based**: `timeLeft = max(0, 60 - (now - roundStart))`. Interval just triggers re-renders; the math is intrinsic to wall-clock time. This fixes a double-subtraction bug (see below) and makes the timer robust to any JS pause/resume cycle.
+- `useFocusEffect` cleanup added — fires on hardware back, iOS swipe-back, or programmatic nav. Calls `lockScoreOnExit` which clears timers and saves score.
+- `AppState` listener simplified — on `active` (foreground after background), recompute `timeLeft` from wall-clock so the UI snaps to the correct value. No more "subtract elapsed seconds" logic (was the source of the double-subtraction bug).
+- **Progressive saves** added in answer handlers — `updateHighScore` (Quickmatch) and `setDailyPlayed` (Daily Race) called on every answered question. Captures latest state for force-quit scenarios.
+
+**`app/daily.tsx` specifically:**
+
+- New `currentlyPlaying` component-local state flag. Overrides the `alreadyPlayed` view during an active round. Without this, the progressive `setDailyPlayed` mid-round would flip `dailyStatus.played → true` and immediately render the alreadyPlayed view (breaking gameplay). Component-local lifetime — lost on force-quit, which is correct behavior.
+
+### The double-subtraction bug (fixed by wall-clock refactor)
+
+CD reported during testing: swipe up to app switcher at t=30s, wait 5s, return — timer showed t=20s (should be 25s).
+
+**Root cause:** during iOS app-switcher transition, JS keeps running for a moment in the `inactive` state (the user could see the timer ticking in the live thumbnail). The decrement-based interval kept firing and dropping `timeLeft`. Then on `active`, the explicit "subtract elapsed seconds" handler fired again, subtracting another ~5s on top of what the interval already subtracted.
+
+**Fix:** wall-clock based timer. `timeLeft` is computed from `Date.now() - roundStart`, never decremented. The interval just triggers re-renders; the math is intrinsic. JS pauses, irregular ticks, or partial app-switcher transitions can't desync the timer.
+
+### Known issue carried forward (not blocking)
+
+Appendix D #51 added: **post-answer `setTimeout` deferred during iOS lifecycle pause.** When the app transitions to `inactive` right after the player answers a question, the unified 1-second post-answer setTimeout can be deferred by iOS. During the deferral, buttons render as grayed/locked (correct or wrong state with non-null `selectedAnswer`). Self-corrects when JS resumes. CD reported one anecdotal occurrence during testing, couldn't reproduce on restart.
+
+Same architectural class as the timer bug. Fix path documented in Appendix D #51 for when/if this becomes a pattern: wall-clock the post-answer advance too. Not blocking pre-launch.
+
+### Tier 1 progress
+
+- ✅ #1 State persistence (session 23)
+- ✅ #2 Back-button mid-round (this session)
+- ✅ #3 App lifecycle mid-round (this session)
+- ⏳ #4 Daily Race system-clock vulnerability
+- ⏳ #5 Onboarding flow
+- ⏳ #6 Maintenance / kill-switch screens
+- ⏳ #7 Arcade mode orphan path
+
+### Files touched
+
+- `supersmart/app/echo.tsx` — wall-clock timer refactor, useFocusEffect cleanup, AppState foreground recompute, progressive `updateHighScore`
+- `supersmart/app/daily.tsx` — wall-clock timer refactor, currentlyPlaying flag, useFocusEffect cleanup, AppState foreground recompute, progressive `setDailyPlayed`
+- `supersmart/app/game.tsx` — same as echo.tsx
+- `super_smart_2026_mothership.md` — status line v1.42 → v1.43, end-of-doc stamp, Part 3 Game mechanics gets new "Round lifecycle" bullet, Appendix D #21 marked ✅, new Appendix D #50 (back-button — resolved) and #51 (post-answer deferred — open)
+- `super_smart_2026_primer.md` — current-state line bumped
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Verified on device
+
+- Hardware back / iOS swipe-back mid-round: round ends, score locked. ✓
+- Quickmatch background: timer keeps running on wall-clock, accurate on return. ✓ (post-fix)
+- Daily Race force-quit recovery: today's attempt locked, can't replay. ✓
+- Wall-clock timer accuracy across app-switcher transitions: ✓ (the original bug is gone)
+
+### Pending (Android)
+
+CD will not test Android during active dev (iPhone-only). Plan: install Android emulator on Mac for weekly safety check; pre-beta full Android QA pass via emulator + borrowed device or paid QA service.
+
+---
+
 ## Session 25 — 2026-04-26 — Per-question rhythm revised (mothership v1.41 → v1.42)
 
 After playtesting the existing pattern on device, the per-question pacing got revised. The old beat felt laggy ("dead second" on each new question); the new one feels relentless without losing protective scaffolding. Code shipped to all three game screens; spec updated in two places.

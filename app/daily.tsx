@@ -6,9 +6,9 @@
 //
 // All mutable game values live in refs so submitAnswer never reads stale closures.
 
-import { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Pressable, AppState } from 'react-native';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { QUESTIONS, Question } from './questions';
 import { useAppStore } from './store';
 import { getRankLabel } from './content';
@@ -85,7 +85,17 @@ export default function DailyScreen() {
   const router = useRouter();
   const { dailyStatus, setDailyPlayed, freePlay, recordPlay } = useAppStore();
   const today = new Date().toISOString().split('T')[0];
-  const alreadyPlayed = dailyStatus.date === today && dailyStatus.played;
+
+  // `currentlyPlaying` overrides the alreadyPlayed view during an active round.
+  // We need this because progressive saves on each answer flip
+  // dailyStatus.played → true mid-round (so force-quit captures the daily
+  // attempt as used). Without this flag, the alreadyPlayed view would render
+  // mid-round once we save the first answer. The flag is component-local —
+  // lost on force-quit, which is correct behavior (next app open shows the
+  // alreadyPlayed view since dailyStatus.played persisted).
+  const initialAlreadyPlayed = dailyStatus.date === today && dailyStatus.played;
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(!initialAlreadyPlayed);
+  const alreadyPlayed = dailyStatus.date === today && dailyStatus.played && !currentlyPlaying;
 
   useEffect(() => {
     if (alreadyPlayed) return;
@@ -118,24 +128,34 @@ export default function DailyScreen() {
   const [lastPoints,      setLastPoints]      = useState<number | null>(null);
   const [lastLabel,       setLastLabel]       = useState('');
 
-  const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
-  const advanceRef   = useRef<ReturnType<typeof setTimeout>  | null>(null);
-  const lockTimerRef = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
+  const advanceRef     = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  const lockTimerRef   = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  // Wall-clock anchor — timestamp at which the round began.
+  // timeLeft = max(0, 60 - elapsedSinceStart). Never decrements.
+  const roundStartRef  = useRef<number | null>(null);
 
   const question   = questions[questionIndex];
   const isAnswered = selectedAnswer !== null;
 
-  // ── 60-second countdown ────────────────────────────────────────────────────
+  // ── 60-second countdown — wall-clock based ──────────────────────────────────
+  // The interval triggers re-renders that recompute timeLeft from
+  // (now - roundStart). Robust to JS pause/resume during app switcher,
+  // background, or slow-phone irregular ticks.
   useEffect(() => {
     if (alreadyPlayed) return;
-    timerRef.current = setInterval(() => {
-      setTimeLeft(t => {
-        if (t <= 1) { clearInterval(timerRef.current!); return 0; }
-        return t - 1;
-      });
-    }, 1000);
+    if (roundStartRef.current === null) {
+      roundStartRef.current = Date.now();
+    }
+    const tick = () => {
+      if (roundStartRef.current === null) return;
+      const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+      setTimeLeft(Math.max(0, 60 - elapsed));
+    };
+    tick();
+    timerRef.current = setInterval(tick, 1000);
     return () => {
-      clearInterval(timerRef.current!);
+      if (timerRef.current) clearInterval(timerRef.current);
       if (advanceRef.current)  clearTimeout(advanceRef.current);
       if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     };
@@ -149,6 +169,45 @@ export default function DailyScreen() {
       router.replace(`/end?score=${scoreRef.current}&mode=daily&results=${encoded}`);
     }
   }, [timeLeft]);
+
+  // ── Lock-on-exit (anti-cheat) ──────────────────────────────────────────────
+  // Per mothership Part 3: NAVIGATION away (hardware back, iOS swipe-back,
+  // programmatic nav) locks the score and uses today's daily attempt — no
+  // replay until tomorrow's reset. BACKGROUNDING (notification, Control
+  // Center, phone call, app switch) does NOT lock — the timer keeps running
+  // on wall-clock time, the player loses time but can resume. Force-quit
+  // captures the latest persisted score (setDailyPlayed called progressively
+  // in submitAnswer below).
+  function lockScoreOnExit() {
+    if (alreadyPlayed) return;             // already locked, nothing to do
+    if (timerRef.current)     clearInterval(timerRef.current);
+    if (advanceRef.current)   clearTimeout(advanceRef.current);
+    if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
+    setCurrentlyPlaying(false);
+    setDailyPlayed(scoreRef.current, resultsRef.current);
+  }
+
+  // On foreground, immediately recompute timeLeft from wall-clock so the UI
+  // snaps to the correct value (instead of waiting up to 1s for the next
+  // interval tick). Wall-clock math handles the elapsed time intrinsically —
+  // no double-subtraction bug.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (alreadyPlayed || roundStartRef.current === null) return;
+      if (state === 'active') {
+        const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+        setTimeLeft(Math.max(0, 60 - elapsed));
+      }
+    });
+    return () => sub.remove();
+  }, [alreadyPlayed]);
+
+  // Navigation away (hardware back, iOS swipe back, programmatic nav)
+  useFocusEffect(
+    useCallback(() => {
+      return () => lockScoreOnExit();
+    }, [alreadyPlayed])
+  );
 
   // ── 150ms invisible double-tap guardrail per question ──────────────────────
   // Speed-bonus timer anchors at question render — the 2-second window
@@ -207,6 +266,12 @@ export default function DailyScreen() {
     setDisplayMiss(missRef.current);
     setLastPoints(delta !== 0 ? delta : null);
     setLastLabel(label);
+
+    // Progressive save — captures the daily attempt + latest score for
+    // force-quit / OS-kill scenarios. The currentlyPlaying flag prevents
+    // the alreadyPlayed view from triggering mid-round even though
+    // dailyStatus.played flips to true here.
+    setDailyPlayed(scoreRef.current, resultsRef.current);
 
     // Unified 1-second post-answer beat — same for right, wrong, or with
     // power-up. Predictable rhythm across the full round.

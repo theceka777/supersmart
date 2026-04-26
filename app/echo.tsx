@@ -2,9 +2,9 @@
 // Playing-phase redesign: Cream Stadium aesthetic, ArcadeCard-style answer buttons.
 // All game logic unchanged — only JSX + styles updated.
 
-import { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, AppState } from 'react-native';
+import { useRouter, useFocusEffect } from 'expo-router';
 import Animated, {
   useSharedValue,
   withSpring,
@@ -201,9 +201,14 @@ export default function EchoScreen() {
   const [gameEmotes,     setGameEmotes]     = useState<string[]>([]);
   const [selectedEmote,  setSelectedEmote]  = useState<string | null>(null);
 
-  const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
-  const nextRef      = useRef<ReturnType<typeof setTimeout>  | null>(null);
-  const lockTimerRef = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
+  const nextRef        = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  const lockTimerRef   = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  // Wall-clock anchor — timestamp at which the playing phase began.
+  // The timer always computes remaining = max(0, 60 - elapsedSinceStart),
+  // never decrements. This makes the round timer robust to any JS pause/
+  // resume cycle (app switcher, background, slow phone, irregular ticks).
+  const roundStartRef  = useRef<number | null>(null);
 
   const question   = questions[questionIndex];
   const isAnswered = selectedAnswer !== null;
@@ -215,21 +220,34 @@ export default function EchoScreen() {
     return () => clearTimeout(t);
   }, [phase]);
 
-  // 60-second countdown
+  // 60-second countdown — wall-clock based. The interval just triggers
+  // re-renders that recompute timeLeft from (now - roundStart). No decrements,
+  // so any JS pause (app switcher, background) doesn't desync the timer.
   useEffect(() => {
     if (phase !== 'playing') return;
-    timerRef.current = setInterval(() => {
-      setTimeLeft(t => {
-        if (t <= 1) { clearInterval(timerRef.current!); finishGame(); return 0; }
-        return t - 1;
-      });
-    }, 1000);
+    if (roundStartRef.current === null) {
+      roundStartRef.current = Date.now();
+    }
+    const tick = () => {
+      if (roundStartRef.current === null) return;
+      const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+      setTimeLeft(Math.max(0, 60 - elapsed));
+    };
+    tick(); // immediate fresh value on mount / phase entry
+    timerRef.current = setInterval(tick, 1000);
     return () => {
       if (timerRef.current)     clearInterval(timerRef.current);
       if (nextRef.current)      clearTimeout(nextRef.current);
       if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     };
   }, [phase]);
+
+  // Round ends when timeLeft hits 0 (natural or via background catch-up).
+  useEffect(() => {
+    if (phase === 'playing' && timeLeft === 0) {
+      finishGame();
+    }
+  }, [timeLeft, phase]);
 
   // 150ms invisible double-tap guardrail per question. Speed-bonus timer
   // anchors at question render — the 2-second window encompasses read +
@@ -278,6 +296,9 @@ export default function EchoScreen() {
 
     scoreRef.current = Math.max(0, scoreRef.current + delta);
     setDisplayScore(scoreRef.current);
+    // Progressive save — captures latest score for force-quit / OS-kill
+    // scenarios. updateHighScore is idempotent (only writes if PB).
+    updateHighScore('quickmatch', scoreRef.current);
     setDisplayStreak(streakRef.current);
     setDisplayMiss(missRef.current);
     setLastPoints(delta !== 0 ? delta : null);
@@ -302,6 +323,7 @@ export default function EchoScreen() {
   function finishGame() {
     if (timerRef.current)  clearInterval(timerRef.current);
     if (nextRef.current)   clearTimeout(nextRef.current);
+    if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     const final = scoreRef.current;
     // Bot ghost score was pre-generated at match start (300–3,000, independent
     // of player score — mothership v1.23 bot-ghost rule). Just reveal it now.
@@ -310,6 +332,43 @@ export default function EchoScreen() {
     updateHighScore('quickmatch', final);
     setPhase('result');
   }
+
+  // ── Lock-on-exit (anti-cheat) ──────────────────────────────────────────────
+  // Per mothership Part 3: NAVIGATION away from the playing screen (hardware
+  // back, iOS swipe-back, programmatic nav) locks the score and ends the round.
+  // BACKGROUNDING (notification, Control Center, phone call, app switch) does
+  // NOT lock — the timer keeps running on wall-clock time, the player loses
+  // time but can resume. Force-quit captures the latest persisted score (high
+  // score updated progressively in handleAnswer below).
+  function lockScoreOnExit() {
+    if (phase !== 'playing') return;       // pre-game / post-game phases skip
+    if (timerRef.current)     clearInterval(timerRef.current);
+    if (nextRef.current)      clearTimeout(nextRef.current);
+    if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
+    updateHighScore('quickmatch', scoreRef.current);
+  }
+
+  // On foreground after any background/inactive transition, immediately
+  // recompute timeLeft from wall-clock so the UI snaps to the correct
+  // value (the interval would otherwise take up to 1s to catch up).
+  // No more "elapsed" subtraction — wall-clock math handles it intrinsically.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (phase !== 'playing' || roundStartRef.current === null) return;
+      if (state === 'active') {
+        const elapsed = Math.floor((Date.now() - roundStartRef.current) / 1000);
+        setTimeLeft(Math.max(0, 60 - elapsed));
+      }
+    });
+    return () => sub.remove();
+  }, [phase]);
+
+  // Navigation away (hardware back, iOS swipe back, programmatic nav)
+  useFocusEffect(
+    useCallback(() => {
+      return () => lockScoreOnExit();
+    }, [phase])
+  );
 
   const multiplier = getMultiplier(displayStreak);
 
