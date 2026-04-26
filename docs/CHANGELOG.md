@@ -2,6 +2,56 @@
 
 ---
 
+## Session 24 — 2026-04-26 — Live Players Strip spec locked (mothership v1.40 → v1.41)
+
+The strip in the Quickmatch card footer (currently a hardcoded random-walk placeholder) gets its full Phase 4 spec. New mothership Part 4 Layer 1.5 subsection covers it end-to-end. No code changes; spec lock only.
+
+### Locked decisions
+
+- **Display copy:** `X PLAYING TODAY` — exact integer with comma separators, no K/M rounding (exact reads more genuine; player base will see "1,247" not "1.2K").
+- **Metric:** unique players whose `last_seen_at` falls within the rolling 24h window. New `last_seen_at` column on `players` table (indexed timestamptz). Updated on every cold start + every background→foreground transition.
+- **Server architecture:** cron-driven Edge Function recomputes the count once per minute globally, stores in cache (Redis or `live_stats` row) with `computed_at` timestamp. All client polls hit cache. Decouples client traffic from DB aggregation cost — O(1) per minute regardless of user count. Caching is required, not optional, at scale.
+- **Client cadence:** poll cache once per minute. Server returns 1 anchor count. Client displays 6 frames/minute at 10s intervals, jittering the anchor for visible "trailing" motion.
+- **Magnitude-scaled jitter:**
+  - ≤ 50: ±1
+  - 51–250: ±2
+  - 251–500: ±3
+  - 501–1,000: ±4
+  - 1,001+: ±5
+- **No smoothing on anchor change.** Brief visible step at minute boundaries accepted.
+- **Stale-cache fallback:** if cache `computed_at` > 5 minutes old, client falls back to last-known anchor and continues jittering locally. Server failures invisible to player.
+- **Soft floor:** if real count < 20, display random 20–30, re-randomized every 10s. No hysteresis (rare brief flicker at the boundary accepted). Above-floor numbers are anchored to real DB counts; below-floor is bounded fabrication (same philosophy as bot-ghost system — contained lies for warm UX, never in competition surfaces).
+- **Avatar montage:** 3 random recent avatars from sessions in the user's skill tier, cached 5 minutes. Real even in floor mode.
+- **Implementation effort:** ~3 hours when Phase 4 wires it (schema + last_seen_at update + cron worker + cache row + Edge Function + client logic).
+
+### Iterations during the spec session
+
+Walked through three refresh cadence options:
+1. Polling every 5s (12 round trips/min) — high cost
+2. Server returns 12 points/min, client plays at 5s — saves resources but invisible payoff for slow-rolling 24h metric
+3. **(picked)** Server returns 1 number/min, client jitters across 6 frames at 10s — same resource savings as option 2, plus visible motion via synthetic jitter
+
+Then debated three potential complications:
+- Smoothing on anchor change → **skipped** (brief jumps accepted)
+- Hysteresis at floor → **skipped** (rare flicker accepted)
+- Stale-cache fallback → **kept** (resilience win, ~10 lines)
+- Magnitude-scaled jitter → **kept** with simple tier table (sqrt was too clever)
+
+### Files touched
+
+- `super_smart_2026_mothership.md` — status line v1.40 → v1.41, end-of-doc stamp, new Part 4 Layer 1.5 subsection
+- `super_smart_2026_primer.md` — current-state line bumped
+- `supersmart/docs/` — both files mirrored
+- `CHANGELOG.md` — this entry
+
+### What this leaves open
+
+- Implementation lands in Phase 4 alongside auth + Supabase backend.
+- The current `LivePlayersStrip` component continues showing the random-walk mock (180–520 wandering count, hardcoded avatars) until Phase 4 wires the real data path.
+- One precondition: the `players` table needs to exist (depends on Appendix D #1 auth library decision — the still-open Phase 4 blocker).
+
+---
+
 ## Session 23 — 2026-04-26 — AsyncStorage persistence + Daily Race played-today UX (mothership v1.39 → v1.40)
 
 **Tier 1 punch-list item #1 closed.** State persistence was the largest single bug surface in the pre-launch app — without it, the freeplay-gate could be bypassed by force-quitting, the once-per-day Daily Race could be replayed, and avatar choices reset every launch. All closed in this session.
