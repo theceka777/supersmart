@@ -2,6 +2,55 @@
 
 ---
 
+## Session 25 — 2026-04-26 — Per-question rhythm revised (mothership v1.41 → v1.42)
+
+After playtesting the existing pattern on device, the per-question pacing got revised. The old beat felt laggy ("dead second" on each new question); the new one feels relentless without losing protective scaffolding. Code shipped to all three game screens; spec updated in two places.
+
+### What changed in code
+
+- **`LOCK_MS: 1000 → 150`** in `app/echo.tsx`, `app/daily.tsx`, `app/game.tsx`. The 150ms is below the ~200ms human reaction-time floor — invisible to the player, blocks finger-mid-motion misclicks on the new question (the only real failure mode of removing the lock entirely).
+- **Removed visual `locked` state** entirely. Buttons render in `'idle'` state on new questions; `canAnswerRef` (already in code) handles the functional disable for the 150ms. No visual flash.
+- **Post-answer animation unified** at 1000ms (was 800ms correct / 1500ms wrong). Same beat regardless of right, wrong, or with-multiplier outcome. Predictable rhythm = better flow.
+- **Speed-bonus timer anchors at question render** (was: anchored at lock-end, giving players a free 1s read buffer). The 2-second window now encompasses read + decide + tap. Tighter, but the corpus's ≤40-character prompts (avg 23) make this feasible for focused players.
+
+### What didn't change
+
+- Question pool size stays at **60**. The new pacing's spam-tap theoretical ceiling is ~50 questions per 60-second round (1.2s minimum cycle: 150ms guardrail + 50ms tap latency + 1000ms animation). 60 covers that ceiling with margin for future power-ups (a "skip" button or auto-clear could push the ceiling higher). Reducing to 30 or 40 would create an "exhaust the pool early" failure mode for spam-tap players. 60 is now sized intentionally rather than as a generous round number.
+- Scoring math (100 base / +50 speed bonus / 3-5-7 → 2x/3x/4x ladder / -50 miss penalty after 3 wrong) untouched.
+- Bot-ghost system, no-replay rule, ghost pool architecture all unchanged.
+
+### Brand alignment
+
+The "wit per second" promise in the mothership Part 1/2 reads as more than a slogan now — every second in the round is real. No dead moments, no padded animations, no "buttons are visible but unclickable" anti-pattern. The unified 1s post-answer beat extends celebration without crossing into laggy territory.
+
+### Verified on device
+
+Played multiple rounds in Quickmatch and Daily Race on Expo Go. Question-to-question transitions feel snappy. The 150ms guardrail is genuinely imperceptible. Speed-bonus is harder to hit (correctly so — fast knowledge is the brand).
+
+### Files touched
+
+- `supersmart/app/echo.tsx` — LOCK_MS, removed `locked` state, unified post-answer setTimeout, simplified getBtnState
+- `supersmart/app/daily.tsx` — same pattern; also removed `locked` from button render + `disabled` props
+- `supersmart/app/game.tsx` — same pattern (kept for parity even though `/game` is the still-orphaned no-ghost path)
+- `super_smart_2026_mothership.md` — status line v1.41 → v1.42, end-of-doc stamp, Part 3 Game mechanics section gets new "Per-question rhythm" bullet, Part 4 Ghost pool sizing rationale rewritten
+- `super_smart_2026_primer.md` — current-state line bumped
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Tier 1 progress (UX punch list before Phase 4)
+
+- ✅ #1 State persistence (session 23)
+- ⏳ #2 Back-button mid-round
+- ⏳ #3 App lifecycle mid-round (phone call, backgrounding)
+- ⏳ #4 Daily Race system-clock vulnerability
+- ⏳ #5 Onboarding flow
+- ⏳ #6 Maintenance / kill-switch screens
+- ⏳ #7 Arcade mode orphan path
+
+This session was outside the original Tier 1 list — a player-flagged pacing concern that earned its own fix. Tier 1 numbering unchanged.
+
+---
+
 ## Session 24 — 2026-04-26 — Live Players Strip spec locked (mothership v1.40 → v1.41)
 
 The strip in the Quickmatch card footer (currently a hardcoded random-walk placeholder) gets its full Phase 4 spec. New mothership Part 4 Layer 1.5 subsection covers it end-to-end. No code changes; spec lock only.

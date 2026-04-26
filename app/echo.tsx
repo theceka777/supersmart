@@ -70,7 +70,11 @@ function generateBotScore(): number {
 }
 
 const FREE_LIMIT     = 7;
-const LOCK_MS        = 1000;
+// Invisible double-tap guardrail. 150ms is below the human reaction-time
+// floor (~200ms), so the button-disable is imperceptible — but it filters
+// out rhythmic-tap accidents where a player's finger is mid-motion when
+// the next question renders. No visual lock state; canAnswerRef handles it.
+const LOCK_MS        = 150;
 const SPEED_MS       = 2000;
 const BASE_PTS       = 100;
 const SPEED_BONUS    = 50;
@@ -194,7 +198,6 @@ export default function EchoScreen() {
   const [displayMiss,    setDisplayMiss]    = useState(0);
   const [lastPoints,     setLastPoints]     = useState<number | null>(null);
   const [lastLabel,      setLastLabel]      = useState('');
-  const [locked,         setLocked]         = useState(true);
   const [gameEmotes,     setGameEmotes]     = useState<string[]>([]);
   const [selectedEmote,  setSelectedEmote]  = useState<string | null>(null);
 
@@ -228,15 +231,16 @@ export default function EchoScreen() {
     };
   }, [phase]);
 
-  // 1-second UI lock per question
+  // 150ms invisible double-tap guardrail per question. Speed-bonus timer
+  // anchors at question render — the 2-second window encompasses read +
+  // decide + tap (no free read buffer; the corpus's ≤40-char prompts
+  // make this feasible).
   useEffect(() => {
     if (phase !== 'playing') return;
     canAnswerRef.current = false;
-    setLocked(true);
+    questionStartRef.current = Date.now();
     lockTimerRef.current = setTimeout(() => {
-      questionStartRef.current = Date.now();
       canAnswerRef.current = true;
-      setLocked(false);
     }, LOCK_MS);
     return () => { if (lockTimerRef.current) clearTimeout(lockTimerRef.current); };
   }, [questionIndex, phase]);
@@ -279,6 +283,9 @@ export default function EchoScreen() {
     setLastPoints(delta !== 0 ? delta : null);
     setLastLabel(label);
 
+    // Unified 1-second post-answer beat — same for right, wrong, or with
+    // power-up. Predictable rhythm = better flow. After 1s, advance to next
+    // question with no read-buffer lock (just the 150ms invisible guardrail).
     nextRef.current = setTimeout(() => {
       const next = questionIndex + 1;
       if (next >= questions.length) {
@@ -289,7 +296,7 @@ export default function EchoScreen() {
         setLastLabel('');
         setQuestionIndex(next);
       }
-    }, isCorrect ? 800 : 1500);
+    }, 1000);
   }
 
   function finishGame() {
@@ -307,7 +314,7 @@ export default function EchoScreen() {
   const multiplier = getMultiplier(displayStreak);
 
   function getBtnState(i: number): BtnState {
-    if (!isAnswered) return locked ? 'locked' : 'idle';
+    if (!isAnswered) return 'idle';
     if (i === question.correct) return 'correct';
     if (i === selectedAnswer)   return 'wrong';
     return 'dim';

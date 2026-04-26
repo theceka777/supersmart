@@ -17,7 +17,11 @@ import { useAppStore } from './store';
 
 const TOTAL_TIME = 60;
 const FREE_LIMIT = 7;
-const LOCK_MS = 1000;
+// Invisible double-tap guardrail. 150ms is below human reaction-time floor
+// (~200ms), so the button-disable is imperceptible — but it filters out
+// rhythmic-tap accidents where a player's finger is mid-motion when the
+// next question renders. No visual lock state.
+const LOCK_MS = 150;
 const SPEED_MS = 2000;
 const BASE_PTS = 100;
 const SPEED_BONUS = 50;
@@ -66,7 +70,6 @@ export default function GameScreen() {
   const [displayMiss,     setDisplayMiss]     = useState(0);
   const [lastPoints,      setLastPoints]      = useState<number | null>(null);
   const [lastLabel,       setLastLabel]       = useState('');
-  const [locked,          setLocked]          = useState(true); // visual dim only
 
   const timerRef      = useRef<ReturnType<typeof setInterval> | null>(null);
   const advanceRef    = useRef<ReturnType<typeof setTimeout>  | null>(null);
@@ -98,14 +101,14 @@ export default function GameScreen() {
     }
   }, [timeLeft]);
 
-  // ── 1-second UI lock per question ──────────────────────────────────────────
+  // ── 150ms invisible double-tap guardrail per question ──────────────────────
+  // Speed-bonus timer anchors at question render — the 2-second window
+  // encompasses read + decide + tap. No free read buffer.
   useEffect(() => {
     canAnswerRef.current = false;
-    setLocked(true);
+    questionStartRef.current = Date.now();
     lockTimerRef.current = setTimeout(() => {
-      questionStartRef.current = Date.now(); // 2s speed window starts NOW
       canAnswerRef.current = true;
-      setLocked(false);
     }, LOCK_MS);
     return () => {
       if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
@@ -157,7 +160,9 @@ export default function GameScreen() {
     setLastPoints(delta !== 0 ? delta : null);
     setLastLabel(label);
 
-    const delay = isCorrect ? 800 : 1500;
+    // Unified 1-second post-answer beat — same for right, wrong, or with
+    // power-up. Predictable rhythm across the full round.
+    const delay = 1000;
     advanceRef.current = setTimeout(() => {
       const next = questionIndex + 1;
       if (next >= questions.length) {
@@ -232,9 +237,9 @@ export default function GameScreen() {
         {question.options.map((option, i) => (
           <TouchableOpacity
             key={i}
-            style={[getButtonStyle(i), (locked && !isAnswered) && styles.lockedBtn]}
+            style={getButtonStyle(i)}
             onPress={() => handleAnswer(i)}
-            disabled={isAnswered || locked}
+            disabled={isAnswered}
           >
             <Text style={styles.answerText}>{option}</Text>
           </TouchableOpacity>
