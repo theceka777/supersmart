@@ -1,0 +1,8011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+<question>
+<text>Mars has ___ moons</text>
+<option1>2</option1>
+<option2>5</option2>
+<option3>4</option3>
+<answer>2</answer>
+<category>science</category>
+</question>
+<question>
+<text>first man in space</text>
+<option1>Y. Gagarin</option1>
+<option2>N. Armstrong</option2>
+<option3>B. Yeltsin</option3>
+<answer>Y. Gagarin</answer>
+<category>science</category>
+</question>
+<question>
+<text>first man to step on the moon</text>
+<option1>N. Armstrong</option1>
+<option2>M. Jackson</option2>
+<option3>E. Aldrin</option3>
+<answer>N. Armstrong</answer>
+<category>science</category>
+</question>
+<question>
+<text>first shuttle to land on the moon</text>
+<option1>Apollo 11</option1>
+<option2>Apollo 13</option2>
+<option3>Apollo 15</option3>
+<answer>Apollo 11</answer>
+<category>science</category>
+</question>
+<question>
+<text>not in our solar system</text>
+<option1>Centauri</option1>
+<option2>Sun</option2>
+<option3>Pluto</option3>
+<answer>Centauri</answer>
+<category>science</category>
+</question>
+<question>
+<text>closest to the earth</text>
+<option1>Venus</option1>
+<option2>Mars</option2>
+<option3>Saturn</option3>
+<answer>Venus</answer>
+<category>science</category>
+</question>
+<question>
+<text>a space telescope</text>
+<option1>Hubble</option1>
+<option2>Sagan</option2>
+<option3>Keck</option3>
+<answer>Hubble</answer>
+<category>science</category>
+</question>
+<question>
+<text>larger than the others</text>
+<option1>Sun</option1>
+<option2>Earth</option2>
+<option3>Moon</option3>
+<answer>Sun</answer>
+<category>science</category>
+</question>
+<question>
+<text>farther away from the sun</text>
+<option1>Uranus</option1>
+<option2>Jupiter</option2>
+<option3>Saturn</option3>
+<answer>Uranus</answer>
+<category>science</category>
+</question>
+<question>
+<text>the earth orbits the sun once in ___ days</text>
+<option1>365</option1>
+<option2>30</option2>
+<option3>180</option3>
+<answer>365</answer>
+<category>science</category>
+</question>
+<question>
+<text>the summer solstice occurs in ___</text>
+<option1>June</option1>
+<option2>May</option2>
+<option3>July</option3>
+<answer>June</answer>
+<category>science</category>
+</question>
+<question>
+<text>the winter solstice occurs in ___</text>
+<option1>December</option1>
+<option2>November</option2>
+<option3>January</option3>
+<answer>December</answer>
+<category>science</category>
+</question>
+<question>
+<text>the moon orbits the earth once in ___ days</text>
+<option1>28</option1>
+<option2>21</option2>
+<option3>7</option3>
+<answer>28</answer>
+<category>science</category>
+</question>
+<question>
+<text>smaller than the others</text>
+<option1>Moon</option1>
+<option2>Mars</option2>
+<option3>Earth</option3>
+<answer>Moon</answer>
+<category>science</category>
+</question>
+<question>
+<text>largest planet in our solar system</text>
+<option1>Jupiter</option1>
+<option2>Saturn</option2>
+<option3>Uranus</option3>
+<answer>Jupiter</answer>
+<category>science</category>
+</question>
+<question>
+<text>the name of our galaxy</text>
+<option1>Milky Way</option1>
+<option2>Solaris</option2>
+<option3>Centauri</option3>
+<answer>Milky Way</answer>
+<category>science</category>
+</question>
+<question>
+<text>closest galaxy to ours</text>
+<option1>Andromeda</option1>
+<option2>Alpha Centauri</option2>
+<option3>Sagan C</option3>
+<answer>Andromeda</answer>
+<category>science</category>
+</question>
+<question>
+<text>an earth science</text>
+<option1>geology</option1>
+<option2>mathematics</option2>
+<option3>physics</option3>
+<answer>geology</answer>
+<category>science</category>
+</question>
+<question>
+<text>the study of soil</text>
+<option1>pedology</option1>
+<option2>zoology</option2>
+<option3>jumangy</option3>
+<answer>pedology</answer>
+<category>science</category>
+</question>
+<question>
+<text>water</text>
+<option1>H2O</option1>
+<option2>CH4</option2>
+<option3>CH3O</option3>
+<answer>H2O</answer>
+<category>science</category>
+</question>
+<question>
+<text>Cr stands for</text>
+<option1>chromium</option1>
+<option2>charmendium</option2>
+<option3>chloride</option3>
+<answer>chromium</answer>
+<category>science</category>
+</question>
+<question>
+<text>Mg stands for</text>
+<option1>magnesium</option1>
+<option2>manganese</option2>
+<option3>madagascar</option3>
+<answer>magnesium</answer>
+<category>science</category>
+</question>
+<question>
+<text>Fe stands for</text>
+<option1>iron</option1>
+<option2>silver</option2>
+<option3>gold</option3>
+<answer>iron</answer>
+<category>science</category>
+</question>
+<question>
+<text>K stands for</text>
+<option1>potassium</option1>
+<option2>carbon</option2>
+<option3>kraken</option3>
+<answer>potassium</answer>
+<category>science</category>
+</question>
+<question>
+<text>Os stands for</text>
+<option1>osmium</option1>
+<option2>oxygen</option2>
+<option3>osmosis</option3>
+<answer>osmium</answer>
+<category>science</category>
+</question>
+<question>
+<text>N stands for</text>
+<option1>nitrogen</option1>
+<option2>neon</option2>
+<option3>narnium</option3>
+<answer>nitrogen</answer>
+<category>science</category>
+</question>
+<question>
+<text>U stands for</text>
+<option1>uranium</option1>
+<option2>uxium</option2>
+<option3>ukrainium</option3>
+<answer>uranium</answer>
+<category>science</category>
+</question>
+<question>
+<text>Au stands for</text>
+<option1>gold</option1>
+<option2>aluminum</option2>
+<option3>rock</option3>
+<answer>gold</answer>
+<category>science</category>
+</question>
+<question>
+<text>Br stands for</text>
+<option1>bromine</option1>
+<option2>bromium</option2>
+<option3>brosupium</option3>
+<answer>bromine</answer>
+<category>science</category>
+</question>
+<question>
+<text>Ag stands for</text>
+<option1>silver</option1>
+<option2>bronze</option2>
+<option3>gold</option3>
+<answer>silver</answer>
+<category>science</category>
+</question>
+<question>
+<text>water boils at ___ degrees Celcius</text>
+<option1>100</option1>
+<option2>0</option2>
+<option3>212</option3>
+<answer>100</answer>
+<category>science</category>
+</question>
+<question>
+<text>water freezes at ___ degrees Kelvin</text>
+<option1>273</option1>
+<option2>0</option2>
+<option3>-100</option3>
+<answer>273</answer>
+<category>science</category>
+</question>
+<question>
+<text>subatomic particle</text>
+<option1>proton</option1>
+<option2>hydrogen</option2>
+<option3>molecule</option3>
+<answer>proton</answer>
+<category>science</category>
+</question>
+<question>
+<text>negatively charged</text>
+<option1>electron</option1>
+<option2>neutron</option2>
+<option3>proton</option3>
+<answer>electron</answer>
+<category>science</category>
+</question>
+<question>
+<text>positively charged</text>
+<option1>proton</option1>
+<option2>neutron</option2>
+<option3>electron</option3>
+<answer>proton</answer>
+<category>science</category>
+</question>
+<question>
+<text>Einstein's theory of ___</text>
+<option1>relativity</option1>
+<option2>gravity</option2>
+<option3>theories</option3>
+<answer>relativity</answer>
+<category>science</category>
+</question>
+<question>
+<text>created the vaccine for rabies</text>
+<option1>L. Pasteur</option1>
+<option2>C. Darwin</option2>
+<option3>E. Jenner</option3>
+<answer>L. Pasteur</answer>
+<category>science</category>
+</question>
+<question>
+<text>director of the Manhattan Project</text>
+<option1>J. R. Oppenheimer</option1>
+<option2>A. Einstein</option2>
+<option3>Dr. Manhattan</option3>
+<answer>J. R. Oppenheimer</answer>
+<category>science</category>
+</question>
+<question>
+<text>100 kilograms equal ___ pounds</text>
+<option1>220</option1>
+<option2>160</option2>
+<option3>40</option3>
+<answer>220</answer>
+<category>science</category>
+</question>
+<question>
+<text>440 pounds equal ___ kilograms</text>
+<option1>200</option1>
+<option2>100</option2>
+<option3>110</option3>
+<answer>200</answer>
+<category>science</category>
+</question>
+<question>
+<text>1 second equals ___ miliseconds</text>
+<option1>1000</option1>
+<option2>100</option2>
+<option3>60</option3>
+<answer>1000</answer>
+<category>science</category>
+</question>
+<question>
+<text>25 hours equal ___ minutes</text>
+<option1>1500</option1>
+<option2>2500</option2>
+<option3>1250</option3>
+<answer>1500</answer>
+<category>science</category>
+</question>
+<question>
+<text>96 hours equal ___ days</text>
+<option1>4</option1>
+<option2>12</option2>
+<option3>16</option3>
+<answer>4</answer>
+<category>science</category>
+</question>
+<question>
+<text>3 meters equal ___ feet</text>
+<option1>10</option1>
+<option2>6</option2>
+<option3>12</option3>
+<answer>10</answer>
+<category>science</category>
+</question>
+<question>
+<text>1 metric ton equals ___ kilograms</text>
+<option1>1000</option1>
+<option2>220</option2>
+<option3>2000</option3>
+<answer>1000</answer>
+<category>science</category>
+</question>
+<question>
+<text>2 liters equal ___ milliliters</text>
+<option1>2000</option1>
+<option2>1200</option2>
+<option3>240</option3>
+<answer>2000</answer>
+<category>science</category>
+</question>
+<question>
+<text>the industrial revolution began in</text>
+<option1>UK</option1>
+<option2>Russia</option2>
+<option3>France</option3>
+<answer>UK</answer>
+<category>science</category>
+</question>
+<question>
+<text>Darwin's theory of ___</text>
+<option1>evolution</option1>
+<option2>gravity</option2>
+<option3>revolution</option3>
+<answer>evolution</answer>
+<category>science</category>
+</question>
+<question>
+<text>inventor of the Tesla coil</text>
+<option1>N. Tesla</option1>
+<option2>A. Coil</option2>
+<option3>T. Edison</option3>
+<answer>N. Tesla</answer>
+<category>science</category>
+</question>
+<question>
+<text>fell on Newton's head</text>
+<option1>apple</option1>
+<option2>moon</option2>
+<option3>monkey</option3>
+<answer>apple</answer>
+<category>science</category>
+</question>
+<question>
+<text>force equals mass times ___</text>
+<option1>acceleration</option1>
+<option2>speed</option2>
+<option3>volume</option3>
+<answer>acceleration</answer>
+<category>science</category>
+</question>
+<question>
+<text>there is no Nobel prize in ___</text>
+<option1>mathematics</option1>
+<option2>literature</option2>
+<option3>physics</option3>
+<answer>mathematics</answer>
+<category>science</category>
+</question>
+<question>
+<text>won the Nobel prize twice</text>
+<option1>M. Curie</option1>
+<option2>G. Foreman</option2>
+<option3>A. Einstein</option3>
+<answer>M. Curie</answer>
+<category>science</category>
+</question>
+<question>
+<text>discovered the X-ray</text>
+<option1>R.D. Roentgen</option1>
+<option2>C. Xavier</option2>
+<option3>M. Jackson</option3>
+<answer>R.D. Roentgen</answer>
+<category>science</category>
+</question>
+<question>
+<text>invented the telephone</text>
+<option1>A. Graham Bell</option1>
+<option2>T. Edison</option2>
+<option3>T. Duwde</option3>
+<answer>A. Graham Bell</answer>
+<category>science</category>
+</question>
+<question>
+<text>he wrote "On the Origin of Species"</text>
+<option1>C. Darwin</option1>
+<option2>R. Dawkins</option2>
+<option3>R. Downey Jr.</option3>
+<answer>C. Darwin</answer>
+<category>science</category>
+</question>
+<question>
+<text>1 gram of fat has ___ calories</text>
+<option1>9</option1>
+<option2>6</option2>
+<option3>3</option3>
+<answer>9</answer>
+<category>science</category>
+</question>
+<question>
+<text>1 gram of protein has ___ calories</text>
+<option1>4</option1>
+<option2>7</option2>
+<option3>9001</option3>
+<answer>4</answer>
+<category>science</category>
+</question>
+<question>
+<text>invented the dynamite</text>
+<option1>A. Nobel</option1>
+<option2>C. Orrekt</option2>
+<option3>M. Curie</option3>
+<answer>A. Nobel</answer>
+<category>science</category>
+</question>
+<question>
+<text>inventors of the airplane</text>
+<option1>Wright Brothers</option1>
+<option2>Roeng Sisters</option2>
+<option3>Jackson Family</option3>
+<answer>Wright Brothers</answer>
+<category>science</category>
+</question>
+<question>
+<text>inventor of the revolver</text>
+<option1>S. Colt</option1>
+<option2>F. Cent</option2>
+<option3>A. K. Foresven</option3>
+<answer>S. Colt</answer>
+<category>science</category>
+</question>
+<question>
+<text>inventor of the diesel engine</text>
+<option1>R. Diesel</option1>
+<option2>S. Benzene</option2>
+<option3>H. Ford</option3>
+<answer>R. Diesel</answer>
+<category>science</category>
+</question>
+<question>
+<text>smaller than the others</text>
+<option1>destroyer</option1>
+<option2>battleship</option2>
+<option3>aircraft Carrier</option3>
+<answer>destroyer</answer>
+<category>science</category>
+</question>
+<question>
+<text>the study of encryption</text>
+<option1>cryptography</option1>
+<option2>calligraphy</option2>
+<option3>calisthenics</option3>
+<answer>cryptography</answer>
+<category>science</category>
+</question>
+<question>
+<text>liquid at room temperature</text>
+<option1>mercury</option1>
+<option2>uranium</option2>
+<option3>lead</option3>
+<answer>mercury</answer>
+<category>science</category>
+</question>
+<question>
+<text>chemical explosive</text>
+<option1>TNT</option1>
+<option2>ABD</option2>
+<option3>C3PO</option3>
+<answer>TNT</answer>
+<category>science</category>
+</question>
+<question>
+<text>density is mass over</text>
+<option1>volume</option1>
+<option2>length</option2>
+<option3>hardness</option3>
+<answer>volume</answer>
+<category>science</category>
+</question>
+<question>
+<text>pioneer of aviation in helicopters</text>
+<option1>I. Sikorsky</option1>
+<option2>R. U. Boeing</option2>
+<option3>H. L. Kopter</option3>
+<answer>I. Sikorsky</answer>
+<category>science</category>
+</question>
+<question>
+<text>the human body's largest organ</text>
+<option1>skin</option1>
+<option2>brain</option2>
+<option3>heart</option3>
+<answer>skin</answer>
+<category>science</category>
+</question>
+<question>
+<text>herbivores eat</text>
+<option1>plants</option1>
+<option2>bacon</option2>
+<option3>planets</option3>
+<answer>plants</answer>
+<category>science</category>
+</question>
+<question>
+<text>dinosaurs became extinct ___ years ago</text>
+<option1>65 million</option1>
+<option2>145 million</option2>
+<option3>325 million</option3>
+<answer>65 million</answer>
+<category>science</category>
+</question>
+<question>
+<text>not a kingdom in biology</text>
+<option1>mammalia</option1>
+<option2>fungi</option2>
+<option3>animalia</option3>
+<answer>mammalia</answer>
+<category>science</category>
+</question>
+<question>
+<text>a nucleid acid</text>
+<option1>DNA</option1>
+<option2>cytoplasm</option2>
+<option3>nucleus</option3>
+<answer>DNA</answer>
+<category>science</category>
+</question>
+<question>
+<text>the functional basic unit of life</text>
+<option1>cell</option1>
+<option2>gene</option2>
+<option3>DNA</option3>
+<answer>cell</answer>
+<category>science</category>
+</question>
+<question>
+<text>change in velocity over time</text>
+<option1>acceleration</option1>
+<option2>speed</option2>
+<option3>direction</option3>
+<answer>acceleration</answer>
+<category>science</category>
+</question>
+<question>
+<text>ISU = International System of ___</text>
+<option1>Units</option1>
+<option2>Unions</option2>
+<option3>Unicorns</option3>
+<answer>Units</answer>
+<category>science</category>
+</question>
+<question>
+<text>not a constellation</text>
+<option1>Leon</option1>
+<option2>Chamaeleon</option2>
+<option3>Aries</option3>
+<answer>Leon</answer>
+<category>science</category>
+</question>
+<question>
+<text>the male hormone</text>
+<option1>testosterone</option1>
+<option2>estrogen</option2>
+<option3>insulin</option3>
+<answer>testosterone</answer>
+<category>science</category>
+</question>
+<question>
+<text>the female hormone</text>
+<option1>estrogen</option1>
+<option2>testosterone</option2>
+<option3>insulin</option3>
+<answer>estrogen</answer>
+<category>science</category>
+</question>
+<question>
+<text>tegulates blood sugar</text>
+<option1>insulin</option1>
+<option2>estrogen</option2>
+<option3>testosterone</option3>
+<answer>insulin</answer>
+<category>science</category>
+</question>
+<question>
+<text>concentrates bile</text>
+<option1>gall bladder</option1>
+<option2>stomach</option2>
+<option3>pancreas</option3>
+<answer>gall bladder</answer>
+<category>science</category>
+</question>
+<question>
+<text>ammonia</text>
+<option1>NH3</option1>
+<option2>H2SO4</option2>
+<option3>CH3O</option3>
+<answer>NH3</answer>
+<category>science</category>
+</question>
+<question>
+<text>not a basic human taste</text>
+<option1>sugarness</option1>
+<option2>saltiness</option2>
+<option3>bitterness</option3>
+<answer>sugarness</answer>
+<category>science</category>
+</question>
+<question>
+<text>a basic human taste</text>
+<option1>sweetness</option1>
+<option2>hotness</option2>
+<option3>sugarness</option3>
+<answer>sweetness</answer>
+<category>science</category>
+</question>
+<question>
+<text>the periodic table has ___ elements</text>
+<option1>118</option1>
+<option2>84</option2>
+<option3>156</option3>
+<answer>118</answer>
+<category>science</category>
+</question>
+<question>
+<text>contains the ozone layer</text>
+<option1>stratosphere</option1>
+<option2>lithosphere</option2>
+<option3>pseudosphere</option3>
+<answer>stratosphere</answer>
+<category>science</category>
+</question>
+<question>
+<text>ozone</text>
+<option1>O3</option1>
+<option2>O2</option2>
+<option3>CH2O</option3>
+<answer>O3</answer>
+<category>science</category>
+</question>
+<question>
+<text>stored energy</text>
+<option1>potential</option1>
+<option2>kinetic</option2>
+<option3>nucleic</option3>
+<answer>potential</answer>
+<category>science</category>
+</question>
+<question>
+<text>joule is a unit of</text>
+<option1>energy</option1>
+<option2>acceleration</option2>
+<option3>magnetism</option3>
+<answer>energy</answer>
+<category>science</category>
+</question>
+<question>
+<text>specific ___ capacity</text>
+<option1>heat</option1>
+<option2>dilution</option2>
+<option3>magnet</option3>
+<answer>heat</answer>
+<category>science</category>
+</question>
+<question>
+<text>a barometer measures</text>
+<option1>pressure</option1>
+<option2>temperature</option2>
+<option3>elevation</option3>
+<answer>pressure</answer>
+<category>science</category>
+</question>
+<question>
+<text>Mr. Avogadro has a ___ named after him</text>
+<option1>constant</option1>
+<option2>cookbook</option2>
+<option3>country</option3>
+<answer>constant</answer>
+<category>science</category>
+</question>
+<question>
+<text>creator of the periodic table</text>
+<option1>D. Mendelev</option1>
+<option2>I. Newton</option2>
+<option3>N. Tesla</option3>
+<answer>D. Mendelev</answer>
+<category>science</category>
+</question>
+<question>
+<text>X-rays were discovered in</text>
+<option1>1895</option1>
+<option2>1922</option2>
+<option3>1938</option3>
+<answer>1895</answer>
+<category>science</category>
+</question>
+<question>
+<text>has less gravity</text>
+<option1>Moon</option1>
+<option2>Earth</option2>
+<option3>Mars</option3>
+<answer>Moon</answer>
+<category>science</category>
+</question>
+<question>
+<text>atomic number is the number of ___</text>
+<option1>protons</option1>
+<option2>neutrons</option2>
+<option3>electrons</option3>
+<answer>protons</answer>
+<category>science</category>
+</question>
+<question>
+<text>the nucleus does not contain ___</text>
+<option1>electrons</option1>
+<option2>neutrons</option2>
+<option3>protons</option3>
+<answer>electrons</answer>
+<category>science</category>
+</question>
+<question>
+<text>won the Nobel prize in economics</text>
+<option1>J. Nash</option1>
+<option2>A. Einstein</option2>
+<option3>T. Count</option3>
+<answer>J. Nash</answer>
+<category>science</category>
+</question>
+<question>
+<text>famous for his cat</text>
+<option1>E. Schrodinger</option1>
+<option2>A. Einstein</option2>
+<option3>J. Nash</option3>
+<answer>E. Schrodinger</answer>
+<category>science</category>
+</question>
+<question>
+<text>H stands for</text>
+<option1>hydrogen</option1>
+<option2>helium</option2>
+<option3>hassium</option3>
+<answer>hydrogen</answer>
+<category>science</category>
+</question>
+<question>
+<text>most common gas in the atmosphere</text>
+<option1>nitrogen</option1>
+<option2>oxygen</option2>
+<option3>nexgen</option3>
+<answer>nitrogen</answer>
+<category>science</category>
+</question>
+<question>
+<text>a snowflake has</text>
+<option1>6 sides</option1>
+<option2>12 sides</option2>
+<option3>9 sides</option3>
+<answer>6 sides</answer>
+<category>science</category>
+</question>
+<question>
+<text>speed of sound</text>
+<option1>340 m/s</option1>
+<option2>1337 m/s</option2>
+<option3>440 m/s</option3>
+<answer>340 m/s</answer>
+<category>science</category>
+</question>
+<question>
+<text>faster than the others</text>
+<option1>light</option1>
+<option2>sound</option2>
+<option3>cheetah</option3>
+<answer>light</answer>
+<category>science</category>
+</question>
+<question>
+<text>smaller than the others</text>
+<option1>proton</option1>
+<option2>molecule</option2>
+<option3>baby elephant</option3>
+<answer>proton</answer>
+<category>science</category>
+</question>
+<question>
+<text>deoxyribonucleic acid</text>
+<option1>DNA</option1>
+<option2>DBO</option2>
+<option3>DOA</option3>
+<answer>DNA</answer>
+<category>science</category>
+</question>
+<question>
+<text>ribonucleic acid</text>
+<option1>RNA</option1>
+<option2>DNA</option2>
+<option3>RNB</option3>
+<answer>RNA</answer>
+<category>science</category>
+</question>
+<question>
+<text>rapid ___ movement sleep</text>
+<option1>eye</option1>
+<option2>feet</option2>
+<option3>tooth</option3>
+<answer>eye</answer>
+<category>science</category>
+</question>
+<question>
+<text>Kelvin is a unit of</text>
+<option1>temperature</option1>
+<option2>distance</option2>
+<option3>mass</option3>
+<answer>temperature</answer>
+<category>science</category>
+</question>
+<question>
+<text>second is a unit of</text>
+<option1>time</option1>
+<option2>space</option2>
+<option3>olympics</option3>
+<answer>time</answer>
+<category>science</category>
+</question>
+<question>
+<text>ascorbic acid</text>
+<option1>vitamin C</option1>
+<option2>vitamin D</option2>
+<option3>vitamin S</option3>
+<answer>vitamin C</answer>
+<category>science</category>
+</question>
+<question>
+<text>not a part of the paleolithic diet</text>
+<option1>donuts</option1>
+<option2>meat</option2>
+<option3>fruits</option3>
+<answer>donuts</answer>
+<category>science</category>
+</question>
+<question>
+<text>CERN is located in ___</text>
+<option1>Geneva</option1>
+<option2>Brussels</option2>
+<option3>Texas</option3>
+<answer>Geneva</answer>
+<category>science</category>
+</question>
+<question>
+<text>soluble in water</text>
+<option1>table salt</option1>
+<option2>olive oil</option2>
+<option3>metal spoon</option3>
+<answer>table salt</answer>
+<category>science</category>
+</question>
+<question>
+<text>not a type of fish</text>
+<option1>silverback</option1>
+<option2>bass</option2>
+<option3>jack</option3>
+<answer>silverback</answer>
+<category>science</category>
+</question>
+<question>
+<text>a type of fish</text>
+<option1>barracuda</option1>
+<option2>seabear</option2>
+<option3>big blue blind</option3>
+<answer>barracuda</answer>
+<category>science</category>
+</question>
+<question>
+<text>the atomic number of gold is ___</text>
+<option1>79</option1>
+<option2>24</option2>
+<option3>92</option3>
+<answer>79</answer>
+<category>science</category>
+</question>
+<question>
+<text>the atomic number of hydrogen is ___</text>
+<option1>1</option1>
+<option2>4</option2>
+<option3>12</option3>
+<answer>1</answer>
+<category>science</category>
+</question>
+<question>
+<text>the atomic number of silver is ___</text>
+<option1>47</option1>
+<option2>79</option2>
+<option3>33</option3>
+<answer>47</answer>
+<category>science</category>
+</question>
+<question>
+<text>larger than the others</text>
+<option1>Jupiter</option1>
+<option2>Uranus</option2>
+<option3>Venus</option3>
+<answer>Jupiter</answer>
+<category>science</category>
+</question>
+<question>
+<text>the answer is "the answer"</text>
+<option1>the answer</option1>
+<option2>what</option2>
+<option3>false</option3>
+<answer>the answer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you mother's mother's daughter</text>
+<option1>your aunt</option1>
+<option2>your brother</option2>
+<option3>your grandma</option3>
+<answer>your aunt</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the first word in this sentence</text>
+<option1>the</option1>
+<option2>second</option2>
+<option3>sentence</option3>
+<answer>the</answer>
+<category>misc</category>
+</question>
+<question>
+<text>overtake the third and you are __</text>
+<option1>third</option1>
+<option2>second</option2>
+<option3>first</option3>
+<answer>third</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a triplet boy has at least ___ siblings</text>
+<option1>two</option1>
+<option2>three</option2>
+<option3>four</option3>
+<answer>two</answer>
+<category>misc</category>
+</question>
+<question>
+<text>24th letter in the english alphabet</text>
+<option1>x</option1>
+<option2>z</option2>
+<option3>p</option3>
+<answer>x</answer>
+<category>misc</category>
+</question>
+<question>
+<text>13th letter in the english alphabet</text>
+<option1>m</option1>
+<option2>j</option2>
+<option3>p</option3>
+<answer>m</answer>
+<category>misc</category>
+</question>
+<question>
+<text>6th letter in the english alphabet</text>
+<option1>f</option1>
+<option2>g</option2>
+<option3>h</option3>
+<answer>f</answer>
+<category>misc</category>
+</question>
+<question>
+<text>most native speakers</text>
+<option1>Mandarin</option1>
+<option2>English</option2>
+<option3>Spanish</option3>
+<answer>Mandarin</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick "this"</text>
+<option1>this</option1>
+<option2>that</option2>
+<option3>those</option3>
+<answer>this</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you are reading ___</text>
+<option1>the answer</option1>
+<option2>a book</option2>
+<option3>the newspaper</option3>
+<answer>the answer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>your uncle's father's son</text>
+<option1>your father</option1>
+<option2>your mother</option2>
+<option3>your son</option3>
+<answer>your father</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the name of this game</text>
+<option1>Super Smart</option1>
+<option2>Epic Smarts</option2>
+<option3>Smarty Smarts</option3>
+<answer>Super Smart</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you are playing ___</text>
+<option1>Super Smart</option1>
+<option2>Epic Smarts</option2>
+<option3>Smartrr</option3>
+<answer>Super Smart</answer>
+<category>misc</category>
+</question>
+<question>
+<text>yellow mixed with red</text>
+<option1>orange</option1>
+<option2>violet</option2>
+<option3>blue</option3>
+<answer>orange</answer>
+<category>misc</category>
+</question>
+<question>
+<text>red mixed with blue</text>
+<option1>violet</option1>
+<option2>orange</option2>
+<option3>green</option3>
+<answer>violet</answer>
+<category>misc</category>
+</question>
+<question>
+<text>blue mixed with yellow</text>
+<option1>green</option1>
+<option2>violet</option2>
+<option3>turquoise</option3>
+<answer>green</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not a primary color</text>
+<option1>green</option1>
+<option2>yellow</option2>
+<option3>red</option3>
+<answer>green</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a primary color</text>
+<option1>red</option1>
+<option2>green</option2>
+<option3>violet</option3>
+<answer>red</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a fruit</text>
+<option1>tomato</option1>
+<option2>celery</option2>
+<option3>spinach</option3>
+<answer>tomato</answer>
+<category>misc</category>
+</question>
+<question>
+<text>type of underwear</text>
+<option1>boxers</option1>
+<option2>kittens</option2>
+<option3>puppies</option3>
+<answer>boxers</answer>
+<category>misc</category>
+</question>
+<question>
+<text>has opposable thumbs</text>
+<option1>gorilla</option1>
+<option2>whale</option2>
+<option3>dog</option3>
+<answer>gorilla</answer>
+<category>misc</category>
+</question>
+<question>
+<text>rock beats ___</text>
+<option1>scissors</option1>
+<option2>paper</option2>
+<option3>stone</option3>
+<answer>scissors</answer>
+<category>misc</category>
+</question>
+<question>
+<text>paper beats ___</text>
+<option1>rock</option1>
+<option2>scissors</option2>
+<option3>pencil</option3>
+<answer>rock</answer>
+<category>misc</category>
+</question>
+<question>
+<text>2012 olympics took place in ___</text>
+<option1>London</option1>
+<option2>Istanbul</option2>
+<option3>Paris</option3>
+<answer>London</answer>
+<category>misc</category>
+</question>
+<question>
+<text>2008 olympics took place in ___</text>
+<option1>Beijing</option1>
+<option2>Munich</option2>
+<option3>London</option3>
+<answer>Beijing</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not an olympic sport</text>
+<option1>squash</option1>
+<option2>fencing</option2>
+<option3>taekwondo</option3>
+<answer>squash</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an olympic sport</text>
+<option1>triathlon</option1>
+<option2>sumo</option2>
+<option3>chess</option3>
+<answer>triathlon</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a spider has ___ legs</text>
+<option1>8</option1>
+<option2>6</option2>
+<option3>9</option3>
+<answer>8</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the day before tomorrow</text>
+<option1>today</option1>
+<option2>yesterday</option2>
+<option3>tomorrow</option3>
+<answer>today</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the day after yesterday</text>
+<option1>today</option1>
+<option2>yesterday</option2>
+<option3>tomorrow</option3>
+<answer>today</answer>
+<category>misc</category>
+</question>
+<question>
+<text>two days before wednesday</text>
+<option1>monday</option1>
+<option2>thursday</option2>
+<option3>saturday</option3>
+<answer>monday</answer>
+<category>misc</category>
+</question>
+<question>
+<text>three days after last tuesday</text>
+<option1>friday</option1>
+<option2>thursday</option2>
+<option3>sunday</option3>
+<answer>friday</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the day before next wednesday</text>
+<option1>tuesday</option1>
+<option2>last friday</option2>
+<option3>thursday</option3>
+<answer>tuesday</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the number of weeks in three years</text>
+<option1>156</option1>
+<option2>144</option2>
+<option3>112</option3>
+<answer>156</answer>
+<category>misc</category>
+</question>
+<question>
+<text>three letters before i</text>
+<option1>f</option1>
+<option2>g</option2>
+<option3>k</option3>
+<answer>f</answer>
+<category>misc</category>
+</question>
+<question>
+<text>between the letters m and o</text>
+<option1>n</option1>
+<option2>k</option2>
+<option3>p</option3>
+<answer>n</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the letter before u</text>
+<option1>t</option1>
+<option2>v</option2>
+<option3>x</option3>
+<answer>t</answer>
+<category>misc</category>
+</question>
+<question>
+<text>opposite of "opposite"</text>
+<option1>same</option1>
+<option2>different</option2>
+<option3>neutral</option3>
+<answer>same</answer>
+<category>misc</category>
+</question>
+<question>
+<text>antonym of synonym</text>
+<option1>antonym</option1>
+<option2>synonym</option2>
+<option3>acronym</option3>
+<answer>antonym</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick the odd one</text>
+<option1>3</option1>
+<option2>2</option2>
+<option3>4</option3>
+<answer>3</answer>
+<category>misc</category>
+</question>
+<question>
+<text>above the heart</text>
+<option1>brain</option1>
+<option2>stomach</option2>
+<option3>intestine</option3>
+<answer>brain</answer>
+<category>misc</category>
+</question>
+<question>
+<text>100% discount makes it ___</text>
+<option1>free</option1>
+<option2>double the price</option2>
+<option3>half the price</option3>
+<answer>free</answer>
+<category>misc</category>
+</question>
+<question>
+<text>two million two hundred thirty two</text>
+<option1>2000232</option1>
+<option2>2003232</option2>
+<option3>2002032</option3>
+<answer>2000232</answer>
+<category>misc</category>
+</question>
+<question>
+<text>one million four thousand four</text>
+<option1>1004004</option1>
+<option2>1040044</option2>
+<option3>1000444</option3>
+<answer>1004004</answer>
+<category>misc</category>
+</question>
+<question>
+<text>five hundred thousand fifty five</text>
+<option1>500055</option1>
+<option2>500555</option2>
+<option3>550055</option3>
+<answer>500055</answer>
+<category>misc</category>
+</question>
+<question>
+<text>four hundred thousand sixty six</text>
+<option1>400066</option1>
+<option2>406606</option2>
+<option3>400660</option3>
+<answer>400066</answer>
+<category>misc</category>
+</question>
+<question>
+<text>nine thousand four hundred six</text>
+<option1>9406</option1>
+<option2>9046</option2>
+<option3>9466</option3>
+<answer>9406</answer>
+<category>misc</category>
+</question>
+<question>
+<text>five million four hundred fifty two</text>
+<option1>5000452</option1>
+<option2>5004052</option2>
+<option3>5044052</option3>
+<answer>5000452</answer>
+<category>misc</category>
+</question>
+<question>
+<text>six thousand six hundred seventy</text>
+<option1>6670</option1>
+<option2>66707</option2>
+<option3>6607</option3>
+<answer>6670</answer>
+<category>misc</category>
+</question>
+<question>
+<text>fits in your pocket</text>
+<option1>a pen</option1>
+<option2>a human</option2>
+<option3>an elephant</option3>
+<answer>a pen</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick "true" or "false"</text>
+<option1>true</option1>
+<option2>can't</option2>
+<option3>what</option3>
+<answer>true</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a spider wears ___ shoes</text>
+<option1>0</option1>
+<option2>6</option2>
+<option3>12</option3>
+<answer>0</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a word in this sentence</text>
+<option1>word</option1>
+<option2>letters</option2>
+<option3>where</option3>
+<answer>word</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the second word in this sentence</text>
+<option1>second</option1>
+<option2>word</option2>
+<option3>sentence</option3>
+<answer>second</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the four letter word in the middle</text>
+<option1>word</option1>
+<option2>middle</option2>
+<option3>the</option3>
+<answer>word</answer>
+<category>misc</category>
+</question>
+<question>
+<text>fourth letter of "fourth"</text>
+<option1>r</option1>
+<option2>f</option2>
+<option3>t</option3>
+<answer>r</answer>
+<category>misc</category>
+</question>
+<question>
+<text>comes after the word "after"</text>
+<option1>the</option1>
+<option2>word</option2>
+<option3>after</option3>
+<answer>the</answer>
+<category>misc</category>
+</question>
+<question>
+<text>second letter of "this"</text>
+<option1>h</option1>
+<option2>t</option2>
+<option3>s</option3>
+<answer>h</answer>
+<category>misc</category>
+</question>
+<question>
+<text>third letter of "what"</text>
+<option1>a</option1>
+<option2>h</option2>
+<option3>w</option3>
+<answer>a</answer>
+<category>misc</category>
+</question>
+<question>
+<text>fourth letter of "smart"</text>
+<option1>r</option1>
+<option2>t</option2>
+<option3>s</option3>
+<answer>r</answer>
+<category>misc</category>
+</question>
+<question>
+<text>sixth letter of "hippopotamus"</text>
+<option1>p</option1>
+<option2>o</option2>
+<option3>t</option3>
+<answer>p</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the word before "after"</text>
+<option1>before</option1>
+<option2>after</option2>
+<option3>why</option3>
+<answer>before</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the word after "after"</text>
+<option1>after</option1>
+<option2>word</option2>
+<option3>what</option3>
+<answer>after</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the letter after p</text>
+<option1>q</option1>
+<option2>r</option2>
+<option3>o</option3>
+<answer>q</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is "your clue"</text>
+<option1>your clue</option1>
+<option2>wrong</option2>
+<option3>the answer</option3>
+<answer>your clue</answer>
+<category>misc</category>
+</question>
+<question>
+<text>second letter after b</text>
+<option1>d</option1>
+<option2>e</option2>
+<option3>f</option3>
+<answer>d</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"it is" spelled backwards</text>
+<option1>si ti</option1>
+<option2>it si</option2>
+<option3>ti is</option3>
+<answer>si ti</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"loot" spelled backwards</text>
+<option1>tool</option1>
+<option2>loto</option2>
+<option3>lol</option3>
+<answer>tool</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"letters" spelled backwards</text>
+<option1>srettel</option1>
+<option2>slettel</option2>
+<option3>sreltel</option3>
+<answer>srettel</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"refer" spelled backwards</text>
+<option1>refer</option1>
+<option2>rerfef</option2>
+<option3>ferrer</option3>
+<answer>refer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"rhythm" spelled backwards</text>
+<option1>mhtyhr</option1>
+<option2>mhythr</option2>
+<option3>mthyhr</option3>
+<answer>mhtyhr</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"murder" spelled backwards</text>
+<option1>redrum</option1>
+<option2>redmur</option2>
+<option3>murmur</option3>
+<answer>redrum</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"live" spelled backwards</text>
+<option1>evil</option1>
+<option2>alive</option2>
+<option3>vile</option3>
+<answer>evil</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"something" spelled backwards</text>
+<option1>gnihtemos</option1>
+<option2>gnithomes</option2>
+<option3>gnihmetos</option3>
+<answer>gnihtemos</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a letter in "a letter"</text>
+<option1>t</option1>
+<option2>p</option2>
+<option3>q</option3>
+<answer>t</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the last letter of this sentence</text>
+<option1>e</option1>
+<option2>n</option2>
+<option3>s</option3>
+<answer>e</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a year in the third century</text>
+<option1>298</option1>
+<option2>311</option2>
+<option3>23</option3>
+<answer>298</answer>
+<category>misc</category>
+</question>
+<question>
+<text>second day of last year was in ___</text>
+<option1>January</option1>
+<option2>December</option2>
+<option3>June</option3>
+<answer>January</answer>
+<category>misc</category>
+</question>
+<question>
+<text>second month after June</text>
+<option1>August</option1>
+<option2>May</option2>
+<option3>October</option3>
+<answer>August</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a year in the fifth century</text>
+<option1>444</option1>
+<option2>555</option2>
+<option3>666</option3>
+<answer>444</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is "incorrect"</text>
+<option1>incorrect</option1>
+<option2>2+2=5</option2>
+<option3>false</option3>
+<answer>incorrect</answer>
+<category>misc</category>
+</question>
+<question>
+<text>80 minutes past 11:00</text>
+<option1>12:20</option1>
+<option2>11:60</option2>
+<option3>12:40</option3>
+<answer>12:20</answer>
+<category>misc</category>
+</question>
+<question>
+<text>75 minutes past 10:00</text>
+<option1>11:15</option1>
+<option2>10:10</option2>
+<option3>11:45</option3>
+<answer>11:15</answer>
+<category>misc</category>
+</question>
+<question>
+<text>44 minutes past 11:00</text>
+<option1>11:44</option1>
+<option2>10:16</option2>
+<option3>11:40</option3>
+<answer>11:44</answer>
+<category>misc</category>
+</question>
+<question>
+<text>80 minutes past 2:59</text>
+<option1>4:19</option1>
+<option2>4:39</option2>
+<option3>4:49</option3>
+<answer>4:19</answer>
+<category>misc</category>
+</question>
+<question>
+<text>even this number is even</text>
+<option1>4</option1>
+<option2>3</option2>
+<option3>5</option3>
+<answer>4</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"11" and "22" are not the answer</text>
+<option1>99</option1>
+<option2>11</option2>
+<option3>22</option3>
+<answer>99</answer>
+<category>misc</category>
+</question>
+<question>
+<text>odd numbers are not the answer</text>
+<option1>12</option1>
+<option2>21</option2>
+<option3>33</option3>
+<answer>12</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you are ___ at this game</text>
+<option1>awesome</option1>
+<option2>wrong answer</option2>
+<option3>wrong answer</option3>
+<answer>awesome</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is "what"</text>
+<option1>what</option1>
+<option2>why</option2>
+<option3>how</option3>
+<answer>what</answer>
+<category>misc</category>
+</question>
+<question>
+<text>fifth letter of "tricky question"</text>
+<option1>k</option1>
+<option2>i</option2>
+<option3>q</option3>
+<answer>k</answer>
+<category>misc</category>
+</question>
+<question>
+<text>overtake the second and you are ___</text>
+<option1>second</option1>
+<option2>third</option2>
+<option3>first</option3>
+<answer>second</answer>
+<category>misc</category>
+</question>
+<question>
+<text>second letter of "letter"</text>
+<option1>e</option1>
+<option2>l</option2>
+<option3>t</option3>
+<answer>e</answer>
+<category>misc</category>
+</question>
+<question>
+<text>rhymes with "rhyme"</text>
+<option1>crime</option1>
+<option2>drama</option2>
+<option3>eminem</option3>
+<answer>crime</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a minute before midnight</text>
+<option1>23:59</option1>
+<option2>12:59</option2>
+<option3>11:11</option3>
+<answer>23:59</answer>
+<category>misc</category>
+</question>
+<question>
+<text>two years after last year</text>
+<option1>next year</option1>
+<option2>this year</option2>
+<option3>2112</option3>
+<answer>next year</answer>
+<category>misc</category>
+</question>
+<question>
+<text>two days after yesterday</text>
+<option1>tomorrow</option1>
+<option2>today</option2>
+<option3>yesterday</option3>
+<answer>tomorrow</answer>
+<category>misc</category>
+</question>
+<question>
+<text>one day before tomorrow</text>
+<option1>today</option1>
+<option2>yesterday</option2>
+<option3>whataday</option3>
+<answer>today</answer>
+<category>misc</category>
+</question>
+<question>
+<text>tenth month of the year</text>
+<option1>October</option1>
+<option2>September</option2>
+<option3>November</option3>
+<answer>October</answer>
+<category>misc</category>
+</question>
+<question>
+<text>third month after may</text>
+<option1>August</option1>
+<option2>June</option2>
+<option3>October</option3>
+<answer>August</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you are ___ smart</text>
+<option1>super</option1>
+<option2>don't pick this</option2>
+<option3>don't pick this</option3>
+<answer>super</answer>
+<category>misc</category>
+</question>
+<question>
+<text>smaller than two million</text>
+<option1>855352</option1>
+<option2>9218112</option2>
+<option3>3441123</option3>
+<answer>855352</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the day after today</text>
+<option1>tomorrow</option1>
+<option2>yesterday</option2>
+<option3>today</option3>
+<answer>tomorrow</answer>
+<category>misc</category>
+</question>
+<question>
+<text>that apple phone people brag about</text>
+<option1>iphone</option1>
+<option2>myphone</option2>
+<option3>al caphone</option3>
+<answer>iphone</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this question has ___</text>
+<option1>3 choices</option1>
+<option2>8 words</option2>
+<option3>99 problems</option3>
+<answer>3 choices</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the number of colors in the rainbow</text>
+<option1>7</option1>
+<option2>8</option2>
+<option3>9</option3>
+<answer>7</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the 28 day month</text>
+<option1>February</option1>
+<option2>January</option2>
+<option3>June</option3>
+<answer>February</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pure gold is ___</text>
+<option1>24 karats</option1>
+<option2>14 karats</option2>
+<option3>28 karats</option3>
+<answer>24 karats</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a chessboard has ___</text>
+<option1>64 squares</option1>
+<option2>72 squares</option2>
+<option3>44 squares</option3>
+<answer>64 squares</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a basketball team has ___</text>
+<option1>5 players</option1>
+<option2>8 players</option2>
+<option3>3 players</option3>
+<answer>5 players</answer>
+<category>misc</category>
+</question>
+<question>
+<text>we are in the ___ century</text>
+<option1>21st</option1>
+<option2>20th</option2>
+<option3>19th</option3>
+<answer>21st</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the number of words in this sentence</text>
+<option1>7</option1>
+<option2>8</option2>
+<option3>5</option3>
+<answer>7</answer>
+<category>misc</category>
+</question>
+<question>
+<text>your father's mother's son</text>
+<option1>your father</option1>
+<option2>your mother</option2>
+<option3>your son</option3>
+<answer>your father</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer starts with "c"</text>
+<option1>correct</option1>
+<option2>think hard</option2>
+<option3>try again</option3>
+<answer>correct</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this question has ___</text>
+<option1>three words</option1>
+<option2>eight choices</option2>
+<option3>fifty letters</option3>
+<answer>three words</answer>
+<category>misc</category>
+</question>
+<question>
+<text>complete all the achievements!</text>
+<option1>sure thing!</option1>
+<option2>don't pick this</option2>
+<option3>don't pick this</option3>
+<answer>sure thing!</answer>
+<category>misc</category>
+</question>
+<question>
+<text>your avatar looks like a brain!</text>
+<option1>it does!</option1>
+<option2>don't pick this</option2>
+<option3>don't pick this</option3>
+<answer>it does!</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the person playing this game is</text>
+<option1>me</option1>
+<option2>my pet</option2>
+<option3>michael jackson</option3>
+<answer>me</answer>
+<category>misc</category>
+</question>
+<question>
+<text>find "the secret"</text>
+<option1>the secret</option1>
+<option2>where</option2>
+<option3>i give up</option3>
+<answer>the secret</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the correct answer is "false"</text>
+<option1>false</option1>
+<option2>correct</option2>
+<option3>next</option3>
+<answer>false</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the last letter of "the alphabet"</text>
+<option1>t</option1>
+<option2>a</option2>
+<option3>u</option3>
+<answer>t</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the last letter of "something else"</text>
+<option1>e</option1>
+<option2>s</option2>
+<option3>h</option3>
+<answer>e</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born on may 16th, your sign is ___</text>
+<option1>Taurus</option1>
+<option2>Aries</option2>
+<option3>Gemini</option3>
+<answer>Taurus</answer>
+<category>misc</category>
+</question>
+<question>
+<text>all but 4 of your 10 eggs break</text>
+<option1>4 eggs left</option1>
+<option2>6 eggs left</option2>
+<option3>14 eggs left</option3>
+<answer>4 eggs left</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a type of shellfish</text>
+<option1>mussel</option1>
+<option2>muscle</option2>
+<option3>muzzle</option3>
+<answer>mussel</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born on January 15th, your sign is ___</text>
+<option1>Capricorn</option1>
+<option2>Leo</option2>
+<option3>Unicorn</option3>
+<answer>Capricorn</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born on october 21st, your sign is ___</text>
+<option1>Libra</option1>
+<option2>Gemini</option2>
+<option3>Taurus</option3>
+<answer>Libra</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born on june 4th, your sign is ___</text>
+<option1>Gemini</option1>
+<option2>Leo</option2>
+<option3>Snape</option3>
+<answer>Gemini</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born on July 24th, your sign is ___</text>
+<option1>Leo</option1>
+<option2>Libra</option2>
+<option3>Pisces</option3>
+<answer>Leo</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born in April, your sign could be ___</text>
+<option1>Taurus</option1>
+<option2>Gemini</option2>
+<option3>Capricorn</option3>
+<answer>Taurus</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a type of women's shoes</text>
+<option1>pumps</option1>
+<option2>kats</option2>
+<option3>tires</option3>
+<answer>pumps</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not a type of women's shoes</text>
+<option1>sharpies</option1>
+<option2>flats</option2>
+<option3>stillettos</option3>
+<answer>sharpies</answer>
+<category>misc</category>
+</question>
+<question>
+<text>there is a ___ missing in this sentence</text>
+<option1>word</option1>
+<option2>hard</option2>
+<option3>fragile</option3>
+<answer>word</answer>
+<category>misc</category>
+</question>
+<question>
+<text>can't wear these on your feet</text>
+<option1>scandals</option1>
+<option2>shoes</option2>
+<option3>socks</option3>
+<answer>scandals</answer>
+<category>misc</category>
+</question>
+<question>
+<text>up is down when down is ___</text>
+<option1>up</option1>
+<option2>down</option2>
+<option3>a rabbit</option3>
+<answer>up</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not a zodiac sign</text>
+<option1>Tauri</option1>
+<option2>Virgo</option2>
+<option3>Sagittarius</option3>
+<answer>Tauri</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not a zodiac sign</text>
+<option1>Scorpion</option1>
+<option2>Gemini</option2>
+<option3>Pisces</option3>
+<answer>Scorpion</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a zodiac sign</text>
+<option1>Leo</option1>
+<option2>Leon</option2>
+<option3>Mufasa</option3>
+<answer>Leo</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the missing ___ in this sentence</text>
+<option1>word</option1>
+<option2>going to</option2>
+<option3>ridiculous</option3>
+<answer>word</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick the blank answer</text>
+<option1>    </option1>
+<option2>not blank</option2>
+<option3>occupied</option3>
+<answer>    </answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer has two letters</text>
+<option1>no</option1>
+<option2>yes</option2>
+<option3>maybe</option3>
+<answer>no</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is "hidden"</text>
+<option1>hidden</option1>
+<option2>right here</option2>
+<option3>found it</option3>
+<answer>hidden</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this sentence has no ___</text>
+<option1>punctuation</option1>
+<option2>letters</option2>
+<option3>words</option3>
+<answer>punctuation</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a game mode in Super Smart</text>
+<option1>arcade</option1>
+<option2>blitz</option2>
+<option3>time limit</option3>
+<answer>arcade</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an Apple product</text>
+<option1>iPod</option1>
+<option2>MacBro</option2>
+<option3>iShall</option3>
+<answer>iPod</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this word is used twice in this sentence</text>
+<option1>this</option1>
+<option2>in</option2>
+<option3>word</option3>
+<answer>this</answer>
+<category>misc</category>
+</question>
+<question>
+<text>43 minutes past 13:43</text>
+<option1>2:26 PM</option1>
+<option2>14:46</option2>
+<option3>15:16</option3>
+<answer>2:26 PM</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick the correct ___ to score</text>
+<option1>answer</option1>
+<option2>elephant</option2>
+<option3>flower</option3>
+<answer>answer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a long time ago</text>
+<option1>1257 AD</option1>
+<option2>10144 AD</option2>
+<option3>5723 AD</option3>
+<answer>1257 AD</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer times the answer is 1</text>
+<option1>1</option1>
+<option2>4</option2>
+<option3>9</option3>
+<answer>1</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the first letter of the sixth word</text>
+<option1>s</option1>
+<option2>w</option2>
+<option3>t</option3>
+<answer>s</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the second letter in this sentence</text>
+<option1>h</option1>
+<option2>s</option2>
+<option3>e</option3>
+<answer>h</answer>
+<category>misc</category>
+</question>
+<question>
+<text>they call this a full stop in the UK</text>
+<option1>.</option1>
+<option2>?</option2>
+<option3>-</option3>
+<answer>.</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is not "funny" or "ironic"</text>
+<option1>yes</option1>
+<option2>ironic</option2>
+<option3>funny</option3>
+<answer>yes</answer>
+<category>misc</category>
+</question>
+<question>
+<text>A=B and B=C, so the answer is "D"</text>
+<option1>D</option1>
+<option2>B</option2>
+<option3>banana</option3>
+<answer>D</answer>
+<category>misc</category>
+</question>
+<question>
+<text>spell "backwards" forwards</text>
+<option1>backwards</option1>
+<option2>sdrawkcab</option2>
+<option3>sdrawrof</option3>
+<answer>backwards</answer>
+<category>misc</category>
+</question>
+<question>
+<text>heavier than you</text>
+<option1>775 kg</option1>
+<option2>775 g</option2>
+<option3>775 mg</option3>
+<answer>775 kg</answer>
+<category>misc</category>
+</question>
+<question>
+<text>"what" is a ___ letter word</text>
+<option1>four</option1>
+<option2>three</option2>
+<option3>one</option3>
+<answer>four</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the second letter of the second word</text>
+<option1>e</option1>
+<option2>s</option2>
+<option3>o</option3>
+<answer>e</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer is "straight forward"</text>
+<option1>straight forward</option1>
+<option2>stick</option2>
+<option3>banana</option3>
+<answer>straight forward</answer>
+<category>misc</category>
+</question>
+<question>
+<text>single people are ___</text>
+<option1>single</option1>
+<option2>double</option2>
+<option3>triple</option3>
+<answer>single</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you use this in a handshake</text>
+<option1>hand</option1>
+<option2>thermometer</option2>
+<option3>giraffe</option3>
+<answer>hand</answer>
+<category>misc</category>
+</question>
+<question>
+<text>resistance against the machines is ___</text>
+<option1>futile</option1>
+<option2>don't pick this</option2>
+<option3>don't pick this</option3>
+<answer>futile</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not one of your relatives</text>
+<option1>your shoe</option1>
+<option2>your father</option2>
+<option3>your grandmother</option3>
+<answer>your shoe</answer>
+<category>misc</category>
+</question>
+<question>
+<text>shouldn't wear these on your feet</text>
+<option1>hats</option1>
+<option2>socks</option2>
+<option3>shoes</option3>
+<answer>hats</answer>
+<category>misc</category>
+</question>
+<question>
+<text>artificial sweetner</text>
+<option1>sucralose</option1>
+<option2>fructose</option2>
+<option3>dextrose</option3>
+<answer>sucralose</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a standard 52-card deck has ___ cards</text>
+<option1>52</option1>
+<option2>44</option2>
+<option3>145</option3>
+<answer>52</answer>
+<category>misc</category>
+</question>
+<question>
+<text>not a card game</text>
+<option1>polo</option1>
+<option2>solitaire</option2>
+<option3>bridge</option3>
+<answer>polo</answer>
+<category>misc</category>
+</question>
+<question>
+<text>probability of an impossible event</text>
+<option1>0/1</option1>
+<option2>1/2</option2>
+<option3>1/1</option3>
+<answer>0/1</answer>
+<category>misc</category>
+</question>
+<question>
+<text>0.5 can also be expressed as ___</text>
+<option1>1/2</option1>
+<option2>2/1</option2>
+<option3>1.2</option3>
+<answer>1/2</answer>
+<category>misc</category>
+</question>
+<question>
+<text>can't find this letter in this sentence</text>
+<option1>m</option1>
+<option2>l</option2>
+<option3>d</option3>
+<answer>m</answer>
+<category>misc</category>
+</question>
+<question>
+<text>spell "forwards" backwards</text>
+<option1>sdrawrof</option1>
+<option2>swardrof</option2>
+<option3>sdrowarf</option3>
+<answer>sdrawrof</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a half-court shot is worth 3 points in ___</text>
+<option1>basketball</option1>
+<option2>football</option2>
+<option3>hockey</option3>
+<answer>basketball</answer>
+<category>misc</category>
+</question>
+<question>
+<text>no penalty shots in ___</text>
+<option1>basketball</option1>
+<option2>soccer</option2>
+<option3>hockey</option3>
+<answer>basketball</answer>
+<category>misc</category>
+</question>
+<question>
+<text>no yellow cards in ___</text>
+<option1>baseball</option1>
+<option2>soccer</option2>
+<option3>volleyball</option3>
+<answer>baseball</answer>
+<category>misc</category>
+</question>
+<question>
+<text>Union of European Football Associations</text>
+<option1>UEFA</option1>
+<option2>FIFA</option2>
+<option3>NFL</option3>
+<answer>UEFA</answer>
+<category>misc</category>
+</question>
+<question>
+<text>illegal on most commercial flights</text>
+<option1>smoking</option1>
+<option2>moonwalking</option2>
+<option3>yawning</option3>
+<answer>smoking</answer>
+<category>misc</category>
+</question>
+<question>
+<text>don't pick "your nose"</text>
+<option1>seriously</option1>
+<option2>your nose</option2>
+<option3>your nose</option3>
+<answer>seriously</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick "your nose"</text>
+<option1>your nose</option1>
+<option2>don't do it</option2>
+<option3>so impolite</option3>
+<answer>your nose</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick the largest even number</text>
+<option1>37752</option1>
+<option2>88649</option2>
+<option3>22286</option3>
+<answer>37752</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick the smallest odd number</text>
+<option1>913</option1>
+<option2>912</option2>
+<option3>904</option3>
+<answer>913</answer>
+<category>misc</category>
+</question>
+<question>
+<text>3 seconds is ___ minutes</text>
+<option1>0.05</option1>
+<option2>0.20</option2>
+<option3>0.5</option3>
+<answer>0.05</answer>
+<category>misc</category>
+</question>
+<question>
+<text>252 seconds is ___ minutes</text>
+<option1>4.2</option1>
+<option2>3.8</option2>
+<option3>4.42</option3>
+<answer>4.2</answer>
+<category>misc</category>
+</question>
+<question>
+<text>your father's mother's granddaughter</text>
+<option1>your sister</option1>
+<option2>your mother</option2>
+<option3>your daughter</option3>
+<answer>your sister</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the number of letters in this sentence</text>
+<option1>32</option1>
+<option2>81</option2>
+<option3>16</option3>
+<answer>32</answer>
+<category>misc</category>
+</question>
+<question>
+<text>born in April, your sign can't be ___</text>
+<option1>Virgo</option1>
+<option2>Aries</option2>
+<option3>Taurus</option3>
+<answer>Virgo</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this month is 31 days long</text>
+<option1>October</option1>
+<option2>February</option2>
+<option3>March</option3>
+<answer>October</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an Italian dish with rice</text>
+<option1>risotto</option1>
+<option2>salame</option2>
+<option3>ciabatta</option3>
+<answer>risotto</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an Italian dish with pasta</text>
+<option1>ravioli</option1>
+<option2>risotto</option2>
+<option3>gelato</option3>
+<answer>ravioli</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an Japanese dish with rice</text>
+<option1>onigiri</option1>
+<option2>sashimi</option2>
+<option3>tempura</option3>
+<answer>onigiri</answer>
+<category>misc</category>
+</question>
+<question>
+<text>Japanese art of paper folding</text>
+<option1>origami</option1>
+<option2>organism</option2>
+<option3>originy</option3>
+<answer>origami</answer>
+<category>misc</category>
+</question>
+<question>
+<text>traditional Japanese puppet theater</text>
+<option1>banruki</option1>
+<option2>kabuki</option2>
+<option3>satsuma</option3>
+<answer>banruki</answer>
+<category>misc</category>
+</question>
+<question>
+<text>traditional Japanese theater</text>
+<option1>kabuki</option1>
+<option2>miko</option2>
+<option3>kansai</option3>
+<answer>kabuki</answer>
+<category>misc</category>
+</question>
+<question>
+<text>10 plus the number of ears on three dogs</text>
+<option1>16</option1>
+<option2>4</option2>
+<option3>24</option3>
+<answer>16</answer>
+<category>misc</category>
+</question>
+<question>
+<text>4 minus the number of states in the USA</text>
+<option1>-46</option1>
+<option2>-54</option2>
+<option3>-55</option3>
+<answer>-46</answer>
+<category>misc</category>
+</question>
+<question>
+<text>33 plus the the number choices available</text>
+<option1>36</option1>
+<option2>30</option2>
+<option3>35</option3>
+<answer>36</answer>
+<category>misc</category>
+</question>
+<question>
+<text>number of letter "e"s in this sentence</text>
+<option1>7</option1>
+<option2>6</option2>
+<option3>11</option3>
+<answer>7</answer>
+<category>misc</category>
+</question>
+<question>
+<text>pick 1, 2, 6, or 4</text>
+<option1>6</option1>
+<option2>5</option2>
+<option3>8</option3>
+<answer>6</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you can read the correct answer out loud</text>
+<option1>yes</option1>
+<option2>    </option2>
+<option3>    </option3>
+<answer>yes</answer>
+<category>misc</category>
+</question>
+<question>
+<text>German automobile manufacturer</text>
+<option1>Smart</option1>
+<option2>Buick</option2>
+<option3>Pontiac</option3>
+<answer>Smart</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an odd number times two</text>
+<option1>6</option1>
+<option2>4</option2>
+<option3>16</option3>
+<answer>6</answer>
+<category>misc</category>
+</question>
+<question>
+<text>an even number times two</text>
+<option1>16</option1>
+<option2>22</option2>
+<option3>39</option3>
+<answer>16</answer>
+<category>misc</category>
+</question>
+<question>
+<text>has more gravity than the others</text>
+<option1>earth</option1>
+<option2>ear</option2>
+<option3>elephant</option3>
+<answer>earth</answer>
+<category>misc</category>
+</question>
+<question>
+<text>fifth month of the year</text>
+<option1>May</option1>
+<option2>April</option2>
+<option3>March</option3>
+<answer>May</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a young goat is called a ___</text>
+<option1>kid</option1>
+<option2>goatee</option2>
+<option3>meat</option3>
+<answer>kid</answer>
+<category>misc</category>
+</question>
+<question>
+<text>can't spell "slaughter" without ___</text>
+<option1>laughter</option1>
+<option2>dime</option2>
+<option3>moon</option3>
+<answer>laughter</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer has letters</text>
+<option1>false</option1>
+<option2>80075</option2>
+<option3>;__;</option3>
+<answer>false</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this sentence doesn't have the letter ___</text>
+<option1>m</option1>
+<option2>n</option2>
+<option3>v</option3>
+<answer>m</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a computer programming language</text>
+<option1>python</option1>
+<option2>snake</option2>
+<option3>MnM++</option3>
+<answer>python</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you start with ___ in Arcade mode</text>
+<option1>60 seconds</option1>
+<option2>45 seconds</option2>
+<option3>90 seconds</option3>
+<answer>60 seconds</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you start with ___ in Classic mode</text>
+<option1>0 points</option1>
+<option2>80 seconds</option2>
+<option3>6 choices</option3>
+<answer>0 points</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you have ___ seconds left</text>
+<option1>less than 100</option1>
+<option2>more than 300</option2>
+<option3>442</option3>
+<answer>less than 100</answer>
+<category>misc</category>
+</question>
+<question>
+<text>612 seconds is ___ minutes</text>
+<option1>10.2</option1>
+<option2>11.8</option2>
+<option3>10.12</option3>
+<answer>10.2</answer>
+<category>misc</category>
+</question>
+<question>
+<text>99 minutes is ___ seconds</text>
+<option1>5940</option1>
+<option2>6000</option2>
+<option3>5994</option3>
+<answer>5940</answer>
+<category>misc</category>
+</question>
+<question>
+<text>1156.3 minutes is ___ minutes</text>
+<option1>1156.3</option1>
+<option2>19.27</option2>
+<option3>69372</option3>
+<answer>1156.3</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this is usually round</text>
+<option1>a bowling ball</option1>
+<option2>a box</option2>
+<option3>a shark</option3>
+<answer>a bowling ball</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the classical smiley face</text>
+<option1>:)</option1>
+<option2>;&gt;</option2>
+<option3>+&lt;:B</option3>
+<answer>:)</answer>
+<category>misc</category>
+</question>
+<question>
+<text>your dog's biological child could be ___</text>
+<option1>your puppy</option1>
+<option2>your cat</option2>
+<option3>your mother</option3>
+<answer>your puppy</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the answer has no letters</text>
+<option1>321895419</option1>
+<option2>21341L2B3</option2>
+<option3>4144A4B88</option3>
+<answer>321895419</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you can have no memory of ___</text>
+<option1>tomorrow</option1>
+<option2>two weeks ago</option2>
+<option3>yesterday</option3>
+<answer>tomorrow</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this question has ___ when completed</text>
+<option1>seven words</option1>
+<option2>twenty five letters</option2>
+<option3>sixteen syllables</option3>
+<answer>seven words</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this question doesn't have the letter ___</text>
+<option1>c</option1>
+<option2>i</option2>
+<option3>v</option3>
+<answer>c</answer>
+<category>misc</category>
+</question>
+<question>
+<text>a person who plays the drums</text>
+<option1>drummer</option1>
+<option2>guitarist</option2>
+<option3>loser</option3>
+<answer>drummer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>you have found the secret question</text>
+<option1>correct</option1>
+<option2>don't pick this</option2>
+<option3>don't pick this</option3>
+<answer>correct</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this month is 30 days long</text>
+<option1>June</option1>
+<option2>July</option2>
+<option3>August</option3>
+<answer>June</answer>
+<category>misc</category>
+</question>
+<question>
+<text>this question has a ___</text>
+<option1>correct answer</option1>
+<option2>number in it</option2>
+<option3>capital letter</option3>
+<answer>correct answer</answer>
+<category>misc</category>
+</question>
+<question>
+<text>777 weeks is ___ days</text>
+<option1>5439</option1>
+<option2>111</option2>
+<option3>11</option3>
+<answer>5439</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the first letter of the first word</text>
+<option1>t</option1>
+<option2>f</option2>
+<option3>l</option3>
+<answer>t</answer>
+<category>misc</category>
+</question>
+<question>
+<text>the Indian Ocean is ___</text>
+<option1>wet</option1>
+<option2>in Indiana</option2>
+<option3>a lake</option3>
+<answer>wet</answer>
+<category>misc</category>
+</question>
+<question>
+<text>Speaking two languages</text>
+<option1>bilingual</option1>
+<option2>bicentennial</option2>
+<option3>biennial</option3>
+<answer>bilingual</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "l, o, c, o"</text>
+<option1>cool</option1>
+<option2>lock</option2>
+<option3>loot</option3>
+<answer>cool</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "t, a, l, e, s"</text>
+<option1>steal</option1>
+<option2>later</option2>
+<option3>steel</option3>
+<answer>steal</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "l, i, v, e"</text>
+<option1>evil</option1>
+<option2>life</option2>
+<option3>vein</option3>
+<answer>evil</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "s, t, e, e, r"</text>
+<option1>reset</option1>
+<option2>setter</option2>
+<option3>stream</option3>
+<answer>reset</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "t, e, r, r, a, i, n"</text>
+<option1>trainer</option1>
+<option2>narrate</option2>
+<option3>retained</option3>
+<answer>trainer</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using   "e, l, m, o"</text>
+<option1>mole</option1>
+<option2>loom</option2>
+<option3>mall</option3>
+<answer>mole</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "g, a, r, d, e, n"</text>
+<option1>danger</option1>
+<option2>gender</option2>
+<option3>ranger</option3>
+<answer>danger</answer>
+<category>word</category>
+</question>
+<question>
+<text>Make a word using  "c, a, t, e, r, e, d"</text>
+<option1>reacted</option1>
+<option2>creator</option2>
+<option3>crated</option3>
+<answer>reacted</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "r, e, d, a, c, t"</text>
+<option1>carted</option1>
+<option2>catered</option2>
+<option3>trapped</option3>
+<answer>carted</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "t, h, e, s, e"</text>
+<option1>sheet</option1>
+<option2>shirts</option2>
+<option3>tease</option3>
+<answer>sheet</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "i, t, e, m, s"</text>
+<option1>emits</option1>
+<option2>timed</option2>
+<option3>mints</option3>
+<answer>emits</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "g, r, o, w, n"</text>
+<option1>wrong</option1>
+<option2>growl</option2>
+<option3>nordic</option3>
+<answer>wrong</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, e, c, r, e, t"</text>
+<option1>erects</option1>
+<option2>reacts</option2>
+<option3>streak</option3>
+<answer>erects</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, e, r, v, a, n, t"</text>
+<option1>taverns</option1>
+<option2>ventures</option2>
+<option3>serpents</option3>
+<answer>taverns</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, i, l, e, n, c, e"</text>
+<option1>license</option1>
+<option2>slices</option2>
+<option3>sincere</option3>
+<answer>license</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "l, e, t, t, e, r, s"</text>
+<option1>settler</option1>
+<option2>street</option2>
+<option3>shelters</option3>
+<answer>settler</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, u, p, e, r"</text>
+<option1>purse</option1>
+<option2>repulse</option2>
+<option3>reuse</option3>
+<answer>purse</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "c, h, e, a, t"</text>
+<option1>teach</option1>
+<option2>techie</option2>
+<option3>reach</option3>
+<answer>teach</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "p, i, e, c, e, s"</text>
+<option1>specie</option1>
+<option2>pisces</option2>
+<option3>stencil</option3>
+<answer>specie</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "r, e, s, i, d, e, d "</text>
+<option1>desired</option1>
+<option2>derided</option2>
+<option3>esquire</option3>
+<answer>desired</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "m, i, l, e, s"</text>
+<option1>smile</option1>
+<option2>slide</option2>
+<option3>davis</option3>
+<answer>smile</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "a, b, c, s"</text>
+<option1>cabs</option1>
+<option2>bash</option2>
+<option3>caps</option3>
+<answer>cabs</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "d, e, m, o"</text>
+<option1>mode</option1>
+<option2>done</option2>
+<option3>mood</option3>
+<answer>mode</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, h, o, t, g, u, n"</text>
+<option1>gunshot</option1>
+<option2>showdown</option2>
+<option3>nought</option3>
+<answer>gunshot</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "t, e, a, r, s"</text>
+<option1>stare</option1>
+<option2>street</option2>
+<option3>reality</option3>
+<answer>stare</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "m, i, r, a, c, l, e"</text>
+<option1>reclaim</option1>
+<option2>circular</option2>
+<option3>claimed</option3>
+<answer>reclaim</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "d, a, i, r, y"</text>
+<option1>diary</option1>
+<option2>rivaled</option2>
+<option3>dearly</option3>
+<answer>diary</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "a, l, o, r, s"</text>
+<option1>solar</option1>
+<option2>royal</option2>
+<option3>lasso</option3>
+<answer>solar</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, t, r, e, a, m, s"</text>
+<option1>masters</option1>
+<option2>matters</option2>
+<option3>stressed</option3>
+<answer>masters</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "m, a, t, t, r, e, s, s"</text>
+<option1>smartest</option1>
+<option2>mastered</option2>
+<option3>stardom</option3>
+<answer>smartest</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, l, i, g, h, t"</text>
+<option1>lights</option1>
+<option2>tilted</option2>
+<option3>guilds</option3>
+<answer>lights</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "r, i, d, e, r"</text>
+<option1>drier</option1>
+<option2>driven</option2>
+<option3>redeem</option3>
+<answer>drier</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "c, o, d, e, r, e, d"</text>
+<option1>decoder</option1>
+<option2>recorded</option2>
+<option3>cornered</option3>
+<answer>decoder</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "n, e, o"</text>
+<option1>one</option1>
+<option2>ion</option2>
+<option3>glitch</option3>
+<answer>one</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "e, n, t, r, a, p"</text>
+<option1>parent</option1>
+<option2>pertinent</option2>
+<option3>tamper</option3>
+<answer>parent</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "clear"</text>
+<option1>transparent</option1>
+<option2>sky</option2>
+<option3>invade</option3>
+<answer>transparent</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "far"</text>
+<option1>remote</option1>
+<option2>driven</option2>
+<option3>reach</option3>
+<answer>remote</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "guide"</text>
+<option1>lead</option1>
+<option2>book</option2>
+<option3>stream</option3>
+<answer>lead</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "start"</text>
+<option1>begin</option1>
+<option2>action</option2>
+<option3>fresh</option3>
+<answer>begin</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "chase"</text>
+<option1>pursuit</option1>
+<option2>catch</option2>
+<option3>grab</option3>
+<answer>pursuit</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "fall"</text>
+<option1>autumn</option1>
+<option2>slide</option2>
+<option3>under</option3>
+<answer>autumn</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "fire"</text>
+<option1>shoot</option1>
+<option2>pain</option2>
+<option3>phaser</option3>
+<answer>shoot</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "credible"</text>
+<option1>believable</option1>
+<option2>borrowed</option2>
+<option3>appropriate</option3>
+<answer>believable</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "fatal"</text>
+<option1>lethal</option1>
+<option2>disappear</option2>
+<option3>abrupt</option3>
+<answer>lethal</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "dull"</text>
+<option1>boring</option1>
+<option2>motionless</option2>
+<option3>locked</option3>
+<answer>boring</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "enemy"</text>
+<option1>ally</option1>
+<option2>defeat</option2>
+<option3>virtue</option3>
+<answer>ally</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "aware"</text>
+<option1>ignorant</option1>
+<option2>open</option2>
+<option3>neutral</option3>
+<answer>ignorant</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "negative"</text>
+<option1>positive</option1>
+<option2>inanimate</option2>
+<option3>arguable</option3>
+<answer>positive</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "keep"</text>
+<option1>give away</option1>
+<option2>hold on</option2>
+<option3>fort</option3>
+<answer>give away</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "quiet"</text>
+<option1>noisy</option1>
+<option2>nose</option2>
+<option3>normal</option3>
+<answer>noisy</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "accelerate"</text>
+<option1>decelerate</option1>
+<option2>decapitate</option2>
+<option3>devastate</option3>
+<answer>decelerate</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>terminator</option1>
+<option2>dog</option2>
+<option3>cat</option3>
+<answer>terminator</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>pear</option1>
+<option2>celery</option2>
+<option3>lettuce</option3>
+<answer>pear</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>grandmother</option1>
+<option2>father</option2>
+<option3>uncle</option3>
+<answer>grandmother</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>Michael Jackson</option1>
+<option2>Justin Timberlake</option2>
+<option3>Justin Bieber</option3>
+<answer>Michael Jackson</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>bacon</option1>
+<option2>brussels sprout</option2>
+<option3>broccoli</option3>
+<answer>bacon</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>jimmy page</option1>
+<option2>john rambo</option2>
+<option3>james bond</option3>
+<answer>jimmy page</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>awesomeness</option1>
+<option2>gluttony</option2>
+<option3>wrath</option3>
+<answer>awesomeness</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>one</option1>
+<option2>44</option2>
+<option3>66</option3>
+<answer>one</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>ratmouse</option1>
+<option2>batman</option2>
+<option3>catwoman</option3>
+<answer>ratmouse</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>submarine</option1>
+<option2>cruiser</option2>
+<option3>destroyer</option3>
+<answer>submarine</answer>
+<category>word</category>
+</question>
+<question>
+<text>one does not belong</text>
+<option1>it's this one</option1>
+<option2>not this</option2>
+<option3>not this</option3>
+<answer>it's this one</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "exaggeration"</text>
+<option1>overstatement</option1>
+<option2>underline</option2>
+<option3>point</option3>
+<answer>overstatement</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "amazing"</text>
+<option1>astonishing</option1>
+<option2>explosive</option2>
+<option3>shiny</option3>
+<answer>astonishing</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "fearless"</text>
+<option1>brave</option1>
+<option2>scared</option2>
+<option3>sneaky</option3>
+<answer>brave</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "stop"</text>
+<option1>halt</option1>
+<option2>hammertime</option2>
+<option3>slow</option3>
+<answer>halt</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "display"</text>
+<option1>show</option1>
+<option2>flat</option2>
+<option3>open</option3>
+<answer>show</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "scheme"</text>
+<option1>plan</option1>
+<option2>play</option2>
+<option3>theme</option3>
+<answer>plan</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "catastrophe"</text>
+<option1>calamity</option1>
+<option2>punishment</option2>
+<option3>corpse</option3>
+<answer>calamity</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "important"</text>
+<option1>significant</option1>
+<option2>sound</option2>
+<option3>precise</option3>
+<answer>significant</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "finite"</text>
+<option1>limited</option1>
+<option2>inventory</option2>
+<option3>endless</option3>
+<answer>limited</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "unique"</text>
+<option1>singular</option1>
+<option2>minimal</option2>
+<option3>precise</option3>
+<answer>singular</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "altered"</text>
+<option1>changed</option1>
+<option2>punished</option2>
+<option3>seen</option3>
+<answer>changed</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "conserve"</text>
+<option1>save</option1>
+<option2>spend</option2>
+<option3>speak</option3>
+<answer>save</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "converse"</text>
+<option1>talk</option1>
+<option2>save</option2>
+<option3>change</option3>
+<answer>talk</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "diction"</text>
+<option1>articulation</option1>
+<option2>arthritis</option2>
+<option3>artichoke</option3>
+<answer>articulation</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "fluent"</text>
+<option1>articulate</option1>
+<option2>driven</option2>
+<option3>artistry</option3>
+<answer>articulate</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "speedy"</text>
+<option1>fast</option1>
+<option2>quirky</option2>
+<option3>timeless</option3>
+<answer>fast</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "trustworthy"</text>
+<option1>reliable</option1>
+<option2>relinquished</option2>
+<option3>resentful</option3>
+<answer>reliable</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "defend"</text>
+<option1>protect</option1>
+<option2>attack</option2>
+<option3>trap</option3>
+<answer>protect</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "liberated"</text>
+<option1>free</option1>
+<option2>fiery</option2>
+<option3>fried</option3>
+<answer>free</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "useful"</text>
+<option1>beneficial</option1>
+<option2>wasteful</option2>
+<option3>new</option3>
+<answer>beneficial</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "hazardous"</text>
+<option1>dangerous</option1>
+<option2>cloudy</option2>
+<option3>deceased</option3>
+<answer>dangerous</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "lifeless"</text>
+<option1>alive</option1>
+<option2>quick</option2>
+<option3>passive</option3>
+<answer>alive</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "boring"</text>
+<option1>exciting</option1>
+<option2>fiery</option2>
+<option3>massive</option3>
+<answer>exciting</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "hard"</text>
+<option1>easy</option1>
+<option2>stiff</option2>
+<option3>bare</option3>
+<answer>easy</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "hostile"</text>
+<option1>friendly</option1>
+<option2>smile</option2>
+<option3>passionate</option3>
+<answer>friendly</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "aggresive"</text>
+<option1>calm</option1>
+<option2>sleepy</option2>
+<option3>irritated</option3>
+<answer>calm</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "long"</text>
+<option1>abridged</option1>
+<option2>enduring</option2>
+<option3>stretching</option3>
+<answer>abridged</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "smile"</text>
+<option1>frown</option1>
+<option2>stare</option2>
+<option3>sneeze</option3>
+<answer>frown</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "rich"</text>
+<option1>poor</option1>
+<option2>taxed</option2>
+<option3>citizen</option3>
+<answer>poor</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "last"</text>
+<option1>first</option1>
+<option2>short</option2>
+<option3>fun</option3>
+<answer>first</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "give"</text>
+<option1>take</option1>
+<option2>red pill</option2>
+<option3>now</option3>
+<answer>take</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "accept"</text>
+<option1>refuse</option1>
+<option2>hold</option2>
+<option3>included</option3>
+<answer>refuse</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "always"</text>
+<option1>never</option1>
+<option2>random</option2>
+<option3>limitless</option3>
+<answer>never</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "calm"</text>
+<option1>excited</option1>
+<option2>bounced</option2>
+<option3>elevator</option3>
+<answer>excited</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "find"</text>
+<option1>lose</option1>
+<option2>feel</option2>
+<option3>drop</option3>
+<answer>lose</answer>
+<category>word</category>
+</question>
+<question>
+<text>opposite of "maximum"</text>
+<option1>minimum</option1>
+<option2>optimum</option2>
+<option3>uber</option3>
+<answer>minimum</answer>
+<category>word</category>
+</question>
+<question>
+<text>second line of a haiku has ___</text>
+<option1>7 syllables</option1>
+<option2>13 syllables</option2>
+<option3>5 syllables</option3>
+<answer>7 syllables</answer>
+<category>word</category>
+</question>
+<question>
+<text>a constructed international language</text>
+<option1>esperanto</option1>
+<option2>kebasish</option2>
+<option3>chicat</option3>
+<answer>esperanto</answer>
+<category>word</category>
+</question>
+<question>
+<text>first line of a haiku has ___</text>
+<option1>5 syllables</option1>
+<option2>10 syllables</option2>
+<option3>7 syllables</option3>
+<answer>5 syllables</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "crime"</text>
+<option1>prime</option1>
+<option2>scream</option2>
+<option3>figure</option3>
+<answer>prime</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "faster"</text>
+<option1>master</option1>
+<option2>care</option2>
+<option3>nostril</option3>
+<answer>master</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "blue"</text>
+<option1>glue</option1>
+<option2>flee</option2>
+<option3>fruit</option3>
+<answer>glue</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "awesome"</text>
+<option1>possum</option1>
+<option2>cushion</option2>
+<option3>dreamer</option3>
+<answer>possum</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "read"</text>
+<option1>feed</option1>
+<option2>creep</option2>
+<option3>steep</option3>
+<answer>feed</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "fruit"</text>
+<option1>suit</option1>
+<option2>seed</option2>
+<option3>salt</option3>
+<answer>suit</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "claim"</text>
+<option1>blame</option1>
+<option2>charm</option2>
+<option3>smile</option3>
+<answer>blame</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "bliss"</text>
+<option1>kiss</option1>
+<option2>fist</option2>
+<option3>stressed</option3>
+<answer>kiss</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "face"</text>
+<option1>space</option1>
+<option2>boss</option2>
+<option3>moose</option3>
+<answer>space</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "chair"</text>
+<option1>stare</option1>
+<option2>fail</option2>
+<option3>brains</option3>
+<answer>stare</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "style"</text>
+<option1>while</option1>
+<option2>crime</option2>
+<option3>kanye</option3>
+<answer>while</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "grace"</text>
+<option1>trace</option1>
+<option2>fries</option2>
+<option3>ella</option3>
+<answer>trace</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "smarts"</text>
+<option1>hearts</option1>
+<option2>maces</option2>
+<option3>nerds</option3>
+<answer>hearts</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "prime"</text>
+<option1>crime</option1>
+<option2>line</option2>
+<option3>pristine</option3>
+<answer>crime</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "rap"</text>
+<option1>tap</option1>
+<option2>slack</option2>
+<option3>snoop</option3>
+<answer>tap</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "r, t, m"</text>
+<option1>rhythm</option1>
+<option2>trapped</option2>
+<option3>realm</option3>
+<answer>rhythm</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "b, r, v"</text>
+<option1>beverage</option1>
+<option2>brain</option2>
+<option3>revered</option3>
+<answer>beverage</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "i, s, d"</text>
+<option1>disdain</option1>
+<option2>significant</option2>
+<option3>delightful</option3>
+<answer>disdain</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "u, a, n"</text>
+<option1>annual</option1>
+<option2>underline</option2>
+<option3>unwind</option3>
+<answer>annual</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "i, r, c"</text>
+<option1>crime</option1>
+<option2>record</option2>
+<option3>creepy</option3>
+<answer>crime</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "t, e, a"</text>
+<option1>reality</option1>
+<option2>esteem</option2>
+<option3>artistic</option3>
+<answer>reality</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "m, l, n"</text>
+<option1>lemon</option1>
+<option2>smile</option2>
+<option3>linear</option3>
+<answer>lemon</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "d, r, e"</text>
+<option1>eradicate</option1>
+<option2>excruciating</option2>
+<option3>delighted</option3>
+<answer>eradicate</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "y, i, n"</text>
+<option1>rainy</option1>
+<option2>frankly</option2>
+<option3>nyan</option3>
+<answer>rainy</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "b, u, t"</text>
+<option1>tub</option1>
+<option2>tap</option2>
+<option3>bun</option3>
+<answer>tub</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "g, r, n"</text>
+<option1>wrong</option1>
+<option2>gone</option2>
+<option3>ripping</option3>
+<answer>wrong</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "t, r, l"</text>
+<option1>retail</option1>
+<option2>troy</option2>
+<option3>light</option3>
+<answer>retail</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "l, s, r"</text>
+<option1>resale</option1>
+<option2>retain</option2>
+<option3>sorry</option3>
+<answer>resale</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "t, i, f"</text>
+<option1>fifty</option1>
+<option2>three</option2>
+<option3>fine</option3>
+<answer>fifty</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "m, n, g"</text>
+<option1>gaming</option1>
+<option2>ginger</option2>
+<option3>menace</option3>
+<answer>gaming</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "m, t, r"</text>
+<option1>terminate</option1>
+<option2>remembered</option2>
+<option3>ricochet</option3>
+<answer>terminate</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "l, f, n"</text>
+<option1>nullify</option1>
+<option2>fitness</option2>
+<option3>laughter</option3>
+<answer>nullify</answer>
+<category>word</category>
+</question>
+<question>
+<text>a word with no vowels</text>
+<option1>rhythm</option1>
+<option2>slight</option2>
+<option3>trouble</option3>
+<answer>rhythm</answer>
+<category>word</category>
+</question>
+<question>
+<text>a word with one vowel</text>
+<option1>wrong</option1>
+<option2>fear</option2>
+<option3>anguish</option3>
+<answer>wrong</answer>
+<category>word</category>
+</question>
+<question>
+<text>a word with two vowels</text>
+<option1>fire</option1>
+<option2>cut</option2>
+<option3>spiteful</option3>
+<answer>fire</answer>
+<category>word</category>
+</question>
+<question>
+<text>a one syllable word</text>
+<option1>strength</option1>
+<option2>fearless</option2>
+<option3>charger</option3>
+<answer>strength</answer>
+<category>word</category>
+</question>
+<question>
+<text>a two syllable word</text>
+<option1>limit</option1>
+<option2>fight</option2>
+<option3>cat</option3>
+<answer>limit</answer>
+<category>word</category>
+</question>
+<question>
+<text>contraction of "you are"</text>
+<option1>you're</option1>
+<option2>your</option2>
+<option3>yogurt</option3>
+<answer>you're</answer>
+<category>word</category>
+</question>
+<question>
+<text>contraction of "there is"</text>
+<option1>there's</option1>
+<option2>theirs</option2>
+<option3>theresa</option3>
+<answer>there's</answer>
+<category>word</category>
+</question>
+<question>
+<text>plural of "you"</text>
+<option1>you</option1>
+<option2>they</option2>
+<option3>we</option3>
+<answer>you</answer>
+<category>word</category>
+</question>
+<question>
+<text>plural of "sheep"</text>
+<option1>sheep</option1>
+<option2>sheeps</option2>
+<option3>herd</option3>
+<answer>sheep</answer>
+<category>word</category>
+</question>
+<question>
+<text>plural of "plurality"</text>
+<option1>pluralities</option1>
+<option2>plutorallies</option2>
+<option3>plurals</option3>
+<answer>pluralities</answer>
+<category>word</category>
+</question>
+<question>
+<text>plural of "ball"</text>
+<option1>balls</option1>
+<option2>ballies</option2>
+<option3>balles</option3>
+<answer>balls</answer>
+<category>word</category>
+</question>
+<question>
+<text>plural of "goose"</text>
+<option1>geese</option1>
+<option2>gooses</option2>
+<option3>gooster</option3>
+<answer>geese</answer>
+<category>word</category>
+</question>
+<question>
+<text>singular of "mice"</text>
+<option1>mouse</option1>
+<option2>moose</option2>
+<option3>mices</option3>
+<answer>mouse</answer>
+<category>word</category>
+</question>
+<question>
+<text>singular of "dice"</text>
+<option1>die</option1>
+<option2>douse</option2>
+<option3>dices</option3>
+<answer>die</answer>
+<category>word</category>
+</question>
+<question>
+<text>the letter missing from "foregn"</text>
+<option1>i</option1>
+<option2>h</option2>
+<option3>y</option3>
+<answer>i</answer>
+<category>word</category>
+</question>
+<question>
+<text>the letter missing from "stret"</text>
+<option1>e</option1>
+<option2>r</option2>
+<option3>n</option3>
+<answer>e</answer>
+<category>word</category>
+</question>
+<question>
+<text>a young goat is called a ___</text>
+<option1>kid</option1>
+<option2>boy</option2>
+<option3>goatee</option3>
+<answer>kid</answer>
+<category>word</category>
+</question>
+<question>
+<text>a group of crows is called a ___</text>
+<option1>murder</option1>
+<option2>massacre</option2>
+<option3>nightmare</option3>
+<answer>murder</answer>
+<category>word</category>
+</question>
+<question>
+<text>a female deer is called a ___</text>
+<option1>doe</option1>
+<option2>jane</option2>
+<option3>dear</option3>
+<answer>doe</answer>
+<category>word</category>
+</question>
+<question>
+<text>a male llama is called a ___</text>
+<option1>llama</option1>
+<option2>spitter</option2>
+<option3>nazgul</option3>
+<answer>llama</answer>
+<category>word</category>
+</question>
+<question>
+<text>a male moose is called a ___</text>
+<option1>bull</option1>
+<option2>cow</option2>
+<option3>mouse</option3>
+<answer>bull</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "t, i, l"</text>
+<option1>application</option1>
+<option2>subliminal</option2>
+<option3>promotion</option3>
+<answer>application</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "c, d, i"</text>
+<option1>idyllic</option1>
+<option2>candle</option2>
+<option3>decompose</option3>
+<answer>idyllic</answer>
+<category>word</category>
+</question>
+<question>
+<text>contains the letters "e, w, a"</text>
+<option1>whatever</option1>
+<option2>whoever</option2>
+<option3>wherever</option3>
+<answer>whatever</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "l, e, a, d, e, r"</text>
+<option1>dealer</option1>
+<option2>ladder</option2>
+<option3>realtor</option3>
+<answer>dealer</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "l, i, s, t, e, n"</text>
+<option1>silent</option1>
+<option2>thistle</option2>
+<option3>simple</option3>
+<answer>silent</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "a, d, m, i, r, e, r"</text>
+<option1>married</option1>
+<option2>dreamer</option2>
+<option3>mirrored</option3>
+<answer>married</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "m, a, s, t, e, r"</text>
+<option1>stream</option1>
+<option2>steer</option2>
+<option3>stared</option3>
+<answer>stream</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, t, e, a, l"</text>
+<option1>least</option1>
+<option2>stare</option2>
+<option3>later</option3>
+<answer>least</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "s, h, a, p, e"</text>
+<option1>phase</option1>
+<option2>haters</option2>
+<option3>heals</option3>
+<answer>phase</answer>
+<category>word</category>
+</question>
+<question>
+<text>rhymes with "diner"</text>
+<option1>minor</option1>
+<option2>mordor</option2>
+<option3>figured</option3>
+<answer>minor</answer>
+<category>word</category>
+</question>
+<question>
+<text>make a word using  "c, i, r, c, l, e"</text>
+<option1>cleric</option1>
+<option2>critical</option2>
+<option3>circus</option3>
+<answer>cleric</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "hidden"</text>
+<option1>concealed</option1>
+<option2>displayed</option2>
+<option3>apart</option3>
+<answer>concealed</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "help"</text>
+<option1>assist</option1>
+<option2>cry</option2>
+<option3>push</option3>
+<answer>assist</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "similar"</text>
+<option1>akin</option1>
+<option2>exact</option2>
+<option3>mirror</option3>
+<answer>akin</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "stable"</text>
+<option1>firm</option1>
+<option2>ground</option2>
+<option3>peaceful</option3>
+<answer>firm</answer>
+<category>word</category>
+</question>
+<question>
+<text>means "immortal"</text>
+<option1>deathless</option1>
+<option2>highlander</option2>
+<option3>strong</option3>
+<answer>deathless</answer>
+<category>word</category>
+</question>
+<question>
+<text>a palindrome</text>
+<option1>rotator</option1>
+<option2>delivered</option2>
+<option3>detected</option3>
+<answer>rotator</answer>
+<category>word</category>
+</question>
+<question>
+<text>a palindrome</text>
+<option1>now I won</option1>
+<option2>name the man</option2>
+<option3>is this it</option3>
+<answer>now I won</answer>
+<category>word</category>
+</question>
+<question>
+<text>a palindrome</text>
+<option1>evil olive</option1>
+<option2>do not nod</option2>
+<option3>smart kids</option3>
+<answer>evil olive</answer>
+<category>word</category>
+</question>
+<question>
+<text>a palindrome</text>
+<option1>my gym</option1>
+<option2>technologic</option2>
+<option3>seven stars</option3>
+<answer>my gym</answer>
+<category>word</category>
+</question>
+<question>
+<text>king of pop</text>
+<option1>Michael Jackson</option1>
+<option2>Madonna</option2>
+<option3>Lady Gaga</option3>
+<answer>Michael Jackson</answer>
+<category>music</category>
+</question>
+<question>
+<text>king of rock and roll</text>
+<option1>Elvis Presley</option1>
+<option2>Nickelback</option2>
+<option3>Rihanna</option3>
+<answer>Elvis Presley</answer>
+<category>music</category>
+</question>
+<question>
+<text>he composed "The Four Seasons"</text>
+<option1>A. Vivaldi</option1>
+<option2>W. Mozart</option2>
+<option3>Dr. Dre</option3>
+<answer>A. Vivaldi</answer>
+<category>music</category>
+</question>
+<question>
+<text>an 80s hit song</text>
+<option1>Take On Me</option1>
+<option2>Kill The Batboy</option2>
+<option3>Halftime</option3>
+<answer>Take On Me</answer>
+<category>music</category>
+</question>
+<question>
+<text>an 80s hit song</text>
+<option1>Under Pressure</option1>
+<option2>Under Ice</option2>
+<option3>Under Fire</option3>
+<answer>Under Pressure</answer>
+<category>music</category>
+</question>
+<question>
+<text>a 70s hit song</text>
+<option1>Dancing Queen</option1>
+<option2>Dancing Mice</option2>
+<option3>Dancing Heat</option3>
+<answer>Dancing Queen</answer>
+<category>music</category>
+</question>
+<question>
+<text>a 70s hit song</text>
+<option1>Imagine</option1>
+<option2>Cruel summer</option2>
+<option3>Vogue</option3>
+<answer>Imagine</answer>
+<category>music</category>
+</question>
+<question>
+<text>French singer and cultural icon</text>
+<option1>Edith Piaf</option1>
+<option2>Nicolas Sarkozy</option2>
+<option3>Asterix</option3>
+<answer>Edith Piaf</answer>
+<category>music</category>
+</question>
+<question>
+<text>a 90s hit song</text>
+<option1>One</option1>
+<option2>Let It B</option2>
+<option3>Imagine</option3>
+<answer>One</answer>
+<category>music</category>
+</question>
+<question>
+<text>a 60s hit song</text>
+<option1>She Loves You</option1>
+<option2>She Loves It</option2>
+<option3>Who Loves Her</option3>
+<answer>She Loves You</answer>
+<category>music</category>
+</question>
+<question>
+<text>a 60s hit song</text>
+<option1>It's Not Unusual</option1>
+<option2>Usually Not</option2>
+<option3>Nothing Usual</option3>
+<answer>It's Not Unusual</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Frank Sinatra</text>
+<option1>My Way</option1>
+<option2>Let's Go New York</option2>
+<option3>Whatever, yo</option3>
+<answer>My Way</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Madonna</text>
+<option1>Vogue</option1>
+<option2>Let It Be</option2>
+<option3>Bad</option3>
+<answer>Vogue</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Michael Jackson</text>
+<option1>Beat It</option1>
+<option2>Mad World</option2>
+<option3>Pity Yourself</option3>
+<answer>Beat It</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Elvis Presley</text>
+<option1>Heartbreak Hotel</option1>
+<option2>Satistfaction</option2>
+<option3>Respect</option3>
+<answer>Heartbreak Hotel</answer>
+<category>music</category>
+</question>
+<question>
+<text>a member of Dave Matthews Band</text>
+<option1>Dave Matthews</option1>
+<option2>Dave Grohl</option2>
+<option3>Dave Mustaine</option3>
+<answer>Dave Matthews</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by The Beatles</text>
+<option1>Hey Jude</option1>
+<option2>Hey Baby</option2>
+<option3>Hey Girl</option3>
+<answer>Hey Jude</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Justin Bieber</text>
+<option1>Never Say Never</option1>
+<option2>Burn It All</option2>
+<option3>Bad Pop</option3>
+<answer>Never Say Never</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Queen</text>
+<option1>Killer Queen</option1>
+<option2>Conformist Rhapsody</option2>
+<option3>We Rock It</option3>
+<answer>Killer Queen</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Abba</text>
+<option1>Dancing Queen</option1>
+<option2>Mia Mia</option2>
+<option3>One of Them</option3>
+<answer>Dancing Queen</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Pink Floyd</text>
+<option1>Money</option1>
+<option2>Lies</option2>
+<option3>Happiness</option3>
+<answer>Money</answer>
+<category>music</category>
+</question>
+<question>
+<text>a song by Metallica</text>
+<option1>Fade to Black</option1>
+<option2>Gears of War</option2>
+<option3>Madhouse</option3>
+<answer>Fade to Black</answer>
+<category>music</category>
+</question>
+<question>
+<text>lead vocalist of Queen</text>
+<option1>Freddie Mercury</option1>
+<option2>Dave Mustaine</option2>
+<option3>Barry Gibb</option3>
+<answer>Freddie Mercury</answer>
+<category>music</category>
+</question>
+<question>
+<text>lead vocalist of Led Zeppelin</text>
+<option1>Robert Plant</option1>
+<option2>Jenny Page</option2>
+<option3>John Bonham</option3>
+<answer>Robert Plant</answer>
+<category>music</category>
+</question>
+<question>
+<text>lead vocalist of Blondie</text>
+<option1>Debbie Harry</option1>
+<option2>Justin Bieber</option2>
+<option3>Madonna</option3>
+<answer>Debbie Harry</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous jazz trumpeter</text>
+<option1>Miles Davis</option1>
+<option2>Ella Fitzgerald</option2>
+<option3>Max Roach</option3>
+<answer>Miles Davis</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous jazz singer</text>
+<option1>Etta James</option1>
+<option2>Etta Candy</option2>
+<option3>Etta May</option3>
+<answer>Etta James</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous jazz singer</text>
+<option1>Ella Fitzgerald</option1>
+<option2>Debbie Harry</option2>
+<option3>Chad Kroeger</option3>
+<answer>Ella Fitzgerald</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous jazz singer</text>
+<option1>Louis Armstrong</option1>
+<option2>Luiz Armstrong</option2>
+<option3>Louise Armstrong</option3>
+<answer>Louis Armstrong</answer>
+<category>music</category>
+</question>
+<question>
+<text>he composed "The Nutcracker"</text>
+<option1>P. Tchaikovsky</option1>
+<option2>F. Mercury</option2>
+<option3>J. Haydn</option3>
+<answer>P. Tchaikovsky</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous rapper</text>
+<option1>Jay Z</option1>
+<option2>May C</option2>
+<option3>Kay T</option3>
+<answer>Jay Z</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous guitarist</text>
+<option1>Eric Clapton</option1>
+<option2>Richard Roll</option2>
+<option3>Lars Ulrich</option3>
+<answer>Eric Clapton</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous guitarist</text>
+<option1>David Gilmour</option1>
+<option2>David Beckham</option2>
+<option3>David Hume</option3>
+<answer>David Gilmour</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous guitarist</text>
+<option1>Jimmy Page</option1>
+<option2>Lars Umlaut</option2>
+<option3>Johnny Napalm</option3>
+<answer>Jimmy Page</answer>
+<category>music</category>
+</question>
+<question>
+<text>British rock band</text>
+<option1>Oasis</option1>
+<option2>Desert</option2>
+<option3>Water</option3>
+<answer>Oasis</answer>
+<category>music</category>
+</question>
+<question>
+<text>Canadian rock band</text>
+<option1>Nickelback</option1>
+<option2>The Worsts</option2>
+<option3>Burn 'em</option3>
+<answer>Nickelback</answer>
+<category>music</category>
+</question>
+<question>
+<text>German rock band</text>
+<option1>Rammstein</option1>
+<option2>Rich Rohl</option2>
+<option3>Madson</option3>
+<answer>Rammstein</answer>
+<category>music</category>
+</question>
+<question>
+<text>Australian rock band</text>
+<option1>AC/DC</option1>
+<option2>DC/AC</option2>
+<option3>AD/HD</option3>
+<answer>AC/DC</answer>
+<category>music</category>
+</question>
+<question>
+<text>British singer</text>
+<option1>Chris Martin</option1>
+<option2>D. Hubbins</option2>
+<option3>J. Clement</option3>
+<answer>Chris Martin</answer>
+<category>music</category>
+</question>
+<question>
+<text>part of the Woodstock '69 line-up</text>
+<option1>Santana</option1>
+<option2>Led zeppelin</option2>
+<option3>The beatles</option3>
+<answer>Santana</answer>
+<category>music</category>
+</question>
+<question>
+<text>he composed "The Barber of Seville"</text>
+<option1>G. Rossini</option1>
+<option2>I. Padrino</option2>
+<option3>M. Donna</option3>
+<answer>G. Rossini</answer>
+<category>music</category>
+</question>
+<question>
+<text>an album by The Beatles</text>
+<option1>The Beatles</option1>
+<option2>Black Hole</option2>
+<option3>New Grounds</option3>
+<answer>The Beatles</answer>
+<category>music</category>
+</question>
+<question>
+<text>an album by Pearl Jam</text>
+<option1>Ten</option1>
+<option2>Book of Faces</option2>
+<option3>Your Space</option3>
+<answer>Ten</answer>
+<category>music</category>
+</question>
+<question>
+<text>"Hotel California" is a song by ___</text>
+<option1>Eagles</option1>
+<option2>Bee Gees</option2>
+<option3>The Beach Boys</option3>
+<answer>Eagles</answer>
+<category>music</category>
+</question>
+<question>
+<text>"Bohemian Rhapsody" is a song by ___</text>
+<option1>Queen</option1>
+<option2>Kings of Leon</option2>
+<option3>Megadeth</option3>
+<answer>Queen</answer>
+<category>music</category>
+</question>
+<question>
+<text>"Smells Like Teen Spirit" is a song by ___</text>
+<option1>Nirvana</option1>
+<option2>Van halen</option2>
+<option3>Bon Jovi</option3>
+<answer>Nirvana</answer>
+<category>music</category>
+</question>
+<question>
+<text>"London Calling" is a song by ___</text>
+<option1>The Clash</option1>
+<option2>The Police</option2>
+<option3>The Telephone</option3>
+<answer>The Clash</answer>
+<category>music</category>
+</question>
+<question>
+<text>famous J-Pop artist</text>
+<option1>Hikaru Utada</option1>
+<option2>Ichiro Suziki</option2>
+<option3>Hayao Miyazaki</option3>
+<answer>Hikaru Utada</answer>
+<category>music</category>
+</question>
+<question>
+<text>"No Woman No Cry" is a song by ___</text>
+<option1>Bob Marley</option1>
+<option2>Buddy Holly</option2>
+<option3>Aerosmith</option3>
+<answer>Bob Marley</answer>
+<category>music</category>
+</question>
+<question>
+<text>"Born To Be Wild" is a song by ___</text>
+<option1>Steppenwolf</option1>
+<option2>Jimi Hendrix</option2>
+<option3>Johnny Cash</option3>
+<answer>Steppenwolf</answer>
+<category>music</category>
+</question>
+<question>
+<text>won an Oscar in 1998</text>
+<option1>Gywneth Paltrow</option1>
+<option2>Meryl Streep</option2>
+<option3>Tom Hanks</option3>
+<answer>Gywneth Paltrow</answer>
+<category>movies</category>
+</question>
+<question>
+<text>won an Oscar in 2005</text>
+<option1>George Clooney</option1>
+<option2>Joaquin Phoenix</option2>
+<option3>Felicity Huffman</option3>
+<answer>George Clooney</answer>
+<category>movies</category>
+</question>
+<question>
+<text>won an Oscar in 1966</text>
+<option1>Elizabeth Taylor</option1>
+<option2>Jack Nicholson</option2>
+<option3>Michael Caine</option3>
+<answer>Elizabeth Taylor</answer>
+<category>movies</category>
+</question>
+<question>
+<text>won an Oscar in 2008</text>
+<option1>Sean Penn</option1>
+<option2>Brad Pitt</option2>
+<option3>Meryl Streep</option3>
+<answer>Sean Penn</answer>
+<category>movies</category>
+</question>
+<question>
+<text>won the Best Actor Oscar in 1975</text>
+<option1>Jack Nicholson</option1>
+<option2>Al Pacino</option2>
+<option3>Yul Brynner</option3>
+<answer>Jack Nicholson</answer>
+<category>movies</category>
+</question>
+<question>
+<text>won the Best Actor Oscar in 1954</text>
+<option1>Marlon Brando</option1>
+<option2>Al Pacino</option2>
+<option3>Gene Hackman</option3>
+<answer>Marlon Brando</answer>
+<category>movies</category>
+</question>
+<question>
+<text>starred in The Lord Of The Rings</text>
+<option1>Elijah Wood</option1>
+<option2>Meryl Streep</option2>
+<option3>Ron Perlman</option3>
+<answer>Elijah Wood</answer>
+<category>movies</category>
+</question>
+<question>
+<text>never played Superman</text>
+<option1>Brad Pitt</option1>
+<option2>Christopher Reeve</option2>
+<option3>Brandon Routh</option3>
+<answer>Brad Pitt</answer>
+<category>movies</category>
+</question>
+<question>
+<text>starred along Tom Cruise</text>
+<option1>Val Kilmer</option1>
+<option2>Al Pacino</option2>
+<option3>Tommy Lee Jones</option3>
+<answer>Val Kilmer</answer>
+<category>movies</category>
+</question>
+<question>
+<text>starred along Anthony Hopkins</text>
+<option1>Jodie Foster</option1>
+<option2>Wesley Snipes</option2>
+<option3>Kevin Bacon</option3>
+<answer>Jodie Foster</answer>
+<category>movies</category>
+</question>
+<question>
+<text>starred along Julia Roberts</text>
+<option1>Richard Gere</option1>
+<option2>Chris Rock</option2>
+<option3>Johnny Depp</option3>
+<answer>Richard Gere</answer>
+<category>movies</category>
+</question>
+<question>
+<text>fictional character also known as Smeagol</text>
+<option1>Gollum</option1>
+<option2>Precious Sam</option2>
+<option3>Darth Frodo</option3>
+<answer>Gollum</answer>
+<category>movies</category>
+</question>
+<question>
+<text>not a Sith Lord</text>
+<option1>Darth Saber</option1>
+<option2>Darth Vader</option2>
+<option3>Darth Maul</option3>
+<answer>Darth Saber</answer>
+<category>movies</category>
+</question>
+<question>
+<text>a Sith Lord</text>
+<option1>Darth Sidious</option1>
+<option2>Darth Mouth</option2>
+<option3>Darth Thrash</option3>
+<answer>Darth Sidious</answer>
+<category>movies</category>
+</question>
+<question>
+<text>never played James Bond</text>
+<option1>Michael Jackson</option1>
+<option2>Sean Connery</option2>
+<option3>Pierce Brosnon</option3>
+<answer>Michael Jackson</answer>
+<category>movies</category>
+</question>
+<question>
+<text>fictional robot from the future</text>
+<option1>The Terminator</option1>
+<option2>Vin Diesel</option2>
+<option3>Casper</option3>
+<answer>The Terminator</answer>
+<category>movies</category>
+</question>
+<question>
+<text>fat kid in South Park</text>
+<option1>Eric Cartman</option1>
+<option2>Big Bones</option2>
+<option3>Bart Simpson</option3>
+<answer>Eric Cartman</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Homer's last name in The Simpsons</text>
+<option1>Simpson</option1>
+<option2>Simpsons</option2>
+<option3>Simpleton</option3>
+<answer>Simpson</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Woody Allen wrote and directed ___</text>
+<option1>Annie Hall</option1>
+<option2>Antz</option2>
+<option3>Animal House</option3>
+<answer>Annie Hall</answer>
+<category>movies</category>
+</question>
+<question>
+<text>never won an Oscar</text>
+<option1>Will Smith</option1>
+<option2>Meryl Streep</option2>
+<option3>Cuba Gooding Jr.</option3>
+<answer>Will Smith</answer>
+<category>movies</category>
+</question>
+<question>
+<text>The Terminator tries to terminate ___</text>
+<option1>John Connor</option1>
+<option2>John Nash</option2>
+<option3>Edward Cullen</option3>
+<answer>John Connor</answer>
+<category>movies</category>
+</question>
+<question>
+<text>played Edward Cullen in Twilight</text>
+<option1>R. Pattinson</option1>
+<option2>B. Shame</option2>
+<option3>U. Madbrough</option3>
+<answer>R. Pattinson</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Rocky II takes place in ___</text>
+<option1>Philadelphia</option1>
+<option2>Moscow</option2>
+<option3>Rocky Mountains</option3>
+<answer>Philadelphia</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Don Corleone's son in The Godfather</text>
+<option1>Michael</option1>
+<option2>Sergio</option2>
+<option3>Christian</option3>
+<answer>Michael</answer>
+<category>movies</category>
+</question>
+<question>
+<text>his sword is called Sting</text>
+<option1>B. Baggins</option1>
+<option2>E. Cullen</option2>
+<option3>J. Bieber</option3>
+<answer>B. Baggins</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Marcellus Wallace looks like ___</text>
+<option1>Marcellus Wallace</option1>
+<option2>a lady</option2>
+<option3>Vincent Vega</option3>
+<answer>Marcellus Wallace</answer>
+<category>movies</category>
+</question>
+<question>
+<text>pick the better actress</text>
+<option1>Madonna</option1>
+<option2>Jack Nicholson</option2>
+<option3>Al Pacino</option3>
+<answer>Madonna</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Bruce Wayne is ___</text>
+<option1>Batman</option1>
+<option2>Hulk</option2>
+<option3>Superman</option3>
+<answer>Batman</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Clark Kent is ___</text>
+<option1>Superman</option1>
+<option2>Batman</option2>
+<option3>Aquaman</option3>
+<answer>Superman</answer>
+<category>movies</category>
+</question>
+<question>
+<text>Luke Skywalker's grandfather's son</text>
+<option1>Darth Vader</option1>
+<option2>Palpatine</option2>
+<option3>C3P0</option3>
+<answer>Darth Vader</answer>
+<category>movies</category>
+</question>
+<question>
+<text>a minute has ___ seconds</text>
+<option1>60</option1>
+<option2>10</option2>
+<option3>100</option3>
+<answer>60</answer>
+<category>math</category>
+</question>
+<question>
+<text>four times twenty plus ten</text>
+<option1>90</option1>
+<option2>80</option2>
+<option3>110</option3>
+<answer>90</answer>
+<category>math</category>
+</question>
+<question>
+<text>4+20-14</text>
+<option1>10</option1>
+<option2>8</option2>
+<option3>14</option3>
+<answer>10</answer>
+<category>math</category>
+</question>
+<question>
+<text>five times zero times two</text>
+<option1>0</option1>
+<option2>2</option2>
+<option3>10</option3>
+<answer>0</answer>
+<category>math</category>
+</question>
+<question>
+<text>4 is ___ times 2</text>
+<option1>2</option1>
+<option2>4</option2>
+<option3>1</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>four squared plus four</text>
+<option1>20</option1>
+<option2>64</option2>
+<option3>48</option3>
+<answer>20</answer>
+<category>math</category>
+</question>
+<question>
+<text>negative five plus nine</text>
+<option1>4</option1>
+<option2>-14</option2>
+<option3>-4</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>zero divided by one</text>
+<option1>0</option1>
+<option2>1</option2>
+<option3>3141592</option3>
+<answer>0</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+1+1x0</text>
+<option1>2</option1>
+<option2>0</option2>
+<option3>1</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of letters in "apple"</text>
+<option1>5</option1>
+<option2>3</option2>
+<option3>1976</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of letters in "four"</text>
+<option1>4</option1>
+<option2>5</option2>
+<option3>6</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>2222+3333</text>
+<option1>5555</option1>
+<option2>5550</option2>
+<option3>5600</option3>
+<answer>5555</answer>
+<category>math</category>
+</question>
+<question>
+<text>9.81+0.19</text>
+<option1>10</option1>
+<option2>11</option2>
+<option3>9.99</option3>
+<answer>10</answer>
+<category>math</category>
+</question>
+<question>
+<text>4 followed by 0</text>
+<option1>40</option1>
+<option2>2500</option2>
+<option3>411</option3>
+<answer>40</answer>
+<category>math</category>
+</question>
+<question>
+<text>9 followed by 1</text>
+<option1>91</option1>
+<option2>929</option2>
+<option3>199</option3>
+<answer>91</answer>
+<category>math</category>
+</question>
+<question>
+<text>not an integer</text>
+<option1>3.4</option1>
+<option2>34</option2>
+<option3>4</option3>
+<answer>3.4</answer>
+<category>math</category>
+</question>
+<question>
+<text>an integer</text>
+<option1>8</option1>
+<option2>8.8</option2>
+<option3>8.88</option3>
+<answer>8</answer>
+<category>math</category>
+</question>
+<question>
+<text>square root of nine</text>
+<option1>3</option1>
+<option2>81</option2>
+<option3>9</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>square root of four</text>
+<option1>2</option1>
+<option2>1</option2>
+<option3>4</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>three squared plus four</text>
+<option1>13</option1>
+<option2>9</option2>
+<option3>18</option3>
+<answer>13</answer>
+<category>math</category>
+</question>
+<question>
+<text>100 in roman numerals</text>
+<option1>c</option1>
+<option2>k</option2>
+<option3>x</option3>
+<answer>c</answer>
+<category>math</category>
+</question>
+<question>
+<text>number system with a base of two</text>
+<option1>binary</option1>
+<option2>decimal</option2>
+<option3>hexadecimal</option3>
+<answer>binary</answer>
+<category>math</category>
+</question>
+<question>
+<text>number system with a base of ten</text>
+<option1>decimal</option1>
+<option2>binary</option2>
+<option3>octal</option3>
+<answer>decimal</answer>
+<category>math</category>
+</question>
+<question>
+<text>3 in base 2</text>
+<option1>11</option1>
+<option2>33</option2>
+<option3>44</option3>
+<answer>11</answer>
+<category>math</category>
+</question>
+<question>
+<text>5 in base 2</text>
+<option1>101</option1>
+<option2>112</option2>
+<option3>1</option3>
+<answer>101</answer>
+<category>math</category>
+</question>
+<question>
+<text>7 in base 8</text>
+<option1>7</option1>
+<option2>16</option2>
+<option3>66</option3>
+<answer>7</answer>
+<category>math</category>
+</question>
+<question>
+<text>88 in base 4</text>
+<option1>1120</option1>
+<option2>1234</option2>
+<option3>22227</option3>
+<answer>1120</answer>
+<category>math</category>
+</question>
+<question>
+<text>an octagon has ___ sides</text>
+<option1>8</option1>
+<option2>4</option2>
+<option3>16</option3>
+<answer>8</answer>
+<category>math</category>
+</question>
+<question>
+<text>a square has ___ sides</text>
+<option1>4</option1>
+<option2>3</option2>
+<option3>5</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>30 divided by 0.5</text>
+<option1>60</option1>
+<option2>15</option2>
+<option3>45</option3>
+<answer>60</answer>
+<category>math</category>
+</question>
+<question>
+<text>100 divided by 0.8</text>
+<option1>125</option1>
+<option2>180</option2>
+<option3>60</option3>
+<answer>125</answer>
+<category>math</category>
+</question>
+<question>
+<text>99 divided by 0.9</text>
+<option1>110</option1>
+<option2>121</option2>
+<option3>90</option3>
+<answer>110</answer>
+<category>math</category>
+</question>
+<question>
+<text>1100 times 1.2</text>
+<option1>1320</option1>
+<option2>990</option2>
+<option3>1.32</option3>
+<answer>1320</answer>
+<category>math</category>
+</question>
+<question>
+<text>a billion has ___ zeros</text>
+<option1>9</option1>
+<option2>8</option2>
+<option3>12</option3>
+<answer>9</answer>
+<category>math</category>
+</question>
+<question>
+<text>a million has ___ zeros</text>
+<option1>6</option1>
+<option2>9</option2>
+<option3>12</option3>
+<answer>6</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+9+7+6</text>
+<option1>23</option1>
+<option2>1977</option2>
+<option3>19</option3>
+<answer>23</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+9+9+4</text>
+<option1>23</option1>
+<option2>24</option2>
+<option3>21</option3>
+<answer>23</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+9+8+0</text>
+<option1>18</option1>
+<option2>16</option2>
+<option3>27</option3>
+<answer>18</answer>
+<category>math</category>
+</question>
+<question>
+<text>number of faces on a cube</text>
+<option1>6</option1>
+<option2>9</option2>
+<option3>12</option3>
+<answer>6</answer>
+<category>math</category>
+</question>
+<question>
+<text>number of faces on a cylinder</text>
+<option1>3</option1>
+<option2>1</option2>
+<option3>271</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>pi is a(n) ___ number</text>
+<option1>irrational</option1>
+<option2>rational</option2>
+<option3>delicious</option3>
+<answer>irrational</answer>
+<category>math</category>
+</question>
+<question>
+<text>8/4/1/2</text>
+<option1>1</option1>
+<option2>2</option2>
+<option3>4</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>16/4/2/1</text>
+<option1>2</option1>
+<option2>4</option2>
+<option3>8</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>21+42-1</text>
+<option1>62</option1>
+<option2>66</option2>
+<option3>44</option3>
+<answer>62</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+2+3+4+5</text>
+<option1>15</option1>
+<option2>10</option2>
+<option3>21</option3>
+<answer>15</answer>
+<category>math</category>
+</question>
+<question>
+<text>3-2+1-2+2</text>
+<option1>2</option1>
+<option2>1</option2>
+<option3>0</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>4+4+5x0</text>
+<option1>8</option1>
+<option2>13</option2>
+<option3>18</option3>
+<answer>8</answer>
+<category>math</category>
+</question>
+<question>
+<text>12+11+13</text>
+<option1>36</option1>
+<option2>23</option2>
+<option3>39</option3>
+<answer>36</answer>
+<category>math</category>
+</question>
+<question>
+<text>4999.18-0.18</text>
+<option1>4999</option1>
+<option2>5000</option2>
+<option3>5001</option3>
+<answer>4999</answer>
+<category>math</category>
+</question>
+<question>
+<text>seven plus eleven</text>
+<option1>18</option1>
+<option2>117</option2>
+<option3>19</option3>
+<answer>18</answer>
+<category>math</category>
+</question>
+<question>
+<text>nine times nine plus eleven</text>
+<option1>92</option1>
+<option2>100</option2>
+<option3>99</option3>
+<answer>92</answer>
+<category>math</category>
+</question>
+<question>
+<text>9x8x7x0-5</text>
+<option1>-5</option1>
+<option2>0</option2>
+<option3>75</option3>
+<answer>-5</answer>
+<category>math</category>
+</question>
+<question>
+<text>two times zero plus one</text>
+<option1>1</option1>
+<option2>12</option2>
+<option3>3</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>5+4+6+10</text>
+<option1>25</option1>
+<option2>40</option2>
+<option3>24</option3>
+<answer>25</answer>
+<category>math</category>
+</question>
+<question>
+<text>1+2+4+8</text>
+<option1>15</option1>
+<option2>13</option2>
+<option3>17</option3>
+<answer>15</answer>
+<category>math</category>
+</question>
+<question>
+<text>44+66</text>
+<option1>110</option1>
+<option2>100</option2>
+<option3>120</option3>
+<answer>110</answer>
+<category>math</category>
+</question>
+<question>
+<text>77+23</text>
+<option1>100</option1>
+<option2>90</option2>
+<option3>93</option3>
+<answer>100</answer>
+<category>math</category>
+</question>
+<question>
+<text>111+99</text>
+<option1>210</option1>
+<option2>200</option2>
+<option3>211</option3>
+<answer>210</answer>
+<category>math</category>
+</question>
+<question>
+<text>square root of sixteen</text>
+<option1>4</option1>
+<option2>8</option2>
+<option3>2</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>cube root of 64</text>
+<option1>4</option1>
+<option2>16</option2>
+<option3>8</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>cube root of 125</text>
+<option1>5</option1>
+<option2>25</option2>
+<option3>15</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>cube root of 27</text>
+<option1>3</option1>
+<option2>9</option2>
+<option3>27</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of months in six years</text>
+<option1>72</option1>
+<option2>25</option2>
+<option3>6</option3>
+<answer>72</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of weeks in a month</text>
+<option1>4</option1>
+<option2>52</option2>
+<option3>7</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of days in a week</text>
+<option1>7</option1>
+<option2>30</option2>
+<option3>12</option3>
+<answer>7</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of digits in 456</text>
+<option1>3</option1>
+<option2>2</option2>
+<option3>1</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of digits in 4.44</text>
+<option1>3</option1>
+<option2>2</option2>
+<option3>4</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>half a dozen times eleven</text>
+<option1>66</option1>
+<option2>121</option2>
+<option3>77</option3>
+<answer>66</answer>
+<category>math</category>
+</question>
+<question>
+<text>one less than two</text>
+<option1>1</option1>
+<option2>3</option2>
+<option3>21</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>two more than one</text>
+<option1>3</option1>
+<option2>6</option2>
+<option3>1</option3>
+<answer>3</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 444 and 555</text>
+<option1>499</option1>
+<option2>577</option2>
+<option3>399</option3>
+<answer>499</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 195 and 333</text>
+<option1>330</option1>
+<option2>388</option2>
+<option3>169</option3>
+<answer>330</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 75 and 999999</text>
+<option1>100000</option1>
+<option2>72</option2>
+<option3>2566624</option3>
+<answer>100000</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 1 and 6</text>
+<option1>5</option1>
+<option2>61</option2>
+<option3>7</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 4 and 5</text>
+<option1>4.5</option1>
+<option2>5.4</option2>
+<option3>3.4</option3>
+<answer>4.5</answer>
+<category>math</category>
+</question>
+<question>
+<text>88/8/11</text>
+<option1>1</option1>
+<option2>8</option2>
+<option3>11</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>25-5-5-5-5</text>
+<option1>5</option1>
+<option2>0</option2>
+<option3>15</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>66-65+1x0</text>
+<option1>1</option1>
+<option2>2</option2>
+<option3>3</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>51+51+49</text>
+<option1>151</option1>
+<option2>153</option2>
+<option3>147</option3>
+<answer>151</answer>
+<category>math</category>
+</question>
+<question>
+<text>14+13+12+11</text>
+<option1>50</option1>
+<option2>61</option2>
+<option3>40</option3>
+<answer>50</answer>
+<category>math</category>
+</question>
+<question>
+<text>661-444</text>
+<option1>217</option1>
+<option2>127</option2>
+<option3>227</option3>
+<answer>217</answer>
+<category>math</category>
+</question>
+<question>
+<text>91+92-4</text>
+<option1>179</option1>
+<option2>178</option2>
+<option3>177</option3>
+<answer>179</answer>
+<category>math</category>
+</question>
+<question>
+<text>911+118</text>
+<option1>1029</option1>
+<option2>1119</option2>
+<option3>1099</option3>
+<answer>1029</answer>
+<category>math</category>
+</question>
+<question>
+<text>468+864</text>
+<option1>1332</option1>
+<option2>1442</option2>
+<option3>1342</option3>
+<answer>1332</answer>
+<category>math</category>
+</question>
+<question>
+<text>77+99</text>
+<option1>176</option1>
+<option2>117</option2>
+<option3>177</option3>
+<answer>176</answer>
+<category>math</category>
+</question>
+<question>
+<text>4.66+1.34</text>
+<option1>6</option1>
+<option2>6.6</option2>
+<option3>6.67</option3>
+<answer>6</answer>
+<category>math</category>
+</question>
+<question>
+<text>2012-1982</text>
+<option1>30</option1>
+<option2>:(</option2>
+<option3>20</option3>
+<answer>30</answer>
+<category>math</category>
+</question>
+<question>
+<text>99999+1</text>
+<option1>100000</option1>
+<option2>10000</option2>
+<option3>100001</option3>
+<answer>100000</answer>
+<category>math</category>
+</question>
+<question>
+<text>16/4x1+1</text>
+<option1>5</option1>
+<option2>6</option2>
+<option3>7</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>81+18</text>
+<option1>99</option1>
+<option2>98</option2>
+<option3>109</option3>
+<answer>99</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of months in six months</text>
+<option1>6</option1>
+<option2>42</option2>
+<option3>12</option3>
+<answer>6</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 6 and 12</text>
+<option1>9</option1>
+<option2>6</option2>
+<option3>18</option3>
+<answer>9</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 1, 2 and 3</text>
+<option1>2</option1>
+<option2>6</option2>
+<option3>3</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 8 and 88</text>
+<option1>48</option1>
+<option2>11</option2>
+<option3>40</option3>
+<answer>48</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 1 and 99</text>
+<option1>50</option1>
+<option2>49</option2>
+<option3>48</option3>
+<answer>50</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 4 and 100</text>
+<option1>52</option1>
+<option2>44</option2>
+<option3>72</option3>
+<answer>52</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 2 and 12</text>
+<option1>7</option1>
+<option2>5</option2>
+<option3>6</option3>
+<answer>7</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 3 and 41</text>
+<option1>22</option1>
+<option2>19</option2>
+<option3>24</option3>
+<answer>22</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 802 and 208</text>
+<option1>505</option1>
+<option2>355</option2>
+<option3>555</option3>
+<answer>505</answer>
+<category>math</category>
+</question>
+<question>
+<text>the average of 111 and 221</text>
+<option1>166</option1>
+<option2>156</option2>
+<option3>332</option3>
+<answer>166</answer>
+<category>math</category>
+</question>
+<question>
+<text>five times four times five</text>
+<option1>100</option1>
+<option2>80</option2>
+<option3>60</option3>
+<answer>100</answer>
+<category>math</category>
+</question>
+<question>
+<text>499+130</text>
+<option1>629</option1>
+<option2>529</option2>
+<option3>639</option3>
+<answer>629</answer>
+<category>math</category>
+</question>
+<question>
+<text>3+3+13-1</text>
+<option1>18</option1>
+<option2>21</option2>
+<option3>24</option3>
+<answer>18</answer>
+<category>math</category>
+</question>
+<question>
+<text>2/2/1/1</text>
+<option1>1</option1>
+<option2>2</option2>
+<option3>0.5</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>3+1+4</text>
+<option1>8</option1>
+<option2>9</option2>
+<option3>10</option3>
+<answer>8</answer>
+<category>math</category>
+</question>
+<question>
+<text>8+5+7-11</text>
+<option1>9</option1>
+<option2>11</option2>
+<option3>33</option3>
+<answer>9</answer>
+<category>math</category>
+</question>
+<question>
+<text>4200/300</text>
+<option1>14</option1>
+<option2>140</option2>
+<option3>144</option3>
+<answer>14</answer>
+<category>math</category>
+</question>
+<question>
+<text>negative nine plus nineteen</text>
+<option1>10</option1>
+<option2>9</option2>
+<option3>19</option3>
+<answer>10</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of fingers on four hands</text>
+<option1>20</option1>
+<option2>44</option2>
+<option3>60</option3>
+<answer>20</answer>
+<category>math</category>
+</question>
+<question>
+<text>negative three squared</text>
+<option1>9</option1>
+<option2>-3</option2>
+<option3>0</option3>
+<answer>9</answer>
+<category>math</category>
+</question>
+<question>
+<text>one plus another one</text>
+<option1>2</option1>
+<option2>1</option2>
+<option3>0</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>ten divided by half</text>
+<option1>20</option1>
+<option2>10</option2>
+<option3>0</option3>
+<answer>20</answer>
+<category>math</category>
+</question>
+<question>
+<text>33/1.1</text>
+<option1>30</option1>
+<option2>36</option2>
+<option3>11</option3>
+<answer>30</answer>
+<category>math</category>
+</question>
+<question>
+<text>422+42+4.2</text>
+<option1>468.2</option1>
+<option2>466.2</option2>
+<option3>486.2</option3>
+<answer>468.2</answer>
+<category>math</category>
+</question>
+<question>
+<text>10-99-1+100</text>
+<option1>10</option1>
+<option2>11</option2>
+<option3>89</option3>
+<answer>10</answer>
+<category>math</category>
+</question>
+<question>
+<text>10-9+8-7</text>
+<option1>2</option1>
+<option2>0</option2>
+<option3>-2</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>1.11x300</text>
+<option1>333</option1>
+<option2>311</option2>
+<option3>133</option3>
+<answer>333</answer>
+<category>math</category>
+</question>
+<question>
+<text>giga stands for</text>
+<option1>1 billion</option1>
+<option2>1 million</option2>
+<option3>100 million</option3>
+<answer>1 billion</answer>
+<category>math</category>
+</question>
+<question>
+<text>total interior angles of a triangle</text>
+<option1>180</option1>
+<option2>360</option2>
+<option3>270</option3>
+<answer>180</answer>
+<category>math</category>
+</question>
+<question>
+<text>total interior angles of a square</text>
+<option1>360</option1>
+<option2>180</option2>
+<option3>480</option3>
+<answer>360</answer>
+<category>math</category>
+</question>
+<question>
+<text>1 times 2 times 4 times 3</text>
+<option1>24</option1>
+<option2>12</option2>
+<option3>16</option3>
+<answer>24</answer>
+<category>math</category>
+</question>
+<question>
+<text>30 multiplied by 0.3</text>
+<option1>9</option1>
+<option2>90</option2>
+<option3>18</option3>
+<answer>9</answer>
+<category>math</category>
+</question>
+<question>
+<text>55/11/2x2</text>
+<option1>5</option1>
+<option2>5.5</option2>
+<option3>11</option3>
+<answer>5</answer>
+<category>math</category>
+</question>
+<question>
+<text>888-444-44</text>
+<option1>400</option1>
+<option2>440</option2>
+<option3>396</option3>
+<answer>400</answer>
+<category>math</category>
+</question>
+<question>
+<text>412+214-1</text>
+<option1>625</option1>
+<option2>445</option2>
+<option3>665</option3>
+<answer>625</answer>
+<category>math</category>
+</question>
+<question>
+<text>4.1111-1</text>
+<option1>3.1111</option1>
+<option2>3.1</option2>
+<option3>4.1111</option3>
+<answer>3.1111</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of letters in "five"</text>
+<option1>4</option1>
+<option2>5</option2>
+<option3>9</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>remainder of 10 divided by 8</text>
+<option1>2</option1>
+<option2>1</option2>
+<option3>1.25</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>remainder of 55 divided by 6</text>
+<option1>1</option1>
+<option2>5</option2>
+<option3>3</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>remainder of 22 divided by 11</text>
+<option1>0</option1>
+<option2>2</option2>
+<option3>1</option3>
+<answer>0</answer>
+<category>math</category>
+</question>
+<question>
+<text>remainder of 99 divided by 44</text>
+<option1>11</option1>
+<option2>2</option2>
+<option3>5</option3>
+<answer>11</answer>
+<category>math</category>
+</question>
+<question>
+<text>remainder of 99 divided by 97</text>
+<option1>2</option1>
+<option2>1</option2>
+<option3>98</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>Twenty percent of twenty</text>
+<option1>4</option1>
+<option2>5</option2>
+<option3>10</option3>
+<answer>4</answer>
+<category>math</category>
+</question>
+<question>
+<text>Forty five percent of 200</text>
+<option1>90</option1>
+<option2>180</option2>
+<option3>120</option3>
+<answer>90</answer>
+<category>math</category>
+</question>
+<question>
+<text>33% of 1500</text>
+<option1>495</option1>
+<option2>500</option2>
+<option3>455</option3>
+<answer>495</answer>
+<category>math</category>
+</question>
+<question>
+<text>81% of 200</text>
+<option1>162</option1>
+<option2>188</option2>
+<option3>119</option3>
+<answer>162</answer>
+<category>math</category>
+</question>
+<question>
+<text>110% of 110</text>
+<option1>121</option1>
+<option2>111</option2>
+<option3>132</option3>
+<answer>121</answer>
+<category>math</category>
+</question>
+<question>
+<text>1/(1x2/2)</text>
+<option1>1</option1>
+<option2>2</option2>
+<option3>0</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>Sixty one percent of one</text>
+<option1>0.61</option1>
+<option2>6.1</option2>
+<option3>0.39</option3>
+<answer>0.61</answer>
+<category>math</category>
+</question>
+<question>
+<text>8 is the square root of ___</text>
+<option1>64</option1>
+<option2>4</option2>
+<option3>72</option3>
+<answer>64</answer>
+<category>math</category>
+</question>
+<question>
+<text>13 is the square root of ___</text>
+<option1>169</option1>
+<option2>39</option2>
+<option3>139</option3>
+<answer>169</answer>
+<category>math</category>
+</question>
+<question>
+<text>6 is the cube root of ___</text>
+<option1>216</option1>
+<option2>96</option2>
+<option3>36</option3>
+<answer>216</answer>
+<category>math</category>
+</question>
+<question>
+<text>779-(-4/2)</text>
+<option1>781</option1>
+<option2>777</option2>
+<option3>333</option3>
+<answer>781</answer>
+<category>math</category>
+</question>
+<question>
+<text>the first number after one</text>
+<option1>2</option1>
+<option2>3</option2>
+<option3>5</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>33 times 0.30</text>
+<option1>9.9</option1>
+<option2>11</option2>
+<option3>10</option3>
+<answer>9.9</answer>
+<category>math</category>
+</question>
+<question>
+<text>67.33+33.67</text>
+<option1>101</option1>
+<option2>110</option2>
+<option3>100</option3>
+<answer>101</answer>
+<category>math</category>
+</question>
+<question>
+<text>44-22-11+33</text>
+<option1>44</option1>
+<option2>33</option2>
+<option3>55</option3>
+<answer>44</answer>
+<category>math</category>
+</question>
+<question>
+<text>12 multiplied by itself</text>
+<option1>144</option1>
+<option2>124</option2>
+<option3>132</option3>
+<answer>144</answer>
+<category>math</category>
+</question>
+<question>
+<text>66246 divided by itself</text>
+<option1>1</option1>
+<option2>33123</option2>
+<option3>2</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>5=3+1+___</text>
+<option1>1</option1>
+<option2>5</option2>
+<option3>0</option3>
+<answer>1</answer>
+<category>math</category>
+</question>
+<question>
+<text>10+9+8-7</text>
+<option1>20</option1>
+<option2>11</option2>
+<option3>21</option3>
+<answer>20</answer>
+<category>math</category>
+</question>
+<question>
+<text>74+19</text>
+<option1>93</option1>
+<option2>91</option2>
+<option3>97</option3>
+<answer>93</answer>
+<category>math</category>
+</question>
+<question>
+<text>5-2-3-4+6</text>
+<option1>2</option1>
+<option2>0</option2>
+<option3>8</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>two minus two hundred</text>
+<option1>-198</option1>
+<option2>202</option2>
+<option3>198</option3>
+<answer>-198</answer>
+<category>math</category>
+</question>
+<question>
+<text>99/33/3/2</text>
+<option1>0.5</option1>
+<option2>1</option2>
+<option3>1.5</option3>
+<answer>0.5</answer>
+<category>math</category>
+</question>
+<question>
+<text>fifteen squared</text>
+<option1>225</option1>
+<option2>175</option2>
+<option3>75</option3>
+<answer>225</answer>
+<category>math</category>
+</question>
+<question>
+<text>3333/2</text>
+<option1>1666.5</option1>
+<option2>1665.5</option2>
+<option3>1666.6</option3>
+<answer>1666.5</answer>
+<category>math</category>
+</question>
+<question>
+<text>eleven times thirteen</text>
+<option1>143</option1>
+<option2>131</option2>
+<option3>123</option3>
+<answer>143</answer>
+<category>math</category>
+</question>
+<question>
+<text>84+333</text>
+<option1>417</option1>
+<option2>447</option2>
+<option3>397</option3>
+<answer>417</answer>
+<category>math</category>
+</question>
+<question>
+<text>(8.1-0.1)x2</text>
+<option1>16</option1>
+<option2>16.2</option2>
+<option3>4.4</option3>
+<answer>16</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of letters in "alphabet"</text>
+<option1>8</option1>
+<option2>29</option2>
+<option3>7</option3>
+<answer>8</answer>
+<category>math</category>
+</question>
+<question>
+<text>negative seventeen squared</text>
+<option1>289</option1>
+<option2>-34</option2>
+<option3>249</option3>
+<answer>289</answer>
+<category>math</category>
+</question>
+<question>
+<text>four times cube root of 64</text>
+<option1>16</option1>
+<option2>8</option2>
+<option3>4</option3>
+<answer>16</answer>
+<category>math</category>
+</question>
+<question>
+<text>996/4</text>
+<option1>249</option1>
+<option2>224</option2>
+<option3>199</option3>
+<answer>249</answer>
+<category>math</category>
+</question>
+<question>
+<text>a number between 55.6 and 55.7</text>
+<option1>55.69</option1>
+<option2>55.71</option2>
+<option3>5.563</option3>
+<answer>55.69</answer>
+<category>math</category>
+</question>
+<question>
+<text>your age plus 16.7 minus your age</text>
+<option1>16.7</option1>
+<option2>0</option2>
+<option3>-16.7</option3>
+<answer>16.7</answer>
+<category>math</category>
+</question>
+<question>
+<text>808+1200</text>
+<option1>2008</option1>
+<option2>2208</option2>
+<option3>2088</option3>
+<answer>2008</answer>
+<category>math</category>
+</question>
+<question>
+<text>absolute value of 99</text>
+<option1>99</option1>
+<option2>-99</option2>
+<option3>0</option3>
+<answer>99</answer>
+<category>math</category>
+</question>
+<question>
+<text>absolute value of -0.8</text>
+<option1>0.8</option1>
+<option2>8</option2>
+<option3>-0.8</option3>
+<answer>0.8</answer>
+<category>math</category>
+</question>
+<question>
+<text>125/86x43/0.5</text>
+<option1>125</option1>
+<option2>1</option2>
+<option3>250</option3>
+<answer>125</answer>
+<category>math</category>
+</question>
+<question>
+<text>the number of weeks in a day</text>
+<option1>1/7</option1>
+<option2>7</option2>
+<option3>0.15</option3>
+<answer>1/7</answer>
+<category>math</category>
+</question>
+<question>
+<text>Fifty two plus five squared</text>
+<option1>77</option1>
+<option2>57</option2>
+<option3>75</option3>
+<answer>77</answer>
+<category>math</category>
+</question>
+<question>
+<text>smaller than the others</text>
+<option1>199+44</option1>
+<option2>1999-555</option2>
+<option3>101+200</option3>
+<answer>199+44</answer>
+<category>math</category>
+</question>
+<question>
+<text>smaller than the others</text>
+<option1>555-505</option1>
+<option2>155-55</option2>
+<option3>55.55</option3>
+<answer>555-505</answer>
+<category>math</category>
+</question>
+<question>
+<text>larger than the others</text>
+<option1>2</option1>
+<option2>543-544</option2>
+<option3>3/4+1</option3>
+<answer>2</answer>
+<category>math</category>
+</question>
+<question>
+<text>Norwegian flag has this color</text>
+<option1>blue</option1>
+<option2>green</option2>
+<option3>black</option3>
+<answer>blue</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Turkish flag has this color</text>
+<option1>red</option1>
+<option2>blue</option2>
+<option3>turquoise</option3>
+<answer>red</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Ukranian flag has this color</text>
+<option1>blue</option1>
+<option2>red</option2>
+<option3>orange</option3>
+<answer>blue</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Canadian flag has this color</text>
+<option1>red</option1>
+<option2>yellow</option2>
+<option3>blue</option3>
+<answer>red</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Brazilian flag has this color</text>
+<option1>blue</option1>
+<option2>red</option2>
+<option3>white</option3>
+<answer>blue</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Chinese flag has this color</text>
+<option1>red</option1>
+<option2>magenta</option2>
+<option3>orange</option3>
+<answer>red</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Nigerian flag has this color</text>
+<option1>green</option1>
+<option2>yellow</option2>
+<option3>black</option3>
+<answer>green</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Russian flag has this color</text>
+<option1>white</option1>
+<option2>yellow</option2>
+<option3>green</option3>
+<answer>white</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Polish flag has this color</text>
+<option1>red</option1>
+<option2>blue</option2>
+<option3>green</option3>
+<answer>red</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Tunisian flag has this symbol</text>
+<option1>crescent</option1>
+<option2>cross</option2>
+<option3>sun</option3>
+<answer>crescent</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Uruguayan flag has this symbol</text>
+<option1>sun</option1>
+<option2>cross</option2>
+<option3>asteroid</option3>
+<answer>sun</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Guatemalan flag has this symbol</text>
+<option1>bird</option1>
+<option2>bear</option2>
+<option3>bison</option3>
+<answer>bird</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Angolan flag has this symbol</text>
+<option1>machete</option1>
+<option2>bird</option2>
+<option3>dinosaur</option3>
+<answer>machete</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Greek flag has this symbol</text>
+<option1>cross</option1>
+<option2>branch</option2>
+<option3>ipad</option3>
+<answer>cross</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Azerbaijani flag has this symbol</text>
+<option1>star</option1>
+<option2>bird</option2>
+<option3>shield</option3>
+<answer>star</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Turkish flag has this symbol</text>
+<option1>star</option1>
+<option2>lion</option2>
+<option3>dragon</option3>
+<answer>star</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Bhutanese flag has this symbol</text>
+<option1>dragon</option1>
+<option2>eagle</option2>
+<option3>shield</option3>
+<answer>dragon</answer>
+<category>geography</category>
+</question>
+<question>
+<text>German flag has ___</text>
+<option1>3 colors</option1>
+<option2>2 colors</option2>
+<option3>13 colors</option3>
+<answer>3 colors</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Ukranian flag has ___</text>
+<option1>2 colors</option1>
+<option2>3 colors</option2>
+<option3>4 colors</option3>
+<answer>2 colors</answer>
+<category>geography</category>
+</question>
+<question>
+<text>South Korean flag has ___</text>
+<option1>4 colors</option1>
+<option2>3 colors</option2>
+<option3>42 colors</option3>
+<answer>4 colors</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of France</text>
+<option1>Switzerland</option1>
+<option2>Portugal</option2>
+<option3>Austria</option3>
+<answer>Switzerland</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Austria</text>
+<option1>Hungary</option1>
+<option2>Belgium</option2>
+<option3>USA</option3>
+<answer>Hungary</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Bulgaria</text>
+<option1>Turkey</option1>
+<option2>Ukraine</option2>
+<option3>China</option3>
+<answer>Turkey</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Turkey</text>
+<option1>Greece</option1>
+<option2>Turkmenistan</option2>
+<option3>India</option3>
+<answer>Greece</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Chile</text>
+<option1>Bolivia</option1>
+<option2>Paraguay</option2>
+<option3>Kazakhstan</option3>
+<answer>Bolivia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Malaysia</text>
+<option1>Thailand</option1>
+<option2>New Zealand</option2>
+<option3>China</option3>
+<answer>Thailand</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of South Africa</text>
+<option1>Zimbabwe</option1>
+<option2>Angola</option2>
+<option3>Mars</option3>
+<answer>Zimbabwe</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Libya</text>
+<option1>Sudan</option1>
+<option2>Israel</option2>
+<option3>Finland</option3>
+<answer>Sudan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Oman</text>
+<option1>Yemen</option1>
+<option2>Iraq</option2>
+<option3>Japan</option3>
+<answer>Yemen</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Estonia</text>
+<option1>Latvia</option1>
+<option2>Lithuania</option2>
+<option3>Brazil</option3>
+<answer>Latvia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Kazakhstan</text>
+<option1>China</option1>
+<option2>Vatican</option2>
+<option3>Iran</option3>
+<answer>China</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Sudan</text>
+<option1>Egypt</option1>
+<option2>Nigeria</option2>
+<option3>Morocco</option3>
+<answer>Egypt</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Israel</text>
+<option1>Syria</option1>
+<option2>Iraq</option2>
+<option3>Italy</option3>
+<answer>Syria</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Pakistan</text>
+<option1>Iran</option1>
+<option2>Russua</option2>
+<option3>Kazakhstan</option3>
+<answer>Iran</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Bangladesh</text>
+<option1>India</option1>
+<option2>Pakistan</option2>
+<option3>Indonesia</option3>
+<answer>India</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a neighbor of Paraguay</text>
+<option1>Narnia</option1>
+<option2>Argentina</option2>
+<option3>Brazil</option3>
+<answer>Narnia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a neighbor of Norway</text>
+<option1>South Africa</option1>
+<option2>Russia</option2>
+<option3>Sweden</option3>
+<answer>South Africa</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a neighbor of Peru</text>
+<option1>Paraguay</option1>
+<option2>Chile</option2>
+<option3>Colombia</option3>
+<answer>Paraguay</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a neighbor of Spain</text>
+<option1>Sweden</option1>
+<option2>Portugal</option2>
+<option3>France</option3>
+<answer>Sweden</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Buckingham Palace is in</text>
+<option1>London</option1>
+<option2>Manchester</option2>
+<option3>Liverpool</option3>
+<answer>London</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Malta</text>
+<option1>Valetta</option1>
+<option2>Martha</option2>
+<option3>Rohan</option3>
+<answer>Valetta</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Ecuador</text>
+<option1>Quito</option1>
+<option2>Texas</option2>
+<option3>Manta</option3>
+<answer>Quito</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Kenya</text>
+<option1>Nairobi</option1>
+<option2>Niobe</option2>
+<option3>Mombasa</option3>
+<answer>Nairobi</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Finland</text>
+<option1>Helsinki</option1>
+<option2>Thor</option2>
+<option3>Turku</option3>
+<answer>Helsinki</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Italy</text>
+<option1>Rome</option1>
+<option2>Monte Carlo</option2>
+<option3>Madrid</option3>
+<answer>Rome</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of China</text>
+<option1>Beijing</option1>
+<option2>Tokyo</option2>
+<option3>Jackie Chan</option3>
+<answer>Beijing</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Turkey</text>
+<option1>Ankara</option1>
+<option2>Istanbul</option2>
+<option3>Athens</option3>
+<answer>Ankara</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Austria</text>
+<option1>Vienna</option1>
+<option2>Venice</option2>
+<option3>Vancouver</option3>
+<answer>Vienna</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Argentina</text>
+<option1>Buenos Aires</option1>
+<option2>Santiago</option2>
+<option3>Kiwingston</option3>
+<answer>Buenos Aires</answer>
+<category>geography</category>
+</question>
+<question>
+<text>currency of Estonia</text>
+<option1>Euro</option1>
+<option2>Lira</option2>
+<option3>Peipa</option3>
+<answer>Euro</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the largest ocean</text>
+<option1>Pacific</option1>
+<option2>Atlantic</option2>
+<option3>Indian</option3>
+<answer>Pacific</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the Thames flows through</text>
+<option1>London</option1>
+<option2>Paris</option2>
+<option3>Belgrade</option3>
+<answer>London</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the smallest ocean</text>
+<option1>Arctic</option1>
+<option2>Indian</option2>
+<option3>Southern</option3>
+<answer>Arctic</answer>
+<category>geography</category>
+</question>
+<question>
+<text>largest country by area</text>
+<option1>Russia</option1>
+<option2>China</option2>
+<option3>Canada</option3>
+<answer>Russia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>smallest country by area</text>
+<option1>Vatican</option1>
+<option2>Monaco</option2>
+<option3>Narnia</option3>
+<answer>Vatican</answer>
+<category>geography</category>
+</question>
+<question>
+<text>third highest mountain in the world</text>
+<option1>Kangchenjunga</option1>
+<option2>Himalchuli</option2>
+<option3>Heibro</option3>
+<answer>Kangchenjunga</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the national internet domain is .al</text>
+<option1>Albania</option1>
+<option2>Alabama</option2>
+<option3>Algeria</option3>
+<answer>Albania</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the national internet domain is .ch</text>
+<option1>Switzerland</option1>
+<option2>China</option2>
+<option3>Chihuahua</option3>
+<answer>Switzerland</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the national internet domain is .es</text>
+<option1>Spain</option1>
+<option2>Estonia</option2>
+<option3>Sparta</option3>
+<answer>Spain</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the internet domain of Finland</text>
+<option1>.fi</option1>
+<option2>.fin</option2>
+<option3>.fnd</option3>
+<answer>.fi</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the internet domain of South africa</text>
+<option1>.za</option1>
+<option2>.ya</option2>
+<option3>.so</option3>
+<answer>.za</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the internet domain of Portugal</text>
+<option1>.pt</option1>
+<option2>.pg</option2>
+<option3>.por</option3>
+<answer>.pt</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the internet domain of Indonesia</text>
+<option1>.id</option1>
+<option2>.in</option2>
+<option3>.io</option3>
+<answer>.id</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Great Victoria Desert is in</text>
+<option1>Australia</option1>
+<option2>Russia</option2>
+<option3>Tatooine</option3>
+<answer>Australia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Karakum Desert is in</text>
+<option1>Turkmenistan</option1>
+<option2>Uzbekistan</option2>
+<option3>Kurast</option3>
+<answer>Turkmenistan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Simpson Desert is in</text>
+<option1>Australia</option1>
+<option2>Russia</option2>
+<option3>Canada</option3>
+<answer>Australia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Bhutan is in ___</text>
+<option1>Asia</option1>
+<option2>Africa</option2>
+<option3>another castle</option3>
+<answer>Asia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Madagascar is ___</text>
+<option1>an island</option1>
+<option2>a city</option2>
+<option3>a continent</option3>
+<answer>an island</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Not a city in Russia</text>
+<option1>Anton</option1>
+<option2>Kazan</option2>
+<option3>St. Petersburg</option3>
+<answer>Anton</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Volga River flows through</text>
+<option1>Russia</option1>
+<option2>Sweden</option2>
+<option3>Italy</option3>
+<answer>Russia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Russia</text>
+<option1>Kazan</option1>
+<option2>Iratsburg</option2>
+<option3>Kunayeville</option3>
+<answer>Kazan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a country in Africa</text>
+<option1>Chad</option1>
+<option2>Matt</option2>
+<option3>Smith</option3>
+<answer>Chad</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a country in South America</text>
+<option1>Suriname</option1>
+<option2>Burundi</option2>
+<option3>Andorra</option3>
+<answer>Suriname</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a country in Asia</text>
+<option1>Jordan</option1>
+<option2>Ukraine</option2>
+<option3>Suriname</option3>
+<answer>Jordan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a country in Europe</text>
+<option1>Angola</option1>
+<option2>Malta</option2>
+<option3>Albania</option3>
+<answer>Angola</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the larger country by area</text>
+<option1>Canada</option1>
+<option2>China</option2>
+<option3>Brazil</option3>
+<answer>Canada</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the smaller country by area</text>
+<option1>India</option1>
+<option2>Australia</option2>
+<option3>Brazil</option3>
+<answer>India</answer>
+<category>geography</category>
+</question>
+<question>
+<text>an archipelago country</text>
+<option1>Phillipines</option1>
+<option2>Nicaragua</option2>
+<option3>Serbia</option3>
+<answer>Phillipines</answer>
+<category>geography</category>
+</question>
+<question>
+<text>chain or cluster of islands</text>
+<option1>archipelago</option1>
+<option2>megalopolis</option2>
+<option3>aquifer</option3>
+<answer>archipelago</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a landlocked country</text>
+<option1>Bhutan</option1>
+<option2>Germany</option2>
+<option3>Mexico</option3>
+<answer>Bhutan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a landlocked country</text>
+<option1>Romania</option1>
+<option2>Hungary</option2>
+<option3>Armenia</option3>
+<answer>Romania</answer>
+<category>geography</category>
+</question>
+<question>
+<text>closest to the equator</text>
+<option1>India</option1>
+<option2>Italy</option2>
+<option3>Egypt</option3>
+<answer>India</answer>
+<category>geography</category>
+</question>
+<question>
+<text>34th parallel north passes through ___</text>
+<option1>Japan</option1>
+<option2>Russia</option2>
+<option3>Australia</option3>
+<answer>Japan</answer>
+<category>geography</category>
+</question>
+<question>
+<text>24th parallel south passes through ___</text>
+<option1>Australia</option1>
+<option2>Russia</option2>
+<option3>France</option3>
+<answer>Australia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>11th parallel north passes through ___</text>
+<option1>Colombia</option1>
+<option2>Russia</option2>
+<option3>South Korea</option3>
+<answer>Colombia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>55th meridian west passes through ___</text>
+<option1>Brazil</option1>
+<option2>Peru</option2>
+<option3>USA</option3>
+<answer>Brazil</answer>
+<category>geography</category>
+</question>
+<question>
+<text>114th meridian east passes through ___</text>
+<option1>Indonesia</option1>
+<option2>Pakistan</option2>
+<option3>Japan</option3>
+<answer>Indonesia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the equator passes through ___</text>
+<option1>Argentina</option1>
+<option2>USA</option2>
+<option3>Paraguay</option3>
+<answer>Argentina</answer>
+<category>geography</category>
+</question>
+<question>
+<text>1988 Olympic Games host city</text>
+<option1>Seoul</option1>
+<option2>Atlanta</option2>
+<option3>Mexico City</option3>
+<answer>Seoul</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not an Olympic Games host city</text>
+<option1>Gotham</option1>
+<option2>Athens</option2>
+<option3>Amsterdam</option3>
+<answer>Gotham</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Machu Picchu is located in ___</text>
+<option1>Peru</option1>
+<option2>Colombia</option2>
+<option3>Paraguay</option3>
+<answer>Peru</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a type of dog breed</text>
+<option1>Newfoundland</option1>
+<option2>Chikita</option2>
+<option3>Skubi</option3>
+<answer>Newfoundland</answer>
+<category>geography</category>
+</question>
+<question>
+<text>population is more than 10 million</text>
+<option1>Istanbul</option1>
+<option2>Switzerland</option2>
+<option3>Chicago</option3>
+<answer>Istanbul</answer>
+<category>geography</category>
+</question>
+<question>
+<text>population is more than 9 million</text>
+<option1>Belgium</option1>
+<option2>Swizterland</option2>
+<option3>Denmark</option3>
+<answer>Belgium</answer>
+<category>geography</category>
+</question>
+<question>
+<text>population is less than 33 million</text>
+<option1>Texas</option1>
+<option2>Turkey</option2>
+<option3>Tanzania</option3>
+<answer>Texas</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Venezuela</text>
+<option1>Caracas</option1>
+<option2>Maracaibo</option2>
+<option3>Maracay</option3>
+<answer>Caracas</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the city further north</text>
+<option1>Rome</option1>
+<option2>Cairo</option2>
+<option3>Istanbul</option3>
+<answer>Rome</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the city further south</text>
+<option1>Osaka</option1>
+<option2>Seoul</option2>
+<option3>Tokyo</option3>
+<answer>Osaka</answer>
+<category>geography</category>
+</question>
+<question>
+<text>larger state by area</text>
+<option1>Wyoming</option1>
+<option2>Utah</option2>
+<option3>Nebraska</option3>
+<answer>Wyoming</answer>
+<category>geography</category>
+</question>
+<question>
+<text>larger state by population</text>
+<option1>Florida</option1>
+<option2>Illinois</option2>
+<option3>North Dakota</option3>
+<answer>Florida</answer>
+<category>geography</category>
+</question>
+<question>
+<text>city further north</text>
+<option1>Dakar</option1>
+<option2>Kuala Lumpur</option2>
+<option3>Bogota</option3>
+<answer>Dakar</answer>
+<category>geography</category>
+</question>
+<question>
+<text>city further south</text>
+<option1>Bangkok</option1>
+<option2>Dubai</option2>
+<option3>Cancun</option3>
+<answer>Bangkok</answer>
+<category>geography</category>
+</question>
+<question>
+<text>larger country by population</text>
+<option1>Indonesia</option1>
+<option2>Malaysia</option2>
+<option3>Canada</option3>
+<answer>Indonesia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>smaller country by population</text>
+<option1>Norway</option1>
+<option2>Spain</option2>
+<option3>Italy</option3>
+<answer>Norway</answer>
+<category>geography</category>
+</question>
+<question>
+<text>smaller country by area</text>
+<option1>Portugal</option1>
+<option2>USA</option2>
+<option3>Argentina</option3>
+<answer>Portugal</answer>
+<category>geography</category>
+</question>
+<question>
+<text>smaller country by population</text>
+<option1>Israel</option1>
+<option2>Kazakhstan</option2>
+<option3>Vietnam</option3>
+<answer>Israel</answer>
+<category>geography</category>
+</question>
+<question>
+<text>"Live free or die" on the license plate</text>
+<option1>New Hampshire</option1>
+<option2>Montana</option2>
+<option3>Texas</option3>
+<answer>New Hampshire</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Grand Canyon is in ___</text>
+<option1>Arizona</option1>
+<option2>Colorado</option2>
+<option3>New Hampshire</option3>
+<answer>Arizona</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Hagia Sofia is in ___</text>
+<option1>Istanbul</option1>
+<option2>Athens</option2>
+<option3>Budapest</option3>
+<answer>Istanbul</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Waikiki Beach is in ___</text>
+<option1>Honolulu</option1>
+<option2>Kingston</option2>
+<option3>San Juan</option3>
+<answer>Honolulu</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a city in Canada</text>
+<option1>Sorritown</option1>
+<option2>Hamilton</option2>
+<option3>Calgary</option3>
+<answer>Sorritown</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the city further south</text>
+<option1>Toronto</option1>
+<option2>Calgary</option2>
+<option3>Montreal</option3>
+<answer>Toronto</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a member of the European Union</text>
+<option1>Switzerland</option1>
+<option2>Latvia</option2>
+<option3>Sweden</option3>
+<answer>Switzerland</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a member of the European Union</text>
+<option1>Denmark</option1>
+<option2>Switzerland</option2>
+<option3>Dizniland</option3>
+<answer>Denmark</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the Nile does not flow through ___</text>
+<option1>Chad</option1>
+<option2>Uganda</option2>
+<option3>Sudan</option3>
+<answer>Chad</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the Nile flows through ___</text>
+<option1>Uganda</option1>
+<option2>Libya</option2>
+<option3>Algeria</option3>
+<answer>Uganda</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the Appalachian Mountains are in ___</text>
+<option1>USA</option1>
+<option2>Italy</option2>
+<option3>Scotland</option3>
+<answer>USA</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the capital of Ireland</text>
+<option1>Dublin</option1>
+<option2>Galway</option2>
+<option3>Edinburgh</option3>
+<answer>Dublin</answer>
+<category>geography</category>
+</question>
+<question>
+<text>knife of the Gurkhas</text>
+<option1>Kirku</option1>
+<option2>Hancer</option2>
+<option3>Blaid</option3>
+<answer>Kirku</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Singapore's population is less than ___</text>
+<option1>10 million</option1>
+<option2>1 million</option2>
+<option3>500</option3>
+<answer>10 million</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Palace of Versailles is in ___</text>
+<option1>France</option1>
+<option2>Austria</option2>
+<option3>Vatican</option3>
+<answer>France</answer>
+<category>geography</category>
+</question>
+<question>
+<text>CN Tower is in ___</text>
+<option1>Toronto</option1>
+<option2>Chicago</option2>
+<option3>Seattle</option3>
+<answer>Toronto</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Harvard University is in ___</text>
+<option1>Cambridge</option1>
+<option2>Oxford</option2>
+<option3>Wadev</option3>
+<answer>Cambridge</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Dartmouth College is in ___</text>
+<option1>Hanover</option1>
+<option2>Norwich</option2>
+<option3>Gog Reen</option3>
+<answer>Hanover</answer>
+<category>geography</category>
+</question>
+<question>
+<text>University of Chicago is in ___</text>
+<option1>Chicago</option1>
+<option2>Helsinki</option2>
+<option3>Siberia</option3>
+<answer>Chicago</answer>
+<category>geography</category>
+</question>
+<question>
+<text>UCLA is in ___</text>
+<option1>LA</option1>
+<option2>UC</option2>
+<option3>CL</option3>
+<answer>LA</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Dubrovnik is in ___</text>
+<option1>Croatia</option1>
+<option2>Serbia</option2>
+<option3>Ukraine</option3>
+<answer>Croatia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Adriatic Sea cost runs along ___</text>
+<option1>Slovenia</option1>
+<option2>Germany</option2>
+<option3>Russia</option3>
+<answer>Slovenia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Indonesia's population is more than ___</text>
+<option1>859</option1>
+<option2>786 million</option2>
+<option3>364 million</option3>
+<answer>859</answer>
+<category>geography</category>
+</question>
+<question>
+<text>highest mountain in France</text>
+<option1>Mont Blanc</option1>
+<option2>Mont Rouge</option2>
+<option3>Mont Grand</option3>
+<answer>Mont Blanc</answer>
+<category>geography</category>
+</question>
+<question>
+<text>larger than Australia by area</text>
+<option1>Brazil</option1>
+<option2>India</option2>
+<option3>Germany</option3>
+<answer>Brazil</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a state in the USA</text>
+<option1>New Mexico</option1>
+<option2>West Ohio</option2>
+<option3>New Amsterdam</option3>
+<answer>New Mexico</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Kazakhstan</text>
+<option1>Almaty</option1>
+<option2>Irat</option2>
+<option3>Joshqun</option3>
+<answer>Almaty</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in France</text>
+<option1>Lyon</option1>
+<option2>London</option2>
+<option3>Cann</option3>
+<answer>Lyon</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Germany</text>
+<option1>Dortmund</option1>
+<option2>Borussia</option2>
+<option3>Duisden</option3>
+<answer>Dortmund</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Greece</text>
+<option1>Patras</option1>
+<option2>Hellas</option2>
+<option3>Fellas</option3>
+<answer>Patras</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Morocco</text>
+<option1>Casablanca</option1>
+<option2>Babol</option2>
+<option3>Tabar</option3>
+<answer>Casablanca</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Canada</text>
+<option1>Edmonton</option1>
+<option2>Burton</option2>
+<option3>Sincity</option3>
+<answer>Edmonton</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in England</text>
+<option1>Liverpool</option1>
+<option2>Omaha</option2>
+<option3>Newland</option3>
+<answer>Liverpool</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Sweden</text>
+<option1>Gothenburg</option1>
+<option2>Malmsteen</option2>
+<option3>Yngkorrkt</option3>
+<answer>Gothenburg</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Finland</text>
+<option1>Turku</option1>
+<option2>Takla</option2>
+<option3>Tilki</option3>
+<answer>Turku</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Caspian Sea doesn't border ___</text>
+<option1>China</option1>
+<option2>Azerbaijan</option2>
+<option3>Russia</option3>
+<answer>China</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a neighbor of Armenia</text>
+<option1>Georgia</option1>
+<option2>Carolina</option2>
+<option3>Florida</option3>
+<answer>Georgia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Sears Tower is in ___</text>
+<option1>Chicago</option1>
+<option2>Toronto</option2>
+<option3>Miami</option3>
+<answer>Chicago</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Arc de Triomphe is in ___</text>
+<option1>Paris</option1>
+<option2>Lyon</option2>
+<option3>Brussels</option3>
+<answer>Paris</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Palazzo Vecchio is in ___</text>
+<option1>Florence</option1>
+<option2>Rome</option2>
+<option3>Milan</option3>
+<answer>Florence</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Sydney Opera House is in ___</text>
+<option1>Sydney</option1>
+<option2>Syndey</option2>
+<option3>Sydeny</option3>
+<answer>Sydney</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in the northern hemisphere</text>
+<option1>Beijing</option1>
+<option2>Sydney</option2>
+<option3>Cape Town</option3>
+<answer>Beijing</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in the southern hemisphere</text>
+<option1>Buenos Aires</option1>
+<option2>Dakar</option2>
+<option3>Seoul</option3>
+<answer>Buenos Aires</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not in the northern hemisphere</text>
+<option1>Paraguay</option1>
+<option2>France</option2>
+<option3>Egypt</option3>
+<answer>Paraguay</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the larger city by population</text>
+<option1>Mexico City</option1>
+<option2>Istanbul</option2>
+<option3>Osaka</option3>
+<answer>Mexico City</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the smaller city by population</text>
+<option1>Norway</option1>
+<option2>Spain</option2>
+<option3>Italy</option3>
+<answer>Norway</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a country in the Northern Hemisphere</text>
+<option1>Egypt</option1>
+<option2>South Africa</option2>
+<option3>Uruguay</option3>
+<answer>Egypt</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a country in the Southern Hemisphere</text>
+<option1>Zambia</option1>
+<option2>Tunisia</option2>
+<option3>Morocco</option3>
+<answer>Zambia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>Mount Everest is located in ___</text>
+<option1>China</option1>
+<option2>Russia</option2>
+<option3>India</option3>
+<answer>China</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a city in Europe</text>
+<option1>Port Elizabeth</option1>
+<option2>Tirana</option2>
+<option3>Lyon</option3>
+<answer>Port Elizabeth</answer>
+<category>geography</category>
+</question>
+<question>
+<text>not a city in Asia</text>
+<option1>Belgrade</option1>
+<option2>Osaka</option2>
+<option3>Baghdad</option3>
+<answer>Belgrade</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Northern America</text>
+<option1>Tijuana</option1>
+<option2>Newshire</option2>
+<option3>Pelwood</option3>
+<answer>Tijuana</answer>
+<category>geography</category>
+</question>
+<question>
+<text>a city in Europe</text>
+<option1>Paris</option1>
+<option2>France</option2>
+<option3>Argentina</option3>
+<answer>Paris</answer>
+<category>geography</category>
+</question>
+<question>
+<text>the largest continent</text>
+<option1>Asia</option1>
+<option2>America</option2>
+<option3>Africa</option3>
+<answer>Asia</answer>
+<category>geography</category>
+</question>
+<question>
+<text>larger country by population</text>
+<option1>Brazil</option1>
+<option2>Russia</option2>
+<option3>Japan</option3>
+<answer>Brazil</answer>
+<category>geography</category>
+</question>
+<question>
+<text>he cut Van Gogh's ear</text>
+<option1>Van Gogh</option1>
+<option2>E. Scissorhands</option2>
+<option3>P. Gaugin</option3>
+<answer>Van Gogh</answer>
+<category>people</category>
+</question>
+<question>
+<text>"cogito ergo sum"</text>
+<option1>Descartes</option1>
+<option2>Leibniz</option2>
+<option3>Shakespeare</option3>
+<answer>Descartes</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted the Sistine Chapel</text>
+<option1>Michelangelo</option1>
+<option2>Donatello</option2>
+<option3>Splinter</option3>
+<answer>Michelangelo</answer>
+<category>people</category>
+</question>
+<question>
+<text>Wolfgang ___ Mozart</text>
+<option1>amadeus</option1>
+<option2>theo</option2>
+<option3>constanze</option3>
+<answer>amadeus</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted Mona Lisa</text>
+<option1>Leonardo da Vinci</option1>
+<option2>Michelangelo</option2>
+<option3>Rene Magritte</option3>
+<answer>Leonardo da Vinci</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted The Last Supper</text>
+<option1>Leonardo da Vinci</option1>
+<option2>Pablo Picasso</option2>
+<option3>Claude Monet</option3>
+<answer>Leonardo da Vinci</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted Girl with a Pearl Earring</text>
+<option1>Johannes Vermeer</option1>
+<option2>Rene Magritte</option2>
+<option3>Edouard Manet</option3>
+<answer>Johannes Vermeer</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted American Gothic</text>
+<option1>Grant Wood</option1>
+<option2>Jackson Pollock</option2>
+<option3>Homer Simpson</option3>
+<answer>Grant Wood</answer>
+<category>people</category>
+</question>
+<question>
+<text>painted The Scream</text>
+<option1>Edvard Munch</option1>
+<option2>Wes Craven</option2>
+<option3>Jackson Pollock</option3>
+<answer>Edvard Munch</answer>
+<category>people</category>
+</question>
+<question>
+<text>former Chicago Bulls player</text>
+<option1>Jerry Sloan</option1>
+<option2>Karl Malone</option2>
+<option3>John Stockton</option3>
+<answer>Jerry Sloan</answer>
+<category>people</category>
+</question>
+<question>
+<text>founder of Louis Vuitton</text>
+<option1>Louis Vuitton</option1>
+<option2>Coco de Gabbana</option2>
+<option3>Pepe LePeu</option3>
+<answer>Louis Vuitton</answer>
+<category>people</category>
+</question>
+<question>
+<text>French haute couture fashion designer</text>
+<option1>Jean Paul Gaultier</option1>
+<option2>Anna Wintour</option2>
+<option3>Domenico Dolce</option3>
+<answer>Jean Paul Gaultier</answer>
+<category>people</category>
+</question>
+<question>
+<text>chess legend with no defeats against AI</text>
+<option1>Bobby Fischer</option1>
+<option2>Garry Kasparov</option2>
+<option3>Joseph Saddler</option3>
+<answer>Bobby Fischer</answer>
+<category>people</category>
+</question>
+<question>
+<text>former British Prime Minister</text>
+<option1>Margaret Thatcher</option1>
+<option2>Tony Blare</option2>
+<option3>Gordon Cameron</option3>
+<answer>Margaret Thatcher</answer>
+<category>people</category>
+</question>
+<question>
+<text>American actress with no Oscars</text>
+<option1>Marilyn Monroe</option1>
+<option2>Helen Mirren</option2>
+<option3>Meryl Streep</option3>
+<answer>Marilyn Monroe</answer>
+<category>people</category>
+</question>
+<question>
+<text>Renaissance astronomer</text>
+<option1>Copernicus</option1>
+<option2>Isaac Newton</option2>
+<option3>Leonardo DiCaprio</option3>
+<answer>Copernicus</answer>
+<category>people</category>
+</question>
+<question>
+<text>South Korean football player</text>
+<option1>Park Ji-sung</option1>
+<option2>Park Sun Jae</option2>
+<option3>Ji-Soo Kwon</option3>
+<answer>Park Ji-sung</answer>
+<category>people</category>
+</question>
+<question>
+<text>American skater</text>
+<option1>Rodney Mullen</option1>
+<option2>Tony Eagle</option2>
+<option3>John Eagleflag</option3>
+<answer>Rodney Mullen</answer>
+<category>people</category>
+</question>
+<question>
+<text>Muhammad Ali's first defeat was vs. ___</text>
+<option1>Joe Fraizer</option1>
+<option2>George Foreman</option2>
+<option3>Floyd Patterson</option3>
+<answer>Joe Fraizer</answer>
+<category>people</category>
+</question>
+<question>
+<text>founded Ford Motor Company</text>
+<option1>Henry Ford</option1>
+<option2>Henry Fonda</option2>
+<option3>Tom Ford</option3>
+<answer>Henry Ford</answer>
+<category>people</category>
+</question>
+<question>
+<text>13th century philosopher</text>
+<option1>Roger Bacon</option1>
+<option2>Francis Bacon</option2>
+<option3>Kevin Bacon</option3>
+<answer>Roger Bacon</answer>
+<category>people</category>
+</question>
+<question>
+<text>not a Nobel Prize winner</text>
+<option1>M. Gandhi</option1>
+<option2>B. Obama</option2>
+<option3>H. Kissinger</option3>
+<answer>M. Gandhi</answer>
+<category>people</category>
+</question>
+<question>
+<text>French fashion designer</text>
+<option1>Coco Chanel</option1>
+<option2>Donna Karan</option2>
+<option3>Shia LeBeouf</option3>
+<answer>Coco Chanel</answer>
+<category>people</category>
+</question>
+<question>
+<text>English chemist and physicist</text>
+<option1>M. Faraday</option1>
+<option2>N. Tesla</option2>
+<option3>A. Einstein</option3>
+<answer>M. Faraday</answer>
+<category>people</category>
+</question>
+<question>
+<text>leading figure in pop art movement</text>
+<option1>Andy Warhol</option1>
+<option2>Michael Ciccone</option2>
+<option3>Jackson Pollock</option3>
+<answer>Andy Warhol</answer>
+<category>people</category>
+</question>
+<question>
+<text>English football player</text>
+<option1>Wayne Rooney</option1>
+<option2>George Michael</option2>
+<option3>Julian Casablancas</option3>
+<answer>Wayne Rooney</answer>
+<category>people</category>
+</question>
+<question>
+<text>American football player</text>
+<option1>Tom Brady</option1>
+<option2>Wayne Brady</option2>
+<option3>Bradley Manning</option3>
+<answer>Tom Brady</answer>
+<category>people</category>
+</question>
+<question>
+<text>Germanl football player</text>
+<option1>Philipp Lahm</option1>
+<option2>Marc Janko</option2>
+<option3>Heinrich Hertz</option3>
+<answer>Philipp Lahm</answer>
+<category>people</category>
+</question>
+<question>
+<text>Italian football player</text>
+<option1>Mario Balotelli</option1>
+<option2>Vito Corleone</option2>
+<option3>Enrico Fermi</option3>
+<answer>Mario Balotelli</answer>
+<category>people</category>
+</question>
+<question>
+<text>Bulgarian football player</text>
+<option1>Dimitar Berbatov</option1>
+<option2>Hristo Sirakov</option2>
+<option3>Ayan Stoichkov</option3>
+<answer>Dimitar Berbatov</answer>
+<category>people</category>
+</question>
+<question>
+<text>Japanese football player</text>
+<option1>Shinji Okazaki</option1>
+<option2>Park Ji-Sun</option2>
+<option3>Ichiro Suzuki</option3>
+<answer>Shinji Okazaki</answer>
+<category>people</category>
+</question>
+<question>
+<text>American basketball player</text>
+<option1>Scottie Pippen</option1>
+<option2>Landon Donovan</option2>
+<option3>Steve Nash</option3>
+<answer>Scottie Pippen</answer>
+<category>people</category>
+</question>
+<question>
+<text>co-founder of Microsoft</text>
+<option1>Paul Allen</option1>
+<option2>Steve Gates</option2>
+<option3>Steve Ballmer</option3>
+<answer>Paul Allen</answer>
+<category>people</category>
+</question>
+<question>
+<text>unveiled the iMac in 1998</text>
+<option1>Steve Jobs</option1>
+<option2>Bill Gates</option2>
+<option3>Justin Bieber</option3>
+<answer>Steve Jobs</answer>
+<category>people</category>
+</question>
+<question>
+<text>Braille was invented by ___</text>
+<option1>Louis Braille</option1>
+<option2>Louis CK</option2>
+<option3>Helen Keller</option3>
+<answer>Louis Braille</answer>
+<category>people</category>
+</question>
+<question>
+<text>Australian Formula 1 driver</text>
+<option1>Mark Webber</option1>
+<option2>Sebastian Vettel</option2>
+<option3>Lewis Hamilton</option3>
+<answer>Mark Webber</answer>
+<category>people</category>
+</question>
+<question>
+<text>designer of the Sydney Opera House</text>
+<option1>Joern Utzon</option1>
+<option2>Malcolm Young</option2>
+<option3>Steve Irwin</option3>
+<answer>Joern Utzon</answer>
+<category>people</category>
+</question>
+<question>
+<text>French goalkeeper</text>
+<option1>Fabien Barthez</option1>
+<option2>Frank Ribery</option2>
+<option3>G. Ardien deBut</option3>
+<answer>Fabien Barthez</answer>
+<category>people</category>
+</question>
+<question>
+<text>former Manchester United player</text>
+<option1>Eric Cantona</option1>
+<option2>David Seaman</option2>
+<option3>Alan Shearer</option3>
+<answer>Eric Cantona</answer>
+<category>people</category>
+</question>
+<question>
+<text>scored in the 1998 FIFA World Cup</text>
+<option1>Zinedine Zidane</option1>
+<option2>George Weah</option2>
+<option3>Johann Cruyff</option3>
+<answer>Zinedine Zidane</answer>
+<category>people</category>
+</question>
+<question>
+<text>American standup</text>
+<option1>Richard Pryor</option1>
+<option2>Eddie Izzard</option2>
+<option3>Ricky Gervais</option3>
+<answer>Richard Pryor</answer>
+<category>people</category>
+</question>
+<question>
+<text>former Mr. Olympia</text>
+<option1>A. Schwarzenegger</option1>
+<option2>Flex Wheeler</option2>
+<option3>Kevin Levrone</option3>
+<answer>A. Schwarzenegger</answer>
+<category>people</category>
+</question>
+<question>
+<text>40th president of the USA</text>
+<option1>Ronald Reagan</option1>
+<option2>T. Roosevelt</option2>
+<option3>Gerald Ford</option3>
+<answer>Ronald Reagan</answer>
+<category>people</category>
+</question>
+<question>
+<text>American gangster</text>
+<option1>Al Capone</option1>
+<option2>Al Pacino</option2>
+<option3>Al Jazeera</option3>
+<answer>Al Capone</answer>
+<category>people</category>
+</question>
+<question>
+<text>French general and statesman</text>
+<option1>Charles de Gaulle</option1>
+<option2>Jacques Cousteau</option2>
+<option3>Thierry Henry</option3>
+<answer>Charles de Gaulle</answer>
+<category>people</category>
+</question>
+<question>
+<text>"Vini, vidi, vici"</text>
+<option1>Julius Caesar</option1>
+<option2>Genghis Khan</option2>
+<option3>Tony Montana</option3>
+<answer>Julius Caesar</answer>
+<category>people</category>
+</question>
+<question>
+<text>a student of Socrates</text>
+<option1>Pluto</option1>
+<option2>Dionysus</option2>
+<option3>Apollo</option3>
+<answer>Pluto</answer>
+<category>people</category>
+</question>
+<question>
+<text>a student of Plato</text>
+<option1>Aristotle</option1>
+<option2>Socrates</option2>
+<option3>Tzatziki</option3>
+<answer>Aristotle</answer>
+<category>people</category>
+</question>
+<question>
+<text>famous magician</text>
+<option1>Houdini</option1>
+<option2>Panentellur</option2>
+<option3>Karl Popper</option3>
+<answer>Houdini</answer>
+<category>people</category>
+</question>
+<question>
+<text>"Green Eggs &amp; Ham" is penned by this man</text>
+<option1>Dr. Seuss</option1>
+<option2>Dr. Juice</option2>
+<option3>Dr. Snooze</option3>
+<answer>Dr. Seuss</answer>
+<category>people</category>
+</question>
+<question>
+<text>fictional detective</text>
+<option1>Sherlock Holmes</option1>
+<option2>Lawrence Walgrave</option2>
+<option3>Lex Luthor</option3>
+<answer>Sherlock Holmes</answer>
+<category>literature</category>
+</question>
+<question>
+<text>a character by Agatha Christie</text>
+<option1>Hercule Poirot</option1>
+<option2>Harry Potter</option2>
+<option3>Perry Mason</option3>
+<answer>Hercule Poirot</answer>
+<category>literature</category>
+</question>
+<question>
+<text>she wrote Harry Potter</text>
+<option1>J. K. Rowling</option1>
+<option2>S. Meyer</option2>
+<option3>A. Christie</option3>
+<answer>J. K. Rowling</answer>
+<category>literature</category>
+</question>
+<question>
+<text>he wrote The BFG</text>
+<option1>Roald Dahl</option1>
+<option2>Maurice Sendak</option2>
+<option3>Shel Sliverstein</option3>
+<answer>Roald Dahl</answer>
+<category>literature</category>
+</question>
+<question>
+<text>The Hobbit was written by a ___</text>
+<option1>human</option1>
+<option2>dwarf</option2>
+<option3>hobbit</option3>
+<answer>human</answer>
+<category>literature</category>
+</question>
+<question>
+<text>a hobbit in The Hobbit</text>
+<option1>Bilbo</option1>
+<option2>Malmo</option2>
+<option3>Elmo</option3>
+<answer>Bilbo</answer>
+<category>literature</category>
+</question>
+<question>
+<text>he was not a doctor but a writer</text>
+<option1>Dr. Seuss</option1>
+<option2>Dr. Whose</option2>
+<option3>Dr. Choose</option3>
+<answer>Dr. Seuss</answer>
+<category>literature</category>
+</question>
+<question>
+<text>he wrote Alice in Wonderland</text>
+<option1>Lewis Carroll</option1>
+<option2>Roald Dahl</option2>
+<option3>John Ruskin</option3>
+<answer>Lewis Carroll</answer>
+<category>literature</category>
+</question>
+<question>
+<text>he wrote War and Peace</text>
+<option1>Leo Tolstoy</option1>
+<option2>F. Dostoyevsky</option2>
+<option3>Nikolai Gogol</option3>
+<answer>Leo Tolstoy</answer>
+<category>literature</category>
+</question>
+<question>
+<text>Irish novelist</text>
+<option1>James Joyce</option1>
+<option2>James Hetfield</option2>
+<option3>James Cameron</option3>
+<answer>James Joyce</answer>
+<category>literature</category>
+</question>
+</questions>

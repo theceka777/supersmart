@@ -2,6 +2,54 @@
 
 ---
 
+## Session 22c — 2026-04-25 — 1001.xml updated with all 98 audit Light edits
+
+Phase 1 audit verdicts applied to the corpus file. The recovered 2012 corpus is preserved as a reference; the new audited version is the live source for Phase 5 question writing and Supabase ingestion.
+
+### What landed
+
+- **`1001_original_2012.xml`** — exact byte-for-byte copy of the recovered 2012 corpus, untouched. Reference / archive.
+- **`1001.xml`** — updated corpus. All 98 Light edits from Phase 1 audit applied mechanically via a structured edits dictionary. 1001 questions, all answers match one of their three options, integrity verified.
+- **Diff verification:** exactly 98 questions changed; expected 98; zero unexpected changes; zero expected-but-not-changed.
+
+### How the edits were applied
+
+A structured Python dict mapped each of the 98 Light-tagged Q-numbers to the specific fields and values that should change (text / option1–3 / answer / category). Categories where this mattered:
+- Pure typo fixes (~30 edits): single-field text/option update.
+- Capitalization Lights (~16): single-field text/option update.
+- Distractor swaps (~22): one option field change.
+- Concept-replaces (~12): multiple field changes (text + options + answer + occasionally category).
+- Stage-name punctuation (~3): multiple field updates for hyphenation.
+
+Verification suite ran post-write:
+1. **Count:** 1001 questions present.
+2. **Answer integrity:** every answer text matches one of its three option texts.
+3. **Diff:** the set of changed questions exactly equals the set of Light-tagged Q-numbers.
+4. **Spot-checks** on 10 high-impact concept-replaces (Q71, Q321, Q543, Q594, Q595, Q868, Q932, Q935, Q979, Q988) confirmed correct field values.
+
+### Files touched
+
+- `1001_original_2012.xml` — new file, archive of the recovered corpus
+- `1001.xml` — updated in place with 98 edits applied
+- `CHANGELOG.md` — this entry
+
+### What this does NOT include
+
+- The corpus-wide style sweep (Q352–Q386 "Make a word using  X" double-space cluster, Q738/Q739/Q744/Q777 capitalized-first-word math cluster) — deferred to its own session per the methodology.
+- Any code-side wiring. The app's `app/questions.ts` is a hand-curated subset for testing; the full 1001 corpus lives in `1001.xml` and will be ingested into Supabase during Phase 4 schema work.
+
+### Status
+
+**Phase 1 audit deliverables now complete:**
+- Tagged CSV (1001 rows) ✓
+- Methodology doc (16 rulings, calibration table, playbook) ✓
+- **Edited corpus XML (1001.xml with all Lights applied)** ✓
+- Original archive preserved (1001_original_2012.xml) ✓
+
+Ready for Phase 5 question writing to begin against this 1001-question voice corpus.
+
+---
+
 ## Session 22b — 2026-04-25 — Final-check fresh-eyes sweep (mothership v1.35 → v1.36)
 
 While the previous batch 6 commit was being pushed, CD requested one last comprehensive sweep across the full 1001-question corpus for outdated references and factually-shifted data. Five more Lights landed.

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <questions>
 <question>
 <text>Mars has ___ moons</text>
@@ -25,7 +24,7 @@
 <category>science</category>
 </question>
 <question>
-<text>first shuttle to land on the moon</text>
+<text>first craft to land on the moon</text>
 <option1>Apollo 11</option1>
 <option2>Apollo 13</option2>
 <option3>Apollo 15</option3>
@@ -65,7 +64,7 @@
 <category>science</category>
 </question>
 <question>
-<text>farther away from the sun</text>
+<text>farthest away from the Sun</text>
 <option1>Uranus</option1>
 <option2>Jupiter</option2>
 <option3>Saturn</option3>
@@ -73,7 +72,7 @@
 <category>science</category>
 </question>
 <question>
-<text>the earth orbits the sun once in ___ days</text>
+<text>Earth orbits the Sun in ___ days</text>
 <option1>365</option1>
 <option2>30</option2>
 <option3>180</option3>
@@ -81,7 +80,7 @@
 <category>science</category>
 </question>
 <question>
-<text>the summer solstice occurs in ___</text>
+<text>the June solstice occurs in ___</text>
 <option1>June</option1>
 <option2>May</option2>
 <option3>July</option3>
@@ -89,7 +88,7 @@
 <category>science</category>
 </question>
 <question>
-<text>the winter solstice occurs in ___</text>
+<text>Northern Hemisphere winter solstice in</text>
 <option1>December</option1>
 <option2>November</option2>
 <option3>January</option3>
@@ -97,7 +96,7 @@
 <category>science</category>
 </question>
 <question>
-<text>the moon orbits the earth once in ___ days</text>
+<text>Moon orbits the Earth in ___ days</text>
 <option1>28</option1>
 <option2>21</option2>
 <option3>7</option3>
@@ -129,7 +128,7 @@
 <category>science</category>
 </question>
 <question>
-<text>closest galaxy to ours</text>
+<text>closest large galaxy to ours</text>
 <option1>Andromeda</option1>
 <option2>Alpha Centauri</option2>
 <option3>Sagan C</option3>
@@ -212,7 +211,7 @@
 <text>U stands for</text>
 <option1>uranium</option1>
 <option2>uxium</option2>
-<option3>ukrainium</option3>
+<option3>unobtainium</option3>
 <answer>uranium</answer>
 <category>science</category>
 </question>
@@ -241,7 +240,7 @@
 <category>science</category>
 </question>
 <question>
-<text>water boils at ___ degrees Celcius</text>
+<text>water boils at ___ degrees Celsius</text>
 <option1>100</option1>
 <option2>0</option2>
 <option3>212</option3>
@@ -249,7 +248,7 @@
 <category>science</category>
 </question>
 <question>
-<text>water freezes at ___ degrees Kelvin</text>
+<text>water freezes at ___ Kelvin</text>
 <option1>273</option1>
 <option2>0</option2>
 <option3>-100</option3>
@@ -321,7 +320,7 @@
 <category>science</category>
 </question>
 <question>
-<text>1 second equals ___ miliseconds</text>
+<text>1 second equals ___ milliseconds</text>
 <option1>1000</option1>
 <option2>100</option2>
 <option3>60</option3>
@@ -426,10 +425,10 @@
 </question>
 <question>
 <text>discovered the X-ray</text>
-<option1>R.D. Roentgen</option1>
+<option1>W.C. Röntgen</option1>
 <option2>C. Xavier</option2>
 <option3>M. Jackson</option3>
-<answer>R.D. Roentgen</answer>
+<answer>W.C. Röntgen</answer>
 <category>science</category>
 </question>
 <question>
@@ -500,9 +499,9 @@
 <text>smaller than the others</text>
 <option1>destroyer</option1>
 <option2>battleship</option2>
-<option3>aircraft Carrier</option3>
+<option3>aircraft carrier</option3>
 <answer>destroyer</answer>
-<category>science</category>
+<category>misc</category>
 </question>
 <question>
 <text>the study of encryption</text>
@@ -537,7 +536,7 @@
 <category>science</category>
 </question>
 <question>
-<text>pioneer of aviation in helicopters</text>
+<text>pioneer of helicopter aviation</text>
 <option1>I. Sikorsky</option1>
 <option2>R. U. Boeing</option2>
 <option3>H. L. Kopter</option3>
@@ -562,10 +561,10 @@
 </question>
 <question>
 <text>dinosaurs became extinct ___ years ago</text>
-<option1>65 million</option1>
+<option1>66 million</option1>
 <option2>145 million</option2>
 <option3>325 million</option3>
-<answer>65 million</answer>
+<answer>66 million</answer>
 <category>science</category>
 </question>
 <question>
@@ -577,7 +576,7 @@
 <category>science</category>
 </question>
 <question>
-<text>a nucleid acid</text>
+<text>a nucleic acid</text>
 <option1>DNA</option1>
 <option2>cytoplasm</option2>
 <option3>nucleus</option3>
@@ -601,7 +600,7 @@
 <category>science</category>
 </question>
 <question>
-<text>ISU = International System of ___</text>
+<text>SI = International System of ___</text>
 <option1>Units</option1>
 <option2>Unions</option2>
 <option3>Unicorns</option3>
@@ -633,7 +632,7 @@
 <category>science</category>
 </question>
 <question>
-<text>tegulates blood sugar</text>
+<text>regulates blood sugar</text>
 <option1>insulin</option1>
 <option2>estrogen</option2>
 <option3>testosterone</option3>
@@ -738,10 +737,10 @@
 </question>
 <question>
 <text>creator of the periodic table</text>
-<option1>D. Mendelev</option1>
+<option1>D. Mendeleev</option1>
 <option2>I. Newton</option2>
 <option3>N. Tesla</option3>
-<answer>D. Mendelev</answer>
+<answer>D. Mendeleev</answer>
 <category>science</category>
 </question>
 <question>
@@ -753,7 +752,7 @@
 <category>science</category>
 </question>
 <question>
-<text>has less gravity</text>
+<text>lowest gravity</text>
 <option1>Moon</option1>
 <option2>Earth</option2>
 <option3>Mars</option3>
@@ -924,7 +923,7 @@
 <text>a type of fish</text>
 <option1>barracuda</option1>
 <option2>seabear</option2>
-<option3>big blue blind</option3>
+<option3>big blue bulk</option3>
 <answer>barracuda</answer>
 <category>science</category>
 </question>
@@ -969,7 +968,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>you mother's mother's daughter</text>
+<text>your mother's mother's daughter</text>
 <option1>your aunt</option1>
 <option2>your brother</option2>
 <option3>your grandma</option3>
@@ -985,7 +984,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>overtake the third and you are __</text>
+<text>overtake the third and you are ___</text>
 <option1>third</option1>
 <option2>second</option2>
 <option3>first</option3>
@@ -1001,7 +1000,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>24th letter in the english alphabet</text>
+<text>24th letter in the English alphabet</text>
 <option1>x</option1>
 <option2>z</option2>
 <option3>p</option3>
@@ -1009,7 +1008,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>13th letter in the english alphabet</text>
+<text>13th letter in the English alphabet</text>
 <option1>m</option1>
 <option2>j</option2>
 <option3>p</option3>
@@ -1017,7 +1016,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>6th letter in the english alphabet</text>
+<text>6th letter in the English alphabet</text>
 <option1>f</option1>
 <option2>g</option2>
 <option3>h</option3>
@@ -1170,10 +1169,10 @@
 </question>
 <question>
 <text>not an olympic sport</text>
-<option1>squash</option1>
+<option1>bowling</option1>
 <option2>fencing</option2>
 <option3>taekwondo</option3>
-<answer>squash</answer>
+<answer>bowling</answer>
 <category>misc</category>
 </question>
 <question>
@@ -1209,27 +1208,27 @@
 <category>misc</category>
 </question>
 <question>
-<text>two days before wednesday</text>
-<option1>monday</option1>
-<option2>thursday</option2>
-<option3>saturday</option3>
-<answer>monday</answer>
+<text>two days before Wednesday</text>
+<option1>Monday</option1>
+<option2>Thursday</option2>
+<option3>Saturday</option3>
+<answer>Monday</answer>
 <category>misc</category>
 </question>
 <question>
-<text>three days after last tuesday</text>
-<option1>friday</option1>
-<option2>thursday</option2>
-<option3>sunday</option3>
-<answer>friday</answer>
+<text>three days after last Tuesday</text>
+<option1>Friday</option1>
+<option2>Thursday</option2>
+<option3>Sunday</option3>
+<answer>Friday</answer>
 <category>misc</category>
 </question>
 <question>
-<text>the day before next wednesday</text>
-<option1>tuesday</option1>
-<option2>last friday</option2>
-<option3>thursday</option3>
-<answer>tuesday</answer>
+<text>the day before next Wednesday</text>
+<option1>Tuesday</option1>
+<option2>last Friday</option2>
+<option3>Thursday</option3>
+<answer>Tuesday</answer>
 <category>misc</category>
 </question>
 <question>
@@ -1716,7 +1715,7 @@
 <text>rhymes with "rhyme"</text>
 <option1>crime</option1>
 <option2>drama</option2>
-<option3>eminem</option3>
+<option3>Eminem</option3>
 <answer>crime</answer>
 <category>misc</category>
 </question>
@@ -1761,7 +1760,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>third month after may</text>
+<text>third month after May</text>
 <option1>August</option1>
 <option2>June</option2>
 <option3>October</option3>
@@ -1908,7 +1907,7 @@
 <text>the person playing this game is</text>
 <option1>me</option1>
 <option2>my pet</option2>
-<option3>michael jackson</option3>
+<option3>Michael Jackson</option3>
 <answer>me</answer>
 <category>misc</category>
 </question>
@@ -1945,7 +1944,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>born on may 16th, your sign is ___</text>
+<text>born on May 16th, your sign is ___</text>
 <option1>Taurus</option1>
 <option2>Aries</option2>
 <option3>Gemini</option3>
@@ -1977,7 +1976,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>born on october 21st, your sign is ___</text>
+<text>born on October 21st, your sign is ___</text>
 <option1>Libra</option1>
 <option2>Gemini</option2>
 <option3>Taurus</option3>
@@ -1985,7 +1984,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>born on june 4th, your sign is ___</text>
+<text>born on June 4th, your sign is ___</text>
 <option1>Gemini</option1>
 <option2>Leo</option2>
 <option3>Snape</option3>
@@ -2020,7 +2019,7 @@
 <text>not a type of women's shoes</text>
 <option1>sharpies</option1>
 <option2>flats</option2>
-<option3>stillettos</option3>
+<option3>stilettos</option3>
 <answer>sharpies</answer>
 <category>misc</category>
 </question>
@@ -2113,19 +2112,19 @@
 <category>misc</category>
 </question>
 <question>
-<text>a game mode in Super Smart</text>
-<option1>arcade</option1>
-<option2>blitz</option2>
-<option3>time limit</option3>
-<answer>arcade</answer>
+<text>the answer is "here"</text>
+<option1>here</option1>
+<option2>there</option2>
+<option3>where</option3>
+<answer>here</answer>
 <category>misc</category>
 </question>
 <question>
-<text>an Apple product</text>
-<option1>iPod</option1>
-<option2>MacBro</option2>
-<option3>iShall</option3>
-<answer>iPod</answer>
+<text>a Google product</text>
+<option1>Gmail</option1>
+<option2>Compass</option2>
+<option3>Numero</option3>
+<answer>Gmail</answer>
 <category>misc</category>
 </question>
 <question>
@@ -2289,7 +2288,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>artificial sweetner</text>
+<text>artificial sweetener</text>
 <option1>sucralose</option1>
 <option2>fructose</option2>
 <option3>dextrose</option3>
@@ -2460,7 +2459,7 @@
 <text>this month is 31 days long</text>
 <option1>October</option1>
 <option2>February</option2>
-<option3>March</option3>
+<option3>September</option3>
 <answer>October</answer>
 <category>misc</category>
 </question>
@@ -2481,7 +2480,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>an Japanese dish with rice</text>
+<text>a Japanese dish with rice</text>
 <option1>onigiri</option1>
 <option2>sashimi</option2>
 <option3>tempura</option3>
@@ -2498,10 +2497,10 @@
 </question>
 <question>
 <text>traditional Japanese puppet theater</text>
-<option1>banruki</option1>
+<option1>bunraku</option1>
 <option2>kabuki</option2>
 <option3>satsuma</option3>
-<answer>banruki</answer>
+<answer>bunraku</answer>
 <category>misc</category>
 </question>
 <question>
@@ -2529,7 +2528,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>33 plus the the number choices available</text>
+<text>33 plus the number of choices available</text>
 <option1>36</option1>
 <option2>30</option2>
 <option3>35</option3>
@@ -2562,10 +2561,10 @@
 </question>
 <question>
 <text>German automobile manufacturer</text>
-<option1>Smart</option1>
-<option2>Buick</option2>
-<option3>Pontiac</option3>
-<answer>Smart</answer>
+<option1>BMW</option1>
+<option2>Ford</option2>
+<option3>Toyota</option3>
+<answer>BMW</answer>
 <category>misc</category>
 </question>
 <question>
@@ -2641,7 +2640,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>you start with ___ in Arcade mode</text>
+<text>you start with ___ in Quickmatch</text>
 <option1>60 seconds</option1>
 <option2>45 seconds</option2>
 <option3>90 seconds</option3>
@@ -2649,7 +2648,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>you start with ___ in Classic mode</text>
+<text>you start with ___ in Daily Race</text>
 <option1>0 points</option1>
 <option2>80 seconds</option2>
 <option3>6 choices</option3>
@@ -2801,7 +2800,7 @@
 <category>misc</category>
 </question>
 <question>
-<text>Speaking two languages</text>
+<text>speaking two languages</text>
 <option1>bilingual</option1>
 <option2>bicentennial</option2>
 <option3>biennial</option3>
@@ -2849,7 +2848,7 @@
 <category>word</category>
 </question>
 <question>
-<text>Make a word using   "e, l, m, o"</text>
+<text>make a word using "e, l, m, o"</text>
 <option1>mole</option1>
 <option2>loom</option2>
 <option3>mall</option3>
@@ -2900,7 +2899,7 @@
 <text>make a word using  "g, r, o, w, n"</text>
 <option1>wrong</option1>
 <option2>growl</option2>
-<option3>nordic</option3>
+<option3>brawl</option3>
 <answer>wrong</answer>
 <category>word</category>
 </question>
@@ -2961,7 +2960,7 @@
 <category>word</category>
 </question>
 <question>
-<text>make a word using  "r, e, s, i, d, e, d "</text>
+<text>make a word using  "r, e, s, i, d, e, d"</text>
 <option1>desired</option1>
 <option2>derided</option2>
 <option3>esquire</option3>
@@ -3251,17 +3250,17 @@
 <question>
 <text>one does not belong</text>
 <option1>bacon</option1>
-<option2>brussels sprout</option2>
+<option2>Brussels sprout</option2>
 <option3>broccoli</option3>
 <answer>bacon</answer>
 <category>word</category>
 </question>
 <question>
 <text>one does not belong</text>
-<option1>jimmy page</option1>
-<option2>john rambo</option2>
-<option3>james bond</option3>
-<answer>jimmy page</answer>
+<option1>Jimmy Page</option1>
+<option2>John Rambo</option2>
+<option3>James Bond</option3>
+<answer>Jimmy Page</answer>
 <category>word</category>
 </question>
 <question>
@@ -3505,7 +3504,7 @@
 <category>word</category>
 </question>
 <question>
-<text>opposite of "aggresive"</text>
+<text>opposite of "aggressive"</text>
 <option1>calm</option1>
 <option2>sleepy</option2>
 <option3>irritated</option3>
@@ -3547,7 +3546,7 @@
 <question>
 <text>opposite of "give"</text>
 <option1>take</option1>
-<option2>red pill</option2>
+<option2>me</option2>
 <option3>now</option3>
 <answer>take</answer>
 <category>word</category>
@@ -3602,10 +3601,10 @@
 </question>
 <question>
 <text>a constructed international language</text>
-<option1>esperanto</option1>
+<option1>Esperanto</option1>
 <option2>kebasish</option2>
 <option3>chicat</option3>
-<answer>esperanto</answer>
+<answer>Esperanto</answer>
 <category>word</category>
 </question>
 <question>
@@ -3700,7 +3699,7 @@
 <text>rhymes with "style"</text>
 <option1>while</option1>
 <option2>crime</option2>
-<option3>kanye</option3>
+<option3>brake</option3>
 <answer>while</answer>
 <category>word</category>
 </question>
@@ -3708,7 +3707,7 @@
 <text>rhymes with "grace"</text>
 <option1>trace</option1>
 <option2>fries</option2>
-<option3>ella</option3>
+<option3>Ella</option3>
 <answer>trace</answer>
 <category>word</category>
 </question>
@@ -3723,7 +3722,7 @@
 <question>
 <text>rhymes with "prime"</text>
 <option1>crime</option1>
-<option2>line</option2>
+<option2>lemon</option2>
 <option3>pristine</option3>
 <answer>crime</answer>
 <category>word</category>
@@ -3732,7 +3731,7 @@
 <text>rhymes with "rap"</text>
 <option1>tap</option1>
 <option2>slack</option2>
-<option3>snoop</option3>
+<option3>kendrick</option3>
 <answer>tap</answer>
 <category>word</category>
 </question>
@@ -3820,7 +3819,7 @@
 <text>contains the letters "g, r, n"</text>
 <option1>wrong</option1>
 <option2>gone</option2>
-<option3>ripping</option3>
+<option3>carbon</option3>
 <answer>wrong</answer>
 <category>word</category>
 </question>
@@ -4001,11 +4000,11 @@
 <category>word</category>
 </question>
 <question>
-<text>a young goat is called a ___</text>
-<option1>kid</option1>
-<option2>boy</option2>
-<option3>goatee</option3>
-<answer>kid</answer>
+<text>a group of goats is called a ___</text>
+<option1>herd</option1>
+<option2>bulls</option2>
+<option3>block</option3>
+<answer>herd</answer>
 <category>word</category>
 </question>
 <question>
@@ -4259,7 +4258,7 @@
 <question>
 <text>French singer and cultural icon</text>
 <option1>Edith Piaf</option1>
-<option2>Nicolas Sarkozy</option2>
+<option2>Audrey Tautou</option2>
 <option3>Asterix</option3>
 <answer>Edith Piaf</answer>
 <category>music</category>
@@ -4315,7 +4314,7 @@
 <question>
 <text>a song by Elvis Presley</text>
 <option1>Heartbreak Hotel</option1>
-<option2>Satistfaction</option2>
+<option2>Satisfaction</option2>
 <option3>Respect</option3>
 <answer>Heartbreak Hotel</answer>
 <category>music</category>
@@ -4337,11 +4336,11 @@
 <category>music</category>
 </question>
 <question>
-<text>a song by Justin Bieber</text>
-<option1>Never Say Never</option1>
+<text>a song by Taylor Swift</text>
+<option1>Shake It Off</option1>
 <option2>Burn It All</option2>
 <option3>Bad Pop</option3>
-<answer>Never Say Never</answer>
+<answer>Shake It Off</answer>
 <category>music</category>
 </question>
 <question>
@@ -4442,10 +4441,10 @@
 </question>
 <question>
 <text>famous rapper</text>
-<option1>Jay Z</option1>
-<option2>May C</option2>
-<option3>Kay T</option3>
-<answer>Jay Z</answer>
+<option1>Jay-Z</option1>
+<option2>May-C</option2>
+<option3>Kay-T</option3>
+<answer>Jay-Z</answer>
 <category>music</category>
 </question>
 <question>
@@ -4515,8 +4514,8 @@
 <question>
 <text>part of the Woodstock '69 line-up</text>
 <option1>Santana</option1>
-<option2>Led zeppelin</option2>
-<option3>The beatles</option3>
+<option2>Led Zeppelin</option2>
+<option3>The Beatles</option3>
 <answer>Santana</answer>
 <category>music</category>
 </question>
@@ -4563,7 +4562,7 @@
 <question>
 <text>"Smells Like Teen Spirit" is a song by ___</text>
 <option1>Nirvana</option1>
-<option2>Van halen</option2>
+<option2>Van Halen</option2>
 <option3>Bon Jovi</option3>
 <answer>Nirvana</answer>
 <category>music</category>
@@ -4579,13 +4578,13 @@
 <question>
 <text>famous J-Pop artist</text>
 <option1>Hikaru Utada</option1>
-<option2>Ichiro Suziki</option2>
+<option2>Ichiro Suzuki</option2>
 <option3>Hayao Miyazaki</option3>
 <answer>Hikaru Utada</answer>
 <category>music</category>
 </question>
 <question>
-<text>"No Woman No Cry" is a song by ___</text>
+<text>"No Woman, No Cry" is a song by ___</text>
 <option1>Bob Marley</option1>
 <option2>Buddy Holly</option2>
 <option3>Aerosmith</option3>
@@ -4602,10 +4601,10 @@
 </question>
 <question>
 <text>won an Oscar in 1998</text>
-<option1>Gywneth Paltrow</option1>
+<option1>Gwyneth Paltrow</option1>
 <option2>Meryl Streep</option2>
 <option3>Tom Hanks</option3>
-<answer>Gywneth Paltrow</answer>
+<answer>Gwyneth Paltrow</answer>
 <category>movies</category>
 </question>
 <question>
@@ -4716,7 +4715,7 @@
 <text>never played James Bond</text>
 <option1>Michael Jackson</option1>
 <option2>Sean Connery</option2>
-<option3>Pierce Brosnon</option3>
+<option3>Pierce Brosnan</option3>
 <answer>Michael Jackson</answer>
 <category>movies</category>
 </question>
@@ -4745,19 +4744,19 @@
 <category>movies</category>
 </question>
 <question>
-<text>Woody Allen wrote and directed ___</text>
-<option1>Annie Hall</option1>
-<option2>Antz</option2>
-<option3>Animal House</option3>
-<answer>Annie Hall</answer>
+<text>Christopher Nolan wrote and directed ___</text>
+<option1>Inception</option1>
+<option2>Pulp Fiction</option2>
+<option3>Goodfellas</option3>
+<answer>Inception</answer>
 <category>movies</category>
 </question>
 <question>
 <text>never won an Oscar</text>
-<option1>Will Smith</option1>
+<option1>Tom Cruise</option1>
 <option2>Meryl Streep</option2>
 <option3>Cuba Gooding Jr.</option3>
-<answer>Will Smith</answer>
+<answer>Tom Cruise</answer>
 <category>movies</category>
 </question>
 <question>
@@ -6257,11 +6256,11 @@
 <category>geography</category>
 </question>
 <question>
-<text>Ukranian flag has this color</text>
-<option1>blue</option1>
-<option2>red</option2>
-<option3>orange</option3>
-<answer>blue</answer>
+<text>Peru flag has this color</text>
+<option1>red</option1>
+<option2>blue</option2>
+<option3>green</option3>
+<answer>red</answer>
 <category>geography</category>
 </question>
 <question>
@@ -6385,7 +6384,7 @@
 <category>geography</category>
 </question>
 <question>
-<text>Ukranian flag has ___</text>
+<text>Ukrainian flag has ___</text>
 <option1>2 colors</option1>
 <option2>3 colors</option2>
 <option3>4 colors</option3>
@@ -6507,7 +6506,7 @@
 <question>
 <text>a neighbor of Pakistan</text>
 <option1>Iran</option1>
-<option2>Russua</option2>
+<option2>Russia</option2>
 <option3>Kazakhstan</option3>
 <answer>Iran</answer>
 <category>geography</category>
@@ -6562,10 +6561,10 @@
 </question>
 <question>
 <text>the capital of Malta</text>
-<option1>Valetta</option1>
+<option1>Valletta</option1>
 <option2>Martha</option2>
 <option3>Rohan</option3>
-<answer>Valetta</answer>
+<answer>Valletta</answer>
 <category>geography</category>
 </question>
 <question>
@@ -6721,7 +6720,7 @@
 <category>geography</category>
 </question>
 <question>
-<text>the internet domain of South africa</text>
+<text>the internet domain of South Africa</text>
 <option1>.za</option1>
 <option2>.ya</option2>
 <option3>.so</option3>
@@ -6858,10 +6857,10 @@
 </question>
 <question>
 <text>an archipelago country</text>
-<option1>Phillipines</option1>
+<option1>Philippines</option1>
 <option2>Nicaragua</option2>
 <option3>Serbia</option3>
-<answer>Phillipines</answer>
+<answer>Philippines</answer>
 <category>geography</category>
 </question>
 <question>
@@ -6938,10 +6937,10 @@
 </question>
 <question>
 <text>the equator passes through ___</text>
-<option1>Argentina</option1>
+<option1>Brazil</option1>
 <option2>USA</option2>
-<option3>Paraguay</option3>
-<answer>Argentina</answer>
+<option3>Argentina</option3>
+<answer>Brazil</answer>
 <category>geography</category>
 </question>
 <question>
@@ -6987,13 +6986,13 @@
 <question>
 <text>population is more than 9 million</text>
 <option1>Belgium</option1>
-<option2>Swizterland</option2>
+<option2>Switzerland</option2>
 <option3>Denmark</option3>
 <answer>Belgium</answer>
 <category>geography</category>
 </question>
 <question>
-<text>population is less than 33 million</text>
+<text>population is less than 40 million</text>
 <option1>Texas</option1>
 <option2>Turkey</option2>
 <option3>Tanzania</option3>
@@ -7105,7 +7104,7 @@
 <category>geography</category>
 </question>
 <question>
-<text>Hagia Sofia is in ___</text>
+<text>Hagia Sophia is in ___</text>
 <option1>Istanbul</option1>
 <option2>Athens</option2>
 <option3>Budapest</option3>
@@ -7186,10 +7185,10 @@
 </question>
 <question>
 <text>knife of the Gurkhas</text>
-<option1>Kirku</option1>
+<option1>Kukri</option1>
 <option2>Hancer</option2>
 <option3>Blaid</option3>
-<answer>Kirku</answer>
+<answer>Kukri</answer>
 <category>geography</category>
 </question>
 <question>
@@ -7385,7 +7384,7 @@
 <category>geography</category>
 </question>
 <question>
-<text>Sears Tower is in ___</text>
+<text>Willis Tower is in ___</text>
 <option1>Chicago</option1>
 <option2>Toronto</option2>
 <option3>Miami</option3>
@@ -7449,11 +7448,11 @@
 <category>geography</category>
 </question>
 <question>
-<text>the smaller city by population</text>
-<option1>Norway</option1>
-<option2>Spain</option2>
-<option3>Italy</option3>
-<answer>Norway</answer>
+<text>the larger country by population</text>
+<option1>Japan</option1>
+<option2>Germany</option2>
+<option3>France</option3>
+<answer>Japan</answer>
 <category>geography</category>
 </question>
 <question>
@@ -7473,11 +7472,11 @@
 <category>geography</category>
 </question>
 <question>
-<text>Mount Everest is located in ___</text>
-<option1>China</option1>
-<option2>Russia</option2>
-<option3>India</option3>
-<answer>China</answer>
+<text>Everest is in the ___ mountain range</text>
+<option1>Himalayas</option1>
+<option2>Rocky</option2>
+<option3>Alps</option3>
+<answer>Himalayas</answer>
 <category>geography</category>
 </question>
 <question>
@@ -7532,7 +7531,7 @@
 <text>he cut Van Gogh's ear</text>
 <option1>Van Gogh</option1>
 <option2>E. Scissorhands</option2>
-<option3>P. Gaugin</option3>
+<option3>P. Gauguin</option3>
 <answer>Van Gogh</answer>
 <category>people</category>
 </question>
@@ -7554,10 +7553,10 @@
 </question>
 <question>
 <text>Wolfgang ___ Mozart</text>
-<option1>amadeus</option1>
+<option1>Amadeus</option1>
 <option2>theo</option2>
 <option3>constanze</option3>
-<answer>amadeus</answer>
+<answer>Amadeus</answer>
 <category>people</category>
 </question>
 <question>
@@ -7618,10 +7617,10 @@
 </question>
 <question>
 <text>French haute couture fashion designer</text>
-<option1>Jean Paul Gaultier</option1>
+<option1>Jean-Paul Gaultier</option1>
 <option2>Anna Wintour</option2>
 <option3>Domenico Dolce</option3>
-<answer>Jean Paul Gaultier</answer>
+<answer>Jean-Paul Gaultier</answer>
 <category>people</category>
 </question>
 <question>
@@ -7674,10 +7673,10 @@
 </question>
 <question>
 <text>Muhammad Ali's first defeat was vs. ___</text>
-<option1>Joe Fraizer</option1>
+<option1>Joe Frazier</option1>
 <option2>George Foreman</option2>
 <option3>Floyd Patterson</option3>
-<answer>Joe Fraizer</answer>
+<answer>Joe Frazier</answer>
 <category>people</category>
 </question>
 <question>
@@ -7740,12 +7739,12 @@
 <text>American football player</text>
 <option1>Tom Brady</option1>
 <option2>Wayne Brady</option2>
-<option3>Bradley Manning</option3>
+<option3>Bradley Cooper</option3>
 <answer>Tom Brady</answer>
 <category>people</category>
 </question>
 <question>
-<text>Germanl football player</text>
+<text>German football player</text>
 <option1>Philipp Lahm</option1>
 <option2>Marc Janko</option2>
 <option3>Heinrich Hertz</option3>
@@ -7825,11 +7824,11 @@
 <category>people</category>
 </question>
 <question>
-<text>French goalkeeper</text>
-<option1>Fabien Barthez</option1>
-<option2>Frank Ribery</option2>
-<option3>G. Ardien deBut</option3>
-<answer>Fabien Barthez</answer>
+<text>famous French footballer</text>
+<option1>K. Mbappé</option1>
+<option2>C. Ronaldo</option2>
+<option3>L. Messi</option3>
+<answer>K. Mbappé</answer>
 <category>people</category>
 </question>
 <question>
@@ -7889,7 +7888,7 @@
 <category>people</category>
 </question>
 <question>
-<text>"Vini, vidi, vici"</text>
+<text>"Veni, vidi, vici"</text>
 <option1>Julius Caesar</option1>
 <option2>Genghis Khan</option2>
 <option3>Tony Montana</option3>
@@ -7898,10 +7897,10 @@
 </question>
 <question>
 <text>a student of Socrates</text>
-<option1>Pluto</option1>
+<option1>Plato</option1>
 <option2>Dionysus</option2>
 <option3>Apollo</option3>
-<answer>Pluto</answer>
+<answer>Plato</answer>
 <category>people</category>
 </question>
 <question>
@@ -7956,7 +7955,7 @@
 <text>he wrote The BFG</text>
 <option1>Roald Dahl</option1>
 <option2>Maurice Sendak</option2>
-<option3>Shel Sliverstein</option3>
+<option3>Shel Silverstein</option3>
 <answer>Roald Dahl</answer>
 <category>literature</category>
 </question>
