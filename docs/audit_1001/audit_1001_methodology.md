@@ -106,6 +106,13 @@ Some style choices (capitalization of "English" / "Wednesday" / weekday names, u
 
 Both happen. Inline fixes during batches; one global sweep at the end of Phase 1. Don't burn review-pass time debating each capitalization individually — when in doubt, capitalize per English orthography (proper nouns, language names, weekday names, month names) and let the global sweep clean up the rest.
 
+**Global sweep executed 2026-04-26 (session 22f).** Three clusters cleaned in one mechanical pass:
+- **42 "Make a word using" prefix normalization** (Q352–Q386 + Q509/Q510/Q511/Q512/Q513/Q514/Q516) — all `Make a word using  "X"` → `make a word using "X"` (lowercase + single space). 41 rewrites; Q357 was already fixed in batch 5.
+- **4 math caps to lowercase** (Q738/Q739/Q744/Q777) — `Twenty/Forty/Sixty/Fifty percent...` → lowercase first word, matching the corpus's lowercase math voice.
+- **Q626 Roman numerals uppercased** — `c/k/x → C/K/X` (and answer). One-off voice call: convention beats corpus stylistic lowercase for Roman numerals.
+
+Style sweep changes are NOT added to the audit Light tally — sweep is corpus-wide style normalization, separate from per-question editorial decisions. Cumulative Phase 1 audit tally remains **903 / 98 / 0 / 0**.
+
 ---
 
 ## What NOT to tag as a reason to retire

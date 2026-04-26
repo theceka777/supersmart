@@ -2,6 +2,59 @@
 
 ---
 
+## Session 22f — 2026-04-26 — Corpus-wide style sweep executed (mothership v1.38 → v1.39)
+
+The single global pass over the 1001-question corpus to clean residual style patterns the per-question audit deferred. Phase 1 fully closed.
+
+### What landed (49 total field changes across 47 questions)
+
+**42 "Make a word using" prefix normalizations** — Q352–Q386 cluster + Q509/Q510/Q511/Q512/Q513/Q514/Q516. All `Make a word using  "X"` (capital + double-space) and `make a word using  "X"` (lowercase + double-space) → `make a word using "X"` (lowercase + single space). 41 prompts rewritten; Q357 was already in this form from batch 5.
+
+**4 math caps to lowercase** — Q738 / Q739 / Q744 / Q777 — first words `Twenty / Forty / Sixty / Fifty` lowercased to match the corpus's lowercase math voice (consistent with Q608 `4+20-14`, Q611 `four squared plus four`, etc).
+
+**Q626 Roman numerals uppercased** — single CD voice call. `c / k / x → C / K / X` (and answer). Convention beats corpus stylistic lowercase for Roman numerals; only one Roman-numeral question in the corpus, so this is a one-off.
+
+### Verification
+
+- 1001 questions intact.
+- All answers match one of their three options.
+- Zero remaining double-space patterns in "make a word using" prompts.
+- Spot-checks on Q352, Q357, Q371, Q386, Q511, Q626, Q738, Q777 all clean.
+- `app/questions.ts` regenerated from updated XML (same script as session 22d).
+
+### What was deliberately NOT touched
+
+- **Q261** (`pick the blank answer` with literal whitespace as the correct option) and **Q320** (`you can read the correct answer out loud` with empty distractors) — both use whitespace as wordplay. Preserved.
+- **31 nationality-adjective prompts** (`Japanese art of...`, `French singer...`, `Italian football player...`) — properly capitalized as proper adjectives.
+- **Q596** (`The Terminator tries to terminate ___`) and **Q996** (`The Hobbit was written by a ___`) — `The` is part of proper-noun titles.
+
+### Tally
+
+Style sweep changes are **NOT added to the Light edit count**. The methodology distinguishes per-question editorial decisions (Light edits) from corpus-wide style normalization (this sweep). Phase 1 audit cumulative remains: **903 Keep / 98 Light / 0 Heavy / 0 Retire**.
+
+### Files touched
+
+- `1001.xml` — 49 field edits in place
+- `supersmart/app/questions.ts` — regenerated from updated XML
+- `audit_1001/audit_1001_methodology.md` — sweep documented inline in the "On corpus-wide stylistic decisions" section
+- `super_smart_2026_mothership.md` — status line v1.38 → v1.39 with sweep summary, end-of-doc stamp
+- `super_smart_2026_primer.md` — current-state line bumped
+- `supersmart/docs/` — all five files mirrored
+- `CHANGELOG.md` — this entry
+
+### Phase 1 audit deliverables status — ALL CLOSED
+
+- ✓ 1001-row tagged CSV at `audit_1001/audit_1001_tags.csv`
+- ✓ 16 finalized edge-case rulings + methodology playbook + per-category calibration
+- ✓ Audited corpus XML (`1001.xml` with all 98 Light edits + 49 style-sweep field changes)
+- ✓ Original 2012 archive preserved (`1001_original_2012.xml`)
+- ✓ App-side question array (`supersmart/app/questions.ts`) in sync with audited corpus
+- ✓ Corpus-wide style sweep complete
+
+**Ready for Phase 5 question writing** against this 1001-question voice corpus.
+
+---
+
 ## Session 22e — 2026-04-26 — Incident runbook drafted (mothership v1.37 → v1.38)
 
 Pre-launch incident response kit. Living document — updated after every actual incident with a postmortem.
