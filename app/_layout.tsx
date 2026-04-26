@@ -2,6 +2,7 @@ import { DefaultTheme, ThemeProvider, Theme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import 'react-native-reanimated';
 
@@ -10,7 +11,7 @@ import 'react-native-reanimated';
 import { ArchivoBlack_400Regular } from '@expo-google-fonts/archivo-black';
 import { JetBrainsMono_500Medium } from '@expo-google-fonts/jetbrains-mono';
 
-import { AppProvider } from './store';
+import { AppProvider, AppState, hydrateAppState } from './store';
 import { Colors } from '@/constants/theme';
 import { Sunburst } from '@/components/Sunburst';
 import { Halftone } from '@/components/Halftone';
@@ -38,13 +39,21 @@ export default function RootLayout() {
     JetBrainsMono: JetBrainsMono_500Medium,
   });
 
-  // Hold splash until fonts are ready
-  if (!fontsLoaded) {
+  // Hydrate persisted state from AsyncStorage. Both fonts and hydration run
+  // in parallel; render unblocks when both are done. AsyncStorage typically
+  // resolves in 50–150ms, comfortably inside the splash window.
+  const [hydratedState, setHydratedState] = useState<AppState | null>(null);
+  useEffect(() => {
+    hydrateAppState().then(setHydratedState);
+  }, []);
+
+  // Hold splash until fonts AND state are ready
+  if (!fontsLoaded || !hydratedState) {
     return <View style={{ flex: 1, backgroundColor: Colors.background }} />;
   }
 
   return (
-    <AppProvider>
+    <AppProvider initialState={hydratedState}>
       <ThemeProvider value={SuperSmartNavTheme}>
         {/* Global background — Sunburst + Halftone render once, behind every screen.
             Mothership decision 2026-04-19 session 7: promoted from home-only to global.

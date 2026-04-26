@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// ─── Persisted state shape ────────────────────────────────────────────────────
+// Fields below survive force-quit via AsyncStorage. Add new persisted fields
+// here. Ephemeral state (modal-open, current tab, etc.) belongs in component-
+// local useState, NOT here. If a persisted field's shape changes, bump
+// STORAGE_VERSION below and add a migration in hydrateAppState().
 
 export interface AppState {
   highScores: { quickmatch: number; daily: number };
@@ -17,17 +24,77 @@ interface AppActions {
 
 type AppContextType = AppState & AppActions;
 
-const defaultState: AppState = {
+export const defaultState: AppState = {
   highScores: { quickmatch: 0, daily: 0 },
   avatar: { color: '#FF6B9D', eyes: 'round', mouth: 'smile' },
   dailyStatus: { date: '', played: false, score: 0, results: [] },
   freePlay: { date: '', playsToday: 0, oneMoreTaps: 0 },
 };
 
+// ─── AsyncStorage wiring ──────────────────────────────────────────────────────
+// One blob, one key. Atomic read/write. Debounced 200ms to coalesce rapid
+// state changes into single writes.
+
+const STORAGE_KEY = '@supersmart/state';
+const STORAGE_VERSION = 1;
+const PERSIST_DEBOUNCE_MS = 200;
+
+// Read persisted state on cold start. Falls back to defaults silently on:
+//   • no stored data (first launch)
+//   • parse error / corrupted JSON
+//   • version mismatch (migration not yet implemented)
+//   • any unreadable AsyncStorage error
+// Always returns a valid AppState; never throws.
+export async function hydrateAppState(): Promise<AppState> {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState;
+    const parsed = JSON.parse(raw);
+    if (parsed?._version !== STORAGE_VERSION) {
+      // Future: run migration based on version diff. For now, v1 only;
+      // any mismatch resets to defaults.
+      return defaultState;
+    }
+    // Merge with defaults so newly-added persisted fields get their default
+    // values when loading older blobs (forward-compatible reads).
+    const { _version: _v, ...persisted } = parsed;
+    return { ...defaultState, ...persisted };
+  } catch (_err) {
+    // Silent fallback. TODO: log to Sentry once Tier 1 instrumentation lands.
+    return defaultState;
+  }
+}
+
+// ─── Provider ─────────────────────────────────────────────────────────────────
+
 const AppContext = createContext<AppContextType | null>(null);
 
-export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AppState>(defaultState);
+export function AppProvider({
+  children,
+  initialState,
+}: {
+  children: ReactNode;
+  initialState?: AppState;
+}) {
+  const [state, setState] = useState<AppState>(initialState ?? defaultState);
+
+  // Debounced persistence — coalesces rapid state changes (e.g., rapid
+  // tapOneMore() taps) into a single write so we don't race on Android.
+  const writeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (writeTimer.current) clearTimeout(writeTimer.current);
+    writeTimer.current = setTimeout(() => {
+      const blob = JSON.stringify({ _version: STORAGE_VERSION, ...state });
+      AsyncStorage.setItem(STORAGE_KEY, blob).catch(() => {
+        // Silent. TODO: Sentry.
+      });
+    }, PERSIST_DEBOUNCE_MS);
+    return () => {
+      if (writeTimer.current) clearTimeout(writeTimer.current);
+    };
+  }, [state]);
+
+  // ─── Actions ────────────────────────────────────────────────────────────────
 
   const updateHighScore = (mode: 'quickmatch' | 'daily', score: number) => {
     setState(s => ({

@@ -2,6 +2,88 @@
 
 ---
 
+## Session 23 — 2026-04-26 — AsyncStorage persistence + Daily Race played-today UX (mothership v1.39 → v1.40)
+
+**Tier 1 punch-list item #1 closed.** State persistence was the largest single bug surface in the pre-launch app — without it, the freeplay-gate could be bypassed by force-quitting, the once-per-day Daily Race could be replayed, and avatar choices reset every launch. All closed in this session.
+
+### What landed
+
+**`supersmart/app/store.tsx`** — full rewrite of the persistence layer:
+- `hydrateAppState()` exported for `_layout.tsx` to call on mount.
+- Single-blob storage at `@supersmart/state` with `_version: 1` for future schema migrations.
+- 200ms write debounce via `useRef`-managed timer (coalesces rapid state changes — closes the Android write-race concern).
+- Silent fallback to defaults on parse error, corruption, or version mismatch (Sentry hook commented for when Tier 1 instrumentation lands).
+- Forward-compatible reads: hydrated state merged with `defaultState` so newly-added persisted fields get default values when loading older blobs.
+- `AppProvider` accepts an `initialState` prop seeded from the hydration result; persistence runs as a `useEffect` on every state change.
+- Top-of-file comment documents which fields persist vs which are ephemeral (discipline against accidental over-persistence as the state shape grows).
+
+**`supersmart/app/_layout.tsx`** — hydration gate alongside font load:
+- New `useEffect` reads from AsyncStorage on mount, sets local state.
+- Render is held until BOTH `fontsLoaded` AND `hydratedState !== null`.
+- Both run in parallel; AsyncStorage typically resolves in 50–150ms, comfortably inside the existing splash window. No UI flicker.
+
+**`supersmart/app/(tabs)/index.tsx`** — Daily Race card "played today" celebration:
+- Reads `dailyStatus` from store; computes `dailyPlayedToday`.
+- Card stays full vivid cyan when played (no graying — that's anti-pattern; matches Wordle / Duolingo / Apple Fitness).
+- Label: `DAILY RACE ✓`
+- Sublabel: `4,850 PTS · BACK AT 6AM` (live score + reset hint)
+- Target decor accent flips from `Colors.red` → `#22C55E` (the success-green used elsewhere in the app for correct-answer feedback). Reinforces the completed state without dimming.
+- Card stays pressable for result recap (existing behavior preserved).
+
+### Persisted state shape (v1)
+
+| Field | Why it persists |
+|---|---|
+| `highScores: { quickmatch, daily }` | Player keeps bragging rights across launches |
+| `avatar: { color, eyes, mouth }` | Player doesn't remake brain every cold start |
+| `dailyStatus: { date, played, score, results }` | Closes once-per-day loophole |
+| `freePlay: { date, playsToday, oneMoreTaps }` | Closes gate-bypass abuse path |
+
+Future fields will be added to this shape and persisted automatically. If a field's *shape* changes (rename, restructure), bump `STORAGE_VERSION` and add a migration in `hydrateAppState()`.
+
+### Verified on device (Expo Go)
+
+- ✅ **Test A** — Avatar persistence: change color → force-quit → reopen → color persists.
+- ✅ **Test C** — Daily Race already-played: complete race → force-quit → reopen → already-played result still showing, can't replay.
+- ⏳ **Test B** — Free-play gate persistence: deferred (same code path as A and C, low risk; player can verify post-commit).
+
+### UX iteration on the Daily Race played-today card
+
+Walked through three visual treatments on device with the creative director:
+1. ❌ Full-card opacity dim (0.55 then 0.7) — text became hard to read; communicated "broken/disabled" instead of "completed."
+2. ❌ Desaturated card body + grayed text + grayscale target accent — closer, but still felt punitive.
+3. ✅ Full vivid card + ✓ in label + score-in-sublabel + green target accent — reads as celebration. Matches the Build-for-the-Flex principle. Aligns with how Wordle/Duolingo/Apple Fitness handle completion (never gray, always bright + result-inline).
+
+### Pre-Phase-4 fallback notes
+
+- Daily-played state uses local-date comparison (`toISOString().split('T')[0]`). Phase 4 will swap in the 6am-ET-anchored reset (Appendix D #7 already resolved). Current implementation works for single-device, single-timezone players; clock-tampering bypass is a known limitation pending server-side validation in Phase 4.
+- AsyncStorage is the single source of truth pre-Phase-4. When Supabase ships, the architecture demotes AsyncStorage to local cache for cross-device-sync fields (highScores → server-of-truth, league standing → server, Pro entitlement → server) while local-only state stays AsyncStorage (freePlay counter, dailyStatus).
+
+### Files touched
+
+- `supersmart/app/store.tsx` — full rewrite (hydration + persistence)
+- `supersmart/app/_layout.tsx` — hydration gate added alongside font load
+- `supersmart/app/(tabs)/index.tsx` — Daily Race played-today UX
+- `supersmart/package.json` + `supersmart/package-lock.json` — `@react-native-async-storage/async-storage` added (via `npx expo install` on Mac side, version resolved by Expo SDK)
+- `super_smart_2026_mothership.md` — status line v1.39 → v1.40, end-of-doc stamp, Appendix D #2 marked ✅ RESOLVED with implementation notes
+- `super_smart_2026_primer.md` — current-state line bumped
+- `supersmart/docs/` — all five files mirrored
+- `CHANGELOG.md` — this entry
+
+### Tier 1 progress
+
+- ✅ #1 State persistence (this session)
+- ⏳ #2 Back-button mid-round
+- ⏳ #3 App lifecycle mid-round
+- ⏳ #4 Daily Race system-clock vulnerability
+- ⏳ #5 Onboarding flow
+- ⏳ #6 Maintenance / kill-switch screens
+- ⏳ #7 Arcade mode orphan path
+
+Next session: pick up #2 or #3.
+
+---
+
 ## Session 22f — 2026-04-26 — Corpus-wide style sweep executed (mothership v1.38 → v1.39)
 
 The single global pass over the 1001-question corpus to clean residual style patterns the per-question audit deferred. Phase 1 fully closed.

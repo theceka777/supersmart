@@ -100,7 +100,7 @@ const bub = StyleSheet.create({
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { freePlay, recordPlay, tapOneMore } = useAppStore();
+  const { freePlay, recordPlay, tapOneMore, dailyStatus } = useAppStore();
 
   const [copyIdx, setCopyIdx] = useState(0);
   const [brainExpr, setBrainExpr] = useState<BrainExpression>('smirk');
@@ -112,6 +112,22 @@ export default function HomeScreen() {
   const playsLeft    = Math.max(0, totalAllowed - playsToday);
   const isGated      = playsLeft === 0;
   const isProWall    = isGated && oneMoreTaps >= ONE_MORE_LIMIT;
+
+  // Today's Daily Race state — drives the home card's "completed" treatment.
+  // Persistence is via AsyncStorage (mothership Appendix D #2 resolved 2026-04-26).
+  // Phase 4 will swap this client-side date check for the 6am-ET-anchored reset
+  // (Appendix D #7 resolved 2026-04-24); current local-date comparison is the
+  // pre-Phase-4 fallback.
+  //
+  // Visual treatment when played: card stays fully vivid cyan. Label gets a
+  // "✓" check. Sublabel shows the score and reset time. Target decor's red
+  // accent flips to green to reinforce the completed state. Build-for-the-flex
+  // — bright + score-visible, not dimmed.
+  const dailyPlayedToday = dailyStatus.date === today && dailyStatus.played;
+  const dailyLabel = dailyPlayedToday ? 'Daily Race ✓' : 'Daily Race';
+  const dailySublabel = dailyPlayedToday
+    ? `${dailyStatus.score.toLocaleString()} pts · back at 6am`
+    : 'fresh every 6am';
 
   function go(route: string) { router.push(route as any); }
 
@@ -189,10 +205,12 @@ export default function HomeScreen() {
             }
           />
 
-          {/* Daily Race */}
+          {/* Daily Race — when today's race is done: ✓ next to label, score
+              + reset time in sublabel, target accent flips red → green. Card
+              stays fully vivid. */}
           <ArcadeCard
-            label="Daily Race"
-            sublabel="fresh every 6am"
+            label={dailyLabel}
+            sublabel={dailySublabel}
             color={Colors.dailyrace.bg}
             fg={Colors.dailyrace.fg}
             tilt={0}
@@ -205,7 +223,7 @@ export default function HomeScreen() {
               <DailyDecor
                 fg={Colors.dailyrace.bg}
                 ink={Colors.ink}
-                accent={Colors.red}
+                accent={dailyPlayedToday ? '#22C55E' : Colors.red}
               />
             }
           />
