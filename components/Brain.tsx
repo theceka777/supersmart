@@ -1,40 +1,65 @@
-// Brain.tsx — Super Smart 2026 mascot
-// Ported from brain.jsx (web design) to React Native + react-native-svg + Reanimated
+// Brain.tsx — Super Smart 2026 mascot.
 //
-// Requires: npx expo install react-native-svg
+// Rebuilt session 27: SVG body replaced by an illustrated PNG (brain-base.png,
+// 1402×1122, transparent bg) with the eyes + mouth drawn as an SVG overlay
+// on top. The PNG carries the volume, gyri detail, glossy highlights, and
+// maroon outline. The overlay carries only the face — eyes and mouth —
+// because that's what changes by expression and by blink.
+//
+// Coordinate system for the overlay: viewBox is exactly the PNG dimensions
+// (0 0 1402 1122) so face landmarks line up cleanly. Face landmarks ported
+// from explore/shared.jsx (the design's source of truth):
+//   • left eye  cx=335 cy=540  rx=82 ry=100
+//   • right eye cx=645 cy=540  rx=82 ry=100  (flip = -1 → pupils mirror)
+//   • smirk mouth: asymmetric, rises on the right, with lower-lip shadow + tooth
+//   • hype  mouth: open laughing cavity with upper teeth row + tongue
+//
+// Wiggle animation: 2.4s ease-in-out, -1.5° → 2°, transform-origin center bottom.
+// Disabled when wiggle={false} (used inside the YOU-row leaderboard avatar disc).
+//
+// Antenna removed across the board (session 27) — small avatars need to fit
+// cleanly in tight discs without antenna overflow.
 
 import React, { useEffect, useState } from 'react';
+import { Image, View } from 'react-native';
 import Animated, {
   useSharedValue,
+  useAnimatedStyle,
   withRepeat,
   withSequence,
   withTiming,
-  useAnimatedStyle,
   Easing,
 } from 'react-native-reanimated';
-import Svg, { Path, Ellipse, Circle, G } from 'react-native-svg';
+import Svg, { Path, Ellipse, Circle, G, Line } from 'react-native-svg';
 
 export type BrainExpression = 'neutral' | 'hype' | 'smirk';
 
 interface BrainProps {
   size?: number;
-  color?: string;
-  shadowColor?: string;
   expression?: BrainExpression;
   wiggle?: boolean;
 }
 
+// Face palette — pulled from shared.jsx so the overlay matches the PNG ink.
+const OUTLINE = '#5A0E2A';   // darker than pinkDark, matches brain ink
+const SCLERA  = '#FFF6FB';   // warm off-white, tinted toward pink
+const IRIS    = '#1F1430';   // not pure black — reads as cartoon ink
+const BLUSH   = 'rgba(255,90,150,0.32)';
+
+// PNG aspect ratio — drives the rendered height for any given width.
+const PNG_W = 1402;
+const PNG_H = 1122;
+const ASPECT = PNG_H / PNG_W; // ~0.80
+
 export function Brain({
   size = 100,
-  color = '#FF3D7F',
-  shadowColor = '#B01A4F',
-  expression = 'neutral',
+  expression = 'smirk',
   wiggle = true,
 }: BrainProps) {
-  const [blinking, setBlinking] = useState(false);
   const rotation = useSharedValue(0);
+  const [blinking, setBlinking] = useState(false);
 
-  // Gentle side-to-side wiggle
+  // Wiggle: ssBrainWiggle equivalent — -1.5° → 2° → -1.5° over 2.4s.
   useEffect(() => {
     if (wiggle) {
       rotation.value = withRepeat(
@@ -43,12 +68,14 @@ export function Brain({
           withTiming(2,    { duration: 1200, easing: Easing.inOut(Easing.sin) }),
         ),
         -1,
-        true
+        true,
       );
+    } else {
+      rotation.value = 0;
     }
   }, [wiggle]);
 
-  // Blink every 3–5 seconds
+  // Blink every 2.8–5.3s, lasts 130ms.
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
     const blink = () => {
@@ -65,97 +92,218 @@ export function Brain({
     transformOrigin: 'center bottom',
   }));
 
-  const w = size;
-  const h = size * 1.05;
+  const W = size;
+  const H = Math.round(size * ASPECT);
 
   return (
-    <Animated.View style={[{ width: w, height: h }, animStyle]}>
-      <Svg viewBox="0 0 200 210" width={w} height={h} overflow="visible">
+    <Animated.View style={[{ width: W, height: H, position: 'relative' }, animStyle]}>
+      {/* soft drop shadow beneath the brain */}
+      <View
+        style={{
+          position: 'absolute',
+          left: '15%',
+          right: '15%',
+          bottom: -H * 0.04,
+          height: H * 0.08,
+          backgroundColor: 'rgba(0,0,0,0.22)',
+          borderRadius: H,
+          opacity: 0.9,
+          zIndex: 0,
+        }}
+      />
 
-        {/* soft drop shadow */}
-        <Ellipse cx="100" cy="200" rx="58" ry="6" fill="rgba(0,0,0,0.18)" />
+      {/* illustrated brain PNG */}
+      <Image
+        source={require('@/assets/images/brain-base.png')}
+        style={{
+          width: W,
+          height: H,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 1,
+        }}
+        resizeMode="contain"
+      />
 
-        {/* lightning bolt antenna */}
-        <G transform="translate(104 8)">
-          <Path d="M 0 22 L 3 10" stroke="#1A1522" strokeWidth="4" strokeLinecap="round" fill="none" />
-          <Path
-            d="M -12 -2 L 8 -28 L 2 -8 L 18 -12 L -4 18 L 0 0 Z"
-            fill="#FFD23F" stroke="#1A1522" strokeWidth="3.5" strokeLinejoin="round"
-          />
-          <Path d="M 4 -20 L -3 -4" stroke="#FFF4DF" strokeWidth="1.8" strokeLinecap="round" opacity="0.85" />
-        </G>
-
-        {/* brain back / shadow shape */}
-        <Path
-          d="M 46 80 C 30 78 20 96 28 110 C 14 120 22 144 42 144 C 42 168 68 184 96 178 C 106 192 132 192 144 178 C 168 182 188 162 180 140 C 196 128 188 102 172 102 C 176 84 158 68 142 74 C 134 58 106 58 96 70 C 82 56 52 60 46 80 Z"
-          fill={shadowColor}
-        />
-
-        {/* main puffy body */}
-        <Path
-          d="M 48 82 C 34 80 26 94 32 106 C 22 112 26 136 44 138 C 46 160 70 178 96 174 C 106 188 130 188 140 174 C 164 178 184 162 178 142 C 190 130 184 106 170 104 C 174 86 156 74 142 78 C 134 62 106 62 96 74 C 84 62 54 64 48 82 Z"
-          fill={color}
-          stroke="#1A1522"
-          strokeWidth="5.5"
-          strokeLinejoin="round"
-        />
-
-        {/* brain wrinkles */}
-        <G stroke="#1A1522" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.9">
-          <Path d="M 58 108 Q 70 102 76 110" />
-          <Path d="M 124 102 Q 136 98 142 106" />
-          <Path d="M 64 140 Q 76 136 82 144" />
-          <Path d="M 128 144 Q 140 140 146 148" />
-        </G>
-
-        {/* glossy highlight */}
-        <Ellipse cx="72" cy="98" rx="16" ry="7" fill="rgba(255,255,255,0.7)" transform="rotate(-22 72 98)" />
-        <Ellipse cx="62" cy="108" rx="5" ry="2.5" fill="rgba(255,255,255,0.55)" transform="rotate(-22 62 108)" />
-
-        {/* rosy cheeks */}
-        <Ellipse cx="60"  cy="152" rx="12" ry="7" fill="#E8253C" opacity="0.32" />
-        <Ellipse cx="140" cy="152" rx="12" ry="7" fill="#E8253C" opacity="0.32" />
-
-        {/* eyes */}
+      {/* face overlay — eyes + mouth, drawn at PNG-native viewBox so coords match */}
+      <Svg
+        viewBox={`0 0 ${PNG_W} ${PNG_H}`}
+        width={W}
+        height={H}
+        style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }}
+      >
         {blinking ? (
+          // Blink: closed-arc lids over both eyes, no iris/pupil.
           <G>
-            <Path d="M 70 130 Q 82 134 94 130"  stroke="#1A1522" strokeWidth="5" strokeLinecap="round" fill="none" />
-            <Path d="M 110 130 Q 122 134 134 130" stroke="#1A1522" strokeWidth="5" strokeLinecap="round" fill="none" />
+            <Path
+              d="M 253 540 Q 335 555 417 540"
+              stroke={OUTLINE}
+              strokeWidth={11}
+              strokeLinecap="round"
+              fill="none"
+            />
+            <Path
+              d="M 563 540 Q 645 555 727 540"
+              stroke={OUTLINE}
+              strokeWidth={11}
+              strokeLinecap="round"
+              fill="none"
+            />
           </G>
         ) : (
           <G>
-            {/* left eye */}
-            <Ellipse cx="82"  cy="130" rx="12" ry="14" fill="#1A1522" />
-            <Circle  cx="86"  cy="125" r="5"            fill="#fff" />
-            <Circle  cx="78"  cy="134" r="2.2"          fill="#fff" opacity="0.8" />
-            <Circle  cx="80"  cy="128" r="1"            fill="#fff" opacity="0.6" />
-            {/* right eye */}
-            <Ellipse cx="122" cy="130" rx="12" ry="14" fill="#1A1522" />
-            <Circle  cx="126" cy="125" r="5"            fill="#fff" />
-            <Circle  cx="118" cy="134" r="2.2"          fill="#fff" opacity="0.8" />
-            <Circle  cx="120" cy="128" r="1"            fill="#fff" opacity="0.6" />
+            <FaceEye cx={335} cy={540} flip={1} />
+            <FaceEye cx={645} cy={540} flip={-1} />
           </G>
         )}
 
-        {/* mouth — three expressions */}
-        {expression === 'hype' ? (
-          <G>
-            <Ellipse cx="100" cy="168" rx="11" ry="8"  fill="#1A1522" />
-            <Ellipse cx="100" cy="172" rx="6"  ry="3"  fill="#E8253C" />
-            <Path d="M 92 158 Q 100 162 108 158" stroke="#1A1522" strokeWidth="4" strokeLinecap="round" fill="none" />
-          </G>
-        ) : expression === 'smirk' ? (
-          <Path d="M 88 165 Q 100 174 114 165" stroke="#1A1522" strokeWidth="5" strokeLinecap="round" fill="none" />
-        ) : (
-          // neutral — closed smile + dimples
-          <G>
-            <Path d="M 90 165 Q 100 172 110 165" stroke="#1A1522" strokeWidth="5" strokeLinecap="round" fill="none" />
-            <Circle cx="88"  cy="167" r="1.5" fill="#1A1522" />
-            <Circle cx="112" cy="167" r="1.5" fill="#1A1522" />
-          </G>
-        )}
-
+        {/* mouth */}
+        {expression === 'hype' ? <MouthHype /> : <MouthSmirk />}
       </Svg>
     </Animated.View>
+  );
+}
+
+// ─── Eye ─────────────────────────────────────────────────────────────────────
+//
+// Faithful port of shared.jsx's Eye component:
+//   • blush behind eye (warm pink wash)
+//   • sclera ellipse with thick maroon outline
+//   • upper-lid shadow inside the sclera (gives depth)
+//   • iris circle, ink-stroked, with pupil and bounce-light highlights
+//   • upper lash arc + 3 small lash flicks above the lid
+
+function FaceEye({ cx, cy, flip }: { cx: number; cy: number; flip: 1 | -1 }) {
+  return (
+    <G>
+      {/* soft pink blush below */}
+      <Ellipse cx={cx} cy={cy + 70} rx={78} ry={22} fill={BLUSH} />
+      {/* sclera (eyeball) */}
+      <Ellipse
+        cx={cx}
+        cy={cy}
+        rx={82}
+        ry={100}
+        fill={SCLERA}
+        stroke={OUTLINE}
+        strokeWidth={11}
+      />
+      {/* upper-lid shadow inside the sclera */}
+      <Path
+        d={`M ${cx - 78} ${cy - 30} Q ${cx} ${cy - 110} ${cx + 78} ${cy - 30} L ${cx + 78} ${cy - 60} Q ${cx} ${cy - 30} ${cx - 78} ${cy - 60} Z`}
+        fill="rgba(90,14,42,0.18)"
+      />
+      {/* iris */}
+      <Circle cx={cx + 8 * flip} cy={cy + 8} r={58} fill={IRIS} />
+      <Circle
+        cx={cx + 8 * flip}
+        cy={cy + 8}
+        r={58}
+        fill="none"
+        stroke="#000"
+        strokeOpacity={0.35}
+        strokeWidth={3}
+      />
+      {/* pupil + highlights */}
+      <Circle cx={cx + 8 * flip} cy={cy + 8} r={22} fill="#000" />
+      <Ellipse cx={cx + 28 * flip} cy={cy - 18} rx={22} ry={28} fill="#fff" />
+      <Circle cx={cx - 18 * flip} cy={cy + 32} r={9} fill="#fff" opacity={0.85} />
+      {/* upper lash/lid arc */}
+      <Path
+        d={`M ${cx - 84} ${cy - 50} Q ${cx} ${cy - 118} ${cx + 84} ${cy - 50}`}
+        stroke={OUTLINE}
+        strokeWidth={11}
+        strokeLinecap="round"
+        fill="none"
+      />
+      {/* three lash flicks above the lid */}
+      {[-50, -10, 30].map((lx, i) => {
+        const x1 = cx + lx;
+        const y1 = cy - 95 - Math.abs(lx) * 0.15;
+        const x2 = cx + lx + (i === 0 ? -8 : i === 2 ? 8 : 0);
+        const y2 = cy - 118 - Math.abs(lx) * 0.18;
+        return (
+          <Line
+            key={i}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke={OUTLINE}
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+        );
+      })}
+    </G>
+  );
+}
+
+// ─── Smirk mouth ─────────────────────────────────────────────────────────────
+//
+// Asymmetric curve rising on the right, thick maroon stroke. Soft lower-lip
+// shadow underneath, single rect tooth peeking, dimple dot on the right.
+
+function MouthSmirk() {
+  return (
+    <G>
+      {/* dimple */}
+      <Ellipse cx={595} cy={700} rx={14} ry={6} fill="rgba(90,14,42,0.35)" />
+      {/* main smirk path */}
+      <Path
+        d="M 395 712 Q 470 770 540 745 Q 590 728 605 700"
+        stroke={OUTLINE}
+        strokeWidth={22}
+        strokeLinecap="round"
+        fill="none"
+      />
+      {/* lower-lip shadow */}
+      <Path
+        d="M 410 712 Q 470 758 540 738 Q 585 724 600 705 Q 590 740 540 758 Q 470 782 410 730 Z"
+        fill="rgba(90,14,42,0.12)"
+      />
+      {/* tiny tooth peeking */}
+      <Path
+        d="M 460 722 L 474 722 L 474 736 L 460 736 Z"
+        fill="#FFF6FB"
+        stroke={OUTLINE}
+        strokeWidth={3}
+      />
+    </G>
+  );
+}
+
+// ─── Hype mouth (used for the YOU-row brain avatar) ──────────────────────────
+//
+// Open laughing cavity in dark maroon, upper teeth row with division lines,
+// pink tongue with center crease.
+
+function MouthHype() {
+  return (
+    <G>
+      {/* mouth cavity */}
+      <Path
+        d="M 410 700 Q 490 660 570 700 Q 595 760 490 800 Q 385 760 410 700 Z"
+        fill="#3A0A1E"
+        stroke={OUTLINE}
+        strokeWidth={11}
+        strokeLinejoin="round"
+      />
+      {/* upper teeth row */}
+      <Path
+        d="M 425 705 Q 490 690 555 705 L 555 720 Q 490 712 425 720 Z"
+        fill="#FFF6FB"
+        stroke={OUTLINE}
+        strokeWidth={4}
+      />
+      {/* tooth divisions */}
+      <Line x1={465} y1={695} x2={465} y2={720} stroke={OUTLINE} strokeWidth={3} />
+      <Line x1={490} y1={692} x2={490} y2={720} stroke={OUTLINE} strokeWidth={3} />
+      <Line x1={515} y1={695} x2={515} y2={720} stroke={OUTLINE} strokeWidth={3} />
+      {/* tongue */}
+      <Ellipse cx={490} cy={772} rx={50} ry={22} fill="#FF5A8A" stroke={OUTLINE} strokeWidth={6} />
+      <Path d="M 490 762 Q 488 778 490 790" stroke="#B01A4F" strokeWidth={3} fill="none" />
+    </G>
   );
 }

@@ -1,9 +1,22 @@
-// Home screen — Super Smart 2026 v2
-// Two modes: Quickmatch (hero) + Daily Race.
-// Brain + wordmark side-by-side hero. Animated card decorators.
-// LivePlayersStrip footer on Quickmatch. Social layer below cards.
+// Home screen — Super Smart 2026 v2 (home-screen polish pass, session 27)
+// Two modes: Quickmatch (hero) + Daily Race (fresh / done states).
+// Brain + wordmark hero (no speech bubble). Animated card decorators.
+// LivePlayersStrip footer on Quickmatch. Social layer + DailyRaceRankings below.
+//
+// State-driven surfaces (driven by `dailyPlayedToday`):
+//   • Daily Race CARD     — fresh: target decor + "FRESH EVERY 6AM"
+//                          done : done decor + "650 PTS · #34 OF 1,247"
+//                                 + small "BACK IN HH:MM:SS" countdown line
+//   • Daily Race RANKINGS — fresh: PlayToEnter row in place of YOU row
+//                          done : highlighted YOU row with brain avatar
+//
+// Per session 27 design pass:
+//   • Speech bubble removed from hero
+//   • GlobalLeaderboard removed from home (lives on League tab)
+//   • Brain promoted to 92pt, hero vertically center-aligned
+//   • Daily card "done" state earns its space via live ticking, not press affordance
 
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, TouchableOpacity, Pressable,
 } from 'react-native';
@@ -17,9 +30,9 @@ import { VsDecor } from '@/components/VsDecor';
 import { DailyDecor } from '@/components/DailyDecor';
 import { LivePlayersStrip } from '@/components/LivePlayersStrip';
 import { InviteFriendsChip } from '@/components/InviteFriendsChip';
-import { GlobalLeaderboard } from '@/components/GlobalLeaderboard';
-// Sunburst + Halftone now render globally in app/_layout.tsx —
-// mothership decision 2026-04-19 session 7.
+import { DailyRaceRankings } from '@/components/DailyRaceRankings';
+// GlobalLeaderboard intentionally not imported — lives on the League tab now.
+// Sunburst + Halftone render globally in app/_layout.tsx (session 7).
 import { Colors, Fonts, CARD_DEPTH } from '@/constants/theme';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -71,30 +84,60 @@ const pw = StyleSheet.create({
   footer: { fontFamily: Fonts.mono, fontSize: 12, color: '#d1d5db', fontStyle: 'italic', marginTop: 2 },
 });
 
-// ─── Speech bubble ───────────────────────────────────────────────────────────
+// ─── Countdown to next 6am Eastern ───────────────────────────────────────────
+//
+// Until Phase 4 lands a server clock (Appendix D follow-up), the countdown is
+// computed from the device's wall clock against America/New_York 06:00.
+//
+// We compute the local America/New_York hour by reading the device's UTC time
+// and applying the standard ET offset (EDT = -4, EST = -5). The naive
+// approach `setHours(6,0,0,0)` would use local time, which breaks for users
+// outside ET. Strategy: figure out today's "ET 6am" as a Date instant, then
+// if it's already past, jump to tomorrow's ET 6am.
+//
+// Returns "HH:MM:SS" — re-renders every second.
+function useCountdownToNext6amET(): string {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
 
-function SpeechBubble({ text }: { text: string }) {
-  return (
-    <View style={bub.container}>
-      <Text style={bub.text}>{text}</Text>
-      <View style={bub.tail} />
-    </View>
+  // Approximate ET offset: -4 (EDT) Mar–Nov, -5 (EST) Nov–Mar.
+  // Good enough for a player-facing countdown; Phase 4 swaps to a server
+  // boundary that's authoritative across DST and timezones.
+  const etOffsetHours = isUSDST(now) ? -4 : -5;
+  // ET 6am today, expressed as a UTC instant.
+  const etSixAmUTC = Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    6 - etOffsetHours, 0, 0, 0,
   );
+  let target = etSixAmUTC;
+  if (now.getTime() >= etSixAmUTC) target += 24 * 60 * 60 * 1000;
+
+  const diff = Math.max(0, target - now.getTime());
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${pad(h)}:${pad(m)}:${pad(s)}`;
 }
 
-const bub = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.ink, paddingHorizontal: 9, paddingVertical: 5,
-    borderRadius: 10, borderWidth: 2, borderColor: Colors.ink,
-    transform: [{ rotate: '3deg' }],
-  },
-  text: { fontFamily: Fonts.mono, fontSize: 9, color: Colors.cream, textTransform: 'uppercase', letterSpacing: 1 },
-  tail: {
-    position: 'absolute', left: -8, top: 6,
-    borderTopWidth: 6, borderBottomWidth: 6, borderRightWidth: 8,
-    borderTopColor: 'transparent', borderBottomColor: 'transparent', borderRightColor: Colors.ink,
-  },
-});
+// US DST: starts second Sunday of March, ends first Sunday of November.
+function isUSDST(d: Date): boolean {
+  const y = d.getUTCFullYear();
+  // Second Sunday of March
+  const marStart = new Date(Date.UTC(y, 2, 1));
+  const marDow = marStart.getUTCDay();
+  const dstStart = new Date(Date.UTC(y, 2, 1 + ((7 - marDow) % 7) + 7, 7, 0, 0));
+  // First Sunday of November
+  const novStart = new Date(Date.UTC(y, 10, 1));
+  const novDow = novStart.getUTCDay();
+  const dstEnd = new Date(Date.UTC(y, 10, 1 + ((7 - novDow) % 7), 6, 0, 0));
+  return d >= dstStart && d < dstEnd;
+}
 
 // ─── Home Screen ─────────────────────────────────────────────────────────────
 
@@ -113,21 +156,25 @@ export default function HomeScreen() {
   const isGated      = playsLeft === 0;
   const isProWall    = isGated && oneMoreTaps >= ONE_MORE_LIMIT;
 
-  // Today's Daily Race state — drives the home card's "completed" treatment.
+  // Today's Daily Race state — drives the home surfaces' done/fresh treatment.
   // Persistence is via AsyncStorage (mothership Appendix D #2 resolved 2026-04-26).
   // Phase 4 will swap this client-side date check for the 6am-ET-anchored reset
   // (Appendix D #7 resolved 2026-04-24); current local-date comparison is the
   // pre-Phase-4 fallback.
   //
-  // Visual treatment when played: card stays fully vivid cyan. Label gets a
-  // "✓" check. Sublabel shows the score and reset time. Target decor's red
-  // accent flips to green to reinforce the completed state. Build-for-the-flex
-  // — bright + score-visible, not dimmed.
+  // When done, the card becomes a live status card (live ticking countdown,
+  // score, and rank) rather than a press-to-play affordance. The DailyRaceRankings
+  // panel below also branches on this — YOU row when done, PlayToEnter row when
+  // fresh.
+  //
+  // Mocked until Phase 4: the user's daily rank + total players count. The
+  // values feel "alive" via the live countdown alone for now; real
+  // rank-moves-through-the-day requires the Daily Race board endpoint.
+  // Appendix D follow-up tracks the swap to a server source.
   const dailyPlayedToday = dailyStatus.date === today && dailyStatus.played;
-  const dailyLabel = dailyPlayedToday ? 'Daily Race ✓' : 'Daily Race';
-  const dailySublabel = dailyPlayedToday
-    ? `${dailyStatus.score.toLocaleString()} pts · back at 6am`
-    : 'fresh every 6am';
+  const countdown = useCountdownToNext6amET();
+  const mockDailyRank = 34;
+  const mockDailyTotal = 1247;
 
   function go(route: string) { router.push(route as any); }
 
@@ -150,15 +197,12 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
 
-        {/* ── Hero: brain (left) + wordmark (right) ── */}
+        {/* ── Hero: brain (left) + wordmark (right), no speech bubble ── */}
         <View style={styles.hero}>
-          {/* Brain + speech bubble */}
+          {/* Brain — also serves as the user's customizable avatar */}
           <View style={styles.brainCol}>
-            <View style={styles.bubbleAbove}>
-              <SpeechBubble text="ready?" />
-            </View>
             <TouchableOpacity onPress={pokeBrain} activeOpacity={1}>
-              <Brain size={88} expression={brainExpr} wiggle />
+              <Brain size={92} expression={brainExpr} wiggle />
             </TouchableOpacity>
           </View>
 
@@ -169,7 +213,7 @@ export default function HomeScreen() {
               outlineColor={Colors.ink}
               accentColor={Colors.yellow}
               shadowColor={Colors.ink}
-              fontSize={44}
+              fontSize={42}
             />
           </View>
         </View>
@@ -205,12 +249,19 @@ export default function HomeScreen() {
             }
           />
 
-          {/* Daily Race — when today's race is done: ✓ next to label, score
-              + reset time in sublabel, target accent flips red → green. Card
-              stays fully vivid. */}
+          {/* Daily Race — fresh state (target decor + FRESH EVERY 6AM)
+              vs done state (done decor + 650 PTS · #34 OF 1,247 + small
+              live BACK IN HH:MM:SS countdown). Card stays fully vivid in
+              both states. Tap routes to /daily, which renders the alreadyPlayed
+              view + result grid when done, or the round when fresh. */}
           <ArcadeCard
-            label={dailyLabel}
-            sublabel={dailySublabel}
+            label="Daily Race"
+            sublabel={
+              dailyPlayedToday
+                ? `${dailyStatus.score.toLocaleString()} PTS · #${mockDailyRank} OF ${mockDailyTotal.toLocaleString()}`
+                : 'fresh every 6am'
+            }
+            tertiary={dailyPlayedToday ? `BACK IN ${countdown}` : undefined}
             color={Colors.dailyrace.bg}
             fg={Colors.dailyrace.fg}
             tilt={0}
@@ -221,6 +272,7 @@ export default function HomeScreen() {
             floatPhase={1.6}
             decor={
               <DailyDecor
+                done={dailyPlayedToday}
                 fg={Colors.dailyrace.bg}
                 ink={Colors.ink}
                 accent={dailyPlayedToday ? '#22C55E' : Colors.red}
@@ -231,7 +283,17 @@ export default function HomeScreen() {
 
         {/* ── Social layer ── */}
         <InviteFriendsChip onPress={() => {}} />
-        <GlobalLeaderboard />
+        <DailyRaceRankings
+          played={dailyPlayedToday}
+          dayNumber={247}
+          you={
+            dailyPlayedToday
+              ? { rank: mockDailyRank, score: dailyStatus.score }
+              : undefined
+          }
+          onSeeFullRanking={() => router.push('/(tabs)/league' as any)}
+          onPlayDaily={() => go('/daily')}
+        />
 
         {/* ── Gate / One More / Pro wall ── */}
         {isGated && !isProWall && (
@@ -283,12 +345,9 @@ const styles = StyleSheet.create({
     minHeight: 110,
   },
   brainCol: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
-  },
-  bubbleAbove: {
-    marginBottom: 4,
-    marginLeft: 8,
   },
   wordmarkCol: {
     flex: 1,

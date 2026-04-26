@@ -27,6 +27,10 @@ import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 interface ArcadeCardProps {
   label: string;
   sublabel?: string;
+  /** Optional third text line, rendered below sublabel in mono small.
+   *  Used by the Daily Race "done" state for the live `BACK IN HH:MM:SS`
+   *  countdown. Kept compact so the card height doesn't change. */
+  tertiary?: string;
   color: string;                   // card face background
   fg: string;                      // text + icon foreground
   tilt?: number;                   // static rotation in degrees
@@ -49,6 +53,7 @@ interface ArcadeCardProps {
 export function ArcadeCard({
   label,
   sublabel,
+  tertiary,
   color,
   fg,
   tilt = 0,
@@ -159,6 +164,9 @@ export function ArcadeCard({
             {sublabel ? (
               <Text style={[styles.sublabel, { color: disabled ? '#9ca3af' : fg }]}>{sublabel}</Text>
             ) : null}
+            {tertiary ? (
+              <Text style={[styles.tertiary, { color: disabled ? '#9ca3af' : fg }]}>{tertiary}</Text>
+            ) : null}
           </View>
 
           {/* right-side decoration */}
@@ -223,6 +231,18 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginTop: 3,
     opacity: 0.75,
+  },
+  // Smaller, dimmer than sublabel — used for the live BACK IN HH:MM:SS line
+  // on the Daily Race "done" card. Tabular nums so the seconds digit doesn't
+  // wobble the layout.
+  tertiary: {
+    fontFamily: Fonts.mono,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginTop: 6,
+    opacity: 0.55,
+    fontVariant: ['tabular-nums'],
   },
   decorWrap: {
     zIndex: 2,

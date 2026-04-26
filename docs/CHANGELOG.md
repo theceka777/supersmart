@@ -2,6 +2,93 @@
 
 ---
 
+## Session 27 — 2026-04-27 — Home-screen polish pass shipped (mothership v1.43 → v1.44)
+
+A Claude Design exploration produced a detailed changelog + two HTML reference deliverables (`Home v2.html`, `Home v2 — Fresh.html`) + the underlying `explore/home-v2.jsx` + `explore/shared.jsx`. Three home surfaces redesigned and ported to RN, all driven by the same `dailyPlayedToday` flag the rest of the app already reads. No architectural shifts — small additive polishes.
+
+### What changed conceptually
+
+The home screen is now a **state-driven composition**. The Daily Race card and the new `DailyRaceRankings` panel both branch on `dailyPlayedToday`, and they branch with **same-shell-different-fill discipline**: row chrome, card height, decor cadence, and rotation are identical between fresh and done states — only the visuals under the chrome swap. Net effect on device: zero reflow when daily flips, the home composition reads as one coordinated surface.
+
+Three discrete changes, in spec order:
+
+1. **Hero**: speech bubble removed; brain promoted from 88pt to 92pt; brain + wordmark now vertically center-aligned.
+2. **Mascot**: the lightning-bolt antenna is gone everywhere `Brain` renders. The brain itself is rebuilt as an illustrated **PNG body** (`assets/images/brain-base.png`, 1402×1122 transparent, drawn with a maroon outline + glossy white highlights) with **eyes + mouth as an SVG overlay** drawn at the PNG's native viewBox. New `expression="hype"` (open mouth + tongue) added for the YOU-row leaderboard avatar. Role split: top-left brain = "this is your home" (smirk, 92pt, wiggle on); YOU-row brain = "this is you in the race" (hype, 32pt disc with tier-colored ring, wiggle off).
+3. **Daily Race card** (`dailyPlayedToday`-driven): fresh = target decor + `FRESH EVERY 6AM`; done = same calendar shell with green-ringed checkmark stamp behind the same 5s lock-on / cream-flash cadence + `[score] PTS · #[rank] OF [total]` + small `BACK IN HH:MM:SS` countdown line. Card stays fully vivid in both states. The countdown is intentionally the *smallest* line on the card — title carries identity, score+rank carries the player's result, countdown is texture proving the card is real-time.
+4. **DailyRaceRankings panel** (new component) replaces `GlobalLeaderboard` on home: header `DAILY RACE RANKINGS · DAY [N]` with pulsing yellow dot on ink, top 3 rows with monogram AvatarDisc placeholders, dashed divider, then either YOU row (highlighted yellow with brain avatar in newcomer-tier ring, hype expression, no wiggle) when played OR PlayToEnterRow (same height/density, brain avatar + `START →` pill) when fresh. Footer `SEE FULL RANKING IN LEAGUE ↦` routes to League. Same row chrome both states means zero reflow when daily flips. `GlobalLeaderboard` component file preserved untouched in `components/` for League tab use.
+
+### What changed in code
+
+**`supersmart/components/Brain.tsx`** — full rewrite. SVG body replaced by an `<Image>` from `assets/images/brain-base.png`, with an `<Svg>` overlay positioned absolutely on top carrying the eyes + mouth at PNG-native viewBox (`0 0 1402 1122`). Eye coordinates ported verbatim from `explore/shared.jsx`: cx 335 / 645, cy 540, rx 82, ry 100; pupils inward by 8×flip; sclera off-white `#FFF6FB` with maroon `#5A0E2A` 11px outline; iris `#1F1430`; upper-lid shadow inside sclera; large top-right white highlight + small bounce-light; three lash flicks above lid; soft pink blush below. Smirk + hype mouth paths ported verbatim. Wiggle (2.4s, -1.5°→2°) and blink (130ms every 2.8–5.3s) preserved. Antenna `<G transform="translate(104 8)">…` block deleted.
+
+**`supersmart/app/(tabs)/index.tsx`** — composition surgery. Inline `SpeechBubble` function + its hero usage deleted. `GlobalLeaderboard` import + render replaced by `DailyRaceRankings`. Brain to 92pt. Hero `brainCol` re-styled to `alignItems: 'center', justifyContent: 'center'` (was `flex-start`). New `useCountdownToNext6amET` hook added in-file (DST-aware US-ET math: `etOffsetHours = isUSDST(now) ? -4 : -5`; computes today's "ET 6am" as a UTC instant; jumps to tomorrow's ET 6am if past; returns `HH:MM:SS` padded). Helper `isUSDST(d)` computes US DST window (second Sunday of March → first Sunday of November). Daily Race card `sublabel` and `tertiary` and `decor.done` now branch on `dailyPlayedToday`. New `DailyRaceRankings` mounted in social layer, receives `played`, `dayNumber={247}`, `you={rank, score}` (when played), routing callbacks. Mocked locally for now: `mockDailyRank = 34`, `mockDailyTotal = 1247`.
+
+**`supersmart/components/DailyDecor.tsx`** — added `done?: boolean` prop. Ring scale envelope unchanged across both states (same 5s rhythm, same rotation, same `transform: [{ rotate: '-6deg' }]`). When `done`: ring radius bumps from 11 to 14, bullseye + crosshair ticks swap for green-ringed checkmark stamp + cream `ssDailyFlash`-equivalent on hit (80ms cream wash over the green); optional small stamp pop animation registered (1.06× at 700ms in cycle, settle to 1.0). When `!done`: original target/lock-on behavior preserved verbatim. Keyframe timings ported from `Home v2.html` / `Home v2 — Fresh.html` CSS keyframes (`ssDailyRing`, `ssDailyFlash`, `ssDailyStamp`, `ssDailyTargetRing`, `ssDailyTargetFlash`).
+
+**`supersmart/components/ArcadeCard.tsx`** — added optional `tertiary?: string` prop. When passed, renders below sublabel as small mono (fontSize 9, letterSpacing 1.5, opacity 0.55, `tabular-nums`). No breaking change for other callsites — `tertiary` is `undefined` everywhere it isn't explicitly passed. Used only by Daily Race done card for the `BACK IN HH:MM:SS` line.
+
+**`supersmart/components/DailyRaceRankings.tsx`** — new file. `<RankRow>` primitive (rank, avatar, name, score, with `alt` and `highlight` modes), `<PlayToEnterRow>` primitive (yellow background with 2px ink top+bottom borders, `START →` pill on the right), `<AvatarDisc>` primitive (placeholder colored monogram disc with tier-colored 3px border), `<BrainAvatar>` primitive (Brain at hype expression, wiggle off, inside a tier-colored 3px ring). Header has a `useSharedValue` + `useAnimatedStyle` pulse on the yellow dot (~1.6s, mirrors the `LivePlayersStrip` pulse). Routing: `onSeeFullRanking` → League tab; `onPlayDaily` → `/daily` route; optional `onTapRow(rank)` reserved for later daily-replay surfaces.
+
+**`supersmart/constants/theme.ts`** — added `Tier` palette + `TierName` type. 8 hex values from mothership v1.32 (Rookie `#8E8E8E` → Newcomer `#A8C4D8` → Regular `#7BAA86` → Veteran `#3F8C7A` → Qualifier `#6962C0` → Finalist `#B0356A` → Champion `#6B0F2D` → Legend `#C99020`). Used as solid fills wherever a single tier color is needed. Gradients still live on the avatar border component when Phase 3 ships it.
+
+### Asset added
+
+**`supersmart/assets/images/brain-base.png`** — 1402×1122 RGBA, ~1.27MB. Drawn by Claude Design. Ported into the Brain component as the body asset.
+
+### Reference deliverables (not in repo)
+
+- `Home v2.html` — done-state HomeV2 wireframe, `<HomeV2 />` (default `played=true`)
+- `Home v2 — Fresh.html` — fresh-state HomeV2 wireframe, `<HomeV2 played={false} />`
+- `explore/home-v2.jsx` — actual HomeV2 layout: `HomeV2`, `DailyRaceRanking`, `RankRow`, `PlayToEnterRow`, `DailyDoneDecor`, `DailyTargetDecor`, `BrainAvatar`
+- `explore/shared.jsx` — `SS` palette, `TIER` palette, `Sunburst`, `Halftone`, `Brain` (with face overlay coords), `Wordmark`, `SpeechBubble`, `ArcadeCard`, `AvatarDisc`
+
+These four files are the source of truth for the port. `home-v2.jsx` was particularly load-bearing — without it the panel layout and row densities would have been guesswork from the changelog text. CSS keyframes in the HTMLs gave exact decor cadence timings.
+
+### One delta from the changelog text
+
+The changelog originally framed the countdown on the done card as "the biggest visual element on the card." The actual `home-v2.jsx` does the opposite — title 30pt, sub 11pt, countdown 9pt at 0.55 opacity. We followed the JSX (more recent decision, reads cleaner). The card is "alive" through the live ticking + the 5s decor pulse, not through a hero-sized clock.
+
+### What's mocked vs live
+
+| Surface | Source |
+|---|---|
+| `dailyPlayedToday` | Real — AsyncStorage via `useAppStore().dailyStatus` |
+| Daily score on done card + YOU row | Real — `dailyStatus.score` |
+| `BACK IN HH:MM:SS` countdown | Real — local DST-aware US-ET math via new `useCountdownToNext6amET` hook |
+| User's daily rank `#34` | Mocked constant |
+| Total players `1,247` | Mocked constant |
+| Top-3 leaderboard rows (KENJI_84 / VELVET / MR_BRAIN) | Mocked constants |
+| `DAY 247` eyebrow | Mocked constant |
+
+All the mocked items track to **Appendix D #52** (server-driven Daily Race rank/total + top-3 + DAY count + refresh-on-focus + 1-min polite re-fetch). Implementation is ~1 hour once the Daily Race board endpoint exists in Phase 4.
+
+### Verification
+
+- TypeScript: `npx tsc --noEmit` — zero errors in any file touched this session. Project's only pre-existing diagnostics are in `components/Wordmark.tsx` (untouched).
+- On-device (CD): done state confirmed working — brain looks right, antenna gone, hero centered, daily card shows score + rank + ticking countdown, panel shows YOU row with brain avatar in newcomer ring.
+- **Not personally verified on device: fresh state** of the Daily Race card + panel (CD's `dailyStatus.played` was already true at handoff). Code path is straightforward — flips automatically at next 6am-ET reset, or when `dailyStatus` is reset for any reason.
+
+### Files touched
+
+- `supersmart/components/Brain.tsx` — full rewrite (PNG body + SVG face overlay, antenna removed, hype expression added)
+- `supersmart/app/(tabs)/index.tsx` — speech bubble deleted, GlobalLeaderboard removed from home, brain to 92pt, useCountdownToNext6amET hook, daily card branches on dailyPlayedToday, DailyRaceRankings mounted
+- `supersmart/components/DailyDecor.tsx` — added `done` prop with checkmark stamp variant
+- `supersmart/components/ArcadeCard.tsx` — added optional `tertiary` text slot
+- `supersmart/components/DailyRaceRankings.tsx` — new file (panel + RankRow + PlayToEnterRow + AvatarDisc + BrainAvatar)
+- `supersmart/constants/theme.ts` — Tier palette + TierName type
+- `supersmart/assets/images/brain-base.png` — new asset (1402×1122 RGBA, ~1.27MB)
+- `super_smart_2026_mothership.md` — v1.43 → v1.44 status line, Part 3 Navigation architecture (leaderboard placement paragraph rewritten), Part 3 Daily Race (new "Home-screen card states" subsection), Part 6 Visual direction (Mascot bullet rewritten), Part 6 Logo & mascot (antenna line struck), Part 12 Decision Log (3 new rows), Appendix D (#52 + #53 added), end-of-doc stamp
+- `super_smart_2026_primer.md` — status line bumped to v1.44, current-state date bumped
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Pending
+
+- Avatar editor → home brain wiring (Appendix D #53). The home brain currently renders the brand-default pink PNG; the avatar editor's `store.avatar.{color, eyes, mouth}` doesn't yet drive the rendered Brain. Phase 3 visual pass is the natural home — likely ships as multiple tinted PNG variants for the bounded color palette.
+- Server-driven daily rank/total/top-3 (Appendix D #52) — Phase 4, ~1 hour once the board endpoint exists.
+
+---
+
 ## Session 26 — 2026-04-26 — Round lifecycle locked + Tier 1 #2/#3 closed (mothership v1.42 → v1.43)
 
 Two Tier 1 punch-list items closed in one session: back-button mid-round handling (#2) and app-lifecycle mid-round behavior (#3). Plus a wall-clock timer refactor that fixed a double-subtraction bug surfaced during device testing. Resolves Appendix D #21.
