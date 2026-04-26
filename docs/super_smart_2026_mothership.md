@@ -874,7 +874,7 @@ The Flex is not about adding chrome — it's about making the core moments unmis
 - Soft drop shadow beneath the brain (rgba(0,0,0,0.22), ~8% high, blurred 2px).
 - **Antenna retired everywhere** (this session). The lightning bolt is gone — the brain is now a clean puffy shape with no top decoration. Reason: small avatars need to fit cleanly in tight discs without antenna overflow (the YOU-row avatar disc is 32pt, the brain inside is 1.05× that — there's no room for antenna headroom).
 - Sizes used on home: top-left mascot **92pt** (`expression="smirk"`, wiggle on); YOU-row avatar **32pt disc** with brain at 1.05× inside (`expression="hype"`, wiggle off, tier-colored 3px ring).
-- **Speech bubble removed from home hero** (this session). Voice/dialect can land elsewhere on more state-relevant surfaces; the brain itself is interesting enough to anchor the top-left without dialogue. SpeechBubble component file not deleted in case it's wanted elsewhere later, but the home usage is gone.
+- **Speech bubble removed from home hero** (this session). Voice/dialect can land elsewhere on more state-relevant surfaces; the brain itself is interesting enough to anchor the top-left without dialogue. *(Note: `SpeechBubble` was an inline function defined inside `app/(tabs)/index.tsx`, not a separate component file — both the function and its single hero usage were removed in the same edit. The shape is in `explore/shared.jsx` if it's wanted on a different surface later.)*
 - The brain is also the user's customizable avatar (color/eyes/mouth via the avatar editor). On home, treat it as the user's "self" representation. Avatar editor UI ship date — Appendix D #53.
 
 **Wordmark (implemented):**
