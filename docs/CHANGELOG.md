@@ -2,6 +2,42 @@
 
 ---
 
+## Session 22d — 2026-04-26 — `app/questions.ts` regenerated from audited 1001.xml
+
+The app's question array (`app/questions.ts`) is the full 1001-question corpus embedded as TypeScript, **not a hand-curated subset**. Today the audit edits were applied to `1001.xml` (session 22c); this session cascades all 98 edits into the in-code corpus the Expo Go app currently reads.
+
+### What landed
+
+- **`supersmart/app/questions.ts`** — regenerated from the audited `1001.xml`. 1001 entries, all helper functions (`getRank`, `shuffleOptions`, `shuffleQuestions`) preserved at the bottom unchanged.
+
+### How
+
+1. Confirmed every answer in 1001.xml matches `option1` (i.e., `correct: 0` is universal across the array — true for all 1001 questions, no answer ever lives in option2/option3).
+2. Python regeneration script: read XML, escape strings (single-quote default, double-quote when text contains apostrophes), emit one `{ question: ..., options: [...], correct: 0 }` line per question.
+3. Preserved the file footer: `Question` interface declaration, `getRank` rank ladder, `shuffleOptions`, `shuffleQuestions`.
+
+### Verification
+
+- File line count: 1053 (unchanged — same as pre-regeneration).
+- Question count: 1001 (verified by grep).
+- TypeScript compile: clean (no new errors introduced; the two pre-existing `Brain.tsx` / `Wordmark.tsx` warnings are unrelated).
+- Spot checks on 16 questions covering all major audit edit classes (concept-replaces Q321 BMW / Q543 Taylor Swift / Q594 Christopher Nolan / Q595 Tom Cruise / Q868 Brazil equator / Q935 Himalayas / Q979 Mbappé / Q988 Plato; typo fixes Q4 craft / Q71 66 million; old values Q321 Smart/Buick/Pontiac etc. confirmed absent).
+
+### Side effect of regeneration
+
+The session 18 in-code edit at `app/questions.ts:272` ("a game mode in Super Smart" → `[Quickmatch, Slowmatch, Stalemate]`) is **superseded** by the audit's Q265 concept-replace ("the answer is 'here'" → `[here, there, where]`). Same question slot, different design call; the audit is the more recent / canonical answer. Code now matches the locked audit.
+
+### Files touched
+
+- `supersmart/app/questions.ts` — regenerated from `1001.xml`
+- `CHANGELOG.md` — this entry
+
+### Status
+
+Code-side question corpus is now in sync with the audited `1001.xml`. When Phase 4 builds the Supabase ingestion path, it will read from the same XML and the in-code TS array becomes redundant (deletable). For now both stay in sync.
+
+---
+
 ## Session 22c — 2026-04-25 — 1001.xml updated with all 98 audit Light edits
 
 Phase 1 audit verdicts applied to the corpus file. The recovered 2012 corpus is preserved as a reference; the new audited version is the live source for Phase 5 question writing and Supabase ingestion.
