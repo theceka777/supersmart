@@ -2,6 +2,81 @@
 
 ---
 
+## Session 22e — 2026-04-26 — Incident runbook drafted (mothership v1.37 → v1.38)
+
+Pre-launch incident response kit. Living document — updated after every actual incident with a postmortem.
+
+### What landed
+
+- **`incident_runbook.md`** at parent root (mirrored to `supersmart/docs/`) — short by design (~280 lines). 6 pre-launch scenarios, 5 canonical PostHog kill-switch flags, player-facing maintenance copy voice-locked.
+- **Mothership Part 7 cross-reference** — small section at end of "Build & Technology" pointing to the runbook with the kill-switch flag list, so anyone reading the mothership for answers can find the runbook.
+
+### Six scenarios scaffolded
+
+1. Whole-app crash spike — Sentry → EAS Update or `app_emergency_disable` flag
+2. Daily Race seed broken / corrupted — Tier 3 recall path with goodwill compensation
+3. Quickmatch ghost matchmaking down — `quickmatch_disabled` flag
+4. Pro purchase / IAP failing — RevenueCat dashboard + manual `pro_entitlements` grant
+5. Offensive / wrong question goes live — Tier 3 question recall
+6. Supabase / database outage — `app_emergency_disable` + wait
+
+Each scenario uses a tight template: detection / severity / mitigation steps / don't / recovery. Designed for 2am readability — no philosophy, action-only.
+
+### Five canonical kill-switch flags
+
+- `app_emergency_disable` (nuclear option — whole-app maintenance screen)
+- `daily_race_disabled`
+- `quickmatch_disabled`
+- `pro_purchase_disabled`
+- `live_question_emergency_recall_<id>`
+
+All flags have hardcoded fallbacks per Flexibility Architecture (mothership Part 7). If PostHog itself is down, app runs on defaults.
+
+### Voice-locked player-facing copy
+
+Five strings live in the Supabase `ui_strings` table (Flexibility Architecture — editable via row update, no deploy needed):
+
+| Key | Copy |
+|---|---|
+| `maintenance_screen_title` | `we'll be right back` |
+| `maintenance_screen_body` | `we're patching things up. give us a sec.` |
+| `daily_race_disabled_card` | `today's race is taking a nap. fresh one tomorrow at 6am.` |
+| `pro_purchase_disabled_message` | `payments are temporarily down. nothing's wrong with your account.` |
+| `goodwill_email_subject` | `we owe you one` |
+
+Voice-bearing — change only with creative-director review.
+
+### Pre-launch action item
+
+Half-day total to set up the full kit:
+1. PostHog flags wired (~2 hours, already planned per Flexibility Architecture).
+2. Kill-switch maintenance screen built (~30 min).
+3. EAS Update enabled for hot-fix path (~30 min Expo config).
+4. Sentry alerts wired to phone (~30 min).
+5. Runbook reviewed (already done).
+6. **Chaos drill** — flip a non-critical flag, verify it took effect, flip back (~15 min).
+
+Post-launch the runbook grows organically through postmortems filed at `supersmart/docs/postmortems/<YYYY-MM-DD>-<slug>.md`.
+
+### Files touched
+
+- `incident_runbook.md` — new file at parent root
+- `super_smart_2026_mothership.md` — status line v1.37 → v1.38, end-of-doc stamp, new "Incident response & operational runbook" subsection at end of Part 7
+- `super_smart_2026_primer.md` — current-state line updated to v1.38
+- `supersmart/docs/incident_runbook.md` — mirror
+- `supersmart/docs/super_smart_2026_mothership.md` — mirror
+- `supersmart/docs/super_smart_2026_primer.md` — mirror
+- `supersmart/docs/CHANGELOG.md` — mirror
+- `CHANGELOG.md` — this entry
+
+### Why this matters
+
+Solo founders feel paralyzed during incidents because (a) they haven't written down what to do and (b) they don't know what broke. The runbook + Sentry alerts flips both. When something breaks at 2am, you read a page, flip a flag, sleep. Fix the underlying bug Tuesday.
+
+The mothership references the runbook so it's discoverable from the canonical doc — the place you'll go looking when you can't remember where things live.
+
+---
+
 ## Session 22d — 2026-04-26 — `app/questions.ts` regenerated from audited 1001.xml
 
 The app's question array (`app/questions.ts`) is the full 1001-question corpus embedded as TypeScript, **not a hand-curated subset**. Today the audit edits were applied to `1001.xml` (session 22c); this session cascades all 98 edits into the in-code corpus the Expo Go app currently reads.
