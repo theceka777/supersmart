@@ -2,6 +2,7 @@ import { DefaultTheme, ThemeProvider, Theme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+import { Asset } from 'expo-asset';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import 'react-native-reanimated';
@@ -39,16 +40,33 @@ export default function RootLayout() {
     JetBrainsMono: JetBrainsMono_500Medium,
   });
 
-  // Hydrate persisted state from AsyncStorage. Both fonts and hydration run
-  // in parallel; render unblocks when both are done. AsyncStorage typically
-  // resolves in 50–150ms, comfortably inside the splash window.
+  // Hydrate persisted state from AsyncStorage. Fonts, hydration, and image
+  // preload all run in parallel; render unblocks when all three are done.
+  // AsyncStorage typically resolves in 50–150ms, comfortably inside the
+  // splash window.
   const [hydratedState, setHydratedState] = useState<AppState | null>(null);
   useEffect(() => {
     hydrateAppState().then(setHydratedState);
   }, []);
 
-  // Hold splash until fonts AND state are ready
-  if (!fontsLoaded || !hydratedState) {
+  // Preload the brain mascot PNG so it lands in memory before any screen
+  // mounts a <Brain>. Without this, the SVG face overlay (eyes + mouth)
+  // paints synchronously while the PNG body decodes asynchronously, which
+  // shows as "face floating in air, then pink body pops in" on first
+  // render. Preloading hoists the decode into the splash window where the
+  // user can't see it. Other Brain.tsx assets are vector — only the body
+  // PNG needs preloading. Adding more assets here is cheap if needed later.
+  const [assetsReady, setAssetsReady] = useState(false);
+  useEffect(() => {
+    Asset.loadAsync([
+      require('@/assets/images/brain-base.png'),
+    ])
+      .then(() => setAssetsReady(true))
+      .catch(() => setAssetsReady(true)); // silent fallback — Brain's onLoad gate is the safety net
+  }, []);
+
+  // Hold splash until fonts, state, AND assets are ready
+  if (!fontsLoaded || !hydratedState || !assetsReady) {
     return <View style={{ flex: 1, backgroundColor: Colors.background }} />;
   }
 

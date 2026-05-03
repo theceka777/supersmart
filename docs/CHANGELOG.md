@@ -2,6 +2,64 @@
 
 ---
 
+## Session 29 — 2026-05-03 — Brain mascot load order fixed (mothership v1.45 → v1.46)
+
+CD reported on device: the pink brain on home top-left was visibly loading after its eyes + mouth — "face on transparent space → pink pops in" for what felt like a beat. Diagnosed and fixed in one short pass.
+
+### Root cause
+
+`Brain.tsx` (rebuilt session 27) renders the brand's hero mascot as a layered composition: a 1402×1122 transparent PNG (`assets/images/brain-base.png`, ~1.27MB) for the body, and an SVG overlay on top carrying eyes + mouth at the PNG's native viewBox.
+
+The SVG overlay is part of the synchronous render tree — it paints on the first frame. The PNG goes through Expo's asset resolver and bitmap decode — async, ~100–300ms on cold launch. Result on device: face appears first, brain body fills in behind it a beat later. The illusion of "one mascot" breaks every cold launch.
+
+The `_layout.tsx` boot already holds the splash for fonts (Archivo Black, JetBrains Mono) and AsyncStorage hydration (per session 23). Image assets weren't being preloaded — every screen mounting a Brain triggered the decode at render time.
+
+### Fix
+
+**Two-part defense:**
+
+1. **Preload at boot.** `app/_layout.tsx` adds an `assetsReady` boolean alongside `fontsLoaded` + `hydratedState`. `Asset.loadAsync([require('@/assets/images/brain-base.png')])` runs in parallel via `expo-asset` (already bundled with Expo SDK 54 — no package.json change needed). Splash holds until all three resolve. The decode is hoisted into the splash window where the user can't see it. Silent fallback on error — `Brain.tsx`'s `onLoad` gate is the safety net.
+
+2. **`onLoad` gate in `Brain.tsx`.** New `imgLoaded` state defaults `false`, set `true` on the PNG `<Image>`'s `onLoad` callback. The SVG face overlay is now wrapped in `{imgLoaded && <Svg>...</Svg>}` — face only paints once the body has actually loaded. Defense-in-depth: even if a screen re-mount or memory pressure causes a re-decode after preload, the face never beats the body.
+
+Net effect: brain renders as one coordinated unit. No floating face. No late pink pop.
+
+### Pattern locked
+
+Recorded as a Decision Log row (session 29). **Hero/identity image assets get preloaded in `_layout.tsx`'s splash boot.** The splash window is already paying for fonts + state hydration; adding image assets costs no more user-perceived time and closes the entire class of "async decode glitch on first paint" bugs. Generalizes to any future hero/identity asset — avatar editor color variants when Phase 3 ships them, splash decor PNGs, etc. Vector assets (Wordmark, Sunburst, Halftone, the mascot face overlay itself) are synchronous and don't need preloading.
+
+### What didn't change
+
+- Brain wiggle (2.4s, -1.5°→2°) and blink (130ms every 2.8–5.3s) preserved exactly.
+- Antenna stays retired.
+- Hype expression for YOU-row leaderboard avatar untouched.
+- No package.json change — `expo-asset` is a transitive dependency of `expo` SDK 54.
+- Avatar editor → Brain wiring (Appendix D #53) still pending — that's Phase 3 work.
+
+### Verified on device
+
+- Cold launch (force-quit then reopen): brain renders as one unit. Face does not paint before body.
+- Warm relaunch (navigate away + back to home): brain stays coordinated.
+- Splash duration feels unchanged subjectively. The PNG decode (~150ms) fits inside the existing fonts + hydration window without extending it perceptibly.
+- Brain wiggle + blink animations work as before.
+
+### Files touched
+
+- `supersmart/app/_layout.tsx` — `expo-asset` import; `assetsReady` state + `Asset.loadAsync` parallel boot; splash gate extended from `(fontsLoaded && hydratedState)` to `(fontsLoaded && hydratedState && assetsReady)`
+- `supersmart/components/Brain.tsx` — `imgLoaded` state; `onLoad={() => setImgLoaded(true)}` on the Image; SVG face overlay wrapped in `{imgLoaded && ...}` conditional
+- `super_smart_2026_mothership.md` — v1.45 → v1.46 status line, one Decision Log row (session 29 — hero asset preload pattern), end-of-doc stamp
+- `super_smart_2026_primer.md` — current-state line bumped to v1.46
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Push command
+
+```
+cd "/Users/canmert/Desktop/supersmart2026/Super Smart 2026/supersmart" && git push origin main
+```
+
+---
+
 ## Session 28 — 2026-05-03 — Day-boundary drift fixed; clock anti-tamper deferred to Phase 4 (mothership v1.44 → v1.45)
 
 First session back after a quiet six-day stretch. Tackled Tier 1 punch-list item #4 (Daily Race system-clock vulnerability). The audit surfaced two distinct issues entangled in the same code paths — only one was anti-cheat. Shipped the correctness fix; explicitly deferred the anti-cheat layer.

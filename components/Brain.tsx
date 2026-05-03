@@ -59,6 +59,15 @@ export function Brain({
   const rotation = useSharedValue(0);
   const [blinking, setBlinking] = useState(false);
 
+  // Gate the SVG face overlay until the PNG body has loaded. Without this,
+  // the synchronous SVG render paints eyes + mouth on transparent space
+  // for the few frames before the bitmap decode completes — reads as
+  // "face floating in air, then pink body pops in." We preload the PNG
+  // at boot in app/_layout.tsx (so this is normally true on first render),
+  // but the gate is defense-in-depth: if a screen re-mount or memory
+  // pressure forces a re-decode, the face still won't beat the body.
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   // Wiggle: ssBrainWiggle equivalent — -1.5° → 2° → -1.5° over 2.4s.
   useEffect(() => {
     if (wiggle) {
@@ -124,10 +133,12 @@ export function Brain({
           zIndex: 1,
         }}
         resizeMode="contain"
+        onLoad={() => setImgLoaded(true)}
       />
 
-      {/* face overlay — eyes + mouth, drawn at PNG-native viewBox so coords match */}
-      <Svg
+      {/* face overlay — eyes + mouth, drawn at PNG-native viewBox so coords match.
+          Hidden until the PNG body has loaded — see imgLoaded comment above. */}
+      {imgLoaded && <Svg
         viewBox={`0 0 ${PNG_W} ${PNG_H}`}
         width={W}
         height={H}
@@ -160,7 +171,7 @@ export function Brain({
 
         {/* mouth */}
         {expression === 'hype' ? <MouthHype /> : <MouthSmirk />}
-      </Svg>
+      </Svg>}
     </Animated.View>
   );
 }
