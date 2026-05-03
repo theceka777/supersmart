@@ -471,7 +471,10 @@ export default function EchoScreen() {
             </View>
           </View>
         </Pressable>
-        <Pressable onPress={() => { resolveEmote(); router.replace('/'); }} style={s.homeLink}>
+        {/* router.back() pops /echo and reveals the existing (tabs) underneath.
+            replace('/') would mount a fresh (tabs) on top, restarting every on-mount
+            animation on home and visibly overlapping with the slide-out. */}
+        <Pressable onPress={() => { resolveEmote(); router.back(); }} style={s.homeLink}>
           <Text style={s.homeLinkText}>go home</Text>
         </Pressable>
       </View>

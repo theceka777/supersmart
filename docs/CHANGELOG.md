@@ -2,6 +2,69 @@
 
 ---
 
+## Session 30 — 2026-05-03 — Result-screen back navigation fixed (mothership v1.46 → v1.47)
+
+CD reported on device: returning to home from a result screen showed a half-second of overlap — the slide-out and home rendering simultaneously, with home's animations playing as if first-time. Diagnosed and fixed in one short pass.
+
+### Root cause
+
+The HOME buttons on `/end` (Daily Race + Quickmatch result), `/daily` alreadyPlayed view, and `/echo` result view all used `router.replace('/')`. In Expo Router, `replace('/')` from inside a stacked screen mounts a **fresh** instance of `(tabs)` (your home + league + profile container) on top of the existing one rather than dismissing back to it. Fresh mount = every on-mount animation on home fires from zero — Brain wiggle re-initializes, ArcadeCard bob restarts, DailyRaceRankings pulse spins up, Live Players Strip jitters from frame 1. Meanwhile the result screen is sliding out via the iOS forward-slide transition. The two screens render and animate simultaneously for ~350ms, which the player perceives as "lag and overlap."
+
+The right method is `router.back()` — pops the current screen and reveals the existing `(tabs)` underneath. Home is already mounted, animations have been running since the player left home, no remount happens. Only the back-pop slide animates during the transition.
+
+### Fix
+
+Four call sites flipped from `router.replace('/')` to `router.back()`:
+
+- `app/end.tsx:74` — Daily Race result HOME button
+- `app/end.tsx:104` — Quickmatch/arcade result HOME button
+- `app/daily.tsx:360` — alreadyPlayed view HOME button
+- `app/echo.tsx:474` — Quickmatch result view "go home" link
+
+Inline comments added at each call site explaining the choice (so the next person reading the code doesn't re-introduce `replace` on instinct).
+
+### What stays as `router.replace('/')`
+
+Three call sites remain correct as `replace`:
+
+- `app/echo.tsx:169` — gate redirect when player hits Quickmatch over their freePlay limit
+- `app/daily.tsx:110` — same for Daily Race
+- `app/game.tsx:50` — same for the orphan game route
+
+These are gate-enforcement redirects: the player should NOT have a back-stack entry pointing to the gated screen, so `replace` (which removes the gated route from the stack on the way out) is the right method. `back()` would be wrong here — it'd pop them somewhere they didn't expect, possibly to nothing.
+
+### Pattern locked in Decision Log (session 30)
+
+**Result-screen dismissal uses `router.back()`; gate-enforcement redirect uses `router.replace()`.** Both patterns are now documented inline at each call site and in the Decision Log row. Future result screens (challenge result, league interstitial, anywhere a player taps "go home" from a stacked screen) follow the back-pop pattern. Future gate redirects follow the replace pattern.
+
+### What stays the same
+
+- "PLAY AGAIN" / "NEW GHOST" buttons on result screens still use `router.replace('/echo')` / `router.replace('/game')` — replacing one stacked screen with another stacked screen is the right method (don't add to the back stack).
+- challenge.tsx already uses `router.back()` (line 33) — proves the pattern wasn't new ground.
+- All animation timings, transition durations, and screen options unchanged. The fix is purely about navigation direction.
+
+### Verified on device
+
+CD played multiple Quickmatch and Daily Race rounds during testing, returned to home each time. No overlap. No animations restarting. Smooth back-pop slide. Confirmed working before commit. (Side observation: CD hit the FREE_LIMIT=7 gate during testing — confirms the freePlay counter is still incrementing correctly under the new race-date helper from session 28.)
+
+### Files touched
+
+- `supersmart/app/end.tsx` — 2 HOME buttons → router.back(), inline comments
+- `supersmart/app/daily.tsx` — 1 HOME button → router.back(), inline comment
+- `supersmart/app/echo.tsx` — 1 "go home" link → router.back(), inline comment
+- `super_smart_2026_mothership.md` — v1.46 → v1.47 status line, one Decision Log row (session 30 — back vs replace pattern), end-of-doc stamp
+- `super_smart_2026_primer.md` — current-state line bumped to v1.47
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Push command
+
+```
+cd "/Users/canmert/Desktop/supersmart2026/Super Smart 2026/supersmart" && git push origin main
+```
+
+---
+
 ## Session 29 — 2026-05-03 — Brain mascot load order fixed (mothership v1.45 → v1.46)
 
 CD reported on device: the pink brain on home top-left was visibly loading after its eyes + mouth — "face on transparent space → pink pops in" for what felt like a beat. Diagnosed and fixed in one short pass.

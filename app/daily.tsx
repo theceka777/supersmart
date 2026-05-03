@@ -357,7 +357,10 @@ export default function DailyScreen() {
           <Text style={s.shareText}>{shareText}</Text>
         </View>
 
-        <Pressable style={s.homeBtn} onPress={() => router.replace('/')}>
+        {/* router.back() pops /daily and reveals the existing (tabs) underneath.
+            replace('/') would mount a fresh (tabs) on top, restarting every on-mount
+            animation on home and visibly overlapping with the slide-out. */}
+        <Pressable style={s.homeBtn} onPress={() => router.back()}>
           <View style={s.homeBtnShadow} />
           <View style={s.homeBtnFace}>
             <Text style={s.homeBtnText}>HOME</Text>

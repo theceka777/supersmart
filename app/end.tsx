@@ -71,7 +71,13 @@ export default function EndScreen() {
           <Text style={s.shareText}>{shareText}</Text>
         </View>
 
-        <Pressable style={s.homeBtn} onPress={() => router.replace('/')}>
+        {/* router.back() pops /end and reveals the existing (tabs) underneath.
+            Using router.replace('/') here would mount a fresh (tabs) instance on
+            top of the stack, which restarts every on-mount animation on home
+            (Brain wiggle, ArcadeCard bob, panel pulse) and visibly overlaps with
+            the slide-out of /end. Back-pop is the cleanest dismissal for a
+            result screen. */}
+        <Pressable style={s.homeBtn} onPress={() => router.back()}>
           <View style={s.homeBtnShadow} />
           <View style={s.homeBtnFace}>
             <Text style={s.homeBtnText}>HOME</Text>
@@ -101,7 +107,9 @@ export default function EndScreen() {
         </View>
       </Pressable>
 
-      <Pressable style={s.homeBtn} onPress={() => router.replace('/')}>
+      {/* See note on router.back() above — same reasoning for the Quickmatch/arcade
+          result HOME button. */}
+      <Pressable style={s.homeBtn} onPress={() => router.back()}>
         <View style={s.homeBtnShadow} />
         <View style={s.homeBtnFace}>
           <Text style={s.homeBtnText}>HOME</Text>
