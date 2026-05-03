@@ -14,6 +14,7 @@ import { View, Text, TouchableOpacity, StyleSheet, AppState } from 'react-native
 import { useRouter, useFocusEffect } from 'expo-router';
 import { QUESTIONS, shuffleQuestions } from './questions';
 import { useAppStore } from './store';
+import { getRaceDate } from './clock';
 
 const TOTAL_TIME = 60;
 const FREE_LIMIT = 7;
@@ -41,7 +42,8 @@ export default function GameScreen() {
   const [questions] = useState(() => shuffleQuestions(QUESTIONS));
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
+    // 6am-ET-anchored race date — must match the lockout key written by store.tsx.
+    const today = getRaceDate();
     const playsToday = freePlay.date === today ? freePlay.playsToday : 0;
     const oneMoreTaps = freePlay.date === today ? freePlay.oneMoreTaps : 0;
     if (playsToday >= FREE_LIMIT + oneMoreTaps * 3) {

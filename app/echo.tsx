@@ -14,6 +14,7 @@ import { QUESTIONS, shuffleQuestions } from './questions';
 import { EMOTES, pickInterviewEmotes, getRankLabel } from './content';
 import { Avatar } from '@/components/Avatar';
 import { useAppStore } from './store';
+import { getRaceDate } from './clock';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -159,7 +160,8 @@ export default function EchoScreen() {
   const [phase, setPhase] = useState<'matching' | 'preview' | 'playing' | 'result'>('matching');
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
+    // 6am-ET-anchored race date — must match the lockout key written by store.tsx.
+    const today = getRaceDate();
     const playsToday = freePlay.date === today ? freePlay.playsToday : 0;
     const oneMoreTaps = freePlay.date === today ? freePlay.oneMoreTaps : 0;
     const isGated = playsToday >= FREE_LIMIT + oneMoreTaps * 3;

@@ -23,6 +23,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAppStore } from '@/app/store';
+import { getRaceDate, isUSDST } from '@/app/clock';
 import { Brain, BrainExpression } from '@/components/Brain';
 import { Wordmark } from '@/components/Wordmark';
 import { ArcadeCard } from '@/components/ArcadeCard';
@@ -88,12 +89,11 @@ const pw = StyleSheet.create({
 //
 // Until Phase 4 lands a server clock (Appendix D follow-up), the countdown is
 // computed from the device's wall clock against America/New_York 06:00.
+// `isUSDST` lives in app/clock.ts alongside getRaceDate (the shared 6am-ET
+// day-boundary helper); this hook just consumes it.
 //
-// We compute the local America/New_York hour by reading the device's UTC time
-// and applying the standard ET offset (EDT = -4, EST = -5). The naive
-// approach `setHours(6,0,0,0)` would use local time, which breaks for users
-// outside ET. Strategy: figure out today's "ET 6am" as a Date instant, then
-// if it's already past, jump to tomorrow's ET 6am.
+// Strategy: figure out today's "ET 6am" as a Date instant, then if it's
+// already past, jump to tomorrow's ET 6am.
 //
 // Returns "HH:MM:SS" — re-renders every second.
 function useCountdownToNext6amET(): string {
@@ -104,8 +104,6 @@ function useCountdownToNext6amET(): string {
   }, []);
 
   // Approximate ET offset: -4 (EDT) Mar–Nov, -5 (EST) Nov–Mar.
-  // Good enough for a player-facing countdown; Phase 4 swaps to a server
-  // boundary that's authoritative across DST and timezones.
   const etOffsetHours = isUSDST(now) ? -4 : -5;
   // ET 6am today, expressed as a UTC instant.
   const etSixAmUTC = Date.UTC(
@@ -125,20 +123,6 @@ function useCountdownToNext6amET(): string {
   return `${pad(h)}:${pad(m)}:${pad(s)}`;
 }
 
-// US DST: starts second Sunday of March, ends first Sunday of November.
-function isUSDST(d: Date): boolean {
-  const y = d.getUTCFullYear();
-  // Second Sunday of March
-  const marStart = new Date(Date.UTC(y, 2, 1));
-  const marDow = marStart.getUTCDay();
-  const dstStart = new Date(Date.UTC(y, 2, 1 + ((7 - marDow) % 7) + 7, 7, 0, 0));
-  // First Sunday of November
-  const novStart = new Date(Date.UTC(y, 10, 1));
-  const novDow = novStart.getUTCDay();
-  const dstEnd = new Date(Date.UTC(y, 10, 1 + ((7 - novDow) % 7), 6, 0, 0));
-  return d >= dstStart && d < dstEnd;
-}
-
 // ─── Home Screen ─────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
@@ -148,7 +132,9 @@ export default function HomeScreen() {
   const [copyIdx, setCopyIdx] = useState(0);
   const [brainExpr, setBrainExpr] = useState<BrainExpression>('smirk');
 
-  const today = new Date().toISOString().split('T')[0];
+  // 6am-ET-anchored race date — must match the lockout key written by store.tsx.
+  // See app/clock.ts.
+  const today = getRaceDate();
   const playsToday   = freePlay.date === today ? freePlay.playsToday  : 0;
   const oneMoreTaps  = freePlay.date === today ? freePlay.oneMoreTaps : 0;
   const totalAllowed = FREE_LIMIT + oneMoreTaps * 3;
@@ -158,9 +144,9 @@ export default function HomeScreen() {
 
   // Today's Daily Race state — drives the home surfaces' done/fresh treatment.
   // Persistence is via AsyncStorage (mothership Appendix D #2 resolved 2026-04-26).
-  // Phase 4 will swap this client-side date check for the 6am-ET-anchored reset
-  // (Appendix D #7 resolved 2026-04-24); current local-date comparison is the
-  // pre-Phase-4 fallback.
+  // Day boundary is 6am-ET-anchored (Appendix D #7 resolved 2026-04-24) via
+  // app/clock.ts getRaceDate(). Anti-tamper deferred to Phase 4 server-side
+  // submission validation (Tier 1 #4).
   //
   // When done, the card becomes a live status card (live ticking countdown,
   // score, and rank) rather than a press-to-play affordance. The DailyRaceRankings

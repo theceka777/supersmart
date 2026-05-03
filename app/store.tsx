@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getRaceDate } from './clock';
 
 // ─── Persisted state shape ────────────────────────────────────────────────────
 // Fields below survive force-quit via AsyncStorage. Add new persisted fields
@@ -107,7 +108,10 @@ export function AppProvider({
     setState(s => ({ ...s, avatar: { ...s.avatar, ...updates } }));
   };
 
-  const today = new Date().toISOString().split('T')[0];
+  // 6am-ET-anchored race date — single source of truth for the day boundary.
+  // Both freePlay and dailyStatus reset at 6am ET so a player at 1am ET
+  // doesn't see freePlay reset before their Daily Race resets. See app/clock.ts.
+  const today = getRaceDate();
 
   const recordPlay = () => {
     setState(s => ({
@@ -132,9 +136,13 @@ export function AppProvider({
   };
 
   const setDailyPlayed = (score: number, results: boolean[]) => {
+    // Recompute today inside setDailyPlayed so a round that crosses 6am ET
+    // gets stamped with the race date the round started under (captured
+    // by reading getRaceDate() once here at call time, not at module init).
+    const raceDate = getRaceDate();
     setState(s => ({
       ...s,
-      dailyStatus: { date: today, played: true, score, results },
+      dailyStatus: { date: raceDate, played: true, score, results },
       highScores: { ...s.highScores, daily: Math.max(s.highScores.daily, score) },
     }));
   };

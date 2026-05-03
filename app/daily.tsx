@@ -12,6 +12,7 @@ import { useRouter, useFocusEffect } from 'expo-router';
 import { QUESTIONS, Question } from './questions';
 import { useAppStore } from './store';
 import { getRankLabel } from './content';
+import { getRaceDate, getRaceSeed } from './clock';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
 
 // Longest run of consecutive `true` values in the results array.
@@ -55,8 +56,10 @@ function seededRandom(seed: number) {
 }
 
 function getDailyQuestions(): Question[] {
-  const d = new Date();
-  const seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  // Seed from the 6am-ET-anchored race date (YYYYMMDD as int) so every
+  // player worldwide gets the same set during the same global 24h window.
+  // Equal-ground principle — see app/clock.ts.
+  const seed = getRaceSeed();
   const rand = seededRandom(seed);
   const arr = [...QUESTIONS];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -84,7 +87,9 @@ function getMultiplier(streak: number): number {
 export default function DailyScreen() {
   const router = useRouter();
   const { dailyStatus, setDailyPlayed, freePlay, recordPlay } = useAppStore();
-  const today = new Date().toISOString().split('T')[0];
+  // 6am-ET-anchored race date (see app/clock.ts). Don't use UTC midnight or
+  // device-local — must match the lockout key written in store.tsx.
+  const today = getRaceDate();
 
   // `currentlyPlaying` overrides the alreadyPlayed view during an active round.
   // We need this because progressive saves on each answer flip

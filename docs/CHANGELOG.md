@@ -2,6 +2,112 @@
 
 ---
 
+## Session 28 — 2026-05-03 — Day-boundary drift fixed; clock anti-tamper deferred to Phase 4 (mothership v1.44 → v1.45)
+
+First session back after a quiet six-day stretch. Tackled Tier 1 punch-list item #4 (Daily Race system-clock vulnerability). The audit surfaced two distinct issues entangled in the same code paths — only one was anti-cheat. Shipped the correctness fix; explicitly deferred the anti-cheat layer.
+
+### What this session is
+
+The CHANGELOG session 26 punch-list left four Tier 1 items open: #4 system-clock vulnerability, #5 onboarding flow, #6 maintenance/kill-switch screens, #7 Arcade orphan path. CD picked #4. The work split into two pieces after spec review:
+
+- **(A) Anti-tamper logic** — defending against players rolling their device clock forward to replay Daily Race for a better score. Architectural decision: defer to Phase 4 server-side submission validation. Pre-Phase-4 the cheat path stays open; testers will be told.
+- **(B) Day-boundary drift** — a separate correctness bug found during the same code review. The lockout key and the daily question-set seed both used device-clock date math (UTC midnight + device-local for the seed), but the spec locked 2026-04-24 says the day boundary is 6am ET. Two real consequences for legitimate players: a 10-hour window per day (8pm ET → 6am ET) where the lockout flipped before the actual race day rolled, and a regional split in question sets (Istanbul and NYC at the same UTC instant got different sets, breaking the equal-ground principle).
+
+(A) is anti-cheat. (B) is correctness. CD greenlit shipping (B) only this session.
+
+### What changed in code
+
+**`supersmart/app/clock.ts`** — new file. Three exports:
+
+- `isUSDST(d: Date): boolean` — DST detector (second Sunday of March → first Sunday of November, 2am ET boundaries). Relocated from `app/(tabs)/index.tsx` where it had been duplicated for the home countdown hook.
+- `getRaceDate(now: Date = new Date()): string` — returns the current Daily Race day as `YYYY-MM-DD`, computed as the ET calendar date as of 6 hours ago. Until 6am ET, race date = yesterday's ET date; at 6am ET and after, flips to today. Math: shift instant by (6 + |etOffset|) hours (10h under EDT, 11h under EST), then read UTC date methods. The shift maps 6am ET to UTC midnight, so UTC date getters yield the race date directly.
+- `getRaceSeed(now: Date = new Date()): number` — same date as a stable integer (`YYYYMMDD`), used as the question-set RNG seed. Globally stable: every player worldwide draws from the same seed during the same race day.
+
+The `now` parameter on both date functions is for tests; production callsites pass nothing.
+
+**Six callsites updated to consume the new helper:**
+
+- **`supersmart/app/store.tsx`** — `today = new Date().toISOString().split('T')[0]` → `today = getRaceDate()`. `setDailyPlayed` recomputes via `getRaceDate()` at call time so a round that crosses 6am ET stamps with the race date the round started under.
+- **`supersmart/app/daily.tsx`** — `today = getRaceDate()` (lockout). `getDailyQuestions` seed changed from `d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate()` (device-local, regionally split) to `getRaceSeed()` (globally stable).
+- **`supersmart/app/(tabs)/index.tsx`** — `today = getRaceDate()`. Local `isUSDST` definition deleted; `useCountdownToNext6amET` now imports it from `app/clock.ts`. Stale "Phase 4 will swap this client-side date check" comment updated to reflect that the boundary is now anchored — only the anti-tamper layer is Phase 4 work.
+- **`supersmart/app/echo.tsx`** — Quickmatch freePlay gate routes through `getRaceDate()`.
+- **`supersmart/app/game.tsx`** — same.
+
+### Math verification
+
+Sanity-checked `getRaceDate` against 7 boundary cases before device handoff:
+
+| Input (ET local time) | Expected race date | Result |
+|---|---|---|
+| 5am ET on May 3 (EDT) | `2026-05-02` | ✓ |
+| 6am ET on May 3 (boundary flip) | `2026-05-03` | ✓ |
+| 11:59pm ET on May 3 | `2026-05-03` | ✓ |
+| 5:59am ET on May 4 | `2026-05-03` | ✓ |
+| Mid-day Mar 8 (post-DST-start) | `2026-03-08` | ✓ |
+| 5am EST on Jan 15 | `2026-01-14` | ✓ |
+| 6am EST on Jan 15 (boundary flip) | `2026-01-15` | ✓ |
+
+`isUSDST` correctly classifies all inputs.
+
+### Anti-tamper deferral — Appendix D #6 scope extended
+
+Three options were considered for the pre-Phase-4 window:
+
+- **(A) Defer entirely.** Server-side submission validation in Phase 4 is the canonical anti-cheat layer. Local lockout stays trustless. Beta testers will find the cheat path; tell them upfront.
+- **(B) Local deterrent only.** Persist `lastSeenWallTime`. On every read: refuse to flip the lockout if device clock went backward by more than tolerance. ~30 lines.
+- **(C) Network anchor + local deterrent.** On launch when online, fetch authoritative time from a public source (Apple's `time.apple.com`, the project's Supabase REST endpoint). Cache. Use as anchor. Closes both forward and backward tamper paths well enough that the only remaining cheat requires being offline indefinitely AND clock-manipulating.
+
+CD picked A. Reasoning: clean architectural boundary, no transitional code to throw away in Phase 4, no false-positive risk for legitimate timezone travelers, and the testers-find-it-anyway risk is mitigated by simply telling them. The damage scope pre-Phase-4 is bounded (leaderboard pollution at most), and Phase 4 server validation will reject any retroactive submissions when it ships.
+
+Appendix D #6 (anti-cheat / score integrity) extended to explicitly include device-clock manipulation as part of what the server-side validator must guard against. Server must reject any Daily Race submission outside the active 6am-ET → 6am-ET window for the player's recorded join, combined with the points-per-second bound + suspicious-pattern flagging already specced.
+
+### One-time migration leak
+
+Players whose `dailyStatus.date` was written under the old UTC-based code, during the 10-hour window per day when UTC date was one day ahead of race date (8pm ET → 6am ET), will see one extra Daily Race attempt the first time they open the app under the new code. Reasoning: the old code wrote tomorrow's UTC date as `dailyStatus.date`; the new code reads today's race date; mismatch → lockout doesn't fire. Bounded to one extra attempt per affected player. Not worth a migration script — Phase 4 server reset normalizes everything.
+
+### Verified on device
+
+- Home loads, Daily Race card renders the correct fresh state (CD's `dailyStatus.date` was 6 days stale, so the home shows fresh as expected).
+- Countdown to next 6am ET still ticks correctly (the `useCountdownToNext6amET` hook is unchanged, just consumes the shared `isUSDST`).
+- Played a Daily Race round; round plays normally; done state renders with score afterwards.
+- Quickmatch round counter increments correctly; freePlay gate works.
+
+### Tier 1 progress
+
+- ✅ #1 State persistence (session 23)
+- ✅ #2 Back-button mid-round (session 26)
+- ✅ #3 App lifecycle mid-round (session 26)
+- ⏳ **#4 Daily Race system-clock vulnerability — anti-tamper deferred to Phase 4 (this session); day-boundary drift correctness fix shipped (this session)**
+- ⏳ #5 Onboarding flow
+- ⏳ #6 Maintenance / kill-switch screens
+- ⏳ #7 Arcade mode orphan path
+
+### Files touched
+
+- `supersmart/app/clock.ts` — new file (`isUSDST`, `getRaceDate`, `getRaceSeed`)
+- `supersmart/app/store.tsx` — `today` and `setDailyPlayed` route through `getRaceDate()`
+- `supersmart/app/daily.tsx` — `today` → `getRaceDate()`; question-set seed → `getRaceSeed()`
+- `supersmart/app/(tabs)/index.tsx` — `today` → `getRaceDate()`; local `isUSDST` deleted, imported from clock.ts; stale comment refreshed
+- `supersmart/app/echo.tsx` — freePlay gate `today` → `getRaceDate()`
+- `supersmart/app/game.tsx` — same
+- `super_smart_2026_mothership.md` — v1.44 → v1.45 status line, Part 3 Daily Race spec ("Resets daily at 6am Eastern Time" entry gets a "Code anchor" addendum), Appendix D #6 extended with device-clock manipulation note, two new Decision Log rows, end-of-doc stamp
+- `super_smart_2026_primer.md` — current-state line bumped to v1.45 / 2026-05-03
+- `supersmart/docs/` — all four files mirrored
+- `CHANGELOG.md` — this entry
+
+### Pending
+
+- **Tier 1 #5–#7** (onboarding flow, maintenance/kill-switch, Arcade orphan) — natural next picks for upcoming sessions.
+- **Phase 4 server validator** — when that workstream begins, Appendix D #6 covers the device-clock case alongside the points-per-second bound + suspicious-pattern flagging. Submission must reject any Daily Race outside the active 6am-ET window.
+
+### Push command
+
+```
+cd "/Users/canmert/Desktop/supersmart2026/Super Smart 2026/supersmart" && git push origin main
+```
+
+---
+
 ## Session 27 — 2026-04-27 — Home-screen polish pass shipped (mothership v1.43 → v1.44)
 
 A Claude Design exploration produced a detailed changelog + two HTML reference deliverables (`Home v2.html`, `Home v2 — Fresh.html`) + the underlying `explore/home-v2.jsx` + `explore/shared.jsx`. Three home surfaces redesigned and ported to RN, all driven by the same `dailyPlayedToday` flag the rest of the app already reads. No architectural shifts — small additive polishes.
