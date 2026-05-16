@@ -2,6 +2,60 @@
 
 ---
 
+## Session 31e — 2026-05-16 — Launch-prep ops cluster parked: 4 items deferred (mothership v1.51 → v1.52)
+
+After the v1.51 pricing reversal CD picked launch-prep ops as the next cluster. Walked through all four items and parked all four. The discipline call: at 12 weeks out, specifics on launch-week items get sharper closer to launch, so locking them today would mean re-doing work in two months. But we did capture directional context inside each park note so the deferrals aren't "we'll figure it out later" — they're "we know mostly what we'll do, just need final timing-sensitive inputs."
+
+### What got parked
+
+**#38 PR strategy** — revisit ~4–6 weeks pre-launch (mid-July 2026 for the Aug window). Walked through six sub-decisions (embargo plan, list size, story angle, materials, outreach mechanism, coverage targets) — CD parked the lock but the directional answers got captured in the park note for future-self to pick up cleanly:
+
+- Embargo 1 week pre-launch, reviews drop on launch day
+- ~20 outlets, personal CD emails (no PR firm), warm list only
+- Story angle: nostalgia-led, product-substantiated
+- Materials: press release + 5–7 screenshots + 30s preview video + founder long-form on Medium/Substack
+- iOS/games press only; defer mainstream tech to v1.1 milestone
+- Pre-launch low-effort move that can start now: Twitter follows + occasional comments on the target outlets' coverage (relationship-warming costs nothing, lands the outreach better)
+
+**#39 beta tester list** — revisit at beta recruitment time. CD already has the friend list assembled — no spec needed today. Directional context captured in the park note: target 15–20 testers; coverage minimums (iOS mix / Android if shipping / 5+ outside North America for 6am-ET-reset timezone testing / 3+ trivia non-natives / 2+ over 50 / 1+ who played the 2012 original); weekly TestFlight build cadence during Phase B; feedback channel = WhatsApp group (CD's call, replaces Discord).
+
+**#41 App Store screenshots + preview video brief** — revisit late Phase 6. Production needs final game assets to film; the brief can't fully exist until Phase 3 polish + Phase 4 backend lands. Directional context: 8 screenshots (not 10 — leaves room for v1.1); voice-y two-line captions; hero = home screen; 30s preview video, gameplay-driven (not animated promo), recreating the energy of the recovered 2012 launch video; English only at launch.
+
+**#42 IAP sandbox testing strategy** — revisit at TestFlight beta launch (Phase B). The two real updates from this session, both load-bearing for future work, are captured in the park note:
+
+### Update 1 — WhatsApp replaces Discord as the beta feedback channel
+
+CD's call: friend-circle beta testing works through channels people already use, not channels they have to adopt. WhatsApp's only weakness vs Discord is less-threaded chaos at higher counts, but at 15–20 testers it's not a problem. Practical setup: dedicated WhatsApp group, pin the IAP test checklist as a group message (WhatsApp supports pinned messages now), use clear subject prefixes for bug reports ("BUG:", "WEIRD:", "VIBES:").
+
+This update propagates to #39's feedback-channel spec and #42's Phase B feedback collection.
+
+### Update 2 — Two-phase beta plan locked
+
+CD asked: "can't we use the Expo Go QR code for friends as well?" — yes, and the cleaner answer is that Expo Go and TestFlight serve different phases. Now formally specced as a two-phase plan inside #42's park note:
+
+**Phase A — Expo Go beta** (can start today). Friends scan a QR code, install Expo Go from the App Store, run the game in minutes. Free, fast, no Apple Developer account required for testers. Useful for visual / UX / gameplay / "does this feel good" feedback throughout Phase 3 polish. **Cannot test IAP, push notifications, or any real native module** — Expo Go runs in a sandboxed environment that doesn't have StoreKit or RevenueCat's real IAP flow.
+
+**Phase B — TestFlight beta** (~4–6 weeks pre-launch). Kicks in once Phase 4 backend + IAP are wired and the Pro upgrade / shield purchase flows actually exist. The full #42 sandbox testing plan applies here (Sandbox account per tester, 6-test checklist, clock-roll exploits for #17/#19 testing pre-Phase-4 anti-cheat, Pro grace period #18 deferred to post-launch internal testing).
+
+CD can start Phase A immediately if they want — it's basically free against the current v1.51 build.
+
+### Discipline note: parking with directional context
+
+The pattern locked here is the playbook for every future park decision: parking isn't avoidance — it's the explicit recognition that some decisions need final timing-sensitive inputs (a launch date, a polished build, a near-launch market context) before locking, but the *80% of the call* can be made now while the conversation is live. Capturing that 80% inside the park note means future-self reads the parked item and finds "here's where we landed, here are the remaining inputs we needed," not a cold empty bullet point.
+
+### Net effect
+
+- ~30 Appendix D opens unchanged (parking is not resolution; these items still need locking before launch, just not today)
+- One Decision Log row added explaining the cluster park + the WhatsApp + Expo Go updates
+- Mothership v1.51 → v1.52
+- Two cross-cutting updates locked: WhatsApp feedback channel + two-phase beta plan (propagates to #39 + #42 + downstream IAP work)
+
+### No code changes
+
+Pure spec work. The Expo Go observation means CD can start friend-circle visual feedback against the current build whenever they want — no new code needed.
+
+---
+
 ## Session 31d — 2026-05-16 — Streak Shield pricing reversal (mothership v1.50 → v1.51)
 
 Same-day reversal of the #27 pricing locked earlier in v1.48. CD revisited the strategic axis on Streak Shield bundles after sitting with the full Streak Shield system spec (post #17 + #19 close in v1.50) and shifted from "impulse-purchase accessibility" to "aggressive Pro funnel."
