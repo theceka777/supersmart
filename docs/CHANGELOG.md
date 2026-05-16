@@ -2,6 +2,71 @@
 
 ---
 
+## Session 31b — 2026-05-16 — Phase 4 hardening discipline locked: 4 new Appendix D items (mothership v1.48 → v1.49)
+
+CD surfaced a forum post from a senior engineering manager listing the four mistakes that show up in every vibe-coded app they've reviewed: (1) auth tokens committed to the repo, (2) RLS misconfigured or missing on at least one table, (3) no rate limiting on any endpoint, (4) no error handling past the happy path. CD asked: "make sure we don't make any of these mistakes — if needed take note for the future instead of fixing today."
+
+Did a quick audit, fixed one immediate gap, and locked the rest as hard gates on Phase 4.
+
+### Audit results
+
+**Secrets in repo:** clean today. No `.env` files in tree. No `.env` in git history. No secret-shaped strings in tracked files. **But** the existing `.gitignore` only excludes `.env*.local` (the Expo template default) — a future `.env` or `.env.production` with real keys would be tracked by default. Real risk for when Phase 4 wiring starts.
+
+**RLS:** zero `ENABLE ROW LEVEL SECURITY` and zero `CREATE POLICY` statements in either schema file (`supabase/schema.sql` or `supabase/phase4_schema.sql`). The Phase 4 schema is a draft and hasn't run against a live Supabase yet, so nothing is exposed — but as written, the schema would ship wide-open if migrated today.
+
+**Rate limiting:** N/A today (no Edge Functions deployed yet). But none of the 8 planned Phase 4 Edge Functions are specced for rate limiting.
+
+**Error handling:** code-quality discipline; partially covered by the planned Sentry instrumentation (Tier 1, Phase 6), but Phase 4 backend code needs the discipline baked in from the first function.
+
+### Immediate fix — `.gitignore` widened
+
+```diff
+- # local env files
+- .env*.local
++ # env files — never commit real secrets
++ # Widened from the Expo default `.env*.local` to catch the common
++ # "I put real keys in .env" mistake. The only env file we commit is
++ # `.env.example` as a template. See Appendix D #54 in the mothership.
++ .env
++ .env.*
++ !.env.example
+```
+
+Three new exclusions + one allow-exception for `.env.example`. Zero risk — no `.env*` files exist in the tree today, so the widened rule has nothing to retroactively exclude. Prevents the forever-class of "someone created `.env` with real Supabase keys and `git add .` swept it in."
+
+### Four new Appendix D items — hard gates on Phase 4
+
+Each item includes an explicit acceptance test, not just a "be careful" line. Without acceptance tests, "we'll do the right thing" is the same as "we won't notice."
+
+**#54 Secret management discipline.** No secrets ever committed. `.env*` excluded with `.env.example` as the only template. EAS Secrets for production. Supabase `service_role` key server-side only — never imported by anything under `app/` or `components/`. RevenueCat secret key server-side only. Pre-commit audit grep: `git diff --cached | grep -iE "(KEY|SECRET|TOKEN|PASSWORD).*=.*['\"][a-z0-9_-]{20,}" | grep -v ".example"` must return empty. **Acceptance at Phase 4 close:** public repo audit confirms zero secrets in tree or in history.
+
+**#55 RLS on every Phase 4 table — default-deny, explicit allow.** Every table gets `ENABLE ROW LEVEL SECURITY` in the same migration that creates it. Player-owned data uses `auth.uid() = player_id` baseline. Cross-player reads (leaderboards, league standings, ghost pool) use narrow explicit policies — no email, no purchase history, no internal skill tier leaks. **Anti-pattern guard:** no `service_role` from client code as an RLS workaround. **Acceptance at Phase 4 close:** spin up two test players A and B. Sign in as A. Attempt direct table reads against B's `players`, `sessions`, `ghost_pool`, `pro_entitlements`, `streak_shields`, `push_tokens`, `league_memberships` rows. All seven must fail at the PostgREST/RLS layer with 403 or empty result — not "the app filters client-side."
+
+**#56 Rate limiting on every public Edge Function.** Baseline 60 req/min per authenticated player UUID, burst to 120/min, anonymous-session players tighter at 30/min. Score submission deduped server-side via unique `session_id` constraint. Daily Race deduped per `(player_id, race_date)` — a player who somehow gets two submissions past the client lockout (clock manipulation, parallel sessions) sees the second rejected with HTTP 409. This is the server-side half of the Appendix D #6 anti-cheat work. Postgres-based rate limiter is the default; Upstash Redis upgrade path if write load becomes a concern. **Acceptance at Phase 4 close:** scripted load test hits each Edge Function at 10× the rate limit; the function returns 429 cleanly, logs the abuse to a `rate_limit_violations` table, and never crashes, times out, or runs up unbounded compute.
+
+**#57 Error handling discipline — every external call wrapped.** Every call to Supabase, RevenueCat, Apple, PostHog, Sentry, or any future third-party is wrapped in `try/catch` with structured error logging. Every catch either retries (transient errors), surfaces a user-facing message (with a clear next step), or pings Sentry (with context). 5s timeout default for non-critical calls, 10s for critical. No call ever blocks the 60-second round loop. Client-side graceful degradation: if Supabase is unreachable, the app continues in offline mode (cached question sets + deferred-sync queue per #3). **Acceptance at Phase 4 close:** every Edge Function has a "third-party failure path" integration test — RevenueCat timeout, Apple receipt 503, Supabase RPC failure all resolve to defined error paths, not silent failure or unhandled rejection.
+
+### How the four items map to existing Phase 4 work
+
+These don't add net Phase 4 workload — they constrain the shape of work that's already on the schedule.
+
+- **#54** → constrains the auth-architecture decision (#1) and the Supabase setup
+- **#55** → constrains the same auth work plus every schema migration
+- **#56** → fuses with the anti-cheat work (#6); together they form the canonical server-side validation layer
+- **#57** → fuses with the offline-behaviour spec (#3) and the planned Sentry instrumentation (Tier 1, Phase 6)
+
+### Net effect on Appendix D
+
+- ~28 → ~32 open items (4 added; not regressions — forward-looking acceptance gates)
+- One Decision Log row added explaining the bundling rationale
+- Mothership v1.48 → v1.49
+
+### No code-functionality changes
+
+The `.gitignore` widening is the only file touched that affects build/runtime behaviour, and it changes nothing about how the app builds today (no `.env*` files exist). Pure spec + repo hygiene work.
+
+---
+
 ## Session 31 — 2026-05-16 — Quick-wins Appendix D batch: 5 items closed (mothership v1.47 → v1.48)
 
 CD opened the session asking for an executive summary of where we left off, then picked Appendix D batching as the session shape. After laying out the open landscape (~33 items grouped into five thematic clusters — quick wins, Streak Shield finish, launch-prep ops, legal/compliance, Phase 4 architecture), CD chose the quick-wins cluster as the starting batch — five small independent calls that didn't need multi-turn architecture work but each unblocked a downstream Phase 4–6 implementation slot.

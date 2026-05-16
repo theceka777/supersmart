@@ -30,8 +30,13 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
+# env files — never commit real secrets
+# Widened from the Expo default `.env*.local` to catch the common
+# "I put real keys in .env" mistake. The only env file we commit is
+# `.env.example` as a template. See Appendix D #54 in the mothership.
+.env
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo
