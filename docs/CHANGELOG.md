@@ -2,6 +2,77 @@
 
 ---
 
+## Session 31c — 2026-05-16 — Streak Shield system fully specced: #17 + #19 closed (mothership v1.49 → v1.50)
+
+After the v1.49 hardening pass, CD picked Streak Shield system completion as the next cluster — two items, builds directly on the #27 pricing locked earlier in v1.48. Closes the entire Streak Shield feature spec end-to-end.
+
+### #17 — Pro weekly Streak Shield auto-grant (resolved)
+
+Spec already locked: "1 free shield every Monday, up to 3-shield cap." This session resolved the implementation pattern + five edge cases that determine UX.
+
+**Grant clock:** Monday 6am ET — same anchor as Daily Race + League reset. One clock for the whole system. No second timezone math to test, no DST surprises (the `app/clock.ts` helper extracted in v1.45 session 28 handles it).
+
+**At cap (3 shields held):** skip silently. No carryover, no banked future credit. Pro perk is "you tend to have shields available," not "infinite accumulation."
+
+**Mid-week Pro upgrade:** immediate "welcome to Pro" grant on first upgrade as a feel-good moment, then weekly cadence resumes. Tuesday upgrader gets 2 shields in week one (1 on upgrade Tue + 1 on next Mon).
+
+**Refund + re-upgrade cycles:** one welcome grant per account ever. Tracked via `pro_entitlements.first_granted_at`. A refund-and-rebuy cycle does NOT re-fire the welcome grant.
+
+**Missed Monday (player inactive that week):** retroactive grant on next app open, cap-aware. Only the most recent missed Monday qualifies — a two-week-inactive player gets 1 grant, not 2.
+
+**Implementation: pull pattern via Edge Function `check_pro_shield_grant`.** Chosen over cron-push for: (a) no cron monitoring/paging, (b) inactive users cost nothing (no grant fires for someone not opening the app), (c) retroactive grants come free with the same code path. Function called on app open + on Pro upgrade. Reads `pro_entitlements.first_granted_at` and `last_granted_at`; if now is past a Monday 6am ET after `last_granted_at`, insert a `streak_shields` row (subject to cap) and update `last_granted_at`.
+
+**Schema delta:** `pro_entitlements.first_granted_at TIMESTAMPTZ`, `pro_entitlements.last_granted_at TIMESTAMPTZ`.
+
+### #19 — Retroactive 48h Streak Shield clock anchor + implementation (resolved)
+
+Spec already locked at #7: "the 48-hour window runs from the 6am ET reset that the player's missed day was bounded by." This session resolved the ambiguity (which 6am reset?) + detection mechanism + UX during the window + edge cases.
+
+**Which reset the 48h is measured from:** start-of-next-day 6am ET — the moment the streak officially breaks, not the start of the missed day. Example: player missed Thu's Daily Race; streak breaks Fri 6am ET; repair window is Fri 6am ET → Sun 6am ET. Lines up with how players discover the miss (on Friday morning's app open) and gives them a full ~48h of conscious-window.
+
+**Detection:** server-authoritative on both Daily Race submission attempt AND app open. Existing `submit_daily_race_score` Edge Function extended with repair-aware logic; new `check_streak_state` Edge Function called on every app open catches the case where the player opens the app the next day without trying a race.
+
+**Window only opens if 0 shields at miss time.** Proactive auto-activate (locked 2026-04-19 session 6) takes precedence: a player holding ≥1 shield has it silently consumed to preserve the streak, no banner, no push, no window — there was no break to repair.
+
+**UX during the 48h window:**
+
+- Persistent in-app banner above the Daily Race card with live countdown: *"Repair your 12-day streak — 36h left."* The 12-day count is the broken-streak length.
+- Push notifications (assuming push permission per #16): T+4h (~10am ET morning after miss, after morning routine before lunch) and T+40h (final 8h reminder).
+- Tap-to-repair opens a focused purchase sheet at the standard #27 pricing — 1-pack highlighted as "repair the streak," 2/3-packs framed as "...and stock up." Multi-pack purchases: 1 shield activates retroactively, the rest go into inventory at cap.
+- After 48h expires: banner disappears, streak permanently 0. No grace, no late repair.
+
+**Only the most recent unrepaired break is repairable.** If the player misses Thu and doesn't repair, by Fri 6am the streak is permanently 0. If they then miss Fri, there's no streak to repair. The system never enters a multi-day backlog state — simpler math, no retroactive-stacking edge cases.
+
+**Retroactive purchase effect:** server inserts the `streak_shields` row, marks it used immediately with `usage_type='retroactive_repair'` and `repaired_streak_date=<missed day>`, restores `streak_count` to pre-miss value, advances `last_completed_race_date` to the missed day. Client animation: streak count animates back up with a satisfying click.
+
+**Schema deltas:**
+
+- `streak_shields` table gets `used_at TIMESTAMPTZ`, `usage_type TEXT` (enum `'proactive_auto' | 'retroactive_repair'`), `repaired_streak_date DATE`
+- `daily_races` table gets `repair_window_starts_at TIMESTAMPTZ`, `repair_window_ends_at TIMESTAMPTZ`
+
+### Net effect: Streak Shield feature closed end-to-end
+
+The Streak Shield spec is now complete across four locked decisions:
+
+- **Design** (decision log 2026-04-19 session 6): one item type, proactive auto-activate + retroactive 48h, max 3 held, blocked at cap, free users 1 at launch, Pro 1/week
+- **Pricing** (#27, v1.48 earlier today): $0.99 / $1.79 / $2.49 for 1/2/3 packs
+- **Pro weekly auto-grant** (#17, this session): Monday 6am ET, pull pattern, welcome-grant on first upgrade
+- **Retroactive 48h repair** (#19, this session): start-of-next-day anchor, server-authoritative detection, banner + push UX
+
+Ready to implement in Phase 4 alongside anti-cheat + score submission (#6) — no architectural questions left open.
+
+### Net effect on Appendix D
+
+- ~32 → ~30 open items (2 closed)
+- One Decision Log row added consolidating both decisions
+- Mothership v1.49 → v1.50
+
+### No code changes
+
+Pure spec work — implementation lands in Phase 4 Edge Function buildout.
+
+---
+
 ## Session 31b — 2026-05-16 — Phase 4 hardening discipline locked: 4 new Appendix D items (mothership v1.48 → v1.49)
 
 CD surfaced a forum post from a senior engineering manager listing the four mistakes that show up in every vibe-coded app they've reviewed: (1) auth tokens committed to the repo, (2) RLS misconfigured or missing on at least one table, (3) no rate limiting on any endpoint, (4) no error handling past the happy path. CD asked: "make sure we don't make any of these mistakes — if needed take note for the future instead of fixing today."
