@@ -2,6 +2,71 @@
 
 ---
 
+## Session 31d — 2026-05-16 — Streak Shield pricing reversal (mothership v1.50 → v1.51)
+
+Same-day reversal of the #27 pricing locked earlier in v1.48. CD revisited the strategic axis on Streak Shield bundles after sitting with the full Streak Shield system spec (post #17 + #19 close in v1.50) and shifted from "impulse-purchase accessibility" to "aggressive Pro funnel."
+
+### What changed
+
+| | Old (v1.48) | New (v1.51) |
+|---|---|---|
+| 1-pack | $0.99 | **$1.99** |
+| 2-pack | $1.79 | **$3.49** |
+| 3-pack | $2.49 | **removed** |
+
+### Why
+
+The v1.48 lock optimized for "shields should be a cheap-enough impulse buy that a player who just lost their streak says yes without thinking." The mild bulk discount ($0.19 off the 2-pack, $0.48 off the 3-pack) was meant to reward stocking up without making the 3-pack feel close to Pro.
+
+The reversal optimizes for the opposite axis: extract more revenue per shield buyer AND push more of them toward Pro.
+
+**Mechanics of the new positioning:**
+
+- **2-pack at $3.49 sits $1.50 below Pro at $4.99.** That's the natural upsell moment. A player about to drop $3.49 on shields should see Pro at $4.99 with "for $1.50 more, get unlimited rounds + seasonal packs + weekly free shield + Pro avatar items + Global all-time view + Pro badge." The price gap forces the comparison.
+- **3-pack removed** because it was structurally redundant with Pro's weekly shield grant. Both SKUs were competing for "stock up to cap" purchase intent. Pro should be the only path to "I never want to think about shields again."
+- **No more $0.99 impulse anchor.** Acknowledged trade-off: some buyers who would have hit "yes" on $0.99 will balk at $1.99. CD made the call that better LTV per buyer + higher Pro conversion outweighs reduced shield-buyer volume.
+
+### Three execution options considered
+
+CD picked option **C** (remove 3-pack, reprice 1+2) after I walked through the math on three approaches:
+
+- **A. Decoy:** `$0.99 / $1.79 / $4.99` — keep 1+2 cheap, 3-pack matches Pro as a strictly-dominated decoy. Rejected — 3× $0.99 = $2.97 < $4.99 makes the 3-pack a dead SKU bought only by mistake. Borderline dark pattern.
+- **B. Shifted curve:** `$1.99 / $3.49 / $4.99` — entire curve shifts up, 3-pack matches Pro with honest bulk discount. Rejected because the 3-pack is still structurally redundant with Pro's weekly grant.
+- **C. Two-SKU model:** `$1.99 / $3.49`, 3-pack removed. **Chosen.**
+
+### Downstream changes inside the same commit
+
+- **#27 in Appendix D** — rewritten with full reversal note. Strikethrough on the old "RESOLVED" header preserved alongside a new "REVISED" block. Original v1.48 pricing preserved verbatim under "Superseded v1.48 lock" for audit trail.
+- **#19 in Appendix D** — retroactive repair UX section updated. Purchase sheet now shows 1-pack and 2-pack only. The 2-pack framing on the repair sheet stays "stock up" since a player buying 2 shields right after losing a streak is signalling intent to not lose another. Inline note added explaining the 3-pack removal and pointing at Pro as the stock-up path.
+- **Decision Log row** added explaining the reversal rationale.
+
+### New Phase 5/6 follow-up (flagged, not blocking)
+
+Fire a **Pro upsell card** at the 2-pack purchase moment — "Buying shields? Pro covers this and more for $1.50 more." Tracked as future Phase 5/6 work, not a v1 launch blocker. Worth doing because the price gap is small enough that the upsell pitch is honest, not aggressive.
+
+### Discipline note
+
+This is the first same-day reversal of a same-session lock in the audit trail. CD's working style allows it (decisions are revisitable until they ship in code or marketing). The discipline that made the reversal cheap:
+
+- Original v1.48 lock was a spec decision, not a code change — no implementation to roll back
+- IAP products are not yet registered in App Store Connect — no historical price anchor
+- Strikethrough audit trail preserved both states so the rationale chain is reviewable
+- Decision Log row explains *why* the axis shifted, not just *what* changed
+
+If this had happened post-launch, after IAP analytics had built up, the cost would be much higher. Pre-Phase-6 is the right window for this kind of revision.
+
+### No code changes
+
+Pure spec work. ASO copy + IAP product registration in App Store Connect will reflect the new prices when Phase 6 prep starts.
+
+### Net effect
+
+- ~30 Appendix D opens unchanged (#27 was already counted as closed in v1.48 and remains closed; #19 was already counted as closed in v1.50 and remains closed)
+- Mothership v1.50 → v1.51
+- Streak Shield feature spec remains complete end-to-end — just with revised pricing
+
+---
+
 ## Session 31c — 2026-05-16 — Streak Shield system fully specced: #17 + #19 closed (mothership v1.49 → v1.50)
 
 After the v1.49 hardening pass, CD picked Streak Shield system completion as the next cluster — two items, builds directly on the #27 pricing locked earlier in v1.48. Closes the entire Streak Shield feature spec end-to-end.
