@@ -2,6 +2,90 @@
 
 ---
 
+## Session 31 — 2026-05-16 — Quick-wins Appendix D batch: 5 items closed (mothership v1.47 → v1.48)
+
+CD opened the session asking for an executive summary of where we left off, then picked Appendix D batching as the session shape. After laying out the open landscape (~33 items grouped into five thematic clusters — quick wins, Streak Shield finish, launch-prep ops, legal/compliance, Phase 4 architecture), CD chose the quick-wins cluster as the starting batch — five small independent calls that didn't need multi-turn architecture work but each unblocked a downstream Phase 4–6 implementation slot.
+
+Decisions taken serially, one per turn, drafted and approved before commit per the review-before-commit rule.
+
+### #16 — Push notification permission pre-prompt pattern (resolved)
+
+Soft pre-prompt fires **after the first Daily Race completion** — context wins over earliness; the player has just experienced the loop, so the value proposition is concrete rather than abstract. Three options considered (post-onboarding / post-first-Daily-Race / post-first-league-week); first Daily Race is the sweet spot of "has experienced enough to want push" without "already missed days of push value."
+
+**Copy locked:** `Don't make us yell. We'll only ping you for the good stuff.` Sublabel lists the three actual triggers — `New Daily Race` · `Someone beat your score` · `Your league's last day` — so the player knows exactly what they're consenting to.
+
+**Opt-out:** `Not now` triggers one polite re-prompt after 5 more sessions (the soft retry), then permanent silence. Respect the no.
+
+**iOS dialog:** invoked only once, after a soft `Sure`, so a denial there is on the player rather than a wasted prompt.
+
+Implementation lands in Phase 4 alongside the push tokens table. PostHog flag `push_pre_prompt_enabled` defaults true with copy hardcoded as fallback.
+
+### #18 — Pro receipt validation grace period (resolved)
+
+**24-hour grace** with a non-intrusive UX path. Strategic tension: $4.99 one-time Pro means refund-fraud cost is small, but "Pro disappeared on me" cost is huge reputationally. So we lean toward generous.
+
+Behaviour: validation failure does NOT immediately revoke Pro entitlement. Silently re-check on every app launch + cache last-known-good entitlement timestamp. After 12 hours of continuous failures, surface a small `verifying purchase…` badge in Profile (no Pro feature degradation yet — unlimited rounds, seasonal packs, all Pro perks still active). Hard-lock only at 24 continuous hours. Successful re-validation clears the badge silently — no celebratory message for what was never visibly broken.
+
+Implementation lands in Phase 4 alongside the RevenueCat webhook handler. Constants behind PostHog flags `pro_grace_period_hours` (default 24) and `pro_badge_threshold_hours` (default 12) for server-side tuning.
+
+### #23 — League week-one launch experience (resolved)
+
+**Leagues form at launch minute.** First 30 sign-ups close a league together (all at tier 2 Newcomer per the universal-entry rule); next 30 form the next league; etc. League tab is live with real cohorts from minute one — no hollow "Leagues start Monday" placeholder for early adopters.
+
+**First promote/demote fires on the first Monday at 6am ET that is at least 4 days after launch.** Ensures week zero is always 4–10 days, never an absurd 1-day fake week. Subsequent weeks are standard 7-day Monday-to-Monday cycles.
+
+**Late mid-week-one joiners** (anyone signing up after their tier's open league has already filled to 30) **wait for the next-Monday opening** rather than getting inserted into a mid-week league they didn't compete in.
+
+**Operational follow-up:** target a Monday or Tuesday launch date so week zero lands at a natural 5–7 days. Also aligns with the Monday press cycle and Apple's Tue–Thu App Store featuring rhythm — a double operational win on top of the league math.
+
+Implementation: Phase 4 league formation Edge Function reads a `launch_date` constant + applies the ≥4-day rule to seed the first promote/demote schedule.
+
+### #27 — Streak Shield bundle pricing (resolved)
+
+**$0.99 / $1.79 / $2.49** for 1 / 2 / 3 packs. Mild bulk discount — save $0.19 on the 2-pack (vs 2 × $0.99), save $0.48 on the 3-pack (vs 3 × $0.99). The 3-pack fills to inventory cap (max held = 3).
+
+Strategic intent: shields are an impulse purchase right after a streak loss ("I just lost my 14-day streak, here's a buck"), not a Pro replacement. All three sit comfortably under $2.99 — Pro at $4.99 still looks like the obvious power-user deal (unlimited + seasonal packs + weekly free shield + Pro avatar items + Global all-time view + Pro badge — many features at less than 2× the 3-pack).
+
+**Store framing in voice:**
+
+- `1 Streak Shield` — $0.99
+- `2 Streak Shields` *(save $0.19)* — $1.79
+- `Stock the vault — 3 Streak Shields` *(save $0.48)* — $2.49
+
+Out of scope of this decision: whether free users can *earn* shields beyond the 1-at-launch grant (milestone unlocks at 30-day streak, etc.) — lives under Appendix D #9 (avatar milestone unlocks) and Phase 3 design.
+
+Implementation: Phase 5/6 alongside IAP product registration in App Store Connect.
+
+### #51 — Post-answer setTimeout iOS pause cosmetic bug (formally deferred)
+
+Single anecdotal occurrence from session 26. iOS lifecycle pause (app switcher, brief notification pulldown) right after a player answers can defer the post-answer `setTimeout` until JS resumes, leaving buttons in `correct/wrong/dim` state for the duration. Self-corrects when JS resumes.
+
+**Defer rationale:** never reproduced reliably since session 26, self-resolves in ~1 second, fix path well-understood (wall-clock the post-answer advance, same shape as v1.43's round-timer fix — ~30 minutes of work). Doing it now is polish-before-substance; Phase 4 priority.
+
+**Revisit trigger:** multiple beta or TestFlight testers report stuck/grayed buttons mid-round, OR CD hits it again on device.
+
+**Permanent kill trigger:** if it's still parked at Phase 7 pre-launch polish with zero new reports, close it permanently as a known-edge-case non-issue.
+
+### Net effect on Appendix D
+
+- ~33 open items → ~28 open items (5 closed, 4 fully resolved + 1 formally deferred)
+- Decision Log row added consolidating the batch
+- Three downstream Phase 4 unblocks queued: push tokens table + endpoint (#16), RevenueCat webhook handler (#18), league formation Edge Function (#23)
+- One Phase 5/6 unblock queued: IAP product registration for Streak Shield bundles (#27)
+
+### What CD picked next
+
+Quick-wins cluster done. The other four clusters that surfaced in the session-opening overview remain on deck:
+
+- **Streak Shield system completion** — close out #17 (Pro weekly auto-grant), #19 (retroactive 48h anchor implementation details). One coherent feature, half-closed by today's #27 + earlier #19 partial.
+- **Launch-prep ops** — #38 PR strategy, #39 beta tester list, #41 App Store creative brief, #42 IAP sandbox testing
+- **Legal/compliance** — #30 privacy + ToS, #32 GDPR/CCPA, #33 COPPA, #34 account deletion, #35 legal entity. Heavy; probably its own session, may need external counsel.
+- **Phase 4 architecture** — #1 auth library, #3 offline behaviour, #4 identity sync, #6 anti-cheat. The biggest mountain; blocks the backend build.
+
+No code changes this session — pure spec work.
+
+---
+
 ## Session 30 — 2026-05-03 — Result-screen back navigation fixed (mothership v1.46 → v1.47)
 
 CD reported on device: returning to home from a result screen showed a half-second of overlap — the slide-out and home rendering simultaneously, with home's animations playing as if first-time. Diagnosed and fixed in one short pass.
