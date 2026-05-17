@@ -73,7 +73,7 @@ export const EMOTES: Emote[] = [
   { category: 'good', text: "first place feels familiar. 🥇",               active: true },
   { category: 'good', text: "the best at being best. 💫",                   active: true },
 
-  // ── MOCKING (15) — ghost speaking to the next opponent ────────────────────
+  // ── MOCKING (15) — opponent speaking to the next opponent ────────────────────
   { category: 'mocking', text: "you're not ready. 😏",                      active: true },
   { category: 'mocking', text: "bold of you to try. 🤷",                    active: true },
   { category: 'mocking', text: "this should be quick. ⏱️",                  active: true },
@@ -90,7 +90,7 @@ export const EMOTES: Emote[] = [
   { category: 'mocking', text: "my pb is your ceiling. 🏗️",                 active: true },
   { category: 'mocking', text: "rent free. that's where i'll live. 💭",     active: true },
 
-  // ── SUPPORTIVE (15) — ghost cheering on the next opponent ──────────────────
+  // ── SUPPORTIVE (15) — opponent cheering on the next opponent ──────────────────
   { category: 'supportive', text: "i believe in you. no, really. 🫶",       active: true },
   { category: 'supportive', text: "your streak starts here. 🔥",            active: true },
   { category: 'supportive', text: "make your mother proud! 🫶",             active: true },

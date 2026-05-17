@@ -2,6 +2,120 @@
 
 ---
 
+## Session 32 — 2026-05-16 — Round screen translation from Claude Design + Ghost concept removed end-to-end + closing CTA dropped (mothership v1.52 → v1.53)
+
+Three workstreams in one device-verified code pass. After parking the launch-prep ops cluster in v1.52, CD wanted to test the current build via Expo Go — which surfaced that the playing-screen feedback animations the CD remembered from "two weeks ago" weren't actually in the codebase. Forensic audit showed they'd been designed in Claude Design but never translated to React Native, fitting the workflow pattern from `feedback_design_to_code_translation_gap.md`. The translation became this session's main workstream, with the ghost concept cleanup and closing CTA removal layered on.
+
+### (1) Round screen translation: Claude Design → React Native
+
+CD provided a handoff zip (`Super Smart V2.zip`) containing the locked Layout A "stadium" variant with two themes (Quickmatch pink + Daily Race cyan), plus reference `round.jsx`, `round-layouts.jsx`, `shared.jsx`, and a README. Ported faithfully to RN with one fundamental adjustment: the state machine stays in `app/echo.tsx` + `app/daily.tsx` (it has wall-clock timer, AsyncStorage progressive saves, lock-on-exit, back-button handling — all v1.40-v1.43 work we don't want to re-implement). The round/* components are pure visual layer, receiving state via props and firing `onPick(index)` callbacks back up.
+
+**16 new components under `supersmart/components/round/`:**
+
+| Component | Role |
+|---|---|
+| `constants.ts` | Mechanics constants + `streakMultiplier` / `streakTier` helpers |
+| `RoundSunburst.tsx` | Tier-driven rotation speed (60s → 8.57s per cycle via `useFrameCallback`) |
+| `OutsideInPulse.tsx` | Vignette pulse, `mixBlendMode: 'multiply'`, continuous sine-wave loop |
+| `HalftoneOverlay.tsx` | Tier-driven dot grid + pulse rate |
+| `EdgeGlow.tsx` | Single-shot correct/wrong flash, tier-tuned curve, behind UI |
+| `PlayerBlock.tsx` | YOU vs ECHO·47 (or WORLD) — avatar + name + tier-shadowed score |
+| `VsBadge.tsx` | Center "VS" disc, picks up tier color |
+| `StreakChip.tsx` | Tier-colored streak pill, pulses at tier ≥ 2 |
+| `TimerPill.tsx` | Pink Quickmatch / cyan Daily Race, low-time scale-pulse |
+| `QuestionCard.tsx` | Bordered hero card, 280ms per-question fade-in |
+| `AnswerButton.tsx` | Chunky 3D, state-aware faces, X-mark SVG on wrong, per-button lightning |
+| `FeedbackPopup.tsx` | correct/wrong/penalty kinds, 900ms bouncy entry |
+| `Nudge.tsx` | First-speed-bonus + first-3-streak onboarding pulses |
+| `FullscreenLightning.tsx` | Sub-2s burst, 5 SVG forks + halo, 720ms envelope |
+| `UnstoppableBanner.tsx` | 10-streak red+yellow pill, 1500ms spring entry |
+| `RoundLayoutA.tsx` | The composition |
+
+All animations use Reanimated 4 worklets (`useSharedValue` + `useAnimatedStyle` + `withSequence`/`withTiming`/`useFrameCallback`), matching the project's existing pattern. CSS keyframes from the design ported as sequenced `withTiming` calls.
+
+**Wired into `app/echo.tsx`** as the playing-phase render — mode=quickmatch, pink card, opponent from `OPPONENT_NAMES` pool (renamed from `GHOST_NAMES` later in this session). **Wired into `app/daily.tsx`** — mode=dailyrace, cyan card, opponent slot shows `WORLD` placeholder until Phase 4 daily-leader board endpoint lands. State machines unchanged on both screens.
+
+#### Crash bug fixed mid-session: React rules-of-hooks violation in 7 components
+
+After first device test, CD reported crash on first answer. Diagnosis: 7 components (`FullscreenLightning`, `EdgeGlow`, `OutsideInPulse`, `Nudge`, `UnstoppableBanner`, `StreakChip`, `FeedbackPopup`) had `useAnimatedStyle` called AFTER an early-return conditional (`if (!feedback) return null;`). On initial render the conditional was true and the hook was skipped; on first answer the conditional flipped to false and the hook ran — changing hook count between renders, which React detects and crashes on.
+
+Fix: moved every conditional `return null` BELOW all hook calls in each affected component. Pattern locked in code comments.
+
+#### Visual iteration on device (multiple rounds)
+
+CD iterated extensively on the OutsideInPulse animation:
+- **Color stops widened**: original 30%→75% gradient pushed the colored band off-screen at peak wave scale (1.15×); moved to 35%→55% to anchor the ring within the visible screen; then further re-tuned to 35%→65% to soften the visible elliptical boundary by widening the transition zone.
+- **Cycle ladder re-paced**: design's `[0, 1.6, 1.1, 0.7, 0.45]` seconds adjusted to `[0, 1.4, 1.1, 0.9, 0.7]` for an even 0.2s decrement per tier.
+- **Opacity dialed at 45%** of design baseline (0.175 ↔ 0.425) — pulse only needs ~half the original alpha once the multiply blend is doing its job; anything more overwhelms the cream stage at higher saturation tiers.
+- **Continuous sine-wave loop** replaced discrete `withSequence + withRepeat` pattern — eliminates the "hits hard each cycle" feel because the wave never decelerates AT the peak (sine crosses both extrema with constant angular velocity).
+- **`mixBlendMode: 'multiply'`** added to the SVG wrap (RN 0.76+ View style prop, works on new arch which we're already running) — restores the design's intended darkening behavior; pink and red tier colors no longer overlay as saturated sheets but darken the underlying sunburst into "the screen is glowing hot."
+
+EdgeGlow tuning:
+- Tier curve recalibrated: original `[0.65/0.47, 0.55/0.60, 0.45/0.73, 0.35/0.80, 0.22/0.93]` → new `[0.80/0.20, 0.65/0.38, 0.50/0.56, 0.35/0.75, 0.22/0.93]`. Subtler baseline, same Unstoppable ceiling, even ramp between.
+- z-index dropped to default — green now renders BEHIND question card + buttons as ambient stage glow, not on top as a tinted overlay (without RN's missing CSS blur, the overlay variant read wrong).
+
+### (2) Ghost concept removed end-to-end
+
+Session 7 (2026-04-19) decided to remove "ghost" from customer-facing copy. But the audit showed 5 strings missed the rename and were still visible to players:
+
+| File | Line | Was → Now |
+|---|---|---|
+| `app/(tabs)/profile.tsx` | 106 | `new race, ghost activity` → `new race, recent activity` |
+| `app/echo.tsx` | 485 | `FINDING YOUR GHOST` → `FINDING YOUR OPPONENT` |
+| `app/echo.tsx` | 527 | `🏆 YOU WIN' : '👻 GHOST WINS` → `YOU WIN' : 'OPPONENT WINS` (also dropped emojis for brand-voice parity) |
+| `app/echo.tsx` | 566 | `NEW GHOST` → `NEW MATCH` |
+| `app/challenge.tsx` | 94 | `sender's ghost, weekly league credit` → `sender's run, weekly league credit` |
+
+CD then extended scope to all **internal** code (variable names, function names, style names, comments — anything that would have been kept per the original session 7 carve-out). Renamed via bulk `sed` across 7 files:
+
+- `GHOST_NAMES` → `OPPONENT_NAMES`
+- `GHOST_COLORS` → `OPPONENT_COLORS`
+- `GHOST_EYES`, `GHOST_MOUTHS`, `GHOST_TIMES` → `OPPONENT_*`
+- `pickGhostEmote()` → `pickOpponentEmote()`
+- `ghost` (state object) → `opponent`
+- `ghostScore` → `opponentScore`
+- All style names: `ghostName → oppName`, `ghostTime → oppTime`, `ghostEmote → oppEmote`, `ghostMini → oppMini`, `ghostMiniName → oppMiniName`, `newGhostWrap/Shadow/Face/Text → newMatchWrap/Shadow/Face/Text`
+- All inline comments mentioning "ghost" cleaned in `daily.tsx`, `end.tsx`, `challenge.tsx`, `content.ts`, `league.tsx`, `LivePlayersStrip.tsx`, `RoundLayoutA.tsx`, `PlayerBlock.tsx`
+
+Two grammar artifacts from the sed (e.g. "sender's opponent" where "sender's run" was meaningful) hand-cleaned.
+
+**Mothership glossary (Appendix C) updated:**
+- `Ghost run` → `Recorded run`
+- `Bot ghost` → `Bot opponent`
+- `Baton pass` def stripped of "ghost" references
+- `Echo` retained as the internal architecture name (was always the alternative-to-ghost term)
+- `ghost_pool` Phase 4 table name noted as legacy — rename optional during Phase 4 build
+
+**Mothership decision log historical entries** keep their original "ghost" wording — they're the audit trail of what was decided when, and overwriting them would erase the rename rationale. The new session 32 row records the rename itself.
+
+### (3) Closing CTA removed from home screen footer
+
+`Get super smart today by getting Super Smart today!` was the brand's signature closing line, listed in Part 2 ("What stays from 2012") and the primer Voice Cheat Sheet. CD removed it from the home footer; doc references updated to match the shipped state (struck-through in both places with the retirement note, no replacement).
+
+### Dev bypass discipline (relevant for future visual sessions)
+
+To unblock iteration on the round screen, the daily-play gates in `app/(tabs)/index.tsx`, `app/echo.tsx`, `app/daily.tsx`, and `app/game.tsx` were temporarily set to `FREE_LIMIT = 999`, plus `app/daily.tsx`'s `alreadyPlayed` flag set to `false`, all tagged with `// TODO: REVERT TO 7 BEFORE COMMIT — dev bypass (2026-05-16)`. **All 5 reverted to production values before this commit.** Pattern locked for future device-iteration sessions: tag every dev override consistently so a single `grep -rn "TODO: REVERT.*COMMIT" supersmart/app/` finds them all before any commit ships.
+
+### Net effect
+
+- 16 new files under `supersmart/components/round/`
+- `app/echo.tsx`, `app/daily.tsx` rewritten in their playing-phase render block
+- `app/(tabs)/index.tsx`, `app/echo.tsx`, `app/daily.tsx`, `app/game.tsx` got the dev-bypass revert
+- 5 customer-facing strings renamed across `profile.tsx`, `echo.tsx` (3 strings), `challenge.tsx`
+- ~50 internal identifiers + many comments renamed via bulk sed across 7 files
+- Home screen `(tabs)/index.tsx` got the closing CTA removed
+- 1 mid-session crash bug fixed (React rules-of-hooks in 7 components)
+- Constants: `Colors.green`, `Colors.peach`, `StreakTier` palette added to `theme.ts`
+- Mothership v1.52 → v1.53; primer status + Voice Cheat Sheet + Vocabulary updated
+- Appendix D opens unchanged at ~30
+- TypeScript clean across all new code (only pre-existing Wordmark.tsx errors remain — unrelated)
+
+### Why this matters
+
+This session closed the biggest spec/code drift gap that's existed since session 5 (April 19, 27 days ago). The 3-layer feedback system was designed in detail but never coded — a category of risk specifically captured in the `feedback_design_to_code_translation_gap.md` memory rule earlier. The translation is now done; the playing screen now renders the visual richness the mothership has been documenting since April. The ghost rename completion closes another long-standing gap (session 7 partial cleanup). And the CTA removal is a small brand-voice trim CD wanted while the doc was already open.
+
+---
+
 ## Session 31e — 2026-05-16 — Launch-prep ops cluster parked: 4 items deferred (mothership v1.51 → v1.52)
 
 After the v1.51 pricing reversal CD picked launch-prep ops as the next cluster. Walked through all four items and parked all four. The discipline call: at 12 weeks out, specifics on launch-week items get sharper closer to launch, so locking them today would mean re-doing work in two months. But we did capture directional context inside each park note so the deferrals aren't "we'll figure it out later" — they're "we know mostly what we'll do, just need final timing-sensitive inputs."

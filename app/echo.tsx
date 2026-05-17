@@ -1,4 +1,4 @@
-// echo.tsx — Quickmatch (ghost race) mode
+// echo.tsx — Quickmatch (opponent race) mode
 // Playing-phase redesign: Cream Stadium aesthetic, ArcadeCard-style answer buttons.
 // All game logic unchanged — only JSX + styles updated.
 
@@ -16,14 +16,17 @@ import { Avatar } from '@/components/Avatar';
 import { useAppStore } from './store';
 import { getRaceDate } from './clock';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
+import { RoundLayoutA } from '@/components/round/RoundLayoutA';
+import { Feedback } from '@/components/round/FeedbackPopup';
+import type { BrainExpression } from '@/components/Brain';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-// Ghost name pool — mothership v1.23 bot-ghost rule: deliberately NO single pattern.
+// Opponent name pool — mothership v1.23 bot-opponent rule: deliberately NO single pattern.
 // Mixed styles (adjective+noun, firstname+number, curated handles) so players
 // cannot identify bots from name alone. Pool is ~30 to keep repeats rare.
 // When Phase 4 matchmaking Edge Function lands, this pool moves server-side.
-const GHOST_NAMES = [
+const OPPONENT_NAMES = [
   // Adjective + Noun (10)
   'SleepyKoala', 'BrightFern', 'EagerMango', 'QuietRiver', 'LoudPeach',
   'WarmGranite', 'CrookedLamp', 'BoldSparrow', 'LazyWillow', 'CrispLemon',
@@ -35,25 +38,25 @@ const GHOST_NAMES = [
   'june1st', 'cat_of_9', 'halfmoon', 'paperboat', 'velvet.hum',
 ];
 
-// Ghost colors: full 8-color library including Pro-locked shades.
+// Opponent colors: full 8-color library including Pro-locked shades.
 // Mothership v1.23: bot avatars draw from the full library including Pro items
 // — soft exposure to purchasable cosmetics.
 // Free (4): pink, blue, green, orange. Pro (4): purple, gold, teal, ember.
-const GHOST_COLORS = [
+const OPPONENT_COLORS = [
   '#FF6B9D', '#6B9DFF', '#6BDB6B', '#FFB86B',  // free tier
   '#B86BFF', '#FFD700', '#40E0D0', '#FF4D4D',  // pro tier
 ];
 
 // Eye and mouth id pools — both include Pro tier items. Keys match the
 // Avatar component's EYES/MOUTHS dictionaries (see components/Avatar.tsx).
-const GHOST_EYES   = ['round', 'square', 'sleepy', 'wink', 'stars', 'dots', 'wide', 'closed'];
-const GHOST_MOUTHS = ['smile', 'neutral', 'smirk', 'ohh', 'grin', 'tongue', 'flat', 'open'];
+const OPPONENT_EYES   = ['round', 'square', 'sleepy', 'wink', 'stars', 'dots', 'wide', 'closed'];
+const OPPONENT_MOUTHS = ['smile', 'neutral', 'smirk', 'ohh', 'grin', 'tongue', 'flat', 'open'];
 
-const GHOST_TIMES  = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
+const OPPONENT_TIMES  = ['played 47 min ago', 'played 2 hours ago', 'played yesterday', 'played 3 hours ago'];
 
-// Ghost emote: randomly mocking or supportive — the real emote library, not placeholders.
-// Mocking = ghost trash-talking you before the race. Supportive = ghost cheering you on.
-function pickGhostEmote(): string {
+// Opponent emote: randomly mocking or supportive — the real emote library, not placeholders.
+// Mocking = opponent trash-talking you before the race. Supportive = opponent cheering you on.
+function pickOpponentEmote(): string {
   const pool = EMOTES.filter(e => e.active && (e.category === 'mocking' || e.category === 'supportive'));
   return pool[Math.floor(Math.random() * pool.length)].text;
 }
@@ -62,7 +65,7 @@ function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// Bot ghost final score — mothership v1.23: random within 300–3,000,
+// Bot opponent final score — mothership v1.23: random within 300–3,000,
 // INDEPENDENT of the player's actual score. The low floor means new players
 // typically win their first few games. Generated once at match start; revealed
 // at round end.
@@ -173,13 +176,13 @@ export default function EchoScreen() {
   }, []);
 
   const [questions] = useState(() => shuffleQuestions(QUESTIONS));
-  const [ghost] = useState({
-    name:  pick(GHOST_NAMES),
-    color: pick(GHOST_COLORS),
-    eyes:  pick(GHOST_EYES),
-    mouth: pick(GHOST_MOUTHS),
-    emote: pickGhostEmote(),
-    time:  pick(GHOST_TIMES),
+  const [opponent] = useState({
+    name:  pick(OPPONENT_NAMES),
+    color: pick(OPPONENT_COLORS),
+    eyes:  pick(OPPONENT_EYES),
+    mouth: pick(OPPONENT_MOUTHS),
+    emote: pickOpponentEmote(),
+    time:  pick(OPPONENT_TIMES),
     score: generateBotScore(),  // bot final score, 300-3000, revealed at round end
   });
 
@@ -194,7 +197,7 @@ export default function EchoScreen() {
   const [questionIndex,  setQuestionIndex]  = useState(0);
   const [timeLeft,       setTimeLeft]       = useState(60);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [ghostScore,     setGhostScore]     = useState(0);
+  const [opponentScore,     setOpponentScore]     = useState(0);
   const [displayScore,   setDisplayScore]   = useState(0);
   const [displayStreak,  setDisplayStreak]  = useState(0);
   const [displayMiss,    setDisplayMiss]    = useState(0);
@@ -202,6 +205,24 @@ export default function EchoScreen() {
   const [lastLabel,      setLastLabel]      = useState('');
   const [gameEmotes,     setGameEmotes]     = useState<string[]>([]);
   const [selectedEmote,  setSelectedEmote]  = useState<string | null>(null);
+
+  // ── State: round visual layer (RoundLayoutA) ───────────────────────────────
+  // These are visual-only triggers consumed by the round components. The core
+  // scoring state machine (above) is the source of truth; these fire keyed
+  // re-mounts of one-shot animation components.
+  const [feedback,          setFeedback]          = useState<Feedback | null>(null);
+  const [brainExpr,         setBrainExpr]         = useState<BrainExpression>('smirk');
+  const [flashKind,         setFlashKind]         = useState<'correct' | 'wrong' | null>(null);
+  const [flashKey,          setFlashKey]          = useState(0);
+  const [unstoppableActive, setUnstoppableActive] = useState(false);
+  const [unstoppableKey,    setUnstoppableKey]    = useState(0);
+  const [lightningKey,      setLightningKey]      = useState<number | undefined>(undefined);
+  const [showSpeedNudge,    setShowSpeedNudge]    = useState<string | null>(null);
+  const [speedNudgeKey,     setSpeedNudgeKey]     = useState(0);
+  const [showStreakNudge,   setShowStreakNudge]   = useState(false);
+  const [streakNudgeKey,    setStreakNudgeKey]    = useState(0);
+  const seenSpeedRef  = useRef(false);
+  const seenStreakRef = useRef(false);
 
   const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
   const nextRef        = useRef<ReturnType<typeof setTimeout>  | null>(null);
@@ -306,6 +327,74 @@ export default function EchoScreen() {
     setLastPoints(delta !== 0 ? delta : null);
     setLastLabel(label);
 
+    // ── Round-screen visual triggers (RoundLayoutA) ────────────────────────
+    // Edge-glow flash fires on every answer (correct or wrong).
+    setFlashKind(isCorrect ? 'correct' : 'wrong');
+    setFlashKey(k => k + 1);
+
+    if (isCorrect) {
+      const mult = getMultiplier(streakRef.current);
+      const fast = elapsed < SPEED_MS;
+
+      // Feedback popup: "+250 (×2)" or "+100"
+      setFeedback({
+        kind: 'correct',
+        text: mult > 1 ? `+${delta}  (×${mult})` : `+${delta}`,
+        fireKey: Date.now(),
+      });
+
+      // Sub-2s correct fires the fullscreen lightning burst.
+      if (fast) {
+        setLightningKey(k => (k === undefined ? 0 : k + 1));
+
+        // First-time speed-bonus onboarding nudge (~once per round).
+        if (!seenSpeedRef.current) {
+          seenSpeedRef.current = true;
+          const labels = ['Speed bonus!', 'Quick!', 'Fast!', 'Lightning!', 'Snappy!'];
+          setShowSpeedNudge(labels[Math.floor(Math.random() * labels.length)]);
+          setSpeedNudgeKey(k => k + 1);
+          setTimeout(() => setShowSpeedNudge(null), 2200);
+        }
+      }
+
+      // First-time streak nudge — fires when the streak first hits 3.
+      if (streakRef.current === 3 && !seenStreakRef.current) {
+        seenStreakRef.current = true;
+        setShowStreakNudge(true);
+        setStreakNudgeKey(k => k + 1);
+        setTimeout(() => setShowStreakNudge(false), 2200);
+      }
+
+      // 10-streak → UNSTOPPABLE banner.
+      if (streakRef.current === 10) {
+        setUnstoppableActive(true);
+        setUnstoppableKey(k => k + 1);
+        setTimeout(() => setUnstoppableActive(false), 1600);
+      }
+
+      // Brain reaction — tier-driven (always at tier 2+) plus 1-in-5 random
+      // for the rarity-as-charm vibe.
+      const tier = streakRef.current >= 7 ? 3 : streakRef.current >= 5 ? 2 : streakRef.current >= 3 ? 1 : 0;
+      if (tier >= 2 || Math.random() < 0.2) {
+        setBrainExpr('hype');
+        setTimeout(() => setBrainExpr('smirk'), 800);
+      }
+    } else {
+      // Wrong: feedback popup shows either the −50 penalty card or the
+      // "ANSWER: <correct text>" reveal.
+      if (label === '3 misses') {
+        setFeedback({ kind: 'penalty', text: '−50', fireKey: Date.now() });
+      } else {
+        setFeedback({
+          kind: 'wrong',
+          text: question.options[question.correct],
+          fireKey: Date.now(),
+        });
+      }
+      // Wrong always settles brain back to smirk (sympathetic, not judgy).
+      setBrainExpr('smirk');
+    }
+
     // Unified 1-second post-answer beat — same for right, wrong, or with
     // power-up. Predictable rhythm = better flow. After 1s, advance to next
     // question with no read-buffer lock (just the 150ms invisible guardrail).
@@ -317,6 +406,13 @@ export default function EchoScreen() {
         setSelectedAnswer(null);
         setLastPoints(null);
         setLastLabel('');
+        // Reset round-visual triggers that should be hidden between questions.
+        // FullscreenLightning, EdgeGlow, FeedbackPopup all animate themselves
+        // out within 720–900ms (less than the 1s lock), so by the time the
+        // next question renders they're already invisible. Clearing here just
+        // unmounts the popup so it doesn't restart on a parent re-render.
+        setFeedback(null);
+        setFlashKind(null);
         setQuestionIndex(next);
       }
     }, 1000);
@@ -327,9 +423,9 @@ export default function EchoScreen() {
     if (nextRef.current)   clearTimeout(nextRef.current);
     if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     const final = scoreRef.current;
-    // Bot ghost score was pre-generated at match start (300–3,000, independent
-    // of player score — mothership v1.23 bot-ghost rule). Just reveal it now.
-    setGhostScore(ghost.score);
+    // Bot opponent score was pre-generated at match start (300–3,000, independent
+    // of player score — mothership v1.23 bot-opponent rule). Just reveal it now.
+    setOpponentScore(opponent.score);
     setGameEmotes(pickInterviewEmotes());
     updateHighScore('quickmatch', final);
     setPhase('result');
@@ -386,7 +482,7 @@ export default function EchoScreen() {
     return (
       <View style={s.centered}>
         <ActivityIndicator size="large" color={Colors.red} />
-        <Text style={s.matchingTitle}>FINDING YOUR GHOST</Text>
+        <Text style={s.matchingTitle}>FINDING YOUR OPPONENT</Text>
         <Text style={s.matchingSub}>searching the pool...</Text>
       </View>
     );
@@ -400,12 +496,12 @@ export default function EchoScreen() {
         <View style={s.avatarWrap}>
           <View style={s.avatarShadow} />
           <View style={s.avatarFace}>
-            <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={96} />
+            <Avatar color={opponent.color} eyes={opponent.eyes} mouth={opponent.mouth} size={96} />
           </View>
         </View>
-        <Text style={s.ghostName}>{ghost.name}</Text>
-        <Text style={s.ghostTime}>{ghost.time}</Text>
-        <Text style={s.ghostEmote}>{ghost.emote}</Text>
+        <Text style={s.oppName}>{opponent.name}</Text>
+        <Text style={s.oppTime}>{opponent.time}</Text>
+        <Text style={s.oppEmote}>{opponent.emote}</Text>
         <Pressable style={s.startBtn} onPress={() => setPhase('playing')}>
           <View style={s.startBtnShadow} />
           <View style={s.startBtnFace}>
@@ -426,9 +522,9 @@ export default function EchoScreen() {
   // ── Result ──────────────────────────────────────────────────────────────────
   if (phase === 'result') {
     const final = scoreRef.current;
-    const won   = final > ghostScore;
-    const tied  = final === ghostScore;
-    const headline = tied ? "IT'S A TIE" : won ? '🏆 YOU WIN' : '👻 GHOST WINS';
+    const won   = final > opponentScore;
+    const tied  = final === opponentScore;
+    const headline = tied ? "IT'S A TIE" : won ? 'YOU WIN' : 'OPPONENT WINS';
     return (
       <View style={s.centered}>
         <Text style={s.resultTitle}>{headline}</Text>
@@ -440,10 +536,10 @@ export default function EchoScreen() {
           </View>
           <Text style={s.vsText}>VS</Text>
           <View style={s.scoreCard}>
-            <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={40} />
-            <Text style={s.scoreCardLabel}>{ghost.name}</Text>
-            <Text style={[s.scoreValue, !won && !tied && s.winnerScore]}>{ghostScore.toLocaleString()}</Text>
-            <Text style={s.scoreRank}>{getRankLabel(ghostScore)}</Text>
+            <Avatar color={opponent.color} eyes={opponent.eyes} mouth={opponent.mouth} size={40} />
+            <Text style={s.scoreCardLabel}>{opponent.name}</Text>
+            <Text style={[s.scoreValue, !won && !tied && s.winnerScore]}>{opponentScore.toLocaleString()}</Text>
+            <Text style={s.scoreRank}>{getRankLabel(opponentScore)}</Text>
           </View>
         </View>
 
@@ -464,10 +560,10 @@ export default function EchoScreen() {
           })}
         </View>
         <Pressable onPress={() => { resolveEmote(); router.replace('/echo'); }}>
-          <View style={s.newGhostWrap}>
-            <View style={s.newGhostShadow} />
-            <View style={s.newGhostFace}>
-              <Text style={s.newGhostText}>NEW GHOST</Text>
+          <View style={s.newMatchWrap}>
+            <View style={s.newMatchShadow} />
+            <View style={s.newMatchFace}>
+              <Text style={s.newMatchText}>NEW MATCH</Text>
             </View>
           </View>
         </Pressable>
@@ -482,83 +578,39 @@ export default function EchoScreen() {
   }
 
   // ── Playing ─────────────────────────────────────────────────────────────────
-  const timerColor = timeLeft <= 10 ? Colors.red : timeLeft <= 20 ? '#f59e0b' : Colors.ink;
-  const flashBg    = isAnswered
-    ? (selectedAnswer === question?.correct ? '#d1fae5' : '#fee2e2')
-    : Colors.cream;
+  // The Cream Stadium playing screen — Layout A from the Claude Design handoff,
+  // ported to React Native. State machine above is the source of truth; this
+  // component is purely the visual layer. Mode = quickmatch → pink card + pink
+  // timer pill. Opponent block shows the bot opponent's name + first initial.
+  const opponentName    = opponent.name;
+  const opponentInitial = opponent.name.charAt(0).toUpperCase();
+  const pickedCorrect   = isAnswered ? selectedAnswer === question.correct : null;
 
   return (
-    <View style={[play.container, { backgroundColor: flashBg }]}>
-
-      {/* ── Header ── */}
-      <View style={play.header}>
-
-        {/* Timer */}
-        <View style={play.timerWrap}>
-          <Text style={[play.timer, { color: timerColor }]}>{timeLeft}</Text>
-          <Text style={[play.timerUnit, { color: timerColor }]}>s</Text>
-        </View>
-
-        {/* Ghost mini */}
-        <View style={play.ghostMini}>
-          <Avatar color={ghost.color} eyes={ghost.eyes} mouth={ghost.mouth} size={28} />
-          <Text style={play.ghostMiniName} numberOfLines={1}>{ghost.name}</Text>
-        </View>
-
-        {/* Score + multiplier */}
-        <View style={play.scoreWrap}>
-          {multiplier > 1 && (
-            <View style={play.multPill}>
-              <Text style={play.multText}>{multiplier}×</Text>
-            </View>
-          )}
-          <Text style={play.score}>{displayScore.toLocaleString()}</Text>
-        </View>
-
-      </View>
-
-      {/* Divider */}
-      <View style={play.divider} />
-
-      {/* ── Status strips ── */}
-      {displayStreak >= 3 && (
-        <Text style={play.streakLabel}>🔥 {displayStreak} streak</Text>
-      )}
-      {displayMiss >= 2 && (
-        <Text style={play.missLabel}>⚠️ {displayMiss} / 3 misses</Text>
-      )}
-
-      {/* ── Question ── */}
-      <View style={play.questionZone}>
-        <Text style={play.qNumber}>Q {questionIndex + 1}</Text>
-        <Text style={play.question}>{question.question}</Text>
-      </View>
-
-      {/* ── Points flash ── */}
-      {isAnswered && lastPoints !== null && (
-        <View style={play.flashWrap}>
-          <Text style={[play.pointsFlash, lastPoints < 0 && play.pointsNeg]}>
-            {lastPoints > 0 ? `+${lastPoints}` : `${lastPoints}`}
-          </Text>
-          {lastLabel ? (
-            <Text style={play.bonusLabel}>{lastLabel}</Text>
-          ) : null}
-        </View>
-      )}
-
-      {/* ── Answer buttons ── */}
-      <View style={play.answers}>
-        {question.options.map((option, i) => (
-          <AnswerButton
-            key={i}
-            option={option}
-            onPress={() => handleAnswer(i)}
-            state={getBtnState(i)}
-          />
-        ))}
-      </View>
-
-    </View>
+    <RoundLayoutA
+      mode="quickmatch"
+      q={{ q: question.question, a: question.options, c: question.correct }}
+      qIdx={questionIndex}
+      score={displayScore}
+      streak={displayStreak}
+      timeLeft={timeLeft}
+      picked={selectedAnswer}
+      pickedCorrect={pickedCorrect}
+      feedback={feedback}
+      brainExpr={brainExpr}
+      flashKind={flashKind}
+      flashKey={flashKey}
+      unstoppableActive={unstoppableActive}
+      unstoppableKey={unstoppableKey}
+      lightningKey={lightningKey}
+      showSpeedNudge={showSpeedNudge}
+      speedNudgeKey={speedNudgeKey}
+      showStreakNudge={showStreakNudge}
+      streakNudgeKey={streakNudgeKey}
+      opponentName={opponentName}
+      opponentInitial={opponentInitial}
+      onPick={handleAnswer}
+    />
   );
 }
 
@@ -576,9 +628,9 @@ const s = StyleSheet.create({
   avatarWrap:     { position: 'relative', width: 112, height: 112 + CARD_DEPTH, marginVertical: 8 },
   avatarShadow:   { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 112, backgroundColor: Colors.ink, borderRadius: 56 },
   avatarFace:     { position: 'absolute', left: 0, right: 0, top: 0, height: 112, borderRadius: 56, borderWidth: 3, borderColor: Colors.ink, backgroundColor: Colors.cream, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
-  ghostName:      { fontFamily: Fonts.black, fontSize: 22, color: Colors.ink, marginTop: 4 },
-  ghostTime:      { fontFamily: Fonts.mono, fontSize: 12, color: Colors.ink, opacity: 0.45 },
-  ghostEmote:     { fontFamily: Fonts.mono, fontSize: 14, color: Colors.ink, opacity: 0.7, fontStyle: 'italic', marginBottom: 12, textAlign: 'center' },
+  oppName:      { fontFamily: Fonts.black, fontSize: 22, color: Colors.ink, marginTop: 4 },
+  oppTime:      { fontFamily: Fonts.mono, fontSize: 12, color: Colors.ink, opacity: 0.45 },
+  oppEmote:     { fontFamily: Fonts.mono, fontSize: 14, color: Colors.ink, opacity: 0.7, fontStyle: 'italic', marginBottom: 12, textAlign: 'center' },
   startBtn:       { width: '100%' },
   startBtnWrap:   { position: 'relative', height: 56 + CARD_DEPTH },
   startBtnShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 56, backgroundColor: Colors.ink, borderRadius: Radius.sm },
@@ -603,10 +655,10 @@ const s = StyleSheet.create({
   emoteTextSelected:{ color: Colors.ink },
   homeLink:         { paddingVertical: 10 },
   homeLinkText:     { fontFamily: Fonts.mono, fontSize: 13, color: Colors.ink, opacity: 0.4, textDecorationLine: 'underline' },
-  newGhostWrap:   { position: 'relative', height: 52 + CARD_DEPTH, width: 220, marginTop: 4 },
-  newGhostShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 52, backgroundColor: Colors.ink, borderRadius: Radius.sm },
-  newGhostFace:   { position: 'absolute', left: 0, right: 0, top: 0, height: 52, backgroundColor: Colors.yellow, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },
-  newGhostText:   { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, letterSpacing: 0.5 },
+  newMatchWrap:   { position: 'relative', height: 52 + CARD_DEPTH, width: 220, marginTop: 4 },
+  newMatchShadow: { position: 'absolute', left: 0, right: 0, top: CARD_DEPTH, height: 52, backgroundColor: Colors.ink, borderRadius: Radius.sm },
+  newMatchFace:   { position: 'absolute', left: 0, right: 0, top: 0, height: 52, backgroundColor: Colors.yellow, borderRadius: Radius.sm, borderWidth: 3, borderColor: Colors.ink, alignItems: 'center', justifyContent: 'center' },
+  newMatchText:   { fontFamily: Fonts.black, fontSize: 16, color: Colors.ink, letterSpacing: 0.5 },
 });
 
 // ─── Playing styles ───────────────────────────────────────────────────────────
@@ -619,8 +671,8 @@ const play = StyleSheet.create({
   timerWrap:   { flexDirection: 'row', alignItems: 'baseline', minWidth: 60 },
   timer:       { fontFamily: Fonts.black, fontSize: 34, lineHeight: 38 },
   timerUnit:   { fontFamily: Fonts.mono, fontSize: 14, marginLeft: 2, opacity: 0.6 },
-  ghostMini:   { alignItems: 'center', gap: 4 },
-  ghostMiniName: { fontFamily: Fonts.mono, fontSize: 10, color: Colors.ink, opacity: 0.5, letterSpacing: 0.3, maxWidth: 90 },
+  oppMini:   { alignItems: 'center', gap: 4 },
+  oppMiniName: { fontFamily: Fonts.mono, fontSize: 10, color: Colors.ink, opacity: 0.5, letterSpacing: 0.3, maxWidth: 90 },
   scoreWrap:   { flexDirection: 'row', alignItems: 'center', gap: 6, justifyContent: 'flex-end', minWidth: 80 },
   multPill:    { backgroundColor: Colors.yellow, paddingHorizontal: 8, paddingVertical: 2, borderRadius: Radius.pill, borderWidth: 2, borderColor: Colors.ink },
   multText:    { fontFamily: Fonts.black, fontSize: 13, color: Colors.ink },

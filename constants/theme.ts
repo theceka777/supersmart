@@ -25,7 +25,31 @@ export const Colors = {
   // Tab bar
   tabActive:   '#E8253C',
   tabInactive: '#9ca3af',
+
+  // Round screen — semantic
+  green:    '#22C55E',   // correct-answer flash, button success face
+  peach:    '#FFD6A8',   // sunburst wedge color (matches global)
 };
+
+// Streak-tier palette for the round screen (mothership Part 3 streak ladder).
+// Indexed 0..4 — 0 = no tier (under 3-streak), 4 = Unstoppable (10+ streak).
+// Used by RoundSunburst speed/opacity ramps, StreakChip fill, VsBadge fill,
+// OutsideInPulse color, AnswerButton hype borders, EdgeGlow color.
+export const StreakTier = {
+  colors: [
+    null,        // 0 — no tier
+    '#FFD23F',   // 1 — yellow (3-streak, 2×)
+    '#FF8C2A',   // 2 — orange (5-streak, 3×)
+    '#FF3D7F',   // 3 — pink (7-streak, 4×)
+    '#E8253C',   // 4 — red (UNSTOPPABLE at 10)
+  ] as const,
+  // Sunburst speed per tier in seconds per full rotation
+  burstSpeedSec: [60, 60 / 2.5, 60 / 4, 60 / 6, 60 / 7] as const,
+  burstOpacity:  [0.45, 0.55, 0.62, 0.70, 0.78] as const,
+  // Halftone overlay opacity per tier
+  halftoneBaseOpacity: 0.10,
+  halftonePerTier:     0.04,
+} as const;
 
 // League rank border palette — mothership Part 4 Layer 4 / Decision Log v1.32
 // (session 20). Solid 1–5; gradients live on the avatar border component

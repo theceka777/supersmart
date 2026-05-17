@@ -1,7 +1,7 @@
 // challenge.tsx — Challenge a Friend (placeholder UX)
 //
 // Cream Stadium refresh of the pre-2026-04-19 stub. Live challenge tracking
-// (sender's ghost locked, link races sender, scores count toward weekly League
+// (sender's run locked, link races sender, scores count toward weekly League
 // totals — Mothership Part 4) lands with the Phase 4 backend. Until then this
 // screen issues a copyable code as a stand-in.
 
@@ -91,7 +91,7 @@ export default function ChallengeScreen() {
         </View>
 
         <Text style={s.note}>
-          Live challenge tracking (sender's ghost, weekly league credit){'\n'}
+          Live challenge tracking (sender's run, weekly league credit){'\n'}
           arrives with Phase 4. For now, compare scores manually.
         </Text>
       </View>

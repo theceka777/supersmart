@@ -300,10 +300,6 @@ export default function HomeScreen() {
           <Text style={styles.footerText}>1001 og questions</Text>
         </View>
 
-        <Text style={styles.cta}>
-          Get super smart today by getting Super Smart today!
-        </Text>
-
       </ScrollView>
     </SafeAreaView>
   );

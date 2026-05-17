@@ -103,7 +103,7 @@ export default function ProfileScreen() {
           <View style={s.settingRow}>
             <View style={s.settingInfo}>
               <Text style={s.settingTitle}>Push Notifications</Text>
-              <Text style={s.settingSub}>new race, ghost activity</Text>
+              <Text style={s.settingSub}>new race, recent activity</Text>
             </View>
             <Switch
               value={false}

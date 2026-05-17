@@ -16,7 +16,7 @@ import { Colors, Fonts } from '@/constants/theme';
 
 // Avatar colors — pulled from the 8-color avatar library (see app/avatar.tsx).
 // Mixes free + Pro shades for brand consistency and soft exposure to Pro items
-// (consistent with mothership v1.23 bot-ghost rule for ghost avatars).
+// (consistent with mothership v1.23 bot-opponent rule for opponent avatars).
 const AVATAR_COLORS = ['#FF6B9D', '#FFB86B', '#B86BFF'];  // pink (free), orange (free), purple (pro)
 
 export function LivePlayersStrip({ fg = Colors.cream, accent = Colors.yellow }) {

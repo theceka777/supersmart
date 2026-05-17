@@ -1,4 +1,4 @@
-// end.tsx — Post-game end screen for Daily Race and the no-ghost Quickmatch
+// end.tsx — Post-game end screen for Daily Race and the no-opponent Quickmatch
 // fallback (game.tsx). Cream Stadium design. Classic + standalone Arcade are
 // retired; the `mode=arcade` route param is internal-only and predates the
 // vocabulary lock — kept for now to avoid touching call sites in game.tsx
@@ -89,7 +89,7 @@ export default function EndScreen() {
     );
   }
 
-  // ── Quickmatch fallback (game.tsx, no-ghost path) ────────────────────────────
+  // ── Quickmatch fallback (game.tsx, no-opponent path) ────────────────────────────
   return (
     <View style={s.container}>
       <Text style={s.modeTag}>QUICKMATCH</Text>

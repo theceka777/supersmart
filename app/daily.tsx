@@ -14,6 +14,9 @@ import { useAppStore } from './store';
 import { getRankLabel } from './content';
 import { getRaceDate, getRaceSeed } from './clock';
 import { Colors, Fonts, Radius, CARD_DEPTH } from '@/constants/theme';
+import { RoundLayoutA } from '@/components/round/RoundLayoutA';
+import { Feedback } from '@/components/round/FeedbackPopup';
+import type { BrainExpression } from '@/components/Brain';
 
 // Longest run of consecutive `true` values in the results array.
 // Used for the Daily Race share text — a natural-language comparator
@@ -132,6 +135,22 @@ export default function DailyScreen() {
   const [displayMiss,     setDisplayMiss]     = useState(0);
   const [lastPoints,      setLastPoints]      = useState<number | null>(null);
   const [lastLabel,       setLastLabel]       = useState('');
+
+  // ── State: round visual layer (RoundLayoutA) ───────────────────────────────
+  // Same pattern as echo.tsx — visual triggers consumed by RoundLayoutA.
+  const [feedback,          setFeedback]          = useState<Feedback | null>(null);
+  const [brainExpr,         setBrainExpr]         = useState<BrainExpression>('smirk');
+  const [flashKind,         setFlashKind]         = useState<'correct' | 'wrong' | null>(null);
+  const [flashKey,          setFlashKey]          = useState(0);
+  const [unstoppableActive, setUnstoppableActive] = useState(false);
+  const [unstoppableKey,    setUnstoppableKey]    = useState(0);
+  const [lightningKey,      setLightningKey]      = useState<number | undefined>(undefined);
+  const [showSpeedNudge,    setShowSpeedNudge]    = useState<string | null>(null);
+  const [speedNudgeKey,     setSpeedNudgeKey]     = useState(0);
+  const [showStreakNudge,   setShowStreakNudge]   = useState(false);
+  const [streakNudgeKey,    setStreakNudgeKey]    = useState(0);
+  const seenSpeedRef  = useRef(false);
+  const seenStreakRef = useRef(false);
 
   const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
   const advanceRef     = useRef<ReturnType<typeof setTimeout>  | null>(null);
@@ -278,6 +297,65 @@ export default function DailyScreen() {
     // dailyStatus.played flips to true here.
     setDailyPlayed(scoreRef.current, resultsRef.current);
 
+    // ── Round-screen visual triggers (RoundLayoutA) ────────────────────────
+    // Same pattern as echo.tsx — edge glow on every answer, feedback popup,
+    // lightning on sub-2s, nudges on first speed bonus + first 3-streak,
+    // UNSTOPPABLE banner at 10-streak, brain reactions on hype.
+    setFlashKind(isCorrect ? 'correct' : 'wrong');
+    setFlashKey(k => k + 1);
+
+    if (isCorrect) {
+      const mult = getMultiplier(streakRef.current);
+      const fast = elapsed < SPEED_MS;
+
+      setFeedback({
+        kind: 'correct',
+        text: mult > 1 ? `+${delta}  (×${mult})` : `+${delta}`,
+        fireKey: Date.now(),
+      });
+
+      if (fast) {
+        setLightningKey(k => (k === undefined ? 0 : k + 1));
+        if (!seenSpeedRef.current) {
+          seenSpeedRef.current = true;
+          const labels = ['Speed bonus!', 'Quick!', 'Fast!', 'Lightning!', 'Snappy!'];
+          setShowSpeedNudge(labels[Math.floor(Math.random() * labels.length)]);
+          setSpeedNudgeKey(k => k + 1);
+          setTimeout(() => setShowSpeedNudge(null), 2200);
+        }
+      }
+
+      if (streakRef.current === 3 && !seenStreakRef.current) {
+        seenStreakRef.current = true;
+        setShowStreakNudge(true);
+        setStreakNudgeKey(k => k + 1);
+        setTimeout(() => setShowStreakNudge(false), 2200);
+      }
+
+      if (streakRef.current === 10) {
+        setUnstoppableActive(true);
+        setUnstoppableKey(k => k + 1);
+        setTimeout(() => setUnstoppableActive(false), 1600);
+      }
+
+      const tier = streakRef.current >= 7 ? 3 : streakRef.current >= 5 ? 2 : streakRef.current >= 3 ? 1 : 0;
+      if (tier >= 2 || Math.random() < 0.2) {
+        setBrainExpr('hype');
+        setTimeout(() => setBrainExpr('smirk'), 800);
+      }
+    } else {
+      if (label === '3 misses') {
+        setFeedback({ kind: 'penalty', text: '−50', fireKey: Date.now() });
+      } else {
+        setFeedback({
+          kind: 'wrong',
+          text: question.options[question.correct],
+          fireKey: Date.now(),
+        });
+      }
+      setBrainExpr('smirk');
+    }
+
     // Unified 1-second post-answer beat — same for right, wrong, or with
     // power-up. Predictable rhythm across the full round.
     advanceRef.current = setTimeout(() => {
@@ -290,6 +368,8 @@ export default function DailyScreen() {
         setSelectedAnswer(null);
         setLastPoints(null);
         setLastLabel('');
+        setFeedback(null);
+        setFlashKind(null);
         setQuestionIndex(next);
       }
     }, 1000);
@@ -377,78 +457,39 @@ export default function DailyScreen() {
   // Short date label for the "vs. the world" pill — e.g. "Apr 24"
   const dateLabel = shortDate();
 
+  // Daily Race uses the same Cream Stadium playing screen (Layout A) as
+  // Quickmatch — only the theme tokens change (cyan card + cyan timer pill).
+  // The opponent slot semantically doesn't apply to Daily Race (player vs
+  // global cohort, no 1v1 opponent), so we surface "WORLD" + dateLabel until
+  // Phase 4 wires real "today's leader" data. The PlayerBlock score uses
+  // the same fake math the design ships; CD can refine in Phase 4.
+  const pickedCorrect = isAnswered ? selectedAnswer === question.correct : null;
+
   return (
-    <View style={[s.container, { backgroundColor: flashBg }]}>
-
-      {/* ── Header (3-col, parallel to Quickmatch) ───────────────────────── */}
-      <View style={s.header}>
-
-        {/* Timer */}
-        <View style={s.timerWrap}>
-          <Text style={[s.timer, { color: timerColor }]}>{timeLeft}</Text>
-          <Text style={[s.timerUnit, { color: timerColor }]}>s</Text>
-        </View>
-
-        {/* Center slot — cyan "vs. the world" pill (Daily's mode identity) */}
-        <View style={s.worldPill}>
-          <Text style={s.worldPillLabel}>vs. the world</Text>
-          <Text style={s.worldPillDate}>{dateLabel}</Text>
-        </View>
-
-        {/* Score + multiplier */}
-        <View style={s.scoreWrap}>
-          {multiplier > 1 && (
-            <View style={s.multPill}>
-              <Text style={s.multText}>{multiplier}×</Text>
-            </View>
-          )}
-          <Text style={s.score}>{displayScore.toLocaleString()}</Text>
-        </View>
-
-      </View>
-
-      {/* Divider */}
-      <View style={s.divider} />
-
-      {/* Status strips */}
-      {displayStreak >= 3 && (
-        <Text style={s.streakLabel}>🔥 {displayStreak} streak</Text>
-      )}
-      {displayMiss >= 2 && (
-        <Text style={s.missLabel}>⚠️ {displayMiss}/3 misses</Text>
-      )}
-
-      {/* ── Question zone ────────────────────────────────────────────────── */}
-      <View style={s.questionZone}>
-        <Text style={s.qNumber}>Q {questionIndex + 1}</Text>
-        <Text style={s.question}>{question.question}</Text>
-      </View>
-
-      {/* Points flash */}
-      {isAnswered && lastPoints !== null && (
-        <View style={s.flashWrap}>
-          <Text style={[s.pointsFlash, lastPoints < 0 && s.pointsNeg]}>
-            {lastPoints > 0 ? `+${lastPoints}` : `${lastPoints}`}
-          </Text>
-          {lastLabel ? <Text style={s.bonusLabel}>{lastLabel}</Text> : null}
-        </View>
-      )}
-
-      {/* Answer buttons */}
-      <View style={s.answers}>
-        {question.options.map((option, i) => (
-          <TouchableOpacity
-            key={i}
-            style={getButtonStyle(i)}
-            onPress={() => submitAnswer(i)}
-            disabled={isAnswered}
-          >
-            <Text style={getAnswerTextStyle(i)}>{option}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-    </View>
+    <RoundLayoutA
+      mode="dailyrace"
+      q={{ q: question.question, a: question.options, c: question.correct }}
+      qIdx={questionIndex}
+      score={displayScore}
+      streak={displayStreak}
+      timeLeft={timeLeft}
+      picked={selectedAnswer}
+      pickedCorrect={pickedCorrect}
+      feedback={feedback}
+      brainExpr={brainExpr}
+      flashKind={flashKind}
+      flashKey={flashKey}
+      unstoppableActive={unstoppableActive}
+      unstoppableKey={unstoppableKey}
+      lightningKey={lightningKey}
+      showSpeedNudge={showSpeedNudge}
+      speedNudgeKey={speedNudgeKey}
+      showStreakNudge={showStreakNudge}
+      streakNudgeKey={streakNudgeKey}
+      opponentName="WORLD"
+      opponentInitial="W"
+      onPick={submitAnswer}
+    />
   );
 }
 

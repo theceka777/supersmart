@@ -6,7 +6,7 @@
 //   4. Past Matches — personal match history stub
 //
 // Live data: Phase 4 (Supabase). All rows are mock for now.
-// No "ghost" in any customer-facing copy.
+// No "opponent" in any customer-facing copy.
 // File renamed from inbox.tsx → league.tsx per decision 2026-04-19 (session 7).
 
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
